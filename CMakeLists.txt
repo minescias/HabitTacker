@@ -21,6 +21,10 @@ add_subdirectory(Libraries/SQLite)
 
 # libraries
 add_subdirectory(Src/Core)
+add_subdirectory(Src/HT)
 
 # tests
 add_subdirectory(Tests/Core)
+
+# executables
+add_subdirectory(Src/Main)

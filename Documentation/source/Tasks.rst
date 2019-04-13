@@ -28,10 +28,10 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT01]** Polecenie init
- *  Dodanie modułu main (ht.exe)
- *  Dodanie modułu HT (ht.dll)
- *  Funkcja AppInit w module HT
- *  Podstawowe wywołanie programu
+ *  OK Dodanie modułu main (ht.exe)
+ *  OK Dodanie modułu HT (ht.dll)
+ *  OK Funkcja AppInit w module HT
+ *  OK Podstawowe wywołanie programu
  *  Klasa parsera polecenia CLI
  *  Parsowanie polecenia init <filename> bez funkcjonalności - tylko komunikat
     o sukcesie
@@ -46,3 +46,7 @@ Zadania dotyczące modułu HT
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi
+
+**[T01]** Generator plików
+ *  pliki \*.cpp i \*.h
+ *  pliki CMakeLists.txt
