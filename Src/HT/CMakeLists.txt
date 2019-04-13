@@ -3,6 +3,7 @@ project(HT)
 
 set(HT_src
     AppInit.cpp
+    Actions/HelpAction.cpp
     Actions/InitAction.cpp
     CommandLineParser.cpp)
 

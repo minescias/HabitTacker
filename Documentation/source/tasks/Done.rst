@@ -11,3 +11,7 @@ Lista wykonanych zadań
  *  OK Parsowanie polecenia init <filename> bez funkcjonalności - tylko
     komunikat o sukcesie
  *  OK Opis pocelenia w dokumentacji
+
+ **[HT03]** Polecenie Help
+ *  OK Parsowanie polecenia Help
+ *  OK Wyświetlanie pomocy

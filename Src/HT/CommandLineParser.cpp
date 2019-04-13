@@ -2,7 +2,6 @@
 
 CommandLineParser::CommandLineParser()
 {
-
 }
 
 void CommandLineParser::parse(int argc, char** argv)

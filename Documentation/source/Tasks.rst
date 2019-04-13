@@ -35,10 +35,6 @@ Zadania dotyczące modułu HT
  *  Tworzenie tabel na polecenie init
  *  Opis tabeli w dokumentacji
 
-**[HT03]** Polecenie Help
- *  Parsowanie polecenia Help
- *  Wyświetlanie pomocy
-
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi

@@ -4,6 +4,7 @@
 
 #include "HT/Actions/InitAction.h"
 #include "HT/CommandLineParser.h"
+#include "HT/Actions/HelpAction.h"
 
 int appInit(int argc, char* argv[])
 {
@@ -12,6 +13,8 @@ int appInit(int argc, char* argv[])
 
     if (parser.getCommandName() == "init")
         Actions::InitAction().execute();
+    else if (parser.getCommandName() == "help")
+        Actions::HelpAction().execute();
     else
         std::cout << "Unknown command\n";
 
