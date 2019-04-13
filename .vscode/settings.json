@@ -63,5 +63,5 @@
 
     // tymczasowo ścieżki bezwzględne
     "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
-    "restructuredtext.builtDocumentationPath": "/media/dawid/Data/Projekty/Cpp/Documentation/build/html",
+    "restructuredtext.builtDocumentationPath": "/media/dawid/Data1/Projekty/HabitTracker/Documentation/build/html",
 }

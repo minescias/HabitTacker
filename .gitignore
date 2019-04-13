@@ -1,6 +1,7 @@
 #directories
 bin
 build
+Documentation/source/.doctrees
 Libraries
 .vscode/cquery_cached_index
 .vscode/ipch
