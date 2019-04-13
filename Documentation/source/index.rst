@@ -10,6 +10,7 @@ HT Docs's
    :maxdepth: 2
    :caption: Spis treści:
 
+   Cli
    Tasks
 
 Indices and tables

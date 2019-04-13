@@ -2,8 +2,18 @@
 
 #include <iostream>
 
+#include "HT/Actions/InitAction.h"
+#include "HT/CommandLineParser.h"
+
 int appInit(int argc, char* argv[])
 {
-    std::cout << "Hello HT\n";
+    CommandLineParser parser;
+    parser.parse(argc, argv);
+
+    if (parser.getCommandName() == "init")
+        Actions::InitAction().execute();
+    else
+        std::cout << "Unknown command\n";
+
     return 0;
 }
