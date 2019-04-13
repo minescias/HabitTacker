@@ -1,0 +1,9 @@
+#directories
+bin
+build
+Libraries
+.vscode/cquery_cached_index
+.vscode/ipch
+
+#files
+compile_commands.json
