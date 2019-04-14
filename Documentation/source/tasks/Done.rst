@@ -12,6 +12,14 @@ Lista wykonanych zadań
     komunikat o sukcesie
  *  OK Opis pocelenia w dokumentacji
 
+**[HT02]** Kreator pustej bazy danych
+ *  OK Klasa do tworzenia pustej bazy danych "Database Creator"
+ *  OK Tworzenie tabeli "habit_definition"
+ *  OK Tworzenie tabel na polecenie init
+ *  OK Sprawdzanie czy plik już istnieje
+ *  OK Odporność na błędne parametry (system wyjątków akcji)
+ *  OK Opis tabeli w dokumentacji
+
  **[HT03]** Polecenie Help
  *  OK Parsowanie polecenia Help
  *  OK Wyświetlanie pomocy

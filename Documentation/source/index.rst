@@ -11,6 +11,10 @@ HT Docs's
    :caption: Spis treści:
 
    Cli
+   Tables
+   Core
+   Cpp
+   Notes
    Tasks
 
 Indices and tables

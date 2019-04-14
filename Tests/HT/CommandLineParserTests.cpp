@@ -25,7 +25,7 @@ TEST_F(CommandLineParserTests, returnsEmptyValuesWhenNoParameterIsPassed)
 	parser.parse(argc, argv);
 
 	EXPECT_STREQ(parser.getCommandName().c_str(), "");
-	EXPECT_TRUE(parser.getArguments().empty());
+	EXPECT_STREQ(parser.getArguments().c_str(), "");
 }
 
 TEST_F(CommandLineParserTests, parsesSimpleCommand)
@@ -36,5 +36,5 @@ TEST_F(CommandLineParserTests, parsesSimpleCommand)
 	parser.parse(argc, argv);
 
 	EXPECT_STREQ(parser.getCommandName().c_str(), "init");
-	EXPECT_THAT(parser.getArguments(), ElementsAre("filePath"));
+	EXPECT_STREQ(parser.getArguments().c_str(), "filePath");
 }

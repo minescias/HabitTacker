@@ -10,9 +10,10 @@ enable_testing()
 
 set(HtTests_src
     main.cpp
+    Actions/InitActionTests.cpp
     CommandLineParserTests.cpp)
 
 add_executable(${PROJECT_NAME} ${HtTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock pthread HT)
+target_link_libraries(${PROJECT_NAME} gtest gmock pthread stdc++fs HT)
 
 add_test(${PROJECT_NAME} runTest)

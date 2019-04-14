@@ -11,11 +11,11 @@ public:
     void parse(int argc, char** argv);
 
     std::string getCommandName() const;
-    std::vector<std::string> getArguments() const;
+    std::string getArguments() const;
 
 private:
     std::string commandName;
-    std::vector<std::string> arguments;
+    std::string arguments;
 };
 
 #endif

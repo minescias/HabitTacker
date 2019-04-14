@@ -7,7 +7,7 @@
 
 namespace
 {
-//dupa
+
 const std::string dbError = "Database error: ";
 
 } // namespace
