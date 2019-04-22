@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Cli tests",
+            "name": "HT tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/DatabaseTests",
+            "program": "${workspaceFolder}/bin/HtTests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",

@@ -7,6 +7,8 @@ set(HT_src
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Dao/DatabaseCreator.cpp
+    Dao/HabitDefinitionDao.cpp
+    Entity/HabitDefinitionEntity.cpp
     CommandLineParser.cpp)
 
 add_library(${PROJECT_NAME} ${HT_src})

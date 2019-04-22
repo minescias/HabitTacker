@@ -25,3 +25,27 @@ Wykonanie prostego zapytania
    Db::Query query(database.get(), getCreateHabitDefinitionSql());
    query.execute();
 
+Wykonanie zapytania z przekazaniem parametrów
+-------------------------------------------------------------------------------
+
+.. code-block:: cpp
+
+    Db::Query query(db, sql);
+    query.setParam(":name", entity.getName());
+    query.execute();
+
+Pobieranie wyniku zapytania - 1 wiersz
+-------------------------------------------------------------------------------
+
+.. code-block:: cpp
+
+    Db::Query query(db, sql);
+    query.setParam(":id", definitionId);
+    auto dataset = query.execute();
+
+    if (dataset->empty())
+        return HabitDefinitionEntityPtr();
+
+    auto result = std::make_unique<HabitDefinitionEntity>();
+    result->setId(dataset->getAs<int>("id"));
+    result->setName(dataset->getAs<std::string>("name"));

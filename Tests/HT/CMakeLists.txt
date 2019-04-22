@@ -11,7 +11,8 @@ enable_testing()
 set(HtTests_src
     main.cpp
     Actions/InitActionTests.cpp
-    CommandLineParserTests.cpp)
+    CommandLineParserTests.cpp
+    Dao/HabitDefinitionDaoTests.cpp)
 
 add_executable(${PROJECT_NAME} ${HtTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock pthread stdc++fs HT)

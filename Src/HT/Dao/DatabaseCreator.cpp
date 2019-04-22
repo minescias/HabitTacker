@@ -12,7 +12,7 @@ std::string getCreateHabitDefinitionSql()
 	return
 		"\n create table habit_definition"
 		"\n ("
-		"\n     id int primary key,"
+		"\n     id integer primary key autoincrement,"
 		"\n     name varchar(40)"
 		"\n )";
 }
@@ -33,6 +33,6 @@ void DatabaseCreator::createHabitDefinitionTable()
 	query.execute();
 }
 
-}
+} // namespace
 
 

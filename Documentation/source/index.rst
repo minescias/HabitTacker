@@ -14,6 +14,7 @@ HT Docs's
    Tables
    Core
    Cpp
+   Tests
    Notes
    Tasks
 

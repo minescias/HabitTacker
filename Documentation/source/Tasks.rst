@@ -34,19 +34,38 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT04]** Dodawanie nawyków
- *  Encja tabeli habit_definition
- *  Dao do wspomnianej wyżej tabeli
- *  Akcja add, która pozwala na dodawanie nawyków
+ *  OK Encja tabeli habit_definition
+ *  OK Dao do wspomnianej wyżej tabeli (interfejs i testy)
+ *  Polecenie "add", która pozwala na dodawanie nawyków
 
 **[HT05]** Wyświetlanie listy nawyków
  *  Polecenie list, które pozwala na wyświetlanie listy nawyków
 
+**[HT06]** Dodanie tabeli z realizacją nawyków
+ *  Nowa tabela "habit" w klasie database creator
+ *  Opis tabeli w dokumentacji
+
+**[HT07]** Możliwość wypełniania nawyków
+ *  Encja tabeli habit
+ *  Dao tabeli habit (interfejs i testy)
+ *  Polecenie "set" do ustawiania dzisiejszej wartości nawyku
+
+**[HT99]** Refaktor - zadanie zbiorcze
+ *  Database creator - przekazywane połączenia do bazy z zewnątrz
+
 Tools
 *******************************************************************************
-Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi
+Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
+konfiguracji tychże
 
 **[T01]** Generator plików
  *  pliki \*.cpp i \*.h
  *  pliki CMakeLists.txt
 
 **[T02]** Generator tabel do systemu rst/sphinx
+
+**[T03]** Generator encji
+
+**[T04]** VSCode - Osobne ustawienia dla plików \*.rst - spacje zamiast tabów
+
+**[T05]** Konwerter sql/cppsql
