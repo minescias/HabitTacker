@@ -16,6 +16,7 @@ public:
 
 	void saveDefinition(const Entity::HabitDefinitionEntity& entity);
 	Entity::HabitDefinitionEntityPtr getDefinition(int definitionId);
+	std::vector<Entity::HabitDefinitionEntityPtr> getDefinitions();
 
 private:
 	Db::Database* db;

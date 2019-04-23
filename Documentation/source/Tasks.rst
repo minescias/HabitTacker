@@ -34,6 +34,8 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT05]** Wyświetlanie listy nawyków
+ *  OK Nowa funkcja w dao: getDefinitions + testy
+ *  Przeniesienie mock dao do wspólnego miejsca
  *  Polecenie list, które pozwala na wyświetlanie listy nawyków
 
 **[HT06]** Dodanie tabeli z realizacją nawyków
@@ -52,6 +54,11 @@ Zadania dotyczące modułu HT
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
+ *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
+    testy tegoż)
+ *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
+    tym. Jeśli tak to zamienić
+ *  Automatyczne generowanie operatora porównania
 
 Tools
 *******************************************************************************

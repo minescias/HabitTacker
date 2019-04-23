@@ -62,4 +62,28 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId)
 	return result;
 }
 
+std::vector<Entity::HabitDefinitionEntityPtr> HabitDefinitionDao::getDefinitions()
+{
+	auto result = std::vector<Entity::HabitDefinitionEntityPtr>();
+
+	std::string sql =
+		"\n select "
+		"\n 	id,"
+		"\n 	name"
+		"\n from"
+		"\n 	habit_definition h";
+
+	Db::Query query(db, sql);
+	auto dataset = query.execute();
+
+	while(dataset->next())
+	{
+		result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
+		result.back()->setId(dataset->getAs<int>("id"));
+		result.back()->setName(dataset->getAs<std::string>("name"));
+	}
+
+	return result;
+}
+
 } // namespace Dao

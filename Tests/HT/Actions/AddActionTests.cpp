@@ -9,6 +9,7 @@ class HabitDefinitionDaoMock : public Dao::IHabitDefinitionDao
 public:
 	MOCK_METHOD1(saveDefinition, void(const Entity::HabitDefinitionEntity& entity));
 	MOCK_METHOD1(getDefinition, Entity::HabitDefinitionEntityPtr (int definitionId));
+	MOCK_METHOD0(getDefinitions, std::vector<Entity::HabitDefinitionEntityPtr>());
 };
 
 class AddActionTest : public testing::Test

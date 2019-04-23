@@ -26,6 +26,15 @@ public:
 		dao = std::make_unique<Dao::HabitDefinitionDao>(db.get());
 	}
 
+	auto getDefinition(int id, const std::string& name)
+	{
+		auto definition = std::make_unique<Entity::HabitDefinitionEntity>();
+		definition->setId(id);
+		definition->setName(name);
+
+		return  definition;
+	}
+
 	void addDefinition(const std::string& name)
 	{
 		Entity::HabitDefinitionEntity definition;
@@ -52,4 +61,18 @@ TEST_F(HabitDefinitionDaoTests, saveAndReadByIdTest)
 	ASSERT_TRUE(readDefiniton);
 	EXPECT_THAT(readDefiniton->getId(), Eq(1));
 	EXPECT_STREQ(readDefiniton->getName().c_str(), "Example definition");
+}
+
+TEST_F(HabitDefinitionDaoTests, readAllDefinitions)
+{
+	addDefinition("Example definition");
+	addDefinition("Example definition2");
+	addDefinition("Example definition3");
+
+	auto definitions = dao->getDefinitions();
+
+	ASSERT_THAT(definitions.size(), Eq(3));
+	EXPECT_THAT(*definitions[0], Eq(*getDefinition(1, "Example definition")));
+	EXPECT_THAT(*definitions[1], Eq(*getDefinition(2, "Example definition2")));
+	EXPECT_THAT(*definitions[2], Eq(*getDefinition(3, "Example definition3")));
 }
