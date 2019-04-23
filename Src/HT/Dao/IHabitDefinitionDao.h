@@ -9,7 +9,7 @@ namespace Dao
 class IHabitDefinitionDao
 {
 public:
-	virtual void saveDefinition(const Entity::HabitDefinitionEntity entity) = 0;
+	virtual void saveDefinition(const Entity::HabitDefinitionEntity& entity) = 0;
 	virtual Entity::HabitDefinitionEntityPtr getDefinition(int definitionId) = 0;
 };
 

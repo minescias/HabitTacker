@@ -20,7 +20,7 @@ HabitDefinitionDao::~HabitDefinitionDao()
 {
 }
 
-void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity entity)
+void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity)
 {
 	std::string sql =
 		"\n insert into habit_definition"

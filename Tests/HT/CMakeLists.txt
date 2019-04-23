@@ -10,6 +10,7 @@ enable_testing()
 
 set(HtTests_src
     main.cpp
+    Actions/AddActionTests.cpp
     Actions/InitActionTests.cpp
     CommandLineParserTests.cpp
     Dao/HabitDefinitionDaoTests.cpp)

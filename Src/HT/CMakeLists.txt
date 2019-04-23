@@ -4,6 +4,7 @@ project(HT)
 set(HT_src
     AppInit.cpp
     Actions/ActionError.cpp
+    Actions/AddAction.cpp
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Dao/DatabaseCreator.cpp

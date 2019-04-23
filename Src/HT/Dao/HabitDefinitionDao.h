@@ -14,7 +14,7 @@ public:
 	HabitDefinitionDao(Db::Database* db);
 	virtual ~HabitDefinitionDao();
 
-	void saveDefinition(const Entity::HabitDefinitionEntity entity);
+	void saveDefinition(const Entity::HabitDefinitionEntity& entity);
 	Entity::HabitDefinitionEntityPtr getDefinition(int definitionId);
 
 private:

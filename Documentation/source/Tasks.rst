@@ -33,11 +33,6 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT04]** Dodawanie nawyków
- *  OK Encja tabeli habit_definition
- *  OK Dao do wspomnianej wyżej tabeli (interfejs i testy)
- *  Polecenie "add", która pozwala na dodawanie nawyków
-
 **[HT05]** Wyświetlanie listy nawyków
  *  Polecenie list, które pozwala na wyświetlanie listy nawyków
 
@@ -49,6 +44,11 @@ Zadania dotyczące modułu HT
  *  Encja tabeli habit
  *  Dao tabeli habit (interfejs i testy)
  *  Polecenie "set" do ustawiania dzisiejszej wartości nawyku
+
+**[HT08]** Domyślna baza danych
+ *  Znaleźć sposób na przekazywanie bazy danych do porgramy tak, żeby nie
+    przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
+    konfiguracyjny w katalogu z programem
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz

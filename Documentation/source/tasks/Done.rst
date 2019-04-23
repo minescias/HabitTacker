@@ -23,3 +23,8 @@ Lista wykonanych zadań
  **[HT03]** Polecenie Help
  *  OK Parsowanie polecenia Help
  *  OK Wyświetlanie pomocy
+
+ **[HT04]** Dodawanie nawyków
+ *  OK Encja tabeli habit_definition
+ *  OK Dao do wspomnianej wyżej tabeli (interfejs i testy)
+ *  OK Polecenie "add", która pozwala na dodawanie nawyków

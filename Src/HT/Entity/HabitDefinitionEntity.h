@@ -23,6 +23,8 @@ private:
 	std::string name;
 };
 
+bool operator==(const HabitDefinitionEntity &a, const HabitDefinitionEntity &b);
+
 using HabitDefinitionEntityPtr = std::unique_ptr<HabitDefinitionEntity>;
 
 } // namespace Entity
