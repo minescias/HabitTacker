@@ -1,6 +1,10 @@
 Lista wykonanych zadań
 ===============================================================================
 
+HT
+*******************************************************************************
+Zadania dotyczące modułu HT
+
 **[HT01]** Polecenie init
  *  OK Dodanie modułu main (ht.exe)
  *  OK Dodanie modułu HT (ht.dll)
@@ -28,3 +32,10 @@ Lista wykonanych zadań
  *  OK Encja tabeli habit_definition
  *  OK Dao do wspomnianej wyżej tabeli (interfejs i testy)
  *  OK Polecenie "add", która pozwala na dodawanie nawyków
+
+Tools
+*******************************************************************************
+Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
+konfiguracji tychże
+
+**[T04]** VSCode - Osobne ustawienia dla plików \*.rst - spacje zamiast tabów

@@ -66,6 +66,4 @@ konfiguracji tychże
 
 **[T03]** Generator encji
 
-**[T04]** VSCode - Osobne ustawienia dla plików \*.rst - spacje zamiast tabów
-
 **[T05]** Konwerter sql/cppsql
