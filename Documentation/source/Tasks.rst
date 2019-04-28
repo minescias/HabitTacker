@@ -29,14 +29,11 @@ Lista rzeczy do opisania
 **[D02]** Opis akcji, wyjątku ActionError i w ogóle tego co się dzieje po
     podaniu polecenia. Do opisania po wyklarowaniu działania mechanizmu.
 
+**[D03]** Dodawanie nowego polecenia - wszystko co trzeba uwzględnić
+
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT
-
-**[HT05]** Wyświetlanie listy nawyków
- *  OK Nowa funkcja w dao: getDefinitions + testy
- *  Przeniesienie mock dao do wspólnego miejsca
- *  Polecenie list, które pozwala na wyświetlanie listy nawyków
 
 **[HT06]** Dodanie tabeli z realizacją nawyków
  *  Nowa tabela "habit" w klasie database creator
@@ -74,3 +71,6 @@ konfiguracji tychże
 **[T03]** Generator encji
 
 **[T05]** Konwerter sql/cppsql
+
+**[T06]** W trakcie testów wyświetla się wszystko z cout na konsoli. Sprawdzić
+    czy można to jakoś wyłączyć na czas testów. Przekierowanie couta?

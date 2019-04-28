@@ -1,0 +1,46 @@
+#include "HT/Actions/ListAction.h"
+
+#include <iomanip>
+#include <iostream>
+
+namespace Actions
+{
+
+ListAction::ListAction(Dao::IHabitDefinitionDao* dao)
+	:dao(dao)
+{
+
+}
+
+void ListAction::execute()
+{
+	auto habits = dao->getDefinitions();
+
+	if (habits.empty())
+	{
+		std::cout << "No habits found, try to add some using 'ht add'\n";
+		return;
+	}
+
+	printHeader();
+
+	for(auto const& habit: habits)
+	{
+		std::cout
+			<< "\n" <<  std::setw (4) << habit->getId()
+			<< " " << habit->getName();
+	}
+
+	std::cout << "\n";
+
+}
+
+void ListAction::printHeader() const
+{
+	std::cout <<
+		"\nid   name"
+		"\n---- ----------------------------------------"
+	;
+}
+
+} // namespace Actions

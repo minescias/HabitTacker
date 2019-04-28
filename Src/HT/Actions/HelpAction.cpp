@@ -19,6 +19,8 @@ void HelpAction::execute()
 		"\n Available commands:"
 		"\n 	help - prints this message"
 		"\n 	init - creates new database"
+		"\n 	add <name> - adds new habit with given name"
+		"\n 	list - list all habits"
 		"\n"
 	;
 }

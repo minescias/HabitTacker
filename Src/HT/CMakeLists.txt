@@ -7,6 +7,7 @@ set(HT_src
     Actions/AddAction.cpp
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
+    Actions/ListAction.cpp
     Dao/DatabaseCreator.cpp
     Dao/HabitDefinitionDao.cpp
     Entity/HabitDefinitionEntity.cpp

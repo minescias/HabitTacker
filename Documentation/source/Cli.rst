@@ -10,3 +10,6 @@ Command Line Interface
 
 **ht add <name>**
     Adds new habit to the database
+
+**ht list**
+    Print all habits in terminal

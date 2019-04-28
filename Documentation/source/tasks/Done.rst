@@ -33,6 +33,12 @@ Zadania dotyczące modułu HT
  *  OK Dao do wspomnianej wyżej tabeli (interfejs i testy)
  *  OK Polecenie "add", która pozwala na dodawanie nawyków
 
+**[HT05]** Wyświetlanie listy nawyków
+ *  OK Nowa funkcja w dao: getDefinitions + testy
+ *  OK Przeniesienie mock dao do wspólnego miejsca
+ *  OK Polecenie list, które pozwala na wyświetlanie listy nawyków
+ *  OK Aktualizacja dokumentacji Cli
+
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
