@@ -2,26 +2,20 @@
 
 #include "HT/Actions/AddAction.h"
 
-using namespace testing;
+#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 
-class HabitDefinitionDaoMock : public Dao::IHabitDefinitionDao
-{
-public:
-	MOCK_METHOD1(saveDefinition, void(const Entity::HabitDefinitionEntity& entity));
-	MOCK_METHOD1(getDefinition, Entity::HabitDefinitionEntityPtr (int definitionId));
-	MOCK_METHOD0(getDefinitions, std::vector<Entity::HabitDefinitionEntityPtr>());
-};
+using namespace testing;
 
 class AddActionTest : public testing::Test
 {
 public:
 	AddActionTest()
-		: daoMock(std::make_unique<HabitDefinitionDaoMock>())
+		: daoMock(std::make_unique<Mocks::HabitDefinitionDaoMock>())
 		, addAction(daoMock.get())
 	{
 	}
 
-	std::unique_ptr<HabitDefinitionDaoMock> daoMock;
+	std::unique_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	Actions::AddAction addAction;
 };
 
