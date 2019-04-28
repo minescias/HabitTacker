@@ -16,15 +16,21 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
     Celem jest możliwość zbudowania dokumentacji za pomocą polecenia np.
     "make doc" z folderu, w którym są normalnie budowane pliki cpp
 
+**[B03]** Budowanie jednego modułu
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
 
+**[C01]** Nowy system zapytań do bazy danych.
+ *  Sprawdzić już istniejący kod i zobaczyć co można użyć ponownie
+ *  Klasa Dataset2 i polecenie execute2() w klasie Query
+
+**[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
-
-**[D01]** Działanie aktualnego systemu zapytań do bazy danych
 
 **[D02]** Opis akcji, wyjątku ActionError i w ogóle tego co się dzieje po
     podaniu polecenia. Do opisania po wyklarowaniu działania mechanizmu.

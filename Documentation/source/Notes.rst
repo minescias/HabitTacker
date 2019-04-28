@@ -15,3 +15,10 @@ Notatki, plany na przyszłość, rzeczy do przemyślenia itp.
     wersji. Do przemyślenia system upgrade lub przenoszenia danych między
     różnymi wersjami baz danych.
 
+**Nowy system połączenia do bazy danych**
+    Obecny system jest wzorowany na jakimś borlandowym badziewiu. Sama klasa
+    bazy danych i tworzenie wywoływanie zapytań jest ok. Problemem jest
+    zwracanie wyniku zapytania. Obecnie korzystam z klasy dataset która ma
+    wewnętrzny iterator i sama zarządza tym, który wiersz zapytania aktualnie
+    zwraca. Docelowo chciałbym, żeby to działało z zakresową pętlą for np
+    **for (auto const& row: dataset){}**

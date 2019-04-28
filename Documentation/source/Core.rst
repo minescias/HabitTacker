@@ -25,7 +25,7 @@ Wykonanie prostego zapytania
    Db::Query query(database.get(), getCreateHabitDefinitionSql());
    query.execute();
 
-Wykonanie zapytania z przekazaniem parametrów
+Wykonanie zapytania z przekazaniem parametrów.
 -------------------------------------------------------------------------------
 
 .. code-block:: cpp
@@ -33,6 +33,9 @@ Wykonanie zapytania z przekazaniem parametrów
     Db::Query query(db, sql);
     query.setParam(":name", entity.getName());
     query.execute();
+
+Ustawienie nieistniejącego parametru lub nieustawienie istniejącego spowoduje
+rzuceniem wyjątku logic error
 
 Pobieranie wyniku zapytania - 1 wiersz
 -------------------------------------------------------------------------------
@@ -49,3 +52,23 @@ Pobieranie wyniku zapytania - 1 wiersz
     auto result = std::make_unique<HabitDefinitionEntity>();
     result->setId(dataset->getAs<int>("id"));
     result->setName(dataset->getAs<std::string>("name"));
+
+Pobieranie wyniku zapytania - iterowanie po datasecie
+-------------------------------------------------------------------------------
+.. code-block:: cpp
+
+    Db::Query query(db, sql);
+    auto dataset = query.execute();
+
+    while(dataset->next())
+    {
+        result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
+        result.back()->setId(dataset->getAs<int>("id"));
+        result.back()->setName(dataset->getAs<std::string>("name"));
+    }
+
+Wywołanie zapytania tak jak w poprzednim przykładzie. Różnicza polega na tym,
+że zamykamy pobieranie wyników z bazy danych w pętli
+**while(dataset->next())**. Dataset ma swój wewnętrzny iterator, który jest
+przestawiany na następny wiersz przy poleceniu **next()**. Słabe, ale tak to
+kiedyś zrobiłem i w działa w miarę dobrze...
