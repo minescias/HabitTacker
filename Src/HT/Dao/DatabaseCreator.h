@@ -14,7 +14,8 @@ class DatabaseCreator
 public:
 	DatabaseCreator(const std::string& filename);
 
-	void createHabitDefinitionTable();
+	void createHabitDefinitionTable() const;
+	void createHabitTable() const;
 
 private:
 	std::unique_ptr<Db::Database> database;

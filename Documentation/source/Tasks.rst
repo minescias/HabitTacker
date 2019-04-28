@@ -41,10 +41,6 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT06]** Dodanie tabeli z realizacją nawyków
- *  Nowa tabela "habit" w klasie database creator
- *  Opis tabeli w dokumentacji
-
 **[HT07]** Możliwość wypełniania nawyków
  *  Encja tabeli habit
  *  Dao tabeli habit (interfejs i testy)

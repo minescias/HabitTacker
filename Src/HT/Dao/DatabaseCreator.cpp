@@ -7,13 +7,26 @@
 namespace
 {
 
-std::string getCreateHabitDefinitionSql()
+auto getCreateHabitDefinitionSql()
 {
 	return
 		"\n create table habit_definition"
 		"\n ("
 		"\n     id integer primary key autoincrement,"
 		"\n     name varchar(40)"
+		"\n )";
+}
+
+auto getCreateHabitTable()
+{
+	return
+		"\n create table habit"
+		"\n ("
+		"\n 	habit_id integer,"
+		"\n 	date date,"
+		"\n 	result boolean not null,"
+		"\n 	primary key(habit_id, date)"
+		"\n 	foreign key(habit_id) references habit_definition(id)"
 		"\n )";
 }
 
@@ -27,9 +40,15 @@ DatabaseCreator::DatabaseCreator(const std::string& filename)
 	database = std::make_unique<Db::Database>(filename);
 }
 
-void DatabaseCreator::createHabitDefinitionTable()
+void DatabaseCreator::createHabitDefinitionTable() const
 {
 	Db::Query query(database.get(), getCreateHabitDefinitionSql());
+	query.execute();
+}
+
+void DatabaseCreator::createHabitTable() const
+{
+	Db::Query query(database.get(), getCreateHabitTable());
 	query.execute();
 }
 

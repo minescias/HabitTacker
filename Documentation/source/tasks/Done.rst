@@ -45,6 +45,10 @@ Zadania dotyczące modułu HT
  *  OK Polecenie list, które pozwala na wyświetlanie listy nawyków
  *  OK Aktualizacja dokumentacji Cli
 
+**[HT06]** Dodanie tabeli z realizacją nawyków
+ *  OK Nowa tabela "habit" w klasie database creator
+ *  OK Opis tabeli w dokumentacji
+
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub

@@ -22,6 +22,7 @@ void InitAction::execute(const std::string& filename) const
 
 	Dao::DatabaseCreator creator(filename);
 	creator.createHabitDefinitionTable();
+	creator.createHabitTable();
 }
 
 } // namespace Actions
