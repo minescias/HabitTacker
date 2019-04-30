@@ -11,6 +11,7 @@ set(HT_src
     Dao/DatabaseCreator.cpp
     Dao/HabitDefinitionDao.cpp
     Entity/HabitDefinitionEntity.cpp
+    Entity/HabitEntity.cpp
     CommandLineParser.cpp)
 
 add_library(${PROJECT_NAME} ${HT_src})
