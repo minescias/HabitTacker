@@ -16,7 +16,8 @@ include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Src)
 
 # external libraries
-add_subdirectory(Libraries/googletest-1.8.0/googlemock)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory(Libraries/googletest-1.8.1/googlemock)
 add_subdirectory(Libraries/SQLite)
 
 # libraries

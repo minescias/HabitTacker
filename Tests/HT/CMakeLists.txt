@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.0.2)
 project(HtTests)
 
 link_directories(${CMAKE_SOURCE_DIR}/bin)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.0/googlemock/include)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.0/googletest/include)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googlemock/include)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/include)
 
 #set(BUILD_GMOCK_ON)
 enable_testing()
@@ -16,7 +16,12 @@ set(HtTests_src
     CommandLineParserTests.cpp
     Dao/HabitDefinitionDaoTests.cpp)
 
+# system dependent libraries
+if (UNIX)
+    set(SysDependencies pthread stdc++fs)
+endif()
+
 add_executable(${PROJECT_NAME} ${HtTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock pthread stdc++fs HT)
+target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} HT)
 
 add_test(${PROJECT_NAME} runTest)
