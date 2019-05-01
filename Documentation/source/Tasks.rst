@@ -28,6 +28,10 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
+**[C03]** Dodanie DateTime do Core programu
+ *  typedef na std::chrono::time_point
+ *  pobieranie aktualnej daty
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -42,7 +46,7 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT07]** Możliwość wypełniania nawyków
- *  Encja tabeli habit
+ *  OK Encja tabeli habit
  *  Dao tabeli habit (interfejs i testy)
  *  Polecenie "set" do ustawiania dzisiejszej wartości nawyku
 
@@ -50,6 +54,18 @@ Zadania dotyczące modułu HT
  *  Znaleźć sposób na przekazywanie bazy danych do porgramy tak, żeby nie
     przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
     konfiguracyjny w katalogu z programem
+
+**[HT09]** Zmiana nazwy programu, aktualna nazwa koliduje z poleceniem linuksa
+ *  Tytuł dokumentacji
+ *  Dokumentacja Cli
+ *  Help message
+ *  Akcja list - komenda przy pustej bazie danych
+
+**[HT10]** Wydzielenie modułu HtDbTests, w której będą testy korzystające z
+    bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
+    czasu i generują sporo bałaganu w komunikatach przez log debugowy
+
+**[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz

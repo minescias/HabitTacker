@@ -13,6 +13,7 @@ HT Docs's
    Cli
    Tables
    Core
+   DateTime
    Cpp
    Tests
    Notes
