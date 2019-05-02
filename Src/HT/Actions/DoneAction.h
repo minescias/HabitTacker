@@ -4,6 +4,7 @@
 #include <string>
 
 #include "HT/Dao/IHabitDao.h"
+#include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
@@ -11,11 +12,12 @@ namespace Actions
 class DoneAction
 {
 public:
-	DoneAction(Dao::IHabitDao* habitDao);
+	DoneAction(Dao::IHabitDao* habitDao, Dao::IHabitDefinitionDao* definitionDao);
 	void execute(const std::string& habitId);
 
 private:
 	Dao::IHabitDao* habitDao;
+	Dao::IHabitDefinitionDao* definitionDao;
 };
 
 } // namespace Actions

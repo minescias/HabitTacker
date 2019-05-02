@@ -5,19 +5,24 @@
 namespace Actions
 {
 
-DoneAction::DoneAction(Dao::IHabitDao* habitDao)
-	:habitDao(habitDao)
+DoneAction::DoneAction(
+	Dao::IHabitDao* habitDao , Dao::IHabitDefinitionDao* definitionDao)
+	:habitDao(habitDao), definitionDao(definitionDao)
 {
 
 }
 
 void DoneAction::execute(const std::string& habitId)
 {
+	auto definitionId = stoi(habitId);
+	if (!definitionDao->getDefinition(definitionId))
+		throw ActionError ("Habit " + habitId + " does not exist");
+
 	auto today = time(nullptr);
 	today -= (today % 86400); // 86400 = 24 * 60 * 60
 
 	auto habit = Entity::HabitEntity();
-	habit.setHabitId(stoi(habitId));
+	habit.setHabitId(definitionId);
 	habit.setDate(today);
 
 	if (habitDao->checkIfHabitIsSetForDay(habit))

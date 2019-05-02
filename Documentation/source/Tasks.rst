@@ -60,7 +60,7 @@ Zadania dotyczące modułu HT
  *  OK Dao tabeli habit (interfejs i testy)
  *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
  *  OK Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
- *  Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
+ *  OK Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
  *  Rozszerzenie command line parsera o filtr prosty i włączenie opcji add w
     appInit()
  *  Aktualizacja dokumentacji Cli
@@ -82,7 +82,21 @@ Zadania dotyczące modułu HT
 
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
 
-**[HT13]**
+**[HT13]** Interfejs akcji
+ *  Uspójnione przekazywanie dao i innych danych wymaganych do działania
+ *  Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
+
+**[HT14]** Mechanizm tworzenia Dao - DaoFactory
+ *  Klasa dao facory
+ *  Rejestrowanie akcji (funkcja tworząca dao?)
+ *  Wywołanie zarejestrowanej akcji
+
+**[HT15]** Zaawansowany parser command line
+ *  Klasa wyniku działania parsera - filrt, komenda i argumenty dodatkowe
+ *  Pobieranie prostego polecenia
+ *  Pobieranie polecenia z argumentami
+ *  Pobieranie polecenia z filrem
+ *  Opis działania całości w dokumentacji
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
