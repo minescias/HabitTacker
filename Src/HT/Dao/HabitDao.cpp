@@ -58,4 +58,26 @@ std::vector<Entity::HabitEntityPtr> HabitDao::getHabitsById(int id)
 	return result;
 }
 
+bool HabitDao::checkIfHabitIsSetForDay(const Entity::HabitEntity& habit)
+{
+	std::string sql =
+		"\n select"
+		"\n 	1"
+		"\n from"
+		"\n 	habit h"
+		"\n where"
+		"\n 	h.habit_id = :habit_id"
+		"\n 	and h.date = :date";
+
+	Db::Query query(db, sql);
+	query.setParam(":habit_id", habit.getHabitId());
+	query.setParam(":date", habit.getDate());
+	auto queryResult = query.execute();
+
+	if (queryResult->empty())
+		return false;
+	else
+		return true;
+}
+
 } // namespace Dao

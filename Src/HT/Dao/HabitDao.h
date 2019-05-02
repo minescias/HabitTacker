@@ -15,6 +15,7 @@ public:
 
 	virtual void saveHabit(const Entity::HabitEntity& habit);
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id);
+	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit);
 
 private:
 	Db::Database* db;

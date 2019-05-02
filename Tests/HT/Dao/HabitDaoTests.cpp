@@ -48,8 +48,6 @@ public:
 
 TEST_F(HabitDaoTests, readAndWriteTest)
 {
-	using namespace std::chrono;
-
 	addDefinition("Some definition");
 
 	auto today = time(nullptr);
@@ -64,6 +62,21 @@ TEST_F(HabitDaoTests, readAndWriteTest)
 
 	ASSERT_THAT(readHabits.size(), Eq(1));
 	EXPECT_THAT(*readHabits[0], Eq(writtenHabit));
+}
+
+TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
+{
+	addDefinition("Some definition");
+	auto today = time(nullptr);
+	today -= (today % 86400); // 86400 = 24 * 60 * 60
+
+	auto habit = Entity::HabitEntity();
+	habit.setHabitId(1);
+	habit.setDate(today);
+
+	ASSERT_FALSE(habitDao->checkIfHabitIsSetForDay(habit));
+	habitDao->saveHabit(habit);
+	ASSERT_TRUE(habitDao->checkIfHabitIsSetForDay(habit));
 }
 
 } // namespace Tests

@@ -13,6 +13,7 @@ class IHabitDao
 public:
 	virtual void saveHabit(const Entity::HabitEntity& habit) = 0;
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id) = 0;
+	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) = 0;
 };
 
 } // namespace Dao
