@@ -34,10 +34,10 @@ Co trzeba dodać/poprawić w Core programu
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
 **[C03]** Dodanie DateTime do Core programu
- *  typedef na std::chrono::time_point
- *  pobieranie aktualnej daty
+ *  typedef na time_t
+ *  funkcja do pobierania aktualnej daty
 
-[C04] Poprawki po ostatnich zmianach w module bazy danych.
+**[C04]** Poprawki po ostatnich zmianach w module bazy danych.
     Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
     się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
     template, które są w dataset
@@ -58,10 +58,15 @@ Zadania dotyczące modułu HT
 **[HT07]** Możliwość wypełniania nawyków
  *  OK Encja tabeli habit
  *  OK Dao tabeli habit (interfejs i testy)
- *  Polecenie "set" do ustawiania dzisiejszej wartości nawyku
+ *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
+ *  Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
+ *  Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
+ *  Rozszerzenie command line parsera o filtr prosty i włączenie opcji add w
+    appInit()
+ *  Aktualizacja dokumentacji Cli
 
 **[HT08]** Domyślna baza danych
- *  Znaleźć sposób na przekazywanie bazy danych do porgramy tak, żeby nie
+ *  Znaleźć sposób na przekazywanie bazy danych do porgramu tak, żeby nie
     przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
     konfiguracyjny w katalogu z programem
 
@@ -88,6 +93,7 @@ Zadania dotyczące modułu HT
  *  Automatyczne generowanie operatora porównania
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych (ale to będzie zajebiste :))
+ *  Namespace tests dla wszystkich testów
 
 Tools
 *******************************************************************************

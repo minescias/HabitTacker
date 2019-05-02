@@ -5,6 +5,7 @@ set(HT_src
     AppInit.cpp
     Actions/ActionError.cpp
     Actions/AddAction.cpp
+    Actions/DoneAction.cpp
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Actions/ListAction.cpp
