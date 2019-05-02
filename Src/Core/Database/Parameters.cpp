@@ -1,5 +1,7 @@
 #include "Core/Database/Parameters.h"
 
+#include <ctime>
+
 #include <Libraries/SQLite/sqlite3.h>
 
 #include <Core/Database/Database.h>
@@ -36,6 +38,16 @@ void Parameters::setParam(const std::string& name, int value)
 {
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_int(statement, index, value);
+    checkForDbError(dbStatus);
+
+    removeFromUnsetParamsList(name);
+}
+
+template<>
+void Parameters::setParam(const std::string& name, time_t value)
+{
+    auto index = getParamIndex(name);
+    auto dbStatus = sqlite3_bind_int64(statement, index, value);
     checkForDbError(dbStatus);
 
     removeFromUnsetParamsList(name);

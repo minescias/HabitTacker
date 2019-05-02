@@ -1,6 +1,8 @@
 
 #include "Core/Database/Dataset.h"
 
+#include <ctime>
+
 #include "Core/Utils/Exceptions/LogicError.h"
 #include "Core/Utils/Exceptions/RuntimeError.h"
 #include "Core/Utils/Strings/Case.h"
@@ -95,6 +97,15 @@ int Dataset::getAs<int>(const std::string& name)
 
     auto castFunc = [](const std::string& value){return stoi(value);};
     return tryToCast<int>(name, getColumnValue(name), castFunc);
+}
+
+template<>
+time_t Dataset::getAs<time_t>(const std::string& name)
+{
+    assertValueIsNotEmpty(name);
+
+    auto castFunc = [](const std::string& value){return __int64(stol(value));};
+    return tryToCast<time_t>(name, getColumnValue(name), castFunc);
 }
 
 template<>
