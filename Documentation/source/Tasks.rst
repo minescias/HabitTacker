@@ -20,6 +20,9 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
 **[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
 
+**[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
+    ostatnich zmianach w Windowsie
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -33,6 +36,11 @@ Co trzeba dodać/poprawić w Core programu
 **[C03]** Dodanie DateTime do Core programu
  *  typedef na std::chrono::time_point
  *  pobieranie aktualnej daty
+
+[C04] Poprawki po ostatnich zmianach w module bazy danych.
+    Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
+    się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
+    template, które są w dataset
 
 Docs
 *******************************************************************************
@@ -49,7 +57,7 @@ Zadania dotyczące modułu HT
 
 **[HT07]** Możliwość wypełniania nawyków
  *  OK Encja tabeli habit
- *  Dao tabeli habit (interfejs i testy)
+ *  OK Dao tabeli habit (interfejs i testy)
  *  Polecenie "set" do ustawiania dzisiejszej wartości nawyku
 
 **[HT08]** Domyślna baza danych
@@ -69,6 +77,8 @@ Zadania dotyczące modułu HT
 
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
 
+**[HT13]**
+
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
@@ -76,6 +86,8 @@ Zadania dotyczące modułu HT
  *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
     tym. Jeśli tak to zamienić
  *  Automatyczne generowanie operatora porównania
+ *  Przerobić database creatora na buildera, który będzie zwracał połączenie
+    handlera do nowo utworzonej bazy danych (ale to będzie zajebiste :))
 
 Tools
 *******************************************************************************

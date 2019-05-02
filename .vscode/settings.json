@@ -53,7 +53,31 @@
         "string": "cpp",
         "filesystem": "cpp",
         "codecvt": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "xstring": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "algorithm": "cpp",
+        "cstring": "cpp",
+        "ios": "cpp",
+        "iterator": "cpp",
+        "locale": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "xfacet": "cpp",
+        "xhash": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xmemory": "cpp",
+        "xmemory0": "cpp",
+        "xstddef": "cpp",
+        "xtr1common": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     },
 
     // nie wiem czemu, ale zmienna workspaceFolder nie rozwija się poprawnie
@@ -70,6 +94,11 @@
     },
 
     "[restructuredtext]": {
-        "editor.insertSpaces": true
-    }
+        "editor.insertSpaces": true,
+    },
+
+    "files.eol": "\n",
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.iconTheme": "vscode-icons"
+
 }
