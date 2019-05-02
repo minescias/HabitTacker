@@ -1,9 +1,10 @@
 #ifndef __HABIT_ENTITY_H
 #define __HABIT_ENTITY_H
 
-#include <chrono>
+#include <ctime>
+#include <memory>
 
-using Date = std::chrono::system_clock::time_point;
+using Date = time_t;
 
 namespace Entity
 {
@@ -23,6 +24,10 @@ private:
 	int habitId;
 	Date date;
 };
+
+bool operator==(const HabitEntity &a, const HabitEntity &b);
+
+using HabitEntityPtr = std::unique_ptr<HabitEntity>	;
 
 } // namespace Entity
 

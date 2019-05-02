@@ -14,7 +14,8 @@ set(HtTests_src
     Actions/InitActionTests.cpp
     Actions/ListActionTests.cpp
     CommandLineParserTests.cpp
-    Dao/HabitDefinitionDaoTests.cpp)
+    Dao/HabitDefinitionDaoTests.cpp
+    Dao/HabitDaoTests.cpp)
 
 # system dependent libraries
 if (UNIX)

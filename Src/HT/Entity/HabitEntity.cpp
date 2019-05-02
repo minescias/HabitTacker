@@ -28,5 +28,11 @@ void HabitEntity::setDate(const Date& date)
 	this->date = date;
 }
 
+bool operator==(const HabitEntity &a, const HabitEntity &b)
+{
+	return a.getHabitId() == b.getHabitId()
+		&& a.getDate() == b.getDate();
+}
+
 } // namespace Entity
 
