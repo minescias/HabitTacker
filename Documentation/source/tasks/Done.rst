@@ -49,6 +49,17 @@ Zadania dotyczące modułu HT
  *  OK Nowa tabela "habit" w klasie database creator
  *  OK Opis tabeli w dokumentacji
 
+**[HT07]** Możliwość wypełniania nawyków
+ *  OK Encja tabeli habit
+ *  OK Dao tabeli habit (interfejs i testy)
+ *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
+ *  OK Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
+ *  OK Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
+ *  OK Rozszerzenie command line parsera o filtr prosty i włączenie opcji done
+    w appInit()
+ *  OK Sprawdzanie przez akcję, czy jest wypełniony filtr
+ *  OK Aktualizacja dokumentacji Cli
+
 **[HT12]** usunąć z tabeli habit kolumnę result. Na razie nie jest ona
     potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
     zostało wykonane a brak wpisu to brak niewykonane zadanie

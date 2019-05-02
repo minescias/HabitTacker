@@ -14,6 +14,9 @@ DoneAction::DoneAction(
 
 void DoneAction::execute(const std::string& habitId)
 {
+	if (habitId.empty())
+		throw ActionError ("No filter specified");
+
 	auto definitionId = stoi(habitId);
 	if (!definitionDao->getDefinition(definitionId))
 		throw ActionError ("Habit " + habitId + " does not exist");

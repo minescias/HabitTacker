@@ -83,3 +83,17 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 		ASSERT_STREQ(expected, err.what());
 	}
 }
+
+TEST_F(DoneActionTest, ensuresThatFilterIsSet)
+{
+	try
+	{
+		doneAction.execute("");
+		FAIL() << "Expected ActionError";
+	}
+	catch(const ActionError& err)
+	{
+		auto expected = "No filter specified";
+		ASSERT_STREQ(expected, err.what());
+	}
+}

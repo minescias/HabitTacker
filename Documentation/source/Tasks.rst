@@ -58,17 +58,6 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT07]** Możliwość wypełniania nawyków
- *  OK Encja tabeli habit
- *  OK Dao tabeli habit (interfejs i testy)
- *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
- *  OK Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
- *  OK Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
- *  OK Rozszerzenie command line parsera o filtr prosty i włączenie opcji done
-    w appInit()
- *  Sprawdzanie przez akcję, czy jest wypełniony filtr
- *  OK Aktualizacja dokumentacji Cli
-
 **[HT08]** Domyślna baza danych
  *  Znaleźć sposób na przekazywanie bazy danych do porgramu tak, żeby nie
     przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
