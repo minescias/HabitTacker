@@ -18,6 +18,8 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
 **[B03]** Budowanie jednego modułu
 
+**[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -67,6 +69,10 @@ Zadania dotyczące modułu HT
 
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
 
+**[HT12]** usunąć z tabeli habit kolumnę result. Na razie nie jest ona
+    potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
+    zostało wykonane a brak wpisu to brak niewykonane zadanie
+
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
@@ -92,3 +98,14 @@ konfiguracji tychże
 
 **[T06]** W trakcie testów wyświetla się wszystko z cout na konsoli. Sprawdzić
     czy można to jakoś wyłączyć na czas testów. Przekierowanie couta?
+
+**[T07]** Polecenie hmk do zarządzania budowaniem projektu. Opcje
+ *  <default> - budowanie całego projektu
+ *  clean - usunięcie wszystkich plików powstałych podczas budowania projektu
+ *  prepare - uruchomienie "cmake .." w folderze builds
+ *  docs - budowanie dokumentacji
+ *  <module name> - budowanie tylko tego modułu
+
+**[T08]** Polecenie tests do uruchamiania testów
+ *  <default> uruchamianie wszystkich testów
+ *  <module name> uruchamianie testów z jednego modułu

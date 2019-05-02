@@ -11,6 +11,7 @@ HT Docs's
    :caption: Spis treści:
 
    Cli
+   Versions
    Tables
    Core
    DateTime
