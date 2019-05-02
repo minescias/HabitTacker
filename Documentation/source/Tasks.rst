@@ -23,6 +23,9 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
     ostatnich zmianach w Windowsie
 
+**[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się
+    tak zrobić
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -61,9 +64,10 @@ Zadania dotyczące modułu HT
  *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
  *  OK Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
  *  OK Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
- *  Rozszerzenie command line parsera o filtr prosty i włączenie opcji add w
-    appInit()
- *  Aktualizacja dokumentacji Cli
+ *  OK Rozszerzenie command line parsera o filtr prosty i włączenie opcji done
+    w appInit()
+ *  Sprawdzanie przez akcję, czy jest wypełniony filtr
+ *  OK Aktualizacja dokumentacji Cli
 
 **[HT08]** Domyślna baza danych
  *  Znaleźć sposób na przekazywanie bazy danych do porgramu tak, żeby nie

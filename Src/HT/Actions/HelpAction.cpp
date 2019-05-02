@@ -20,6 +20,7 @@ void HelpAction::execute()
 		"\n 	help - prints this message"
 		"\n 	init - creates new database"
 		"\n 	add <name> - adds new habit with given name"
+		"\n 	<filer> done - sets habit as done for today"
 		"\n 	list - list all habits"
 		"\n"
 	;

@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+namespace Cli
+{
+
 class CommandLineParser
 {
 public:
@@ -12,10 +15,14 @@ public:
 
     std::string getCommandName() const;
     std::string getArguments() const;
+    std::string getFilter() const;
 
 private:
     std::string commandName;
     std::string arguments;
+    std::string filter;
 };
+
+} // namespace Cli
 
 #endif
