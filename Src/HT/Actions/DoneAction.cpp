@@ -1,5 +1,7 @@
 #include "HT/Actions/DoneAction.h"
 
+#include "HT/Actions/ActionError.h"
+
 namespace Actions
 {
 
@@ -17,6 +19,9 @@ void DoneAction::execute(const std::string& habitId)
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(stoi(habitId));
 	habit.setDate(today);
+
+	if (habitDao->checkIfHabitIsSetForDay(habit))
+		throw ActionError("Habit " + habitId + " was already set for this day");
 
 	habitDao->saveHabit(habit);
 }

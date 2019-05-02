@@ -59,7 +59,7 @@ Zadania dotyczące modułu HT
  *  OK Encja tabeli habit
  *  OK Dao tabeli habit (interfejs i testy)
  *  OK Polecenie "done" do ustawiania dzisiejszej wartości nawyku
- *  Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
+ *  OK Zabezpieczenie przed próbą ustawieniem już wypełnionego nawyku
  *  Zabezpieczenie przed próbą ustawienia nieustniejącego nawyku
  *  Rozszerzenie command line parsera o filtr prosty i włączenie opcji add w
     appInit()
@@ -94,6 +94,7 @@ Zadania dotyczące modułu HT
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych (ale to będzie zajebiste :))
  *  Namespace tests dla wszystkich testów
+ *  ActionError powinno być w namespace Actions
 
 Tools
 *******************************************************************************
