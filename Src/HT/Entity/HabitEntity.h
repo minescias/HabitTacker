@@ -19,13 +19,9 @@ public:
 	Date getDate() const;
 	void setDate(const Date& date);
 
-	bool getResult() const;
-	void setResult(bool result);
-
 private:
 	int habitId;
 	Date date;
-	bool result;
 };
 
 } // namespace Entity

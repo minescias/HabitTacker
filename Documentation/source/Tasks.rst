@@ -69,10 +69,6 @@ Zadania dotyczące modułu HT
 
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
 
-**[HT12]** usunąć z tabeli habit kolumnę result. Na razie nie jest ona
-    potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
-    zostało wykonane a brak wpisu to brak niewykonane zadanie
-
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i

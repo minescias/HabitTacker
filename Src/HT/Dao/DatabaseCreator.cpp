@@ -24,7 +24,6 @@ auto getCreateHabitTable()
 		"\n ("
 		"\n 	habit_id integer,"
 		"\n 	date date,"
-		"\n 	result boolean not null,"
 		"\n 	primary key(habit_id, date)"
 		"\n 	foreign key(habit_id) references habit_definition(id)"
 		"\n )";

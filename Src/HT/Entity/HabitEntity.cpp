@@ -5,7 +5,6 @@ namespace Entity
 
 HabitEntity::HabitEntity()
 	: habitId(0)
-	, result(false)
 {
 }
 
@@ -27,16 +26,6 @@ Date HabitEntity::getDate() const
 void HabitEntity::setDate(const Date& date)
 {
 	this->date = date;
-}
-
-bool HabitEntity::getResult() const
-{
-	return result;
-}
-
-void HabitEntity::setResult(bool result)
-{
-	this->result = result;
 }
 
 } // namespace Entity

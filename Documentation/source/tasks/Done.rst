@@ -49,6 +49,10 @@ Zadania dotyczące modułu HT
  *  OK Nowa tabela "habit" w klasie database creator
  *  OK Opis tabeli w dokumentacji
 
+**[HT12]** usunąć z tabeli habit kolumnę result. Na razie nie jest ona
+    potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
+    zostało wykonane a brak wpisu to brak niewykonane zadanie
+
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub

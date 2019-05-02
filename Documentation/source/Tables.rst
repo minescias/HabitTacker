@@ -16,12 +16,12 @@ name  varchar(40)   Nazwa
 
 habit
 *******************************************************************************
-Tabela z wynikami wykonywania wyników na poszczególne dni
+Tabela z wynikami wykonywania wyników na poszczególne dni. Wpis w tej tabeli
+oznacza, że dany nawyk został wykonany na dany dzień
 
 ============ ============= ====================================================
 Nazwa        Typ           Opis
 ------------ ------------- ----------------------------------------------------
 habit_id     integer (PK)  Id nawyku
 date         date (PK)     Data wypełnienia nawyku
-result       integer       Czy udało się wypełnić nawyk na dany dzień
 ============ ============= ====================================================
