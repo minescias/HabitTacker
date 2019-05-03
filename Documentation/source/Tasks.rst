@@ -76,8 +76,11 @@ Zadania dotyczące modułu HT
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
  *  OK Nowa akcja - default
  *  OK Wyświetlanie listy nawyków
- *  Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
+ *  OK Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
  *  Wyświetlanie tabeli wypełnionych nawyków
+ *  Dodanie akcji do appInit()
+ *  Aktualizacja dokumentacji cli
+ *  Zabezpieczenie przed pustą bazą
 
 **[HT13]** Interfejs akcji
  *  Uspójnione przekazywanie dao i innych danych wymaganych do działania

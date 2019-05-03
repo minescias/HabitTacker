@@ -47,15 +47,19 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 		Return(ByMove(getHabits())));
 
 	auto expectedOutput =
-		"\nid   name"
+		"\n  id name                                    "
+			" Mo Tu We Th Fr Su Sa Mo Tu We Th Fr Su Sa"
 		"\n---- ----------------------------------------"
+			" -----------------------------------------"
 		"\n   1 Pierwszy"
 		"\n   2 Drugi"
 		"\n"
 	;
 
+	auto day = time_t{1557014400}; // Niedziela/Sunday
+
 	internal::CaptureStdout();
-	defaultAction.execute();
+	defaultAction.execute(day);
 	auto output = testing::internal::GetCapturedStdout();
 
 	ASSERT_STREQ(output.c_str(), expectedOutput);

@@ -2,6 +2,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <vector>
 
 namespace Actions
 {
@@ -12,11 +13,11 @@ DefaultAction::DefaultAction(
 {
 }
 
-void DefaultAction::execute()
+void DefaultAction::execute(time_t date)
 {
 	auto habits = definitionDao->getDefinitions();
 
-	printHeader();
+	printHeader(date);
 
 	for(auto const& habit: habits)
 	{
@@ -47,13 +48,29 @@ void DefaultAction::execute()
 	// habitDao->saveHabit(habit);
 }
 
-void DefaultAction::printHeader() const
+void DefaultAction::printHeader(time_t date) const
 {
 	std::cout <<
-		"\nid   name"
+		"\n  id name                                    "
+			+ getWeekDaysHeaderEndingWithDate(date) +
 		"\n---- ----------------------------------------"
+			+ " -----------------------------------------"
 	;
 }
 
+std::string DefaultAction::getWeekDaysHeaderEndingWithDate(time_t date) const
+{
+	std::string result;
+	std::vector<std::string> weekDays{"Sa", "Mo", "Tu", "We", "Th", "Fr", "Su"};
+
+	auto localDate = std::localtime(&date); // thread unsafe
+	const auto firstDay = (localDate->tm_wday + 1) % 7;
+	const auto daysToPrint{14};
+
+	for (int i = firstDay; i < firstDay + daysToPrint; i++)
+		result += " " + weekDays[i % 7];
+
+	return result;
+}
 
 } // namespace Actions

@@ -11,10 +11,11 @@ class DefaultAction
 {
 public:
 	DefaultAction(Dao::IHabitDao* habitDao, Dao::IHabitDefinitionDao* definitionDao);
-	void execute();
+	void execute(time_t date);
 
 private:
-	void printHeader() const;
+	void printHeader(time_t date) const;
+	std::string getWeekDaysHeaderEndingWithDate(time_t date) const;
 
 private:
 	Dao::IHabitDao* habitDao;
