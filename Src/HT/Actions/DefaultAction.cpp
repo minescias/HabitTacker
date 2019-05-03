@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+#include "HT\Actions\ActionError.h"
+
 namespace Actions
 {
 
@@ -16,14 +18,12 @@ DefaultAction::DefaultAction(
 void DefaultAction::execute(time_t date)
 {
 	auto habitDefinitions = definitionDao->getDefinitions();
-	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
 
-	// if (habitId.empty())
-	// 	throw ActionError ("No filter specified");
+	if (habitDefinitions.empty())
+		throw ActionError ("No habits found, try to add some using 'ht add'\n");
 
 	prepareCompletionTable(habitDefinitions);
-	fillCompletionTable(habits, date);
-
+	fillCompletionTable(date);
 	printHeader(date);
 
 	for(auto const& definition: habitDefinitions)
@@ -71,11 +71,12 @@ void DefaultAction::prepareCompletionTable(
 		completionTable.emplace(definition->getId(), std::vector<bool>(14, false));
 }
 
-void DefaultAction::fillCompletionTable(
-	const std::vector<Entity::HabitEntityPtr>& habits, time_t date)
+void DefaultAction::fillCompletionTable(time_t date)
 {
 	const auto printedDays{14};
 	const auto secondsInDay{86400}; // 86400 = 24 * 60 * 60
+
+	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
 
 	for (auto const& habit: habits)
 	{

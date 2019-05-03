@@ -75,15 +75,6 @@ Zadania dotyczące modułu HT
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
-**[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
- *  OK Nowa akcja - default
- *  OK Wyświetlanie listy nawyków
- *  OK Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
- *  OK Wyświetlanie tabeli wypełnionych nawyków
- *  Dodanie akcji do appInit()
- *  Aktualizacja dokumentacji cli
- *  Zabezpieczenie przed pustą bazą
-
 **[HT13]** Interfejs akcji
  *  Uspójnione przekazywanie dao i innych danych wymaganych do działania
  *  Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
@@ -97,7 +88,7 @@ Zadania dotyczące modułu HT
  *  Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
  *  Pobieranie prostego polecenia
  *  Pobieranie polecenia z argumentami
- *  Pobieranie polecenia z filrem
+ *  Pobieranie polecenia z filtrem
  *  Opis działania całości w dokumentacji
 
 **[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)

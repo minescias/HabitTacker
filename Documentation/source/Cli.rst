@@ -1,6 +1,9 @@
 Command Line Interface
 ===============================================================================
 
+**ht**
+    Prints the habit completion table
+
 **ht help**
     Prints help message
 

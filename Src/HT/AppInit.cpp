@@ -6,6 +6,7 @@
 
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/AddAction.h"
+#include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/DoneAction.h"
 #include "HT/Actions/HelpAction.h"
 #include "HT/Actions/InitAction.h"
@@ -17,6 +18,7 @@
 void executeAddAction(const std::string& addName);
 void executeListAction();
 void executeDoneAction(const std::string& filter);
+void executeDefaultAction();
 
 int appInit(int argc, char* argv[])
 {
@@ -27,7 +29,9 @@ int appInit(int argc, char* argv[])
 
 		auto command = parser.getCommandName();
 
-		if (command == "init")
+		if (command == "")
+			executeDefaultAction();
+		else if (command == "init")
 			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
 			executeAddAction(parser.getArguments());
@@ -73,4 +77,17 @@ void executeDoneAction(const std::string& filter)
 	auto definitionDao = Dao::HabitDefinitionDao(&database);
 	auto habitDao = Dao::HabitDao(&database);
 	Actions::DoneAction(&habitDao, &definitionDao).execute(filter);
+}
+
+void executeDefaultAction()
+{
+	auto today = time(nullptr);
+	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
+	today -= (today % secondsInDay);
+
+	// I'll add some way to pass database name later
+	auto database = Db::Database("Test.db");
+	auto definitionDao = Dao::HabitDefinitionDao(&database);
+	auto habitDao = Dao::HabitDao(&database);
+	Actions::DefaultAction(&habitDao, &definitionDao).execute(today);
 }

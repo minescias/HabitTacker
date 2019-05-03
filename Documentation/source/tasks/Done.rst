@@ -60,6 +60,15 @@ Zadania dotyczące modułu HT
  *  OK Sprawdzanie przez akcję, czy jest wypełniony filtr
  *  OK Aktualizacja dokumentacji Cli
 
+**[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
+ *  OK Nowa akcja - default
+ *  OK Wyświetlanie listy nawyków
+ *  OK Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
+ *  OK Wyświetlanie tabeli wypełnionych nawyków
+ *  OK Dodanie akcji do appInit()
+ *  OK Aktualizacja dokumentacji cli
+ *  OK Zabezpieczenie przed pustą bazą
+
 **[HT12]** usunąć z tabeli habit kolumnę result. Na razie nie jest ona
     potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
     zostało wykonane a brak wpisu to brak niewykonane zadanie

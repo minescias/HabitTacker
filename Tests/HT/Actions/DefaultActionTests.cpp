@@ -91,3 +91,22 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 	ASSERT_STREQ(output.c_str(), expectedOutput);
 }
+
+TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
+{
+	EXPECT_CALL(definitionDaoMock, getDefinitions()).WillOnce(
+		Return(ByMove(std::vector<Entity::HabitDefinitionEntityPtr>())));
+
+	try
+	{
+		defaultAction.execute(0);
+		FAIL() << "Expected ActionError";
+	}
+	catch(const ActionError& err)
+	{
+		auto expected =
+			"No habits found, try to add some using 'ht add'\n";
+		ASSERT_STREQ(expected, err.what());
+	}
+}
+

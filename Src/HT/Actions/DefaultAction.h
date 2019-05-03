@@ -21,12 +21,11 @@ private:
 	void printHeader(time_t date) const;
 	std::string getWeekDaysHeaderEndingWithDate(time_t date) const;
 	std::string getCompletionString(int habitId);
+	void fillCompletionTable(time_t date);
 
 	void prepareCompletionTable(
 		const std::vector<Entity::HabitDefinitionEntityPtr>& definitions);
 
-	void fillCompletionTable(
-		const std::vector<Entity::HabitEntityPtr>& habits, time_t date);
 
 private:
 	Dao::IHabitDao* habitDao;
