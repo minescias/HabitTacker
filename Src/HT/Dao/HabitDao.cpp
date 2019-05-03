@@ -48,6 +48,7 @@ std::vector<Entity::HabitEntityPtr> HabitDao::getHabitsById(int id)
 	query.setParam(":habit_id", id);
 	auto queryResult = query.execute();
 
+	// ale buła :)
 	if (queryResult->next())
 	{
 		auto& habit = result.emplace_back(std::make_unique<Entity::HabitEntity>());
@@ -78,6 +79,37 @@ bool HabitDao::checkIfHabitIsSetForDay(const Entity::HabitEntity& habit)
 		return false;
 	else
 		return true;
+}
+
+std::vector<Entity::HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(time_t date)
+{
+	auto result = std::vector<Entity::HabitEntityPtr>();
+	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
+
+	std::string sql =
+		"\n select"
+		"\n 	h.habit_id, "
+		"\n 	h.date"
+		"\n from"
+		"\n 	habit h"
+		"\n where"
+		"\n 	h.date between :date_from and :date_to";
+
+	Db::Query query(db, sql);
+	query.setParam(":date_from", date - secondsInDay * 14);
+	query.setParam(":date_to", date);
+	query.execute();
+
+	auto queryResult = query.execute();
+
+	while (queryResult->next())
+	{
+		auto& habit = result.emplace_back(std::make_unique<Entity::HabitEntity>());
+		habit->setHabitId(queryResult->getAs<int>("habit_id"));
+		habit->setDate(queryResult->getAs<time_t>("date"));
+	}
+
+	return result;
 }
 
 } // namespace Dao
