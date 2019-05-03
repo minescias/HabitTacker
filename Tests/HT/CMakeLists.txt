@@ -11,6 +11,7 @@ enable_testing()
 set(HtTests_src
     main.cpp
     Actions/AddActionTests.cpp
+    Actions/DefaultActionTests.cpp
     Actions/DoneActionTests.cpp
     Actions/InitActionTests.cpp
     Actions/ListActionTests.cpp

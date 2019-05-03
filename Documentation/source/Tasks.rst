@@ -74,6 +74,10 @@ Zadania dotyczące modułu HT
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
+ *  OK Nowa akcja - default
+ *  OK Wyświetlanie listy nawyków
+ *  Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
+ *  Wyświetlanie tabeli wypełnionych nawyków
 
 **[HT13]** Interfejs akcji
  *  Uspójnione przekazywanie dao i innych danych wymaganych do działania
@@ -85,11 +89,15 @@ Zadania dotyczące modułu HT
  *  Wywołanie zarejestrowanej akcji
 
 **[HT15]** Zaawansowany parser command line
- *  Klasa wyniku działania parsera - filrt, komenda i argumenty dodatkowe
+ *  Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
  *  Pobieranie prostego polecenia
  *  Pobieranie polecenia z argumentami
  *  Pobieranie polecenia z filrem
  *  Opis działania całości w dokumentacji
+
+**[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
+ *  Rozszerzenie tabeli, encji i dao
+ *  Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
