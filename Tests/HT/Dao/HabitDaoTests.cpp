@@ -104,11 +104,11 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 	auto h3 = addHabit(2, today - secondsInDay * 1);
 	auto h4 = addHabit(2, today - secondsInDay * 2);
 	auto h5 = addHabit(2, today - secondsInDay * 10);
-	auto h6 = addHabit(2, today - secondsInDay * 14);
+	auto h6 = addHabit(2, today - secondsInDay * 13);
 
 	// excluded data over 14 days
-	auto h7 = addHabit(1, today - secondsInDay * 15);
-	auto h8 = addHabit(2, today - secondsInDay * 16);
+	auto h7 = addHabit(1, today - secondsInDay * 14);
+	auto h8 = addHabit(2, today - secondsInDay * 15);
 
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 

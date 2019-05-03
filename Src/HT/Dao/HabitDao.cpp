@@ -96,7 +96,7 @@ std::vector<Entity::HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(time_t d
 		"\n 	h.date between :date_from and :date_to";
 
 	Db::Query query(db, sql);
-	query.setParam(":date_from", date - secondsInDay * 14);
+	query.setParam(":date_from", date - secondsInDay * 13);
 	query.setParam(":date_to", date);
 	query.execute();
 

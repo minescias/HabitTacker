@@ -39,6 +39,8 @@ Co trzeba dodać/poprawić w Core programu
 **[C03]** Dodanie DateTime do Core programu
  *  typedef na time_t
  *  funkcja do pobierania aktualnej daty
+ *  funkcja pozwalająca tworzyć datę w jakiś bardziej czytelny sposób niż jest
+    to robione aktualnie
 
 **[C04]** Poprawki po ostatnich zmianach w module bazy danych.
     Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
@@ -77,7 +79,7 @@ Zadania dotyczące modułu HT
  *  OK Nowa akcja - default
  *  OK Wyświetlanie listy nawyków
  *  OK Wyświetlanie nagłówka dni tygodnia (Ostatni dzień na dzisiaj)
- *  Wyświetlanie tabeli wypełnionych nawyków
+ *  OK Wyświetlanie tabeli wypełnionych nawyków
  *  Dodanie akcji do appInit()
  *  Aktualizacja dokumentacji cli
  *  Zabezpieczenie przed pustą bazą

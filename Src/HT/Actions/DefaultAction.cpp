@@ -15,37 +15,28 @@ DefaultAction::DefaultAction(
 
 void DefaultAction::execute(time_t date)
 {
-	auto habits = definitionDao->getDefinitions();
-
-	printHeader(date);
-
-	for(auto const& habit: habits)
-	{
-		std::cout
-			<< "\n" <<  std::setw (4) << habit->getId()
-			<< " " << habit->getName();
-	}
-
-	std::cout << "\n";
+	auto habitDefinitions = definitionDao->getDefinitions();
+	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
 
 	// if (habitId.empty())
 	// 	throw ActionError ("No filter specified");
 
-	// auto definitionId = stoi(habitId);
-	// if (!definitionDao->getDefinition(definitionId))
-	// 	throw ActionError ("Habit " + habitId + " does not exist");
+	prepareCompletionTable(habitDefinitions);
+	fillCompletionTable(habits, date);
 
-	// auto today = time(nullptr);
-	// today -= (today % 86400); // 86400 = 24 * 60 * 60
+	printHeader(date);
 
-	// auto habit = Entity::HabitEntity();
-	// habit.setHabitId(definitionId);
-	// habit.setDate(today);
+	for(auto const& definition: habitDefinitions)
+	{
+		// to formatowanie tutaj jest tak straszne... Ale działa :)
+		std::cout
+			<< "\n" <<  std::setw (4) << definition->getId()
+			<< " " << definition->getName()
+			<< std::setw (40 - definition->getName().length()) << " "
+			<< getCompletionString(definition->getId());
+	}
 
-	// if (habitDao->checkIfHabitIsSetForDay(habit))
-	// 	throw ActionError("Habit " + habitId + " was already set for this day");
-
-	// habitDao->saveHabit(habit);
+	std::cout << "\n";
 }
 
 void DefaultAction::printHeader(time_t date) const
@@ -69,6 +60,43 @@ std::string DefaultAction::getWeekDaysHeaderEndingWithDate(time_t date) const
 
 	for (int i = firstDay; i < firstDay + daysToPrint; i++)
 		result += " " + weekDays[i % 7];
+
+	return result;
+}
+
+void DefaultAction::prepareCompletionTable(
+	const std::vector<Entity::HabitDefinitionEntityPtr>& definitions)
+{
+	for(auto const& definition: definitions)
+		completionTable.emplace(definition->getId(), std::vector<bool>(14, false));
+}
+
+void DefaultAction::fillCompletionTable(
+	const std::vector<Entity::HabitEntityPtr>& habits, time_t date)
+{
+	const auto printedDays{14};
+	const auto secondsInDay{86400}; // 86400 = 24 * 60 * 60
+
+	for (auto const& habit: habits)
+	{
+		int daysBack = (date - habit->getDate())/secondsInDay;
+		completionTable.at(habit->getHabitId())[printedDays - daysBack - 1] = true;
+	}
+}
+
+std::string DefaultAction::getCompletionString(int habitId)
+{
+	std::string result;
+
+	auto completion = completionTable.at(habitId);
+
+	for (auto resultForDay: completion)
+	{
+		if (resultForDay == false)
+			result += " __";
+		else
+			result += " XX";
+	}
 
 	return result;
 }

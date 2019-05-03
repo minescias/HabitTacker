@@ -16,7 +16,7 @@ public:
 	{
 	}
 
-	Entity::HabitDefinitionEntityPtr getHabit(int id, const std::string& name)
+	Entity::HabitDefinitionEntityPtr getHabitDefinition(int id, const std::string& name)
 	{
 		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
 
@@ -26,11 +26,37 @@ public:
 		return entity;
 	}
 
-	std::vector<Entity::HabitDefinitionEntityPtr> getHabits()
+	std::vector<Entity::HabitDefinitionEntityPtr> getHabitDefinitions()
 	{
 		std::vector<Entity::HabitDefinitionEntityPtr> habits;
-		habits.emplace_back(getHabit(1, "Pierwszy"));
-		habits.emplace_back(getHabit(2, "Drugi"));
+		habits.emplace_back(getHabitDefinition(1, "Pierwszy"));
+		habits.emplace_back(getHabitDefinition(2, "Drugi"));
+
+		return habits;
+	}
+
+	auto getHabit(int habitId, time_t date)
+	{
+		auto entity = std::make_unique<Entity::HabitEntity>();
+
+		entity->setHabitId(habitId);
+		entity->setDate(date);
+
+		return entity;
+	}
+
+	std::vector<Entity::HabitEntityPtr> getHabits()
+	{
+		auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
+		auto day = time_t{1557014400}; // Niedziela/Sunday
+
+		std::vector<Entity::HabitEntityPtr> habits;
+		habits.emplace_back(getHabit(1, day));
+		habits.emplace_back(getHabit(1, day - secondsInDay * 2));
+		habits.emplace_back(getHabit(2, day - secondsInDay * 1));
+		habits.emplace_back(getHabit(2, day - secondsInDay * 2));
+		habits.emplace_back(getHabit(2, day - secondsInDay * 10));
+		habits.emplace_back(getHabit(2, day - secondsInDay * 12));
 
 		return habits;
 	}
@@ -43,40 +69,25 @@ public:
 
 TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 {
-	EXPECT_CALL(definitionDaoMock, getDefinitions()).WillOnce(
-		Return(ByMove(getHabits())));
+	auto day = time_t{1557014400}; // Niedziela/Sunday
+
+	EXPECT_CALL(definitionDaoMock, getDefinitions())
+		.WillOnce(Return(ByMove(getHabitDefinitions())));
+
+	EXPECT_CALL(habitDaoMock, getHabitsFromLastTwoWeeks(day))
+		.WillOnce(Return(ByMove(getHabits())));
 
 	auto expectedOutput =
-		"\n  id name                                    "
-			" Mo Tu We Th Fr Su Sa Mo Tu We Th Fr Su Sa"
-		"\n---- ----------------------------------------"
-			" -----------------------------------------"
-		"\n   1 Pierwszy"
-		"\n   2 Drugi"
+		"\n  id name                                     Mo Tu We Th Fr Su Sa Mo Tu We Th Fr Su Sa"
+		"\n---- ---------------------------------------- -----------------------------------------"
+		"\n   1 Pierwszy                                 __ __ __ __ __ __ __ __ __ __ __ XX __ XX"
+		"\n   2 Drugi                                    __ XX __ XX __ __ __ __ __ __ __ XX XX __"
 		"\n"
 	;
-
-	auto day = time_t{1557014400}; // Niedziela/Sunday
 
 	internal::CaptureStdout();
 	defaultAction.execute(day);
 	auto output = testing::internal::GetCapturedStdout();
 
 	ASSERT_STREQ(output.c_str(), expectedOutput);
-
-	// auto today = time(nullptr);
-	// today -= (today % 86400); // 86400 = 24 * 60 * 60
-
-	// auto habit = Entity::HabitEntity();
-	// habit.setHabitId(1);
-	// habit.setDate(today);
-
-	// EXPECT_CALL(definitionDaoMock, getDefinition(1))
-	// 	.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
-
-	// EXPECT_CALL(habitDaoMock, saveHabit(habit)).Times(1);
-	// EXPECT_CALL(habitDaoMock, checkIfHabitIsSetForDay(habit))
-	// 	.WillOnce(Return(false));
-
-	// doneAction.execute("1");
 }
