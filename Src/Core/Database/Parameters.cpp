@@ -1,6 +1,7 @@
 #include "Core/Database/Parameters.h"
 
 #include <ctime>
+//#include <iostream>
 
 #include <Libraries/SQLite/sqlite3.h>
 
@@ -19,6 +20,7 @@ Parameters::Parameters(Db::Database* db, sqlite3_stmt* statement)
 template<>
 void Parameters::setParam(const std::string& name, std::string value)
 {
+    //std::cout << "Param " << name << " set to " << value << "\n";
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_text(statement, index, value.c_str(),
         value.size(), SQLITE_TRANSIENT);
@@ -30,12 +32,14 @@ void Parameters::setParam(const std::string& name, std::string value)
 template<>
 void Parameters::setParam(const std::string& name, const char* value)
 {
+    //std::cout << "Param " << name << " set to " << value << "\n";
     setParam(name, std::string(value));
 }
 
 template<>
 void Parameters::setParam(const std::string& name, int value)
 {
+    //std::cout << "Param " << name << " set to " << value << "\n";
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_int(statement, index, value);
     checkForDbError(dbStatus);
@@ -46,6 +50,7 @@ void Parameters::setParam(const std::string& name, int value)
 template<>
 void Parameters::setParam(const std::string& name, time_t value)
 {
+    //std::cout << "Param " << name << " set to " << value << "\n";
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_int64(statement, index, value);
     checkForDbError(dbStatus);

@@ -1,25 +1,26 @@
 Wersje programu
 ===============================================================================
 
-Wersja 0.1 - Pierwsza jako tako użyteczna wersja (W trakcie)
+Wersja 0.1 - Pierwsza jako tako użyteczna wersja
 *******************************************************************************
 *   Podstawowe działanie: dodawanie nawyków, wypełnianie, wyświetlanie itp)
 *   Obsługa nawyków tylko na dzień dzisiejszy
 *   Tylko nawyki typu bool
-*   obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych
 
 Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w planach)
-
+*******************************************************************************
 *   Polecenie setall do masowego wypełniania wszystkich nawyków
 *   możliwość odznaczenia nawyku
 *   obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
+*   obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych
 
 Planowane
 *******************************************************************************
-Czego to ja nie planuję
+Czego to ja nie planuję :) Jest to lista rzeczy, które planuje dodać w
+przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
 
 **Grupownaie nawyków**
-    Np. poranne aktywności są zazwyczaj wykonywane razem dobrze byłoby jes
+    Np. poranne aktywności są zazwyczaj wykonywane razem dobrze byłoby je
     pogrupować tak, żeby zaznaczać wszystkie jako wykonane za jednym poleceniem
 
 **Zaawansowane oznaczanie kiedy zadania mają być wykonywane**
@@ -27,3 +28,42 @@ Czego to ja nie planuję
 
 **Szyfrowanie bazy danych i konieczność podawania hasła**
     Tutaj myślę, że wszystko jasne
+
+**Tester czcionki używanej w konsoli**
+    W przyszłości będę potrzebował serii dziwnych znaków z unicode do
+    wyświetlania różnych danych. Problem w tym, że nie wszystkie czcionki
+    wyświetlane w konsoli obsługują wszystkie znaki, których chciałbym użyć
+    (np Consolas). Trzeba dodać nową akcję wyświetlającą wszystkie używane
+    znaki tak, żeby móc sprawdzić czy wszystko będzie OK
+
+**Sprawdzanie integralności bazy danych**
+    Jak w temacie, coś co mogłoby sprawdzać czy z bazą jest wszystko w
+    porządku. Poprawna definicja tabel itp
+
+**Zwracanie ID przez funkcje zapisujące w dao**
+    Jak w temacie, uprości to trochę kod testów
+
+**Logowanie zapytań**
+    Zapisywane lib wyświetlanie aktualnie wykonywanych zapytań i parametrów z
+    jakimi zostają wywoływane
+
+**I w ogóle jakaś zaaawansowana klasa logująca**
+    Jw
+
+**Wyświetlanie znaków unicode w konsoli**
+    Jw
+
+**Plik konfiguracyjny**
+    domyślna baza danych
+    informacje o poziomach logwania
+
+**Zaawansowany system logowania**
+    Określenie czy logować na konsoli czy do pliku, nazwa pliku z logiem,
+    poziomy logowania lub co ma być logowane
+
+**Kolorowanie outputu konsoli**
+    Jw
+
+**Polecenie undo**
+    każda akcja byłaby logowana w ten sposób, żeby na jej podstawie utworzyć
+    akcję, która będzie wycofywała ostatnią operację

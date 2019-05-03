@@ -86,7 +86,7 @@
     // "restructuredtext.builtDocumentationPath": "${workspaceFolder}/Documentation/build/html",
 
     // tymczasowo ścieżki bezwzględne
-    "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
+    "restructuredtext.confPath": "${workspaceFolder}\\Documentation\\source",
     "restructuredtext.builtDocumentationPath": "/media/dawid/Data1/Projekty/HabitTracker/Documentation/build/html",
 
     "[cpp]": {
