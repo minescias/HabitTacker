@@ -20,6 +20,8 @@ void executeListAction();
 void executeDoneAction(const std::string& filter);
 void executeDefaultAction();
 
+void printVersion();
+
 int appInit(int argc, char* argv[])
 {
 	try
@@ -41,6 +43,8 @@ int appInit(int argc, char* argv[])
 			executeListAction();
 		else if (command == "help")
 			Actions::HelpAction().execute();
+		else if (command == "version")
+			printVersion();
 		else
 			std::cout << "Unknown command\n";
 	}
@@ -90,4 +94,9 @@ void executeDefaultAction()
 	auto definitionDao = Dao::HabitDefinitionDao(&database);
 	auto habitDao = Dao::HabitDao(&database);
 	Actions::DefaultAction(&habitDao, &definitionDao).execute(today);
+}
+
+void printVersion()
+{
+	std::cout << "Habit Tracker V0.1\n";
 }
