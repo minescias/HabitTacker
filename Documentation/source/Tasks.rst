@@ -45,6 +45,13 @@ Co trzeba dodać/poprawić w Core programu
     się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
     template, które są w dataset
 
+**[C05]** Funkcja do składania tekstu na wzór boost::format. Mogłaby
+    wykorzystywać string literals ()_xx
+
+**[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędy w teście
+    DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
+    // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -82,7 +89,7 @@ Zadania dotyczące modułu HT
  *  OK Rejestrowanie akcji (funkcja tworząca dao?)
  *  OK Wywołanie zarejestrowanej akcji
  *  OK Rejestrowanie mocków dao zamiast normalnych na czas testów
- *  Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
+ *  OK Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
     niezarejestrowanego dao itp
  *  Opis działania DaoFactory i testów z jego użyciem po zakończeniu powyższych
 
@@ -98,7 +105,8 @@ Zadania dotyczące modułu HT
  *  Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
 
 **[HT17]** Rejestrowanie mocków dao za pomocą unique_ptr zamiast raw pointerów.
-    Opis błędu oraz próby jego rozwiązania są w pliku DaoFacoryTest.cpp
+    Opis błędu oraz próby jego rozwiązania są w plikach DaoFacoryTest.cpp
+    i DaoMockCreator.h
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
