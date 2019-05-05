@@ -10,6 +10,7 @@ set(HT_src
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Actions/ListAction.cpp
+    Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp
     Dao/HabitDao.cpp
     Dao/HabitDefinitionDao.cpp

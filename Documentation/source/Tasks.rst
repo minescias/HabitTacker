@@ -80,9 +80,13 @@ Zadania dotyczące modułu HT
  *  Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
 
 **[HT14]** Mechanizm tworzenia Dao - DaoFactory
- *  Klasa dao facory
- *  Rejestrowanie akcji (funkcja tworząca dao?)
- *  Wywołanie zarejestrowanej akcji
+ *  OK Klasa dao facory
+ *  OK Rejestrowanie akcji (funkcja tworząca dao?)
+ *  OK Wywołanie zarejestrowanej akcji
+ *  Rejestrowanie mocków dao zamiast normalnych na czas testów
+ *  Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
+    niezarejestrowanego dao itp
+ *  Opis działania DaoFactory i testów z jego użyciem po zakończeniu powyższych
 
 **[HT15]** Zaawansowany parser command line
  *  Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
