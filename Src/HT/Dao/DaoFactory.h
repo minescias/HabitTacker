@@ -3,6 +3,7 @@
 
 #include "HT/Dao/UnknownDao.h"
 
+#include <functional>
 #include <map>
 #include <string>
 
@@ -10,7 +11,8 @@ namespace Dao
 {
 
 // pointer to a function that creates Dao
-using DaoCreatorFunc = Dao::UnknownDaoPtr (*)();
+// using DaoCreatorFunc = Dao::UnknownDaoPtr (*)();
+using DaoCreatorFunc = std::function<Dao::UnknownDaoPtr()>;
 
 class DaoFactory
 {
@@ -23,8 +25,7 @@ public:
 	std::unique_ptr<T> createDao(const std::string& daoName)
 	{
 		auto daoPtr = registeredDaos.at(daoName)();
-
-		return std::unique_ptr<T>(static_cast<T*>(daoPtr.release()));
+		return std::unique_ptr<T>(dynamic_cast<T*>(daoPtr.release()));
 	}
 
 private:
