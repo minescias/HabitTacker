@@ -1,6 +1,13 @@
 Lista wykonanych zadań
 ===============================================================================
 
+Project
+*******************************************************************************
+Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
+
+**[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
+    ostatnich zmianach w Windowsie
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

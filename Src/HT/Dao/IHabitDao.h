@@ -19,4 +19,4 @@ public:
 
 } // namespace Dao
 
-#endif __I_HABIT_DAO_H
+#endif // __I_HABIT_DAO_H

@@ -104,7 +104,7 @@ time_t Dataset::getAs<time_t>(const std::string& name)
 {
     assertValueIsNotEmpty(name);
 
-    auto castFunc = [](const std::string& value){return __int64(stol(value));};
+    auto castFunc = [](const std::string& value){return time_t(stol(value));};
     return tryToCast<time_t>(name, getColumnValue(name), castFunc);
 }
 

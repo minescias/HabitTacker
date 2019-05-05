@@ -13,15 +13,13 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
     Tak, żeby i kod i dokumentacja były budowane za pomocą jednego polecenia
 
 **[B02]** Budowanie dokumentacji jako osobny target CMake
-    Celem jest możliwość zbudowania dokumentacji za pomocą polecenia np.
+    Celem jest możliwość zbudowania dokumentacji z
+    a pomocą polecenia np.
     "make doc" z folderu, w którym są normalnie budowane pliki cpp
 
 **[B03]** Budowanie jednego modułu
 
 **[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
-
-**[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
-    ostatnich zmianach w Windowsie
 
 **[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się
     tak zrobić

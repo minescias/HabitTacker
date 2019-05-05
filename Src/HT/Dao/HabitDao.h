@@ -24,4 +24,4 @@ private:
 
 } // namespace Dao
 
-#endif __HABIT_DAO_H
+#endif // __HABIT_DAO_H

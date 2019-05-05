@@ -16,4 +16,4 @@ using UnknownDaoPtr = std::unique_ptr<UnknownDao>;
 
 } // namespace Dao
 
-#endif __UNKNOWN_DAO
+#endif // __UNKNOWN_DAO
