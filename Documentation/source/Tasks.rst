@@ -81,7 +81,7 @@ Zadania dotyczące modułu HT
  *  OK Klasa dao facory
  *  OK Rejestrowanie akcji (funkcja tworząca dao?)
  *  OK Wywołanie zarejestrowanej akcji
- *  Rejestrowanie mocków dao zamiast normalnych na czas testów
+ *  OK Rejestrowanie mocków dao zamiast normalnych na czas testów
  *  Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
     niezarejestrowanego dao itp
  *  Opis działania DaoFactory i testów z jego użyciem po zakończeniu powyższych
@@ -96,6 +96,9 @@ Zadania dotyczące modułu HT
 **[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
  *  Rozszerzenie tabeli, encji i dao
  *  Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
+
+**[HT17]** Rejestrowanie mocków dao za pomocą unique_ptr zamiast raw pointerów.
+    Opis błędu oraz próby jego rozwiązania są w pliku DaoFacoryTest.cpp
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz

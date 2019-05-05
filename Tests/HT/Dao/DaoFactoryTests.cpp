@@ -48,25 +48,43 @@ TEST_F(DaoFactoryTests, allowsToRegisterAndGetDao)
 	ASSERT_EQ(someDao->foo(), 2342);
 }
 
+// nie mogę użyć tej wersji ponieważ release jest metodą nie constową a z
+// jakiegoś powodu nie mogę używać constowych metod w dao :(
+// template<typename T>
+// Dao::DaoCreatorFunc createDaoMock(std::unique_ptr<T> daoPtr)
+// {
+// 	return [&daoPtr2 = std::move(daoPtr)]() -> Dao::UnknownDaoPtr
+// 	{
+// 		auto unknownDaoPtr = dynamic_cast<Dao::UnknownDao*>(daoPtr2.release());
+// 		return std::unique_ptr<Dao::UnknownDao>(unknownDaoPtr);
+// 	};
+// }
+
 template<typename T>
-Dao::DaoCreatorFunc createDaoMock(std::unique_ptr<T> daoPtr)
+Dao::DaoCreatorFunc createDaoMock(T* daoPtr)
 {
-	return [&daoPtr = std::move(daoPtr)]() -> Dao::UnknownDaoPtr
+	return [daoPtr]() -> Dao::UnknownDaoPtr
 	{
-		auto unknownDaoPtr = dynamic_cast<Dao::UnknownDao*>(daoPtr.release());
+		auto unknownDaoPtr = dynamic_cast<Dao::UnknownDao*>(daoPtr);
 		return std::unique_ptr<Dao::UnknownDao>(unknownDaoPtr);
 	};
 }
 
-// TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
-// {
-// 	std::unique_ptr<DummmyDaoMock> daoMock = std::make_unique<DummmyDaoMock>();
-// 	EXPECT_CALL(*daoMock, foo()).WillOnce(Return(9786));
+TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
+{
+	auto daoMock = new DummmyDaoMock(); //grrr...
+	EXPECT_CALL(*daoMock, foo()).WillOnce(Return(9786));
 
-// 	daoFactory.registerDao("someDao", createDaoMock(std::move(daoMock)));
+	daoFactory.registerDao("someDao", createDaoMock(daoMock));
 
-// 	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
-// 	ASSERT_EQ(someDao->foo(), 9786);
-// }
+	// jeśli dao nigdy nie zostanie utworzone to nie będzie uniqie_ptr, który
+	// usunąłby później to co jest pod wskaźnikiem - wyciek pamięci, dlatego
+	// muszę robić to ręcznie tutaj
+	if (daoMock) // grrr^2...
+		delete daoMock;
+
+	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
+	ASSERT_EQ(someDao->foo(), 9786);
+}
 
 } // namespace Tests
