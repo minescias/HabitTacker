@@ -16,6 +16,7 @@ class IDummyDao : public Dao::UnknownDao
 {
 public:
 	virtual int foo() = 0;
+	virtual Db::Database* getDatabasePointer() = 0;
 
 	virtual ~IDummyDao(){};
 };
@@ -23,14 +24,19 @@ public:
 class SomeDummyDao : public IDummyDao
 {
 public:
-	SomeDummyDao(){}
+	SomeDummyDao(Db::Database* db) :db(db) {}
 	virtual int foo(){return 2342;}
+	virtual Db::Database* getDatabasePointer() {return db;}
+
+private:
+	Db::Database* db;
 };
 
 class DummmyDaoMock : public IDummyDao
 {
 public:
 	MOCK_METHOD0(foo, int());
+	MOCK_METHOD0(getDatabasePointer, Db::Database*());
 };
 
 class IOtherDummyDao : public Dao::UnknownDao
@@ -58,8 +64,8 @@ public:
 
 TEST_F(DaoFactoryTests, allowsToRegisterAndGetDao)
 {
-	daoFactory.registerDao("someDao", []() -> Dao::UnknownDaoPtr
-		{ return std::make_unique<SomeDummyDao>(); });
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
 	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
 	ASSERT_EQ(someDao->foo(), 2342);
@@ -87,15 +93,31 @@ TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
 	// 	delete daoMock;
 }
 
+TEST_F(DaoFactoryTests, passesDatabaseToNewlyCreatedDao)
+{
+	// I dont want to create full Db::Database object here. Instad I'm creating
+	// an int and setting its addres to the pointer of Db::Database :)
+	auto i{3};
+	Db::Database* db = reinterpret_cast<Db::Database*>(i);
+
+	daoFactory.setDatabase(db);
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
+
+	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
+
+	ASSERT_EQ(db, someDao->getDatabasePointer());
+}
+
 TEST_F(DaoFactoryTests, throwsLogicErrorWhenDaoIsRegisteredTwice)
 {
-	daoFactory.registerDao("someDao", []() -> Dao::UnknownDaoPtr
-		{ return std::make_unique<SomeDummyDao>(); });
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
 	try
 	{
-		daoFactory.registerDao("someDao", []() -> Dao::UnknownDaoPtr
-			{ return std::make_unique<SomeDummyDao>(); });
+		daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_unique<SomeDummyDao>(db); });
 
 		FAIL() << "Expected logic error";
 	}
@@ -123,8 +145,8 @@ TEST_F(DaoFactoryTests, throwsLogicErrorAccessingUnregisteredDao)
 
 TEST_F(DaoFactoryTests, throwsLogicErrorWhenTryingToCastDaoToWrongType)
 {
-	daoFactory.registerDao("someDao", []() -> Dao::UnknownDaoPtr
-		{ return std::make_unique<SomeDummyDao>(); });
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
 	// IDummyDao* unknownDao = new SomeDummyDao();
 	// IOtherDummyDao* otherDao = dynamic_cast<IOtherDummyDao*>(unknownDao);

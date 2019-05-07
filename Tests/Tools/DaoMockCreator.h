@@ -22,7 +22,7 @@ namespace Tests
 template<typename T>
 Dao::DaoCreatorFunc createDaoMock(T* daoPtr)
 {
-	return [daoPtr]() -> Dao::UnknownDaoPtr
+	return [daoPtr](Db::Database* db) -> Dao::UnknownDaoPtr
 	{
 		auto unknownDaoPtr = dynamic_cast<Dao::UnknownDao*>(daoPtr);
 		return Dao::UnknownDaoPtr(unknownDaoPtr);

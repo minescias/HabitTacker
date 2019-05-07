@@ -83,6 +83,10 @@ Zadania dotyczące modułu HT
 **[HT13]** Interfejs akcji
  *  Uspójnione przekazywanie dao i innych danych wymaganych do działania
  *  Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
+ *  Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
+ *  Version tak, żeby cała obsługa akcji była spójna
+ *  Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii
+    else if
 
 **[HT14]** Mechanizm tworzenia Dao - DaoFactory
  *  OK Klasa dao facory
@@ -92,6 +96,9 @@ Zadania dotyczące modułu HT
  *  OK Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
     niezarejestrowanego dao itp
  *  Opis działania DaoFactory i testów z jego użyciem po zakończeniu powyższych
+ *  Zabezpieczenie przed próbą zarejetrowania czegoś, czego nie da się
+    skonwertować do Dao::UnknownDao
+ *  OK Przekazywanie bazy danych do nowo utworzonego dao
 
 **[HT15]** Zaawansowany parser command line
  *  Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe

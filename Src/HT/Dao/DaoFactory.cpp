@@ -4,6 +4,7 @@ namespace Dao
 {
 
 DaoFactory::DaoFactory()
+	: db(nullptr)
 {
 }
 
@@ -13,6 +14,11 @@ void DaoFactory::registerDao(const std::string& name, DaoCreatorFunc daoCreator)
 		throw LogicError("DaoFactory: " + name + " was already registered");
 
 	registeredDaos.emplace(name, daoCreator);
+}
+
+void DaoFactory::setDatabase(Db::Database* db)
+{
+	this->db = db;
 }
 
 bool DaoFactory::isDaoRegistered(const std::string& daoName) const
