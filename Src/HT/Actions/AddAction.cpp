@@ -5,9 +5,13 @@
 namespace Actions
 {
 
-AddAction::AddAction(Dao::IHabitDefinitionDao* dao)
-	: dao(dao)
+AddAction::AddAction()
 {
+}
+
+void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
+{
+	dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void AddAction::execute(const std::string& habitName)

@@ -3,14 +3,17 @@
 
 #include <vector>
 
+#include "HT/Dao/UnknownDao.h"
 #include "HT/Entity/HabitDefinitionEntity.h"
 
 namespace Dao
 {
 
-class IHabitDefinitionDao
+class IHabitDefinitionDao : public UnknownDao
 {
 public:
+	~IHabitDefinitionDao(){}
+
 	virtual void saveDefinition(const Entity::HabitDefinitionEntity& entity) = 0;
 	virtual Entity::HabitDefinitionEntityPtr getDefinition(int definitionId) = 0;
 	virtual std::vector<Entity::HabitDefinitionEntityPtr> getDefinitions() = 0;

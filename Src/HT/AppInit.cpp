@@ -15,12 +15,13 @@
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
 
-void executeAddAction(const std::string& addName);
+void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& addName);
 void executeListAction();
 void executeDoneAction(const std::string& filter);
 void executeDefaultAction();
 
 void printVersion();
+std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db);
 
 int appInit(int argc, char* argv[])
 {
@@ -31,12 +32,22 @@ int appInit(int argc, char* argv[])
 
 		auto command = parser.getCommandName();
 
+		if (command == "init")
+		{
+			Actions::InitAction().execute(parser.getArguments());
+			return 0;
+		}
+
+		// I'll add some way to pass database name later
+		auto database = Db::Database("Test.db");
+		auto daoFactory = initDaoFactory(&database);
+
 		if (command == "")
 			executeDefaultAction();
 		else if (command == "init")
 			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
-			executeAddAction(parser.getArguments());
+			executeAddAction(daoFactory.get(), parser.getArguments());
 		else if (command == "done")
 			executeDoneAction(parser.getFilter());
 		else if (command == "list")
@@ -56,13 +67,22 @@ int appInit(int argc, char* argv[])
 	return 0;
 }
 
-void executeAddAction(const std::string& habitName)
+std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
 {
-	// I'll add some way to pass database name later
-	auto database = Db::Database("Test.db");
-	auto hdDao = Dao::HabitDefinitionDao(&database);
+	auto daoFactory = std::make_unique<Dao::DaoFactory>();
+	daoFactory->setDatabase(db);
 
-	Actions::AddAction(&hdDao).execute(habitName);
+	daoFactory->registerDao("habitDefinition", [](Db::Database* db){
+		return std::make_unique<Dao::HabitDefinitionDao>(db);});
+
+	return daoFactory;
+}
+
+void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& habitName)
+{
+	auto action = Actions::AddAction();
+	action.setDaoFactory(daoFactory);
+	action.execute(habitName);
 }
 
 void executeListAction()

@@ -3,28 +3,28 @@
 #include "HT/Actions/AddAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Tests/Tools/DaoMockCreator.h"
 
 using namespace testing;
 
-class AddActionTest : public testing::Test
+namespace Tests
 {
-public:
-	AddActionTest()
-		: daoMock(std::make_unique<Mocks::HabitDefinitionDaoMock>())
-		, addAction(daoMock.get())
-	{
-	}
 
-	std::unique_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
-	Actions::AddAction addAction;
-};
-
-TEST_F(AddActionTest, savesHabitToDatabase)
+TEST(AddActionTest, savesHabitToDatabase)
 {
+	auto daoMock = new Mocks::HabitDefinitionDaoMock();
+
 	Entity::HabitDefinitionEntity entity;
 	entity.setName("new habit name");
-
 	EXPECT_CALL(*daoMock, saveDefinition(entity));
+
+	Dao::DaoFactory factory;
+	factory.registerDao("habitDefinition", createDaoMock(daoMock));
+
+	auto addAction = Actions::AddAction();
+	addAction.setDaoFactory(&factory);
 
 	addAction.execute("new habit name");
 }
+
+} // namespace Tests
