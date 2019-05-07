@@ -26,6 +26,7 @@ add_subdirectory(Src/HT)
 
 # tests
 add_subdirectory(Tests/Core)
+add_subdirectory(Tests/CppTests)
 add_subdirectory(Tests/HT)
 
 # executables
