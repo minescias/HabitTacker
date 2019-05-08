@@ -9,10 +9,14 @@
 namespace Actions
 {
 
-DefaultAction::DefaultAction(
-	Dao::IHabitDao* habitDao , Dao::IHabitDefinitionDao* definitionDao)
-	:habitDao(habitDao), definitionDao(definitionDao)
+DefaultAction::DefaultAction()
 {
+}
+
+void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
+{
+	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
+	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void DefaultAction::execute(time_t date)

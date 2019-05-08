@@ -18,7 +18,7 @@
 void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& addName);
 void executeListAction();
 void executeDoneAction(const std::string& filter);
-void executeDefaultAction();
+void executeDefaultAction(Dao::DaoFactory* daoFactory);
 
 void printVersion();
 std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db);
@@ -43,7 +43,7 @@ int appInit(int argc, char* argv[])
 		auto daoFactory = initDaoFactory(&database);
 
 		if (command == "")
-			executeDefaultAction();
+			executeDefaultAction(daoFactory.get());
 		else if (command == "init")
 			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
@@ -75,6 +75,9 @@ std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
 	daoFactory->registerDao("habitDefinition", [](Db::Database* db){
 		return std::make_unique<Dao::HabitDefinitionDao>(db);});
 
+	daoFactory->registerDao("habit", [](Db::Database* db){
+		return std::make_unique<Dao::HabitDao>(db);});
+
 	return daoFactory;
 }
 
@@ -103,17 +106,15 @@ void executeDoneAction(const std::string& filter)
 	Actions::DoneAction(&habitDao, &definitionDao).execute(filter);
 }
 
-void executeDefaultAction()
+void executeDefaultAction(Dao::DaoFactory* daoFactory)
 {
 	auto today = time(nullptr);
 	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
 	today -= (today % secondsInDay);
 
-	// I'll add some way to pass database name later
-	auto database = Db::Database("Test.db");
-	auto definitionDao = Dao::HabitDefinitionDao(&database);
-	auto habitDao = Dao::HabitDao(&database);
-	Actions::DefaultAction(&habitDao, &definitionDao).execute(today);
+	auto action = Actions::DefaultAction();
+	action.setDaoFactory(daoFactory);
+	action.execute(today);
 }
 
 void printVersion()

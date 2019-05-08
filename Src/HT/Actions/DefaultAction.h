@@ -3,18 +3,20 @@
 
 #include <map>
 
+#include "HT/Actions/IAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
 
-class DefaultAction
+class DefaultAction : public IAction
 {
 	using CompletionTable = std::map<int, std::vector<bool>>;
 
 public:
-	DefaultAction(Dao::IHabitDao* habitDao, Dao::IHabitDefinitionDao* definitionDao);
+	DefaultAction();
+	void setDaoFactory(Dao::DaoFactory* daoFactory);
 	void execute(time_t date);
 
 private:
@@ -26,10 +28,9 @@ private:
 	void prepareCompletionTable(
 		const std::vector<Entity::HabitDefinitionEntityPtr>& definitions);
 
-
 private:
-	Dao::IHabitDao* habitDao;
-	Dao::IHabitDefinitionDao* definitionDao;
+	std::unique_ptr<Dao::IHabitDao> habitDao;
+	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
 	CompletionTable completionTable;
 };
 

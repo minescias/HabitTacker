@@ -5,15 +5,28 @@
 
 #include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/ActionError.h"
+#include "HT/Dao/DaoFactory.h"
+
+#include "Tests/Tools/DaoMockCreator.h"
 
 using namespace testing;
+
+namespace Tests
+{
 
 class DefaultActionTest : public testing::Test
 {
 public:
 	DefaultActionTest()
-		: defaultAction(&habitDaoMock, &definitionDaoMock)
+		: defaultAction()
 	{
+		habitDaoMock = new Mocks::HabitDaoMock();
+		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
+
+		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
+		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+
+		defaultAction.setDaoFactory(&daoFactory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getHabitDefinition(int id, const std::string& name)
@@ -62,8 +75,9 @@ public:
 	}
 
 public:
-	Mocks::HabitDaoMock habitDaoMock;
-	Mocks::HabitDefinitionDaoMock definitionDaoMock;
+	Dao::DaoFactory daoFactory;
+	Mocks::HabitDaoMock* habitDaoMock;
+	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
 	Actions::DefaultAction defaultAction;
 };
 
@@ -71,10 +85,10 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 {
 	auto day = time_t{1557014400}; // Niedziela/Sunday
 
-	EXPECT_CALL(definitionDaoMock, getDefinitions())
+	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
 
-	EXPECT_CALL(habitDaoMock, getHabitsFromLastTwoWeeks(day))
+	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(day))
 		.WillOnce(Return(ByMove(getHabits())));
 
 	auto expectedOutput =
@@ -94,7 +108,7 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 {
-	EXPECT_CALL(definitionDaoMock, getDefinitions()).WillOnce(
+	EXPECT_CALL(*definitionDaoMock, getDefinitions()).WillOnce(
 		Return(ByMove(std::vector<Entity::HabitDefinitionEntityPtr>())));
 
 	try
@@ -110,3 +124,4 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 	}
 }
 
+} // namespace Tests
