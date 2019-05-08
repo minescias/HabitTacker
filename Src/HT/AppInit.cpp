@@ -16,7 +16,7 @@
 #include "HT/Dao/HabitDao.h"
 
 void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& addName);
-void executeListAction();
+void executeListAction(Dao::DaoFactory* daoFactory);
 void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter);
 void executeDefaultAction(Dao::DaoFactory* daoFactory);
 
@@ -51,7 +51,7 @@ int appInit(int argc, char* argv[])
 		else if (command == "done")
 			executeDoneAction(daoFactory.get(), parser.getFilter());
 		else if (command == "list")
-			executeListAction();
+			executeListAction(daoFactory.get());
 		else if (command == "help")
 			Actions::HelpAction().execute();
 		else if (command == "version")
@@ -88,13 +88,11 @@ void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& habitName)
 	action.execute(habitName);
 }
 
-void executeListAction()
+void executeListAction(Dao::DaoFactory* daoFactory)
 {
-	// I'll add some way to pass database name later
-	auto database = Db::Database("Test.db");
-	auto hdDao = Dao::HabitDefinitionDao(&database);
-
-	Actions::ListAction(&hdDao).execute();
+	auto action = Actions::ListAction();
+	action.setDaoFactory(daoFactory);
+	action.execute();
 }
 
 void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter)

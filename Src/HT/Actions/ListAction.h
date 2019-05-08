@@ -2,22 +2,24 @@
 #define __LIST_ACTION_H
 
 #include "HT/Dao/IHabitDefinitionDao.h"
+#include "HT/Actions/IAction.h"
 
 namespace Actions
 {
 
-class ListAction
+class ListAction : public IAction
 {
 public:
-	ListAction(Dao::IHabitDefinitionDao* dao);
+	ListAction();
 
+	void setDaoFactory(Dao::DaoFactory* factory);
 	void execute();
 
 private:
 	void printHeader() const;
 
 private:
-	Dao::IHabitDefinitionDao* dao;
+	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
 };
 
 } // namespace Actions

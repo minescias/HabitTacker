@@ -1,8 +1,12 @@
 #include <gmock/gmock.h>
 
-#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-
 #include "HT/Actions/ListAction.h"
+
+#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Tests/Tools/DaoMockCreator.h"
+
+namespace Tests
+{
 
 using namespace testing;
 
@@ -10,9 +14,10 @@ class ListActionTest : public testing::Test
 {
 public:
 	ListActionTest()
-		: daoMock(std::make_unique<Mocks::HabitDefinitionDaoMock>())
-		, listAction(daoMock.get())
 	{
+		daoMock = new Mocks::HabitDefinitionDaoMock();
+		factory.registerDao("habitDefinition", createDaoMock(daoMock));
+		listAction.setDaoFactory(&factory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getHabit(int id, const std::string& name)
@@ -43,9 +48,9 @@ public:
 		ASSERT_STREQ(output.c_str(), expectedOutput.c_str());
 	}
 
-	std::unique_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
+	Mocks::HabitDefinitionDaoMock* daoMock;
 	Actions::ListAction listAction;
-
+	Dao::DaoFactory factory;
 };
 
 TEST_F(ListActionTest, getsDefinitionsFromDao)
@@ -82,3 +87,5 @@ TEST_F(ListActionTest, printsAllDefinitionsTest)
 
 	testForOutput(expectedOutput);
 }
+
+} // namespace Tests
