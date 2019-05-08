@@ -3,21 +3,23 @@
 
 #include <string>
 
+#include "HT/Actions/IAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
 
-class DoneAction
+class DoneAction : public IAction
 {
 public:
-	DoneAction(Dao::IHabitDao* habitDao, Dao::IHabitDefinitionDao* definitionDao);
+	DoneAction();
+	void setDaoFactory(Dao::DaoFactory* daoFactory);
 	void execute(const std::string& habitId);
 
 private:
-	Dao::IHabitDao* habitDao;
-	Dao::IHabitDefinitionDao* definitionDao;
+	std::unique_ptr<Dao::IHabitDao> habitDao;
+	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
 };
 
 } // namespace Actions

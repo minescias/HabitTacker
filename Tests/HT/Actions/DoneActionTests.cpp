@@ -1,23 +1,35 @@
 #include <gmock/gmock.h>
 
-#include "Mocks/HT/Dao/HabitDaoMock.h"
-#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-
 #include "HT/Actions/DoneAction.h"
 #include "HT/Actions/ActionError.h"
 
+#include "Mocks/HT/Dao/HabitDaoMock.h"
+#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Tests/Tools/DaoMockCreator.h"
+
 using namespace testing;
+
+namespace Tests
+{
 
 class DoneActionTest : public testing::Test
 {
 public:
 	DoneActionTest()
-		: doneAction(&habitDaoMock, &definitionDaoMock)
+		: doneAction()
 	{
+		Dao::DaoFactory daoFactory;
+		habitDaoMock = new Mocks::HabitDaoMock();
+		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
+
+		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
+		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+
+		doneAction.setDaoFactory(&daoFactory);
 	}
 
-	Mocks::HabitDaoMock habitDaoMock;
-	Mocks::HabitDefinitionDaoMock definitionDaoMock;
+	Mocks::HabitDaoMock* habitDaoMock;
+	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
 	Actions::DoneAction doneAction;
 };
 
@@ -30,11 +42,11 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	habit.setHabitId(1);
 	habit.setDate(today);
 
-	EXPECT_CALL(definitionDaoMock, getDefinition(1))
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
 
-	EXPECT_CALL(habitDaoMock, saveHabit(habit)).Times(1);
-	EXPECT_CALL(habitDaoMock, checkIfHabitIsSetForDay(habit))
+	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
+	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(false));
 
 	doneAction.execute("1");
@@ -49,10 +61,10 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 	habit.setHabitId(1);
 	habit.setDate(today);
 
-	EXPECT_CALL(definitionDaoMock, getDefinition(1))
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
 
-	EXPECT_CALL(habitDaoMock, checkIfHabitIsSetForDay(habit))
+	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(true));
 
 	try
@@ -69,7 +81,7 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 
 TEST_F(DoneActionTest, ensuresThatHabisExists)
 {
-	EXPECT_CALL(definitionDaoMock, getDefinition(2))
+	EXPECT_CALL(*definitionDaoMock, getDefinition(2))
 		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
 
 	try
@@ -97,3 +109,5 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 		ASSERT_STREQ(expected, err.what());
 	}
 }
+
+} //namespace Tests

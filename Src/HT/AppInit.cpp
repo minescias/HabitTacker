@@ -17,7 +17,7 @@
 
 void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& addName);
 void executeListAction();
-void executeDoneAction(const std::string& filter);
+void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter);
 void executeDefaultAction(Dao::DaoFactory* daoFactory);
 
 void printVersion();
@@ -49,7 +49,7 @@ int appInit(int argc, char* argv[])
 		else if (command == "add")
 			executeAddAction(daoFactory.get(), parser.getArguments());
 		else if (command == "done")
-			executeDoneAction(parser.getFilter());
+			executeDoneAction(daoFactory.get(), parser.getFilter());
 		else if (command == "list")
 			executeListAction();
 		else if (command == "help")
@@ -97,13 +97,11 @@ void executeListAction()
 	Actions::ListAction(&hdDao).execute();
 }
 
-void executeDoneAction(const std::string& filter)
+void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter)
 {
-	// I'll add some way to pass database name later
-	auto database = Db::Database("Test.db");
-	auto definitionDao = Dao::HabitDefinitionDao(&database);
-	auto habitDao = Dao::HabitDao(&database);
-	Actions::DoneAction(&habitDao, &definitionDao).execute(filter);
+	auto action = Actions::DoneAction();
+	action.setDaoFactory(daoFactory);
+	action.execute(filter);
 }
 
 void executeDefaultAction(Dao::DaoFactory* daoFactory)
