@@ -77,7 +77,8 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "unordered_set": "cpp"
     },
 
     // nie wiem czemu, ale zmienna workspaceFolder nie rozwija się poprawnie
@@ -86,7 +87,7 @@
     // "restructuredtext.builtDocumentationPath": "${workspaceFolder}/Documentation/build/html",
 
     // tymczasowo ścieżki bezwzględne
-    "restructuredtext.confPath": "${workspaceFolder}\\Documentation\\source",
+    "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
     "restructuredtext.builtDocumentationPath": "/media/dawid/Data1/Projekty/HabitTracker/Documentation/build/html",
 
     "[cpp]": {

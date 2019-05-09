@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/HtTests",
-            "args": [],
+            "args": ["--gtest_filter=DoneAction*"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
             "environment": [],

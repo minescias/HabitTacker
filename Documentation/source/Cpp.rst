@@ -10,3 +10,4 @@ Lista rzeczy do sprawdzenia
 *******************************************************************************
 1.  Dlaczego unique_ptr wymaga pełnych danych o klasie, dlaczego nie wystarczy
     sam forward?
+2.  Czy intefejsy powinny mieć wirtualny destruktor

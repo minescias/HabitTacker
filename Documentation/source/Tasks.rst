@@ -24,6 +24,10 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się
     tak zrobić
 
+**[B07]** W przypadku błędy działanie programu często kończy się komunikatem
+    Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
+    tego wyciągnąć
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -114,6 +118,9 @@ Zadania dotyczące modułu HT
 **[HT17]** Rejestrowanie mocków dao za pomocą unique_ptr zamiast raw pointerów.
     Opis błędu oraz próby jego rozwiązania są w plikach DaoFacoryTest.cpp
     i DaoMockCreator.h
+
+**[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
+    Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
 
 **[HT99]** Refaktor - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
