@@ -22,18 +22,21 @@ CommandLineParser::CommandLineParser()
 {
 }
 
-void CommandLineParser::parse(int argc, char** argv)
+ParserResult CommandLineParser::parse(int argc, char** argv)
 {
-	// ależ to jest straszne
+	ParserResult result;
+
 	for (int i=1; i< argc; i++)
 	{
 		if ( i==1 && is_number(argv[i]))
-			filter = argv[i];
-		else if (commandName.empty())
-			commandName = argv[i];
-		else if (arguments.empty())
-			arguments = argv[i];
+			result.filter = argv[i];
+		else if (result.commandName.empty())
+			result.commandName = argv[i];
+		else if (result.argument.empty())
+			result.argument = argv[i];
 	}
+
+	return result;
 }
 
 std::string CommandLineParser::getCommandName() const

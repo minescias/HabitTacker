@@ -1,6 +1,22 @@
 #include <gmock/gmock.h>
 
 #include "HT/Cli/CommandLineParser.h"
+#include "HT/Cli/ParserResult.h"
+
+namespace Cli
+{
+
+bool operator==(const ParserResult &a, const ParserResult &b)
+{
+	return a.commandName == b.commandName
+		&& a.filter == b.filter
+		&& a.argument == b.argument;
+}
+
+} // namespace Cli
+
+namespace Tests
+{
 
 using namespace testing;
 
@@ -22,10 +38,9 @@ TEST_F(CommandLineParserTests, returnsEmptyValuesWhenNoParameterIsPassed)
 	int argc{1};
 	char* argv[3] {"programName"_c};
 
-	parser.parse(argc, argv);
-
-	EXPECT_STREQ(parser.getCommandName().c_str(), "");
-	EXPECT_STREQ(parser.getArguments().c_str(), "");
+	auto expected = Cli::ParserResult{"", "", ""};
+	auto result = parser.parse(argc, argv);
+	ASSERT_THAT(result, Eq(expected));
 }
 
 TEST_F(CommandLineParserTests, parsesSimpleCommand)
@@ -33,10 +48,9 @@ TEST_F(CommandLineParserTests, parsesSimpleCommand)
 	int argc{3};
 	char* argv[3] {"programName"_c, "init"_c, "filePath"_c};
 
-	parser.parse(argc, argv);
-
-	EXPECT_STREQ(parser.getCommandName().c_str(), "init");
-	EXPECT_STREQ(parser.getArguments().c_str(), "filePath");
+	auto expected = Cli::ParserResult{"init", "", "filePath"};
+	auto result = parser.parse(argc, argv);
+	ASSERT_THAT(result, Eq(expected));
 }
 
 TEST_F(CommandLineParserTests, parsesCommandWithFilter)
@@ -44,8 +58,9 @@ TEST_F(CommandLineParserTests, parsesCommandWithFilter)
 	int argc{3};
 	char* argv[3] {"ht"_c, "3"_c, "done"_c};
 
-	parser.parse(argc, argv);
-	EXPECT_STREQ(parser.getCommandName().c_str(), "done");
-	EXPECT_STREQ(parser.getArguments().c_str(), "");
-	EXPECT_STREQ(parser.getFilter().c_str(), "3");
+	auto expected = Cli::ParserResult{"done", "3", ""};
+	auto result = parser.parse(argc, argv);
+	ASSERT_THAT(result, Eq(expected));
 }
+
+} //namespace Tests

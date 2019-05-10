@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "HT/Cli/ParserResult.h"
+
 namespace Cli
 {
 
@@ -11,7 +13,7 @@ class CommandLineParser
 {
 public:
     CommandLineParser();
-    void parse(int argc, char** argv);
+    ParserResult parse(int argc, char** argv);
 
     std::string getCommandName() const;
     std::string getArguments() const;

@@ -105,10 +105,10 @@ Zadania dotyczące modułu HT
  *  OK Przekazywanie bazy danych do nowo utworzonego dao
 
 **[HT15]** Zaawansowany parser command line
- *  Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
- *  Pobieranie prostego polecenia
- *  Pobieranie polecenia z argumentami
- *  Pobieranie polecenia z filtrem
+ *  OK Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
+ *  OK Pobieranie prostego polecenia
+ *  OK Pobieranie polecenia z argumentami
+ *  OK Pobieranie polecenia z filtrem
  *  Opis działania całości w dokumentacji
 
 **[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
