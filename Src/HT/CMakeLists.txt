@@ -16,7 +16,7 @@ set(HT_src
     Dao/HabitDefinitionDao.cpp
     Entity/HabitDefinitionEntity.cpp
     Entity/HabitEntity.cpp
-    CommandLineParser.cpp)
+    Cli/CommandLineParser.cpp)
 
 # system dependent libraries
 if (UNIX)

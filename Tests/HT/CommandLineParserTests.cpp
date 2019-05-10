@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "HT/CommandLineParser.h"
+#include "HT/Cli/CommandLineParser.h"
 
 using namespace testing;
 

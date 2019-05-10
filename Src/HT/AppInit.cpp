@@ -11,7 +11,7 @@
 #include "HT/Actions/HelpAction.h"
 #include "HT/Actions/InitAction.h"
 #include "HT/Actions/ListAction.h"
-#include "HT/CommandLineParser.h"
+#include "HT/Cli/CommandLineParser.h"
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
 
