@@ -15,7 +15,7 @@ class DoneAction : public IAction
 public:
 	DoneAction();
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const std::string& habitId);
+	void execute(const Cli::ParserResult& parserResult);
 
 private:
 	std::unique_ptr<Dao::IHabitDao> habitDao;

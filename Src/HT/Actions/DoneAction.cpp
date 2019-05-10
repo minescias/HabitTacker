@@ -15,8 +15,9 @@ void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 }
 
-void DoneAction::execute(const std::string& habitId)
+void DoneAction::execute(const Cli::ParserResult& parserResult)
 {
+	auto habitId = parserResult.filter;
 	if (habitId.empty())
 		throw ActionError ("No filter specified");
 

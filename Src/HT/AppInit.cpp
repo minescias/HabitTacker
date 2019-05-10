@@ -16,7 +16,6 @@
 #include "HT/Dao/HabitDao.h"
 
 void executeListAction(Dao::DaoFactory* daoFactory);
-void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter);
 void executeDefaultAction(Dao::DaoFactory* daoFactory);
 
 void printVersion();
@@ -56,7 +55,7 @@ int appInit(int argc, char* argv[])
 		else if (command == "add")
 			executeAction<Actions::AddAction>(daoFactory.get(), parserResult);
 		else if (command == "done")
-			executeDoneAction(daoFactory.get(), parser.getFilter());
+			executeAction<Actions::DoneAction>(daoFactory.get(), parserResult);
 		else if (command == "list")
 			executeListAction(daoFactory.get());
 		else if (command == "help")
@@ -93,13 +92,6 @@ void executeListAction(Dao::DaoFactory* daoFactory)
 	auto action = Actions::ListAction();
 	action.setDaoFactory(daoFactory);
 	action.execute();
-}
-
-void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter)
-{
-	auto action = Actions::DoneAction();
-	action.setDaoFactory(daoFactory);
-	action.execute(filter);
 }
 
 void executeDefaultAction(Dao::DaoFactory* daoFactory)

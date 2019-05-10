@@ -20,6 +20,7 @@ public:
 	{
 		Dao::DaoFactory daoFactory;
 		habitDaoMock = new Mocks::HabitDaoMock();
+		pr.commandName = "done";
 		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
 
 		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
@@ -31,6 +32,7 @@ public:
 	Mocks::HabitDaoMock* habitDaoMock;
 	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
 	Actions::DoneAction doneAction;
+	Cli::ParserResult pr;
 };
 
 TEST_F(DoneActionTest, setsHabitAsDoneForToday)
@@ -42,6 +44,7 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	habit.setHabitId(1);
 	habit.setDate(today);
 
+
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
 
@@ -49,7 +52,8 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(false));
 
-	doneAction.execute("1");
+	pr.filter = "1";
+	doneAction.execute(pr);
 }
 
 TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
@@ -69,7 +73,8 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 
 	try
 	{
-		doneAction.execute("1");
+		pr.filter = "1";
+		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
 	catch(const ActionError& err)
@@ -86,7 +91,9 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 
 	try
 	{
-		doneAction.execute("2");
+
+		pr.filter = "2";
+		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
 	catch(const ActionError& err)
@@ -100,7 +107,7 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 {
 	try
 	{
-		doneAction.execute("");
+		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
 	catch(const ActionError& err)
