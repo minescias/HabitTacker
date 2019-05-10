@@ -15,7 +15,6 @@
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
 
-void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& addName);
 void executeListAction(Dao::DaoFactory* daoFactory);
 void executeDoneAction(Dao::DaoFactory* daoFactory, const std::string& filter);
 void executeDefaultAction(Dao::DaoFactory* daoFactory);
@@ -23,14 +22,22 @@ void executeDefaultAction(Dao::DaoFactory* daoFactory);
 void printVersion();
 std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db);
 
+template <typename T>
+void executeAction(Dao::DaoFactory* factory, Cli::ParserResult pr)
+{
+	auto action = T();
+	action.setDaoFactory(factory);
+	action.execute(pr);
+}
+
 int appInit(int argc, char* argv[])
 {
 	try
 	{
 		Cli::CommandLineParser parser;
-		parser.parse(argc, argv);
+		auto parserResult = parser.parse(argc, argv);
 
-		auto command = parser.getCommandName();
+		auto command = parserResult.commandName;
 
 		if (command == "init")
 		{
@@ -47,7 +54,7 @@ int appInit(int argc, char* argv[])
 		else if (command == "init")
 			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
-			executeAddAction(daoFactory.get(), parser.getArguments());
+			executeAction<Actions::AddAction>(daoFactory.get(), parserResult);
 		else if (command == "done")
 			executeDoneAction(daoFactory.get(), parser.getFilter());
 		else if (command == "list")
@@ -79,13 +86,6 @@ std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
 		return std::make_unique<Dao::HabitDao>(db);});
 
 	return daoFactory;
-}
-
-void executeAddAction(Dao::DaoFactory* daoFactory, const std::string& habitName)
-{
-	auto action = Actions::AddAction();
-	action.setDaoFactory(daoFactory);
-	action.execute(habitName);
 }
 
 void executeListAction(Dao::DaoFactory* daoFactory)

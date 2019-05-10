@@ -14,10 +14,10 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void AddAction::execute(const std::string& habitName)
+void AddAction::execute(const Cli::ParserResult& parserResult)
 {
 	auto habitDefinition = Entity::HabitDefinitionEntity();
-	habitDefinition.setName(habitName);
+	habitDefinition.setName(parserResult.argument);
 
 	dao->saveDefinition(habitDefinition);
 }

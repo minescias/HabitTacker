@@ -14,8 +14,7 @@ class AddAction : public IAction
 public:
 	AddAction();
 	virtual void setDaoFactory(Dao::DaoFactory* daoFactory);
-
-	void execute(const std::string& habitName);
+	virtual void execute(const Cli::ParserResult& parserResult);
 
 private:
 	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
