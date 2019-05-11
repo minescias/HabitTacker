@@ -84,8 +84,8 @@ Zadania dotyczące modułu HT
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
 **[HT13]** Interfejs akcji
- *  Uspójnione przekazywanie dao i innych danych wymaganych do działania
- *  Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
+ *  OK Uspójnione przekazywanie dao i innych danych wymaganych do działania
+ *  OK Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
  *  Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
  *  Version tak, żeby cała obsługa akcji była spójna
  *  Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii

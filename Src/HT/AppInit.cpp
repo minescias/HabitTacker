@@ -11,12 +11,9 @@
 #include "HT/Actions/HelpAction.h"
 #include "HT/Actions/InitAction.h"
 #include "HT/Actions/ListAction.h"
+#include "HT/AppInit/Vesrion.h"
 #include "HT/Cli/CommandLineParser.h"
-#include "HT/Dao/HabitDefinitionDao.h"
-#include "HT/Dao/HabitDao.h"
-
-void printVersion();
-std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db);
+#include "HT/AppInit/DaoFactoryInitializer.h"
 
 template <typename T>
 void executeAction(Dao::DaoFactory* factory, Cli::ParserResult pr)
@@ -28,13 +25,25 @@ void executeAction(Dao::DaoFactory* factory, Cli::ParserResult pr)
 
 int appInit(int argc, char* argv[])
 {
+	Cli::CommandLineParser parser;
+	auto parserResult = Cli::CommandLineParser().parse(argc, argv);
+	auto command = parserResult.commandName;
+
+	// simple commands
+	if (command == "help")
+	{
+		Actions::HelpAction().execute();
+		return 0;
+	}
+
+	if (command == "version")
+	{
+		printVersionNumber();
+		return 0;
+	}
+
 	try
 	{
-		Cli::CommandLineParser parser;
-		auto parserResult = parser.parse(argc, argv);
-
-		auto command = parserResult.commandName;
-
 		if (command == "init")
 		{
 			Actions::InitAction().execute(parser.getArguments());
@@ -55,10 +64,6 @@ int appInit(int argc, char* argv[])
 			executeAction<Actions::DoneAction>(daoFactory.get(), parserResult);
 		else if (command == "list")
 			executeAction<Actions::ListAction>(daoFactory.get(), parserResult);
-		else if (command == "help")
-			Actions::HelpAction().execute();
-		else if (command == "version")
-			printVersion();
 		else
 			std::cout << "Unknown command\n";
 	}
@@ -68,23 +73,4 @@ int appInit(int argc, char* argv[])
 	}
 
 	return 0;
-}
-
-std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
-{
-	auto daoFactory = std::make_unique<Dao::DaoFactory>();
-	daoFactory->setDatabase(db);
-
-	daoFactory->registerDao("habitDefinition", [](Db::Database* db){
-		return std::make_unique<Dao::HabitDefinitionDao>(db);});
-
-	daoFactory->registerDao("habit", [](Db::Database* db){
-		return std::make_unique<Dao::HabitDao>(db);});
-
-	return daoFactory;
-}
-
-void printVersion()
-{
-	std::cout << "Habit Tracker V0.1\n";
 }

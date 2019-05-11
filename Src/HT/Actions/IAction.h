@@ -11,9 +11,7 @@ class IAction
 {
 public:
 	virtual void setDaoFactory(Dao::DaoFactory* daoFactory) = 0;
-
-	// temporary a non pure virtual to be able to implement it one class
-	virtual void execute(const Cli::ParserResult& parserResult){};
+	virtual void execute(const Cli::ParserResult& parserResult) = 0;
 
 	virtual ~IAction(){}
 };
