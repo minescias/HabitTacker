@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(Core)
 
+set(Datetime_src
+    DateTime/DateTime.cpp)
+
 set(Database_src
     Database/Database.cpp
     Database/Dataset.cpp
@@ -18,6 +21,7 @@ set(Utils_src
 
 
 add_library(${PROJECT_NAME}
+    ${Datetime_src}
     ${Database_src}
     ${Utils_src})
 

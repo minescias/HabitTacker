@@ -39,10 +39,9 @@ Co trzeba dodać/poprawić w Core programu
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
 **[C03]** Dodanie DateTime do Core programu
- *  typedef na time_t
- *  funkcja do pobierania aktualnej daty
- *  funkcja pozwalająca tworzyć datę w jakiś bardziej czytelny sposób niż jest
-    to robione aktualnie
+ *  OK typedef na time_t
+ *  OK klasa datetime obsługująca datę i czas
+ *  funkja pobierająca dzisiejszą datę
 
 **[C04]** Poprawki po ostatnich zmianach w module bazy danych.
     Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
@@ -52,7 +51,7 @@ Co trzeba dodać/poprawić w Core programu
 **[C05]** Funkcja do składania tekstu na wzór boost::format. Mogłaby
     wykorzystywać string literals ()_xx
 
-**[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędy w teście
+**[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
@@ -105,7 +104,7 @@ Zadania dotyczące modułu HT
  *  OK Przekazywanie bazy danych do nowo utworzonego dao
 
 **[HT15]** Zaawansowany parser command line
- *  OK Klasa wyniku działania parsera - filtr, komenda i argumenty dodatkowe
+ *  OK Klasa wyniku działania parsera - filtr , komenda i argumenty dodatkowe
  *  OK Pobieranie prostego polecenia
  *  OK Pobieranie polecenia z argumentami
  *  OK Pobieranie polecenia z filtrem
@@ -122,7 +121,7 @@ Zadania dotyczące modułu HT
 **[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
     Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
 
-**[HT99]** Refaktor - zadanie zbiorcze
+**[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)
@@ -133,6 +132,7 @@ Zadania dotyczące modułu HT
     handlera do nowo utworzonej bazy danych (ale to będzie zajebiste :))
  *  Namespace tests dla wszystkich testów
  *  ActionError powinno być w namespace Actions
+ *  AddAction pozwala na przekazanie pustej nazwy.
 
 Tools
 *******************************************************************************

@@ -12,6 +12,7 @@ set(CoreTests_src
     main.cpp
     Database/DatasetTests.cpp
     Database/QueryTests.cpp
+    DateTime/DateTimeTests.cpp
     Utils/Strings/CaseTests.cpp
     Utils/Strings/CompareTests.cpp
     Utils/Strings/ReplaceTests.cpp)
