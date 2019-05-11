@@ -5,23 +5,17 @@
 
 using namespace testing;
 
-class LambdaTests : public testing::Test
-{
-public:
-	LambdaTests(){};
-};
-
 // unique_ptr
 using IntCreator = std::function<std::unique_ptr<int>()>;
 
-auto someFuntion(const IntCreator intCreator)
+auto someFunction(const IntCreator intCreator)
 {
 	return intCreator();
 }
 
 TEST(LambdaUniqiePtrTests, usingLambdaAsParameter)
 {
-	auto xx = someFuntion([](){return std::make_unique<int>(5);});
+	auto xx = someFunction([](){return std::make_unique<int>(5);});
 
 	ASSERT_THAT(*xx, Eq(5));
 }
@@ -48,14 +42,14 @@ TEST(LambdaUniqiePtrTests, usingLambdaAsParameter)
 // shared_ptr
 using IntCreatorSh = std::function<std::shared_ptr<int>()>;
 
-auto someFuntionSh(const IntCreatorSh intCreator)
+auto someFunctionSh(const IntCreatorSh intCreator)
 {
 	return intCreator();
 }
 
 TEST(LambdaSharedPtrTests, usingLambdaAsParameter)
 {
-	auto xx = someFuntionSh([](){return std::make_shared<int>(5);});
+	auto xx = someFunctionSh([](){return std::make_shared<int>(5);});
 
 	ASSERT_THAT(*xx, Eq(5));
 }
@@ -64,7 +58,7 @@ TEST(LambdaSharedPtrTests, usingLambdaThatCapturesPointerAsParameter)
 {
 	auto intPtr = std::make_shared<int>(2);
 
-	auto xx = someFuntionSh([intPtr](){return intPtr;});
+	auto xx = someFunctionSh([intPtr](){return intPtr;});
 
 	ASSERT_THAT(*xx, Eq(2));
 }

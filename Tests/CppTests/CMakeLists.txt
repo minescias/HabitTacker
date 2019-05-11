@@ -10,7 +10,8 @@ enable_testing()
 
 set(CppTests_src
     main.cpp
-    LambdaTests.cpp)
+    LambdaTests.cpp
+    RegexTests.cpp)
 
 # system dependent libraries
 if (UNIX)
