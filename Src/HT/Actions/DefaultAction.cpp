@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+#include <Core/DateTime/DateTime.h>
+
 #include "HT/Actions/ActionError.h"
 
 namespace Actions
@@ -19,9 +21,21 @@ void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void DefaultAction::execute(time_t date)
+void DefaultAction::execute(const Cli::ParserResult& parserResult)
 {
 	auto habitDefinitions = definitionDao->getDefinitions();
+
+	Dt::Timestamp date;
+	if (parserResult.argument.empty())
+	{
+		date = time(nullptr);
+		auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
+		date -= (date % secondsInDay);
+	}
+	else
+	{
+		date = Dt::DateTime{parserResult.argument}.unixTime();
+	}
 
 	if (habitDefinitions.empty())
 		throw ActionError ("No habits found, try to add some using 'ht add'\n");
@@ -56,7 +70,7 @@ void DefaultAction::printHeader(time_t date) const
 std::string DefaultAction::getWeekDaysHeaderEndingWithDate(time_t date) const
 {
 	std::string result;
-	std::vector<std::string> weekDays{"Sa", "Mo", "Tu", "We", "Th", "Fr", "Su"};
+	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
 
 	auto localDate = std::localtime(&date); // thread unsafe
 	const auto firstDay = (localDate->tm_wday + 1) % 7;

@@ -15,8 +15,6 @@
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
 
-void executeDefaultAction(Dao::DaoFactory* daoFactory);
-
 void printVersion();
 std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db);
 
@@ -48,7 +46,7 @@ int appInit(int argc, char* argv[])
 		auto daoFactory = initDaoFactory(&database);
 
 		if (command == "")
-			executeDefaultAction(daoFactory.get());
+			executeAction<Actions::DefaultAction>(daoFactory.get(), parserResult);
 		else if (command == "init")
 			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
@@ -84,17 +82,6 @@ std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
 		return std::make_unique<Dao::HabitDao>(db);});
 
 	return daoFactory;
-}
-
-void executeDefaultAction(Dao::DaoFactory* daoFactory)
-{
-	auto today = time(nullptr);
-	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-	today -= (today % secondsInDay);
-
-	auto action = Actions::DefaultAction();
-	action.setDaoFactory(daoFactory);
-	action.execute(today);
 }
 
 void printVersion()

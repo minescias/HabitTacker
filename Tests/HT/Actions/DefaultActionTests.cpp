@@ -92,7 +92,7 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 		.WillOnce(Return(ByMove(getHabits())));
 
 	auto expectedOutput =
-		"\n  id name                                     Mo Tu We Th Fr Su Sa Mo Tu We Th Fr Su Sa"
+		"\n  id name                                     Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su"
 		"\n---- ---------------------------------------- -----------------------------------------"
 		"\n   1 Pierwszy                                 __ __ __ __ __ __ __ __ __ __ __ XX __ XX"
 		"\n   2 Drugi                                    __ XX __ XX __ __ __ __ __ __ __ XX XX __"
@@ -100,7 +100,7 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 	;
 
 	internal::CaptureStdout();
-	defaultAction.execute(day);
+	defaultAction.execute(Cli::ParserResult("", "", "05-05-2019"));
 	auto output = testing::internal::GetCapturedStdout();
 
 	ASSERT_STREQ(output.c_str(), expectedOutput);
@@ -113,15 +113,28 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 	try
 	{
-		defaultAction.execute(0);
+		defaultAction.execute(Cli::ParserResult("", "", "05-05-2019"));
 		FAIL() << "Expected ActionError";
 	}
 	catch(const ActionError& err)
 	{
-		auto expected =
-			"No habits found, try to add some using 'ht add'\n";
+		auto expected = "No habits found, try to add some using 'ht add'\n";
 		ASSERT_STREQ(expected, err.what());
 	}
+}
+
+TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
+{
+	auto today = time(nullptr);
+	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
+	today -= (today % secondsInDay);
+
+	EXPECT_CALL(*definitionDaoMock, getDefinitions())
+		.WillOnce(Return(ByMove(getHabitDefinitions())));
+
+	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(today)).Times(1);
+
+	defaultAction.execute(Cli::ParserResult("", "", ""));
 }
 
 } // namespace Tests
