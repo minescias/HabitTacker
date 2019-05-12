@@ -140,7 +140,7 @@ Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
 konfiguracji tychże
 
 **[T01]** Generator plików
- *  pliki \*.cpp i \*.h
+ *  OK pliki \*.cpp i \*.h
  *  pliki CMakeLists.txt
 
 **[T02]** Generator tabel do systemu rst/sphinx

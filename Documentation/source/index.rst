@@ -17,6 +17,7 @@ HT Docs's
    DateTime
    Cpp
    Tests
+   Tools
    Notes
    Tasks
 

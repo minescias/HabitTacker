@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import sys
+
+from detail.genCpp import generateClass
+from detail.genCpp import generateFile
+from detail.genCpp import generateTest
+
+if len(sys.argv) < 2:
+	sys.exit("Missing arguments")
+
+if sys.argv[1] == "help":
+	print("Generator od project files. Availiable options:"
+		"\n - help - prints this message"
+		"\n - class <name> - generates c++ (.h and .cpp) class with given name"
+		"\n - file <name> - generates c++ files (.h and .cpp)"
+		"\n - test <name> - generates c++ test (.cpp only)"
+		"\n")
+
+if len(sys.argv) < 3:
+	sys.exit("Missing arguments")
+
+if sys.argv[1] == "class":
+	generateClass(sys.argv[2])
+	sys.exit()
+
+if sys.argv[1] == "file":
+	generateFile(sys.argv[2])
+	sys.exit()
+
+if sys.argv[1] == "test":
+	generateTest(sys.argv[2])
+	sys.exit()
+
+sys.exit("Unknown command")
+

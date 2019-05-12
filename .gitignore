@@ -8,3 +8,4 @@ Libraries
 
 #files
 compile_commands.json
+*.pyc
