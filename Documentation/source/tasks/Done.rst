@@ -8,6 +8,15 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
     ostatnich zmianach w Windowsie
 
+Core
+*******************************************************************************
+Co trzeba dodać/poprawić w Core programu
+
+**[C03]** Dodanie DateTime do Core programu
+ *  OK typedef na time_t
+ *  OK klasa datetime obsługująca datę i czas
+ *  OK funkja pobierająca dzisiejszą datę
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <Core/DateTime/DateTime.h>
+#include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Actions/ActionError.h"
 
@@ -27,15 +28,9 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 
 	Dt::Timestamp date;
 	if (parserResult.argument.empty())
-	{
-		date = time(nullptr);
-		auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-		date -= (date % secondsInDay);
-	}
+		date = Dt::getCurrentDate();
 	else
-	{
 		date = Dt::DateTime{parserResult.argument}.unixTime();
-	}
 
 	if (habitDefinitions.empty())
 		throw ActionError ("No habits found, try to add some using 'ht add'\n");
@@ -57,7 +52,7 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 	std::cout << "\n";
 }
 
-void DefaultAction::printHeader(time_t date) const
+void DefaultAction::printHeader(Dt::Timestamp date) const
 {
 	std::cout <<
 		"\n  id name                                    "
@@ -67,7 +62,7 @@ void DefaultAction::printHeader(time_t date) const
 	;
 }
 
-std::string DefaultAction::getWeekDaysHeaderEndingWithDate(time_t date) const
+std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) const
 {
 	std::string result;
 	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
@@ -89,7 +84,7 @@ void DefaultAction::prepareCompletionTable(
 		completionTable.emplace(definition->getId(), std::vector<bool>(14, false));
 }
 
-void DefaultAction::fillCompletionTable(time_t date)
+void DefaultAction::fillCompletionTable(Dt::Timestamp date)
 {
 	const auto printedDays{14};
 	const auto secondsInDay{86400}; // 86400 = 24 * 60 * 60

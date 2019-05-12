@@ -1,5 +1,7 @@
 #include "HT/Actions/DoneAction.h"
 
+#include "Core/DateTime/DateTimeGetter.h"
+
 #include "HT/Actions/ActionError.h"
 
 namespace Actions
@@ -25,12 +27,9 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	if (!definitionDao->getDefinition(definitionId))
 		throw ActionError ("Habit " + habitId + " does not exist");
 
-	auto today = time(nullptr);
-	today -= (today % 86400); // 86400 = 24 * 60 * 60
-
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(definitionId);
-	habit.setDate(today);
+	habit.setDate(Dt::getCurrentDate());
 
 	if (habitDao->checkIfHabitIsSetForDay(habit))
 		throw ActionError("Habit " + habitId + " was already set for this day");

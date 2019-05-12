@@ -1,10 +1,11 @@
 #include <gmock/gmock.h>
 
-#include <ctime>
 #include <filesystem>
 #include <memory>
 #include <iostream>
 #include <iomanip>
+
+#include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Dao/DatabaseCreator.h"
 #include "HT/Dao/HabitDefinitionDao.h"
@@ -41,7 +42,7 @@ public:
 		definitionDao->saveDefinition(definition);
 	}
 
-	auto addHabit(int habitId, time_t date)
+	auto addHabit(int habitId, Dt::Timestamp date)
 	{
 		auto habit = Entity::HabitEntity();
 		habit.setHabitId(habitId);
@@ -60,12 +61,9 @@ TEST_F(HabitDaoTests, readAndWriteTest)
 {
 	addDefinition("Some definition");
 
-	auto today = time(nullptr);
-	today -= (today % 86400); // 86400 = 24 * 60 * 60
-
 	auto writtenHabit = Entity::HabitEntity();
 	writtenHabit.setHabitId(1);
-	writtenHabit.setDate(today);
+	writtenHabit.setDate(Dt::getCurrentDate());
 
 	habitDao->saveHabit(writtenHabit);
 	auto readHabits = habitDao->getHabitsById(1);
@@ -77,12 +75,10 @@ TEST_F(HabitDaoTests, readAndWriteTest)
 TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
 {
 	addDefinition("Some definition");
-	auto today = time(nullptr);
-	today -= (today % 86400); // 86400 = 24 * 60 * 60
 
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
-	habit.setDate(today);
+	habit.setDate(Dt::getCurrentDate());
 
 	ASSERT_FALSE(habitDao->checkIfHabitIsSetForDay(habit));
 	habitDao->saveHabit(habit);
@@ -91,9 +87,8 @@ TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
 
 TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 {
-	auto today = time(nullptr);
+	auto today = Dt::getCurrentDate();
 	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-	today -= (today % secondsInDay);
 
 	addDefinition("Some definition");
 	addDefinition("Some definition2");

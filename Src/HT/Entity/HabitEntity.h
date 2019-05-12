@@ -1,10 +1,9 @@
 #ifndef __HABIT_ENTITY_H
 #define __HABIT_ENTITY_H
 
-#include <ctime>
 #include <memory>
 
-using Date = time_t;
+#include <Core/DateTime/Timestamp.h>
 
 namespace Entity
 {
@@ -17,12 +16,12 @@ public:
 	int getHabitId() const;
 	void setHabitId(int id);
 
-	Date getDate() const;
-	void setDate(const Date& date);
+	Dt::Timestamp getDate() const;
+	void setDate(const Dt::Timestamp& date);
 
 private:
 	int habitId;
-	Date date;
+	Dt::Timestamp date;
 };
 
 bool operator==(const HabitEntity &a, const HabitEntity &b);

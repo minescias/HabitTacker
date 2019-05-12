@@ -1,11 +1,10 @@
 #ifndef __I_HABIT_DAO_H
 #define __I_HABIT_DAO_H
 
-#include "HT/Entity/HabitEntity.h"
-
 #include <vector>
 
 #include "HT/Dao/UnknownDao.h"
+#include "HT/Entity/HabitEntity.h"
 
 namespace Dao
 {
@@ -16,7 +15,7 @@ public:
 	virtual void saveHabit(const Entity::HabitEntity& habit) = 0;
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id) = 0;
 	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) = 0;
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(time_t date) = 0;
+	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(Dt::Timestamp date) = 0;
 
 	virtual ~IHabitDao(){};
 };

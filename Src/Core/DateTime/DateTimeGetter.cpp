@@ -1,7 +1,5 @@
 #include "Core/DateTime/DateTimeGetter.h"
 
-#include <ctime>
-
 namespace Dt
 {
 

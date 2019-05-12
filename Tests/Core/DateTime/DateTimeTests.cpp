@@ -3,16 +3,6 @@
 #include "Core/DateTime/DateTime.h"
 #include "Core/Utils/Exceptions/RuntimeError.h"
 
-/*
-	typedef daty
-	const formatu daty
-
-	lista funkcjonalności:
-	* OK pobieranie daty z time_t
-	* OK pobieranie daty z stringa
-	* walidacja poprawności formatu daty i wartości liczb
-*/
-
 namespace Tests
 {
 
@@ -21,14 +11,14 @@ using namespace testing;
 TEST(DateTimeTest, createsDateTimeFromString)
 {
 	auto date = Dt::DateTime{"10-05-2019"};
-	auto unixTime = Dt::Timestamp{1557446400}; // 1557446400
+	auto unixTime = Dt::Timestamp{1557446400};
 
 	ASSERT_THAT(date.unixTime(), Eq(unixTime));
 }
 
 TEST(DateTimeTests, printsDate)
 {
-	auto date = Dt::DateTime{1557446400}; // 1557446400
+	auto date = Dt::DateTime{1557446400};
 	ASSERT_STREQ(date.dateString().c_str(), "10-05-2019");
 }
 

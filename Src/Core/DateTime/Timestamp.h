@@ -6,7 +6,7 @@
 namespace Dt
 {
 
-using Timestamp = time_t;
+using Timestamp = std::time_t;
 
 } // namespace Dt
 

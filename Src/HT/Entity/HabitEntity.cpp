@@ -18,12 +18,12 @@ void HabitEntity::setHabitId(int id)
 	habitId = id;
 }
 
-Date HabitEntity::getDate() const
+Dt::Timestamp HabitEntity::getDate() const
 {
 	return date;
 }
 
-void HabitEntity::setDate(const Date& date)
+void HabitEntity::setDate(const Dt::Timestamp& date)
 {
 	this->date = date;
 }

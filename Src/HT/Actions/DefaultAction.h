@@ -20,10 +20,10 @@ public:
 	void execute(const Cli::ParserResult& parserResult);
 
 private:
-	void printHeader(time_t date) const;
-	std::string getWeekDaysHeaderEndingWithDate(time_t date) const;
+	void printHeader(Dt::Timestamp date) const;
+	std::string getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) const;
 	std::string getCompletionString(int habitId);
-	void fillCompletionTable(time_t date);
+	void fillCompletionTable(Dt::Timestamp date);
 
 	void prepareCompletionTable(
 		const std::vector<Entity::HabitDefinitionEntityPtr>& definitions);

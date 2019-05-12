@@ -1,5 +1,7 @@
 #include <gmock/gmock.h>
 
+#include <Core/DateTime/DateTimeGetter.h>
+
 #include "HT/Actions/DoneAction.h"
 #include "HT/Actions/ActionError.h"
 
@@ -37,13 +39,9 @@ public:
 
 TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 {
-	auto today = time(nullptr);
-	today -= (today % 86400); // 86400 = 24 * 60 * 60
-
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
-	habit.setDate(today);
-
+	habit.setDate(Dt::getCurrentDate());
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
@@ -58,12 +56,9 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 
 TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 {
-	auto today = time(nullptr);
-	today -= (today % 86400); // 86400 = 24 * 60 * 60
-
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
-	habit.setDate(today);
+	habit.setDate(Dt::getCurrentDate());
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
@@ -91,7 +86,6 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 
 	try
 	{
-
 		pr.filter = "2";
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";

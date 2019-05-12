@@ -14,7 +14,7 @@ public:
 	MOCK_METHOD1(saveHabit, void(const Entity::HabitEntity& habit));
 	MOCK_METHOD1(getHabitsById, std::vector<Entity::HabitEntityPtr> (int id));
 	MOCK_METHOD1(checkIfHabitIsSetForDay, bool(const Entity::HabitEntity& habit));
-	MOCK_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(time_t date));
+	MOCK_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(Dt::Timestamp date));
 };
 
 } // namespace Mocks

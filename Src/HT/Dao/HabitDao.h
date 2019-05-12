@@ -16,7 +16,7 @@ public:
 	virtual void saveHabit(const Entity::HabitEntity& habit);
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id);
 	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit);
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(time_t date);
+	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(Dt::Timestamp date);
 
 private:
 	Db::Database* db;

@@ -1,12 +1,13 @@
 #include <gmock/gmock.h>
 
-#include "Mocks/HT/Dao/HabitDaoMock.h"
-#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/ActionError.h"
 #include "HT/Dao/DaoFactory.h"
 
+#include "Mocks/HT/Dao/HabitDaoMock.h"
+#include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Tests/Tools/DaoMockCreator.h"
 
 using namespace testing;
@@ -48,7 +49,7 @@ public:
 		return habits;
 	}
 
-	auto getHabit(int habitId, time_t date)
+	auto getHabit(int habitId, Dt::Timestamp date)
 	{
 		auto entity = std::make_unique<Entity::HabitEntity>();
 
@@ -61,7 +62,7 @@ public:
 	std::vector<Entity::HabitEntityPtr> getHabits()
 	{
 		auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-		auto day = time_t{1557014400}; // Niedziela/Sunday
+		auto day = Dt::Timestamp{1557014400}; // Niedziela/Sunday
 
 		std::vector<Entity::HabitEntityPtr> habits;
 		habits.emplace_back(getHabit(1, day));
@@ -83,7 +84,7 @@ public:
 
 TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 {
-	auto day = time_t{1557014400}; // Niedziela/Sunday
+	auto day = Dt::Timestamp{1557014400}; // Niedziela/Sunday
 
 	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
@@ -125,14 +126,10 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
 {
-	auto today = time(nullptr);
-	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-	today -= (today % secondsInDay);
-
 	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
 
-	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(today)).Times(1);
+	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(Dt::getCurrentDate()));
 
 	defaultAction.execute(Cli::ParserResult("", "", ""));
 }

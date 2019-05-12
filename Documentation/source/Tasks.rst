@@ -38,11 +38,6 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
-**[C03]** Dodanie DateTime do Core programu
- *  OK typedef na time_t
- *  OK klasa datetime obsługująca datę i czas
- *  funkja pobierająca dzisiejszą datę
-
 **[C04]** Poprawki po ostatnich zmianach w module bazy danych.
     Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
     się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
@@ -54,6 +49,11 @@ Co trzeba dodać/poprawić w Core programu
 **[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
+
+**[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
+ *  Możliwość dodawania/odejmowania dni od daty
+ *  Pobieranie dnia tygodnia z daty
+ *  Klasa Duration do reprezentowania różnicy między dwoma datami
 
 Docs
 *******************************************************************************

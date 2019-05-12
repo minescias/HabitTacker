@@ -27,3 +27,17 @@ Typy danych, które musi uwzględniać nowa klasa dataset
  *  typy podstawowe - int, float, bool
  *  std::string
  *  time_t do zapisu i odczytu daty
+
+**Porządki z datami**
+*******************************************************************************
+*   DefaultActionTest.cpp - tworzenie daty starym sposobem i tworzenie daty na
+    poszczególne dni przez odejmowanie ilości sekund w dniach
+*   Podobnie w pliku HabitDaoTests.cpp
+*   W DefaultAction::getWeekDaysHeaderEndingWithDate pobieranie dnia tygodnia
+    za pomocą time_t. Dodać odpowiednią metodę do DateTime i zamienić
+*   W DefaultAction::fillCompletionTable odejmowanie od siebie unixowych dat
+    i dzielenie tego przez ilość sekund w dniu. Dodać nową klasę Duration,
+    która będzie wynikiem odejmowania dwóch dat i pobieranie różnicy w dniach
+    z tej klasy
+*   HabitDao::getHabitsFromLastTwoWeeks - znowu różnica w dniach prez
+    odejmowanie dat unixowych

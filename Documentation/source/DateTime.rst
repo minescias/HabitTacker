@@ -2,6 +2,26 @@ Data i czas
 ===============================================================================
 Różne notatki dotyczące przechowywania daty i czasu w bazie danych i kodzie C++
 
+Dt::Timestamp
+*******************************************************************************
+Jest to nic innego jak alias na std::time_t. Jest używany do przechowywania
+daty w encjach oraz do przekazywania daty/czasu między funkcjmi, do zapytań
+itp.
+
+Klasa Dt::DateTime
+*******************************************************************************
+Klasa reprezentująca datę i czas. Nie powinna być używana do przechowywania dat
+(do tego służy Dt::Timestamp). Klasa powinna być używana raczej do operacji na
+datach takich jak tworzenie daty z stringa, konwersja do stringa.
+
+W przyszłości klasa zostanie rozszerzona o odejmowanie, dodawanie itp.
+
+Funkcja Dt::getCurrentDate()
+*******************************************************************************
+Zwraca aktualną datę (lokalną z komputera na którym jest uruchomiony program)
+a formacie unixowym (Dt::Timestamp) zaokrągloną do jednego dnia.
+
+
 Reprezentacja daty w bazie danych
 *******************************************************************************
 Data będzie przechowywana w kolumnach o typie **Date** jako czas unixowy
