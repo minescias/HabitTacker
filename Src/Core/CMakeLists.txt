@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.0.2)
 project(Core)
 
 set(Datetime_src
-    DateTime/DateTime.cpp)
+    DateTime/DateTime.cpp
+    DateTime/DateTimeGetter.cpp)
 
 set(Database_src
     Database/Database.cpp
@@ -18,7 +19,6 @@ set(Utils_src
     Utils/Strings/Compare.cpp
     Utils/Strings/Replace.cpp
     Utils/Types/TypeNames.cpp)
-
 
 add_library(${PROJECT_NAME}
     ${Datetime_src}
