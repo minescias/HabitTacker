@@ -82,6 +82,11 @@ DateTime& DateTime::addDays(int nrOfDays)
 	return *this;
 }
 
+Duration DateTime::operator-(const DateTime& rhs)
+{
+	return Duration{timestamp - rhs.timestamp};
+}
+
 bool DateTime::validateDateStringFormat(const std::string& dateString) const
 {
 	auto regex = std::regex(R"r(\d{2}-\d{2}-\d{4})r");

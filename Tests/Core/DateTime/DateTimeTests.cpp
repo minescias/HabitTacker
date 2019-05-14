@@ -37,6 +37,12 @@ TEST(DateTimeTests, getDayOfWeek)
 	ASSERT_THAT(Dt::DateTime("15-05-2019").weekDay(), Eq(3));
 }
 
+TEST(DateTimeTests, subtractionOfTwoDatesRerurnsDuration)
+{
+	auto duration = Dt::DateTime{"20-05-2019"} - Dt::DateTime{"10-05-2019"};
+	ASSERT_THAT(duration.getDays(), Eq(10));
+}
+
 TEST(DateTimeTests, throwRuntimeErrorOnBadDateFormat)
 {
 	try

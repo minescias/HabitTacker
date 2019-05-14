@@ -14,13 +14,23 @@ Klasa reprezentująca datę i czas. Nie powinna być używana do przechowywania 
 (do tego służy Dt::Timestamp). Klasa powinna być używana raczej do operacji na
 datach takich jak tworzenie daty z stringa, konwersja do stringa.
 
-W przyszłości klasa zostanie rozszerzona o odejmowanie, dodawanie itp.
+Odejmowanie dwóch klas typu Dt::DateTime skutkuje powstaniem klasy Dt::Duration
+
+Dt::Duration
+*******************************************************************************
+Klasa reprezentuje różnicę w czasie między dwoma datami. Pozwala na pobranie
+liczby dni.
+
+Klasa docelowo będzie używana tam, gdzie będzie potrzebna różnica między dwoma
+czasami.
+
+Wszystkie metody klasy będą zwracały wartość całkowitą zaokrągloną w dół. Np.
+przy różnicy 5,5 dnia funkcja getDays zwróci 5
 
 Funkcja Dt::getCurrentDate()
 *******************************************************************************
 Zwraca aktualną datę (lokalną z komputera na którym jest uruchomiony program)
 a formacie unixowym (Dt::Timestamp) zaokrągloną do jednego dnia.
-
 
 Reprezentacja daty w bazie danych
 *******************************************************************************

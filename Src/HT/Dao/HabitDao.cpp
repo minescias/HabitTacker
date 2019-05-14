@@ -3,6 +3,7 @@
 #include <Core/Database/Database.h>
 #include <Core/Database/Dataset.h>
 #include <Core/Database/Query.h>
+#include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/Timestamp.h>
 
 namespace Dao
@@ -88,10 +89,7 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit)
 std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
 	Dt::Timestamp date)
 {
-	auto result = std::vector<HabitEntityPtr>();
-	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-
-	std::string sql =
+	auto sql =
 		"\n select"
 		"\n 	h.habit_id, "
 		"\n 	h.date"
@@ -101,12 +99,12 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
 		"\n 	h.date between :date_from and :date_to";
 
 	Db::Query query(db, sql);
-	query.setParam(":date_from", date - secondsInDay * 13);
+	query.setParam(":date_from", Dt::DateTime{date}.addDays(-13).unixTime());
 	query.setParam(":date_to", date);
 	query.execute();
 
 	auto queryResult = query.execute();
-
+	auto result = std::vector<HabitEntityPtr>();
 	while (queryResult->next())
 	{
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());

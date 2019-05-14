@@ -86,13 +86,11 @@ void DefaultAction::prepareCompletionTable(
 void DefaultAction::fillCompletionTable(Dt::Timestamp date)
 {
 	const auto printedDays{14};
-	const auto secondsInDay{86400}; // 86400 = 24 * 60 * 60
-
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
 
 	for (auto const& habit: habits)
 	{
-		int daysBack = (date - habit->getDate())/secondsInDay;
+		auto daysBack = Dt::Duration{date - habit->getDate()}.getDays();
 		completionTable.at(habit->getHabitId())[printedDays - daysBack - 1] = true;
 	}
 }

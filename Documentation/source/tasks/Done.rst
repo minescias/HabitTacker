@@ -17,6 +17,11 @@ Co trzeba dodać/poprawić w Core programu
  *  OK klasa datetime obsługująca datę i czas
  *  OK funkja pobierająca dzisiejszą datę
 
+**[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
+ *  OK Możliwość dodawania/odejmowania dni od daty
+ *  OK Pobieranie dnia tygodnia z daty
+ *  OK Klasa Duration do reprezentowania różnicy między dwoma datami
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

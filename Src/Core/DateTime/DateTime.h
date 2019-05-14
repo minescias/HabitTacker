@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Core/DateTime/Timestamp.h"
+#include "Core/DateTime/Duration.h"
 
 namespace Dt
 {
@@ -19,6 +20,8 @@ public:
 	int weekDay() const;
 
 	DateTime& addDays(int nrOfDays);
+
+	Duration operator-(const DateTime& rhs);
 
 private:
 	bool validateDateStringFormat(const std::string& dateString) const;

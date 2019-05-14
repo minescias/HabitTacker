@@ -28,6 +28,8 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
     Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
     tego wyciągnąć
 
+**[B08]** Włączenie wszystkic warningów w gcc tak jak są domyślne w MSVC
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -49,11 +51,6 @@ Co trzeba dodać/poprawić w Core programu
 **[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
-
-**[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
- *  OK Możliwość dodawania/odejmowania dni od daty
- *  OK Pobieranie dnia tygodnia z daty
- *  Klasa Duration do reprezentowania różnicy między dwoma datami
 
 Docs
 *******************************************************************************

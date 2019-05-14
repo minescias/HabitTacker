@@ -3,7 +3,8 @@ project(Core)
 
 set(Datetime_src
     DateTime/DateTime.cpp
-    DateTime/DateTimeGetter.cpp)
+    DateTime/DateTimeGetter.cpp
+    DateTime/Duration.cpp)
 
 set(Database_src
     Database/Database.cpp
