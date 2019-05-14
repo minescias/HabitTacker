@@ -70,6 +70,12 @@ std::string DateTime::dateString() const
 	return output;
 }
 
+int DateTime::weekDay() const
+{
+	// nr dnia tygodnia odpowiada temu z std::tm
+	return std::localtime(&timestamp)->tm_wday; // thread unsafe
+}
+
 DateTime& DateTime::addDays(int nrOfDays)
 {
 	timestamp += secondsInDay * nrOfDays;

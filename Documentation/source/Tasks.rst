@@ -52,7 +52,7 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
  *  OK Możliwość dodawania/odejmowania dni od daty
- *  Pobieranie dnia tygodnia z daty
+ *  OK Pobieranie dnia tygodnia z daty
  *  Klasa Duration do reprezentowania różnicy między dwoma datami
 
 Docs

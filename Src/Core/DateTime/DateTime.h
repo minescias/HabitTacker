@@ -16,6 +16,7 @@ public:
 
 	Timestamp unixTime() const;
 	std::string dateString() const;
+	int weekDay() const;
 
 	DateTime& addDays(int nrOfDays);
 

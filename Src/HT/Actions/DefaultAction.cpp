@@ -67,8 +67,7 @@ std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) c
 	std::string result;
 	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
 
-	auto localDate = std::localtime(&date); // thread unsafe
-	const auto firstDay = (localDate->tm_wday + 1) % 7;
+	const auto firstDay = (Dt::DateTime{date}.weekDay() + 1) % 7;
 	const auto daysToPrint{14};
 
 	for (int i = firstDay; i < firstDay + daysToPrint; i++)

@@ -31,6 +31,12 @@ TEST(DateTimeTests, addDayToDateTime)
 	ASSERT_THAT(date2.unixTime(), Dt::DateTime("15-05-2019").unixTime());
 }
 
+TEST(DateTimeTests, getDayOfWeek)
+{
+	ASSERT_THAT(Dt::DateTime("14-05-2019").weekDay(), Eq(2));
+	ASSERT_THAT(Dt::DateTime("15-05-2019").weekDay(), Eq(3));
+}
+
 TEST(DateTimeTests, throwRuntimeErrorOnBadDateFormat)
 {
 	try
