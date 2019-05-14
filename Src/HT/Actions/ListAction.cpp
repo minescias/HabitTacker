@@ -22,7 +22,7 @@ void ListAction::execute(const Cli::ParserResult& parserResult)
 
 	if (habits.empty())
 	{
-		std::cout << "No habits found, try to add some using 'ht add'\n";
+		std::cout << "No habits found, try to add some using 'htr add'\n";
 		return;
 	}
 

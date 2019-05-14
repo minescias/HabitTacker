@@ -70,12 +70,6 @@ Zadania dotyczące modułu HT
     przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
     konfiguracyjny w katalogu z programem
 
-**[HT09]** Zmiana nazwy programu, aktualna nazwa koliduje z poleceniem linuksa
- *  Tytuł dokumentacji
- *  Dokumentacja Cli
- *  Help message
- *  Akcja list - komenda przy pustej bazie danych
-
 **[HT10]** Wydzielenie modułu HtDbTests, w której będą testy korzystające z
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy

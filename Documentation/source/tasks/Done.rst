@@ -81,6 +81,12 @@ Zadania dotyczące modułu HT
  *  OK Sprawdzanie przez akcję, czy jest wypełniony filtr
  *  OK Aktualizacja dokumentacji Cli
 
+**[HT09]** Zmiana nazwy programu, aktualna nazwa koliduje z poleceniem linuksa
+ *  OK Tytuł dokumentacji
+ *  OK Dokumentacja Cli
+ *  OK Help message
+ *  OK Akcja list i default - komenda przy pustej bazie danych
+
 **[HT11]** Wyświetlanie wypełniania statusów z ostatnich 14 dni
  *  OK Nowa akcja - default
  *  OK Wyświetlanie listy nawyków

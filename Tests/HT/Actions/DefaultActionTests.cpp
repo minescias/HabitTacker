@@ -119,7 +119,7 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 	}
 	catch(const ActionError& err)
 	{
-		auto expected = "No habits found, try to add some using 'ht add'\n";
+		auto expected = "No habits found, try to add some using 'htr add'\n";
 		ASSERT_STREQ(expected, err.what());
 	}
 }

@@ -67,7 +67,7 @@ TEST_F(ListActionTest, printsMessageWhenNoHabitsFound)
 		Return(ByMove(std::vector<Entity::HabitDefinitionEntityPtr>())));
 
 	auto expectedOutput =
-		"No habits found, try to add some using 'ht add'\n";
+		"No habits found, try to add some using 'htr add'\n";
 
 	testForOutput(expectedOutput);
 }

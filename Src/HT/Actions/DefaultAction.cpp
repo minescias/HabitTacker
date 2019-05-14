@@ -33,7 +33,7 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 		date = Dt::DateTime{parserResult.argument}.unixTime();
 
 	if (habitDefinitions.empty())
-		throw ActionError ("No habits found, try to add some using 'ht add'\n");
+		throw ActionError ("No habits found, try to add some using 'htr add'\n");
 
 	prepareCompletionTable(habitDefinitions);
 	fillCompletionTable(date);
