@@ -1,5 +1,6 @@
 #include <gmock/gmock.h>
 
+#include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Actions/DefaultAction.h"
@@ -61,16 +62,15 @@ public:
 
 	std::vector<Entity::HabitEntityPtr> getHabits()
 	{
-		auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
-		auto day = Dt::Timestamp{1557014400}; // Niedziela/Sunday
+		auto ts = Dt::Timestamp{1557014400};
 
 		std::vector<Entity::HabitEntityPtr> habits;
-		habits.emplace_back(getHabit(1, day));
-		habits.emplace_back(getHabit(1, day - secondsInDay * 2));
-		habits.emplace_back(getHabit(2, day - secondsInDay * 1));
-		habits.emplace_back(getHabit(2, day - secondsInDay * 2));
-		habits.emplace_back(getHabit(2, day - secondsInDay * 10));
-		habits.emplace_back(getHabit(2, day - secondsInDay * 12));
+		habits.emplace_back(getHabit(1, Dt::DateTime{ts}.unixTime()));
+		habits.emplace_back(getHabit(1, Dt::DateTime{ts}.addDays(-2).unixTime()));
+		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-1).unixTime()));
+		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-2).unixTime()));
+		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-10).unixTime()));
+		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-12).unixTime()));
 
 		return habits;
 	}

@@ -1,11 +1,11 @@
 #include <gmock/gmock.h>
 
 #include <filesystem>
-#include <memory>
-#include <iostream>
 #include <iomanip>
+#include <memory>
 
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/DateTime.h>
 
 #include "HT/Dao/DatabaseCreator.h"
 #include "HT/Dao/HabitDefinitionDao.h"
@@ -88,22 +88,21 @@ TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
 TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 {
 	auto today = Dt::getCurrentDate();
-	auto secondsInDay{86400};	// 86400 = 24 * 60 * 60
 
 	addDefinition("Some definition");
 	addDefinition("Some definition2");
 
 	// included data
 	auto h1 = addHabit(1, today);
-	auto h2 = addHabit(1, today - secondsInDay * 2);
-	auto h3 = addHabit(2, today - secondsInDay * 1);
-	auto h4 = addHabit(2, today - secondsInDay * 2);
-	auto h5 = addHabit(2, today - secondsInDay * 10);
-	auto h6 = addHabit(2, today - secondsInDay * 13);
+	auto h2 = addHabit(1, Dt::DateTime{today}.addDays(-2).unixTime());
+	auto h3 = addHabit(2, Dt::DateTime{today}.addDays(-1).unixTime());
+	auto h4 = addHabit(2, Dt::DateTime{today}.addDays(-2).unixTime());
+	auto h5 = addHabit(2, Dt::DateTime{today}.addDays(-10).unixTime());
+	auto h6 = addHabit(2, Dt::DateTime{today}.addDays(-13).unixTime());
 
 	// excluded data over 14 days
-	auto h7 = addHabit(1, today - secondsInDay * 14);
-	auto h8 = addHabit(2, today - secondsInDay * 15);
+	auto h7 = addHabit(1, Dt::DateTime{today}.addDays(-14).unixTime());
+	auto h8 = addHabit(2, Dt::DateTime{today}.addDays(-15).unixTime());
 
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 

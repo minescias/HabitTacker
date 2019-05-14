@@ -22,6 +22,15 @@ TEST(DateTimeTests, printsDate)
 	ASSERT_STREQ(date.dateString().c_str(), "10-05-2019");
 }
 
+TEST(DateTimeTests, addDayToDateTime)
+{
+	auto date = Dt::DateTime("10-05-2019").addDays(1);
+	auto date2 = Dt::DateTime("10-05-2019").addDays(5);
+
+	ASSERT_THAT(date.unixTime(), Dt::DateTime("11-05-2019").unixTime());
+	ASSERT_THAT(date2.unixTime(), Dt::DateTime("15-05-2019").unixTime());
+}
+
 TEST(DateTimeTests, throwRuntimeErrorOnBadDateFormat)
 {
 	try

@@ -1,9 +1,9 @@
 #include "Core/DateTime/DateTimeGetter.h"
 
+#include "Core/DateTime/DateConsts.h"
+
 namespace Dt
 {
-
-const auto secondsInDay{86400}; //24 * 60 * 60
 
 Timestamp getCurrentDate()
 {

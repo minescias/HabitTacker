@@ -2,7 +2,8 @@
 
 #include <regex>
 
-#include <Core/Utils/Exceptions/RuntimeError.h>
+#include "Core/DateTime/DateConsts.h"
+#include "Core/Utils/Exceptions/RuntimeError.h"
 
 // dateTime format DD-MM-YYYY
 
@@ -69,6 +70,12 @@ std::string DateTime::dateString() const
 	return output;
 }
 
+DateTime& DateTime::addDays(int nrOfDays)
+{
+	timestamp += secondsInDay * nrOfDays;
+	return *this;
+}
+
 bool DateTime::validateDateStringFormat(const std::string& dateString) const
 {
 	auto regex = std::regex(R"r(\d{2}-\d{2}-\d{4})r");
@@ -76,7 +83,6 @@ bool DateTime::validateDateStringFormat(const std::string& dateString) const
 
 	return std::regex_match(dateString.c_str(), match, regex);
 }
-
 
 bool DateTime::validateDateValues(const std::tm& tm) const
 {

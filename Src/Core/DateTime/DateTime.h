@@ -17,6 +17,8 @@ public:
 	Timestamp unixTime() const;
 	std::string dateString() const;
 
+	DateTime& addDays(int nrOfDays);
+
 private:
 	bool validateDateStringFormat(const std::string& dateString) const;
 	bool validateDateValues(const std::tm& tm) const;

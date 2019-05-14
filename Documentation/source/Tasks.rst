@@ -51,7 +51,7 @@ Co trzeba dodać/poprawić w Core programu
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
 **[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
- *  Możliwość dodawania/odejmowania dni od daty
+ *  OK Możliwość dodawania/odejmowania dni od daty
  *  Pobieranie dnia tygodnia z daty
  *  Klasa Duration do reprezentowania różnicy między dwoma datami
 
