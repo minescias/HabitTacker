@@ -100,6 +100,10 @@ Zadania dotyczące modułu HT
     potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
     zostało wykonane a brak wpisu to brak niewykonane zadanie
 
+**[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
+ *  Przerobić database creatora na buildera, który będzie zwracał połączenie
+    handlera do nowo utworzonej bazy danych
+
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub

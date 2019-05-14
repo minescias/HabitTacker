@@ -25,11 +25,7 @@ public:
 	HabitDaoTests()
 	{
 		fs::remove(filename);
-		auto creator = Dao::DatabaseCreator(filename);
-		creator.createHabitDefinitionTable();
-		creator.createHabitTable();
-
-		db = std::make_unique<Db::Database>(filename);
+		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
 		definitionDao = std::make_unique<Dao::HabitDefinitionDao>(db.get());
 		habitDao = std::make_unique<Dao::HabitDao>(db.get());
 	}

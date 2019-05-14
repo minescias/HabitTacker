@@ -12,8 +12,8 @@ auto getCreateHabitDefinitionSql()
 	return
 		"\n create table habit_definition"
 		"\n ("
-		"\n     id integer primary key autoincrement,"
-		"\n     name varchar(40)"
+		"\n 	id integer primary key autoincrement,"
+		"\n 	name varchar(40)"
 		"\n )";
 }
 
@@ -35,19 +35,28 @@ namespace Dao
 {
 
 DatabaseCreator::DatabaseCreator(const std::string& filename)
+	:filename(filename)
 {
-	database = std::make_unique<Db::Database>(filename);
 }
 
-void DatabaseCreator::createHabitDefinitionTable() const
+std::unique_ptr<Db::Database> DatabaseCreator::createEmptyDatabase() const
 {
-	Db::Query query(database.get(), getCreateHabitDefinitionSql());
+	auto database = std::make_unique<Db::Database>(filename);
+	createHabitDefinitionTable(database.get());
+	createHabitTable(database.get());
+
+	return database;
+}
+
+void DatabaseCreator::createHabitDefinitionTable(Db::Database* db) const
+{
+	Db::Query query(db, getCreateHabitDefinitionSql());
 	query.execute();
 }
 
-void DatabaseCreator::createHabitTable() const
+void DatabaseCreator::createHabitTable(Db::Database* db) const
 {
-	Db::Query query(database.get(), getCreateHabitTable());
+	Db::Query query(db, getCreateHabitTable());
 	query.execute();
 }
 

@@ -14,11 +14,14 @@ class DatabaseCreator
 public:
 	DatabaseCreator(const std::string& filename);
 
-	void createHabitDefinitionTable() const;
-	void createHabitTable() const;
+	std::unique_ptr<Db::Database> createEmptyDatabase() const;
 
 private:
-	std::unique_ptr<Db::Database> database;
+	void createHabitDefinitionTable(Db::Database* db) const;
+	void createHabitTable(Db::Database* db) const;
+
+private:
+	std::string filename;
 };
 
 } // namespace Dao

@@ -20,9 +20,7 @@ void InitAction::execute(const std::string& filename) const
 	if (std::filesystem::exists(filename))
 		throw ActionError(std::string("File ") + filename + " already exists");
 
-	Dao::DatabaseCreator creator(filename);
-	creator.createHabitDefinitionTable();
-	creator.createHabitTable();
+	Dao::DatabaseCreator(filename).createEmptyDatabase();
 }
 
 } // namespace Actions

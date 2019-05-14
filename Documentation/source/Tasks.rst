@@ -119,8 +119,6 @@ Zadania dotyczące modułu HT
  *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
     tym. Jeśli tak to zamienić
  *  Automatyczne generowanie operatora porównania
- *  Przerobić database creatora na buildera, który będzie zwracał połączenie
-    handlera do nowo utworzonej bazy danych (ale to będzie zajebiste :))
  *  Namespace tests dla wszystkich testów
  *  ActionError powinno być w namespace Actions
  *  AddAction pozwala na przekazanie pustej nazwy.

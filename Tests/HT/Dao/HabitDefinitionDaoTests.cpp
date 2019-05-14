@@ -6,14 +6,12 @@
 #include <HT/Dao/DatabaseCreator.h>
 #include "HT/Dao/HabitDefinitionDao.h"
 
-namespace
+namespace Tests
 {
 
 using namespace testing;
 namespace fs = std::filesystem;
 const char* filename = "test_DgQADg8ICA0.db";
-
-} // namespace
 
 class HabitDefinitionDaoTests : public testing::Test
 {
@@ -21,8 +19,7 @@ public:
 	HabitDefinitionDaoTests()
 	{
 		fs::remove(filename);
-		Dao::DatabaseCreator(filename).createHabitDefinitionTable();
-		db = std::make_unique<Db::Database>(filename);
+		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
 		dao = std::make_unique<Dao::HabitDefinitionDao>(db.get());
 	}
 
@@ -76,3 +73,5 @@ TEST_F(HabitDefinitionDaoTests, readAllDefinitions)
 	EXPECT_THAT(*definitions[1], Eq(*getDefinition(2, "Example definition2")));
 	EXPECT_THAT(*definitions[2], Eq(*getDefinition(3, "Example definition3")));
 }
+
+} // namespace Tests
