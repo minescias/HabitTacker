@@ -10,8 +10,9 @@ set(HT_src
     Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Actions/ListAction.cpp
-    AppInit/Version.cpp
     AppInit/DaoFactoryInitializer.cpp
+    AppInit/Settings.cpp
+    AppInit/Version.cpp
     Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp
     Dao/HabitDao.cpp

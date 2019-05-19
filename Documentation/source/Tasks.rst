@@ -66,7 +66,7 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT08]** Konfigutacja programu - domyślna baza danych
- *  Klasa Settings do przechowywania ustawień użytkownika
+ *  OK Klasa Settings do przechowywania ustawień użytkownika
  *  Klasa ConfigFile do obsługi pliku konfiguracyjnego
  *  Init action zakłada domyślny plik konfiguracyjny w katalogu domowym
     użytkownika (jak to rozwiązać w testach?)
