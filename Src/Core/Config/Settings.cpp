@@ -2,14 +2,16 @@
 
 #include "Core/Utils/Exceptions/RuntimeError.h"
 
+namespace Config
+{
+
 Settings::Settings()
 {
-	setDefaultValues();
 }
 
-void Settings::setDefaultValues()
+void Settings::registerSettings(const SettingsMap& settings)
 {
-	settingsMap["database"] = "";
+	settingsMap = settings;
 }
 
 std::string Settings::get(const std::string& name) const
@@ -27,3 +29,5 @@ void Settings::set(const std::string& name, const std::string& value)
 
 	settingsMap.at(name) = value;
 }
+
+} // namespace Config

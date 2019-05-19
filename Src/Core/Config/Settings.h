@@ -4,12 +4,17 @@
 #include <map>
 #include <string>
 
+namespace Config
+{
+
+using SettingsMap = std::map<std::string, std::string>;
+
 class Settings
 {
-	using SettingsMap = std::map<std::string, std::string>;
-
 public:
 	Settings();
+
+	void registerSettings(const SettingsMap& settings);
 
 	std::string get(const std::string& name) const;
 	void set(const std::string& name, const std::string& value);
@@ -20,4 +25,7 @@ private:
 private:
 	SettingsMap settingsMap;
 };
+
+} // namespace Config
+
 #endif // __SETTINGS_H

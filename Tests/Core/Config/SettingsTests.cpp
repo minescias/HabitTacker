@@ -13,7 +13,8 @@ TEST(SettingsTests, readAndWriteSettings)
 {
 	auto name = "database";
 	auto value = "myDatabase";
-	auto settings = Settings();
+	auto settings = Config::Settings();
+	settings.registerSettings(Config::SettingsMap{{"database", ""}});
 
 	settings.set(name, value);
 	ASSERT_STREQ(settings.get(name).c_str(),value);
@@ -23,7 +24,7 @@ TEST(SettingsTests, throwsRuntimeErrorWhenSettingUntegisteredField)
 {
 	auto name = "aaaaaaa";
 	auto value = "value";
-	auto settings = Settings();
+	auto settings = Config::Settings();
 
 	try
 	{
@@ -39,7 +40,7 @@ TEST(SettingsTests, throwsRuntimeErrorWhenSettingUntegisteredField)
 
 TEST(SettingsTests, throwsRumtimeErrorWhenGettingUnregisteredSetting)
 {
-	auto settings = Settings();
+	auto settings = Config::Settings();
 
 	try
 	{
