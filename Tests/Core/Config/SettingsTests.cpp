@@ -2,7 +2,7 @@
 
 #include "Core/Utils/Exceptions/RuntimeError.h"
 
-#include "HT/AppInit/Settings.h"
+#include "Core/Config/Settings.h"
 
 namespace Tests
 {

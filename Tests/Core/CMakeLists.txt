@@ -10,6 +10,7 @@ enable_testing()
 
 set(CoreTests_src
     main.cpp
+    Config/SettingsTests.cpp
     Database/DatasetTests.cpp
     Database/QueryTests.cpp
     DateTime/DateTimeTests.cpp

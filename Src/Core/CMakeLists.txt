@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(Core)
 
+set(Config_src
+    Config/Settings.cpp)
+
 set(Datetime_src
     DateTime/DateTime.cpp
     DateTime/DateTimeGetter.cpp
@@ -22,6 +25,7 @@ set(Utils_src
     Utils/Types/TypeNames.cpp)
 
 add_library(${PROJECT_NAME}
+    ${Config_src}
     ${Datetime_src}
     ${Database_src}
     ${Utils_src})

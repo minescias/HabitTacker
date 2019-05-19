@@ -1,4 +1,4 @@
-#include "HT/AppInit/Settings.h"
+#include "Core/Config/Settings.h"
 
 #include "Core/Utils/Exceptions/RuntimeError.h"
 
