@@ -15,6 +15,7 @@ set(HtTests_src
     Actions/DoneActionTests.cpp
     Actions/InitActionTests.cpp
     Actions/ListActionTests.cpp
+    AppInit/SettingsTests.cpp
     CommandLineParserTests.cpp
     Dao/DaoFactoryTests.cpp
     Dao/HabitDefinitionDaoTests.cpp

@@ -1,19 +1,23 @@
 #ifndef __SETTINGS_H
 #define __SETTINGS_H
 
+#include <map>
 #include <string>
 
 class Settings
 {
+	using SettingsMap = std::map<std::string, std::string>;
+
 public:
 	Settings();
 
-	std::string getDatabaseName() const;
-	void setDatabaseName(const std::string& databaseName);
+	std::string get(const std::string& name) const;
+	void set(const std::string& name, const std::string& value);
 
 private:
-	std::string databaseName;
+	void setDefaultValues();
+
+private:
+	SettingsMap settingsMap;
 };
-
-
 #endif // __SETTINGS_H

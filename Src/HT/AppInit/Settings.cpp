@@ -1,16 +1,29 @@
 #include "HT/AppInit/Settings.h"
 
+#include "Core/Utils/Exceptions/RuntimeError.h"
+
 Settings::Settings()
 {
+	setDefaultValues();
 }
 
-std::string Settings::getDatabaseName() const
+void Settings::setDefaultValues()
 {
-	return databaseName;
+	settingsMap["database"] = "";
 }
 
-void Settings::setDatabaseName(const std::string& databaseName)
+std::string Settings::get(const std::string& name) const
 {
-	this->databaseName = databaseName;
+	if (settingsMap.find(name) == settingsMap.end())
+		throw RuntimeError("Trying to get unknown setting " + name);
+
+	return settingsMap.at(name);
 }
 
+void Settings::set(const std::string& name, const std::string& value)
+{
+	if (settingsMap.find(name) == settingsMap.end())
+		throw RuntimeError("Trying to set unknown setting " + name);
+
+	settingsMap.at(name) = value;
+}
