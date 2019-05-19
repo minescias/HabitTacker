@@ -78,17 +78,17 @@
         "xtr1common": "cpp",
         "xtree": "cpp",
         "xutility": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "bitset": "cpp"
     },
 
     // nie wiem czemu, ale zmienna workspaceFolder nie rozwija się poprawnie
+    "cquery.launch.command": "/usr/bin/cquery",
     "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/",
-    // "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
-    // "restructuredtext.builtDocumentationPath": "${workspaceFolder}/Documentation/build/html",
 
     // tymczasowo ścieżki bezwzględne
     "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
-    "restructuredtext.builtDocumentationPath": "/media/dawid/Data1/Projekty/HabitTracker/Documentation/build/html",
+    "restructuredtext.builtDocumentationPath": "/media/dawid/Data/Projekty/HabitTracker/Documentation/build/html",
 
     "[cpp]": {
         "editor.insertSpaces": false
@@ -99,7 +99,7 @@
     },
 
     "files.eol": "\n",
-    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.colorTheme": "Solarized Light",
     "workbench.iconTheme": "vscode-icons"
 
 }

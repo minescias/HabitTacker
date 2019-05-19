@@ -65,10 +65,13 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT08]** Domyślna baza danych
- *  Znaleźć sposób na przekazywanie bazy danych do porgramu tak, żeby nie
-    przekazywać go w każdej komendzie. Do rozważenia plik .htrc lub plik
-    konfiguracyjny w katalogu z programem
+**[HT08]** Konfigutacja programu - domyślna baza danych
+ *  Klasa Settings do przechowywania ustawień użytkownika
+ *  Klasa ConfigFile do obsługi pliku konfiguracyjnego
+ *  Init action zakłada domyślny plik konfiguracyjny w katalogu domowym
+    użytkownika (jak to rozwiązać w testach?)
+ *  Używanie konfiguracji z pliku do połączenia z bazą danych
+ *  Opis pliku konfiguracyjnego w dokumentacji
 
 **[HT10]** Wydzielenie modułu HtDbTests, w której będą testy korzystające z
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
@@ -111,6 +114,14 @@ Zadania dotyczące modułu HT
 
 **[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
     Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
+
+**[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z wypełnieniem
+    jest przesunięta o jeden znak w lewo :)
+
+**[HT20]** Polecenie Settings
+ *  Domyślnie wyśiwietlana jest aktualna konfiguracja z pliku .rc
+ *  Możliwość ustawiania wartości z pomocą polecenia
+    **htr settings <name>:<value>**
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Database creator - przekazywane połączenia do bazy z zewnątrz

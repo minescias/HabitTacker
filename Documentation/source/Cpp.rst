@@ -8,6 +8,13 @@ http://www.informit.com/articles/article.aspx?p=373339
 
 Lista rzeczy do sprawdzenia
 *******************************************************************************
-1.  Dlaczego unique_ptr wymaga pełnych danych o klasie, dlaczego nie wystarczy
+#.  Dlaczego unique_ptr wymaga pełnych danych o klasie, dlaczego nie wystarczy
     sam forward?
-2.  Czy intefejsy powinny mieć wirtualny destruktor
+#.  Czy intefejsy powinny mieć wirtualny destruktor
+#.  stringview co to i jak to można użyć
+#.  Kiedy używać wskaźników a kiedy referencji?
+#.  Przekazywanie zmiennej przez refencje a tworzenie zmiennej w momencie
+    wywołania funkcji
+#.  Wołanie konstruktorów klas bazowych
+#.  Zwracanie klasy przez metody tej klasy (return \*this)
+#.  Unique_ptr a płytka i głęboka kopia obiektu

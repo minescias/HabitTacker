@@ -1,18 +1,19 @@
-Wersje programu
+Wersje programu - pseudo changelog
 ===============================================================================
+
+Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w trakcie)
+*******************************************************************************
+*   Polecenie setall do masowego wypełniania wszystkich nawyków
+*   Oożliwość odznaczenia nawyku
+*   Obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
+*   Obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych
+*   Możliwość wycofywania i poprawiania nawyków
 
 Wersja 0.1 - Pierwsza jako tako użyteczna wersja
 *******************************************************************************
 *   Podstawowe działanie: dodawanie nawyków, wypełnianie, wyświetlanie itp)
 *   Obsługa nawyków tylko na dzień dzisiejszy
 *   Tylko nawyki typu bool
-
-Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w planach)
-*******************************************************************************
-*   Polecenie setall do masowego wypełniania wszystkich nawyków
-*   możliwość odznaczenia nawyku
-*   obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
-*   obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych
 
 Planowane
 *******************************************************************************
@@ -27,7 +28,6 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
     Różne typy w stylu "tylko w poniedziałki i środy" lub dwa razy w tygodniu
 
 **Szyfrowanie bazy danych i konieczność podawania hasła**
-    Tutaj myślę, że wszystko jasne
 
 **Tester czcionki używanej w konsoli**
     W przyszłości będę potrzebował serii dziwnych znaków z unicode do
@@ -37,7 +37,7 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
     znaki tak, żeby móc sprawdzić czy wszystko będzie OK
 
 **Sprawdzanie integralności bazy danych**
-    Jak w temacie, coś co mogłoby sprawdzać czy z bazą jest wszystko w
+    Coś co mogłoby sprawdzać czy z bazą jest wszystko w
     porządku. Poprawna definicja tabel itp
 
 **Zwracanie ID przez funkcje zapisujące w dao**
@@ -48,10 +48,8 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
     jakimi zostają wywoływane
 
 **I w ogóle jakaś zaaawansowana klasa logująca**
-    Jw
 
 **Wyświetlanie znaków unicode w konsoli**
-    Jw
 
 **Plik konfiguracyjny**
     domyślna baza danych
@@ -62,7 +60,6 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
     poziomy logowania lub co ma być logowane
 
 **Kolorowanie outputu konsoli**
-    Jw
 
 **Polecenie undo**
     każda akcja byłaby logowana w ten sposób, żeby na jej podstawie utworzyć
