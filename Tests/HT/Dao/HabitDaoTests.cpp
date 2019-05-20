@@ -11,13 +11,18 @@
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
 
+namespace
+{
+
+auto filename = "test_habitDao.db"; //"test_DgQADg8ICA0.db";
+
+} // namespace
+
 namespace Tests
 {
 
 using namespace testing;
 namespace fs = std::filesystem;
-
-const char* filename = "test_habitDao.db"; //"test_DgQADg8ICA0.db";
 
 class HabitDaoTests : public testing::Test
 {

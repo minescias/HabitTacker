@@ -10,6 +10,7 @@ enable_testing()
 
 set(CoreTests_src
     main.cpp
+    Config/ConfigFileTests.cpp
     Config/SettingsTests.cpp
     Database/DatasetTests.cpp
     Database/QueryTests.cpp
@@ -21,7 +22,7 @@ set(CoreTests_src
 
 # system dependent libraries
 if (UNIX)
-    set(SysDependencies pthread)
+    set(SysDependencies pthread stdc++fs)
 endif()
 
 add_executable(${PROJECT_NAME} ${CoreTests_src})

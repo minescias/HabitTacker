@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(Core)
 
 set(Config_src
+    Config/ConfigFile.cpp
     Config/Settings.cpp)
 
 set(Datetime_src
