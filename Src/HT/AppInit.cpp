@@ -46,7 +46,7 @@ int appInit(int argc, char* argv[])
 	{
 		if (command == "init")
 		{
-			Actions::InitAction().execute(parser.getArguments());
+			Actions::InitAction().execute(parserResult.argument), "tr.ini");
 			return 0;
 		}
 
@@ -56,8 +56,6 @@ int appInit(int argc, char* argv[])
 
 		if (command == "")
 			executeAction<Actions::DefaultAction>(daoFactory.get(), parserResult);
-		else if (command == "init")
-			Actions::InitAction().execute(parser.getArguments());
 		else if (command == "add")
 			executeAction<Actions::AddAction>(daoFactory.get(), parserResult);
 		else if (command == "done")

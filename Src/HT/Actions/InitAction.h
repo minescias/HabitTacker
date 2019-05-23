@@ -10,7 +10,15 @@ class InitAction
 {
 public:
 	InitAction();
-	void execute(const std::string& filename) const;
+	void execute(const std::string& dbFilePath, const std::string& configFilePath);
+
+private:
+	void createDatabaseFile() const;
+	void createConfigFile() const;
+
+private:
+	std::string dbFilename;
+	std::string configFilename;
 };
 
 } // namespace Actions
