@@ -7,11 +7,11 @@ set(HT_src
     Actions/AddAction.cpp
     Actions/DefaultAction.cpp
     Actions/DoneAction.cpp
-    Actions/HelpAction.cpp
     Actions/InitAction.cpp
     Actions/ListAction.cpp
     AppInit/DaoFactoryInitializer.cpp
     AppInit/GetSettings.cpp
+    AppInit/Help.cpp
     AppInit/Version.cpp
     Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp

@@ -9,11 +9,11 @@
 #include "HT/Actions/AddAction.h"
 #include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/DoneAction.h"
-#include "HT/Actions/HelpAction.h"
 #include "HT/Actions/InitAction.h"
 #include "HT/Actions/ListAction.h"
 #include "HT/AppInit/DaoFactoryInitializer.h"
 #include "HT/AppInit/GetSettings.h"
+#include "HT/AppInit/Help.h"
 #include "HT/AppInit/Vesrion.h"
 #include "HT/Cli/CommandLineParser.h"
 
@@ -31,10 +31,9 @@ int appInit(int argc, char* argv[])
 	auto parserResult = Cli::CommandLineParser().parse(argc, argv);
 	auto command = parserResult.commandName;
 
-	// simple commands
 	if (command == "help")
 	{
-		Actions::HelpAction().execute();
+		printHelpMessage();
 		return 0;
 	}
 
@@ -52,7 +51,6 @@ int appInit(int argc, char* argv[])
 			return 0;
 		}
 
-		// I'll add some way to pass database name later
 		auto settings = getSettings("htr.ini");
 		auto database = Db::Database(settings->get("database"));
 		auto daoFactory = initDaoFactory(&database);

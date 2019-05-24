@@ -72,8 +72,8 @@ Zadania dotyczące modułu HT
 **[HT13]** Interfejs akcji
  *  OK Uspójnione przekazywanie dao i innych danych wymaganych do działania
  *  OK Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
- *  Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
- *  Version tak, żeby cała obsługa akcji była spójna
+ *  OK Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
+    Version tak, żeby cała obsługa akcji była spójna
  *  Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii
     else if
 

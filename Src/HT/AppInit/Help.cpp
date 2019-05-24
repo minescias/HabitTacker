@@ -1,15 +1,8 @@
-#include "HT/Actions/HelpAction.h"
+#include "HT/AppInit/Help.h"
 
 #include <iostream>
 
-namespace Actions
-{
-
-HelpAction::HelpAction()
-{
-}
-
-void HelpAction::execute()
+void printHelpMessage()
 {
 	std::cout <<
 		"A simple habit tracker"
@@ -27,6 +20,3 @@ void HelpAction::execute()
 		"\n"
 	;
 }
-
-} // namespace actions
-
