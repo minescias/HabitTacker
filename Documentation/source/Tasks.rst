@@ -69,14 +69,6 @@ Zadania dotyczące modułu HT
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
-**[HT13]** Interfejs akcji
- *  OK Uspójnione przekazywanie dao i innych danych wymaganych do działania
- *  OK Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
- *  OK Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
-    Version tak, żeby cała obsługa akcji była spójna
- *  Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii
-    else if
-
 **[HT14]** Mechanizm tworzenia Dao - DaoFactory
  *  OK Klasa dao facory
  *  OK Rejestrowanie akcji (funkcja tworząca dao?)

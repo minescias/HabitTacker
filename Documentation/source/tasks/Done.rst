@@ -110,6 +110,14 @@ Zadania dotyczące modułu HT
     potrzebna. Wpisy do tej tabeli będą oznaczały, że zadanie na dany dzień
     zostało wykonane a brak wpisu to brak niewykonane zadanie
 
+**[HT13]** Interfejs akcji
+ *  OK Uspójnione przekazywanie dao i innych danych wymaganych do działania
+ *  OK Uspójnione przekazywanie sparsowanych danych z wiersza poleceń
+ *  OK Usunięcie akcji help na rzecz zwykłej funkcji lub dodanie nowej akcji
+    Version tak, żeby cała obsługa akcji była spójna
+ *  OK Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii
+    else if
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

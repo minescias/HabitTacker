@@ -6,24 +6,15 @@
 #include <Core/Database/Database.h>
 
 #include "HT/Actions/ActionError.h"
-#include "HT/Actions/AddAction.h"
-#include "HT/Actions/DefaultAction.h"
-#include "HT/Actions/DoneAction.h"
 #include "HT/Actions/InitAction.h"
-#include "HT/Actions/ListAction.h"
+
 #include "HT/AppInit/DaoFactoryInitializer.h"
 #include "HT/AppInit/GetSettings.h"
+#include "HT/AppInit/RegisterActions.h"
 #include "HT/AppInit/Help.h"
 #include "HT/AppInit/Vesrion.h"
-#include "HT/Cli/CommandLineParser.h"
 
-template <typename T>
-void executeAction(Dao::DaoFactory* factory, Cli::ParserResult pr)
-{
-	auto action = T();
-	action.setDaoFactory(factory);
-	action.execute(pr);
-}
+#include "HT/Cli/CommandLineParser.h"
 
 int appInit(int argc, char* argv[])
 {
@@ -55,16 +46,11 @@ int appInit(int argc, char* argv[])
 		auto database = Db::Database(settings->get("database"));
 		auto daoFactory = initDaoFactory(&database);
 
-		if (command == "")
-			executeAction<Actions::DefaultAction>(daoFactory.get(), parserResult);
-		else if (command == "add")
-			executeAction<Actions::AddAction>(daoFactory.get(), parserResult);
-		else if (command == "done")
-			executeAction<Actions::DoneAction>(daoFactory.get(), parserResult);
-		else if (command == "list")
-			executeAction<Actions::ListAction>(daoFactory.get(), parserResult);
-		else
-			std::cout << "Unknown command\n";
+		auto actionRegister = registerActions();
+
+		auto action = actionRegister->get(parserResult.commandName);
+		action->setDaoFactory(daoFactory.get());
+		action->execute(parserResult);
 	}
 	catch(const ActionError& err)
 	{

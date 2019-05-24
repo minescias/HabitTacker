@@ -15,6 +15,7 @@ set(HT_src
     AppInit/DaoFactoryInitializer.cpp
     AppInit/GetSettings.cpp
     AppInit/Help.cpp
+    AppInit/RegisterActions.cpp
     AppInit/Version.cpp
     Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp
