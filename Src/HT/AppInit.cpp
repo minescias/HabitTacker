@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <Core/Config/Settings.h>
 #include <Core/Database/Database.h>
 
 #include "HT/Actions/ActionError.h"
@@ -11,9 +12,10 @@
 #include "HT/Actions/HelpAction.h"
 #include "HT/Actions/InitAction.h"
 #include "HT/Actions/ListAction.h"
+#include "HT/AppInit/DaoFactoryInitializer.h"
+#include "HT/AppInit/GetSettings.h"
 #include "HT/AppInit/Vesrion.h"
 #include "HT/Cli/CommandLineParser.h"
-#include "HT/AppInit/DaoFactoryInitializer.h"
 
 template <typename T>
 void executeAction(Dao::DaoFactory* factory, Cli::ParserResult pr)
@@ -46,12 +48,13 @@ int appInit(int argc, char* argv[])
 	{
 		if (command == "init")
 		{
-			Actions::InitAction().execute(parserResult.argument), "tr.ini");
+			Actions::InitAction().execute(parserResult.argument, "htr.ini");
 			return 0;
 		}
 
 		// I'll add some way to pass database name later
-		auto database = Db::Database("Test.db");
+		auto settings = getSettings("htr.ini");
+		auto database = Db::Database(settings->get("database"));
 		auto daoFactory = initDaoFactory(&database);
 
 		if (command == "")

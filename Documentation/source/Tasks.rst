@@ -65,16 +65,6 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT08]** Konfigutacja programu - domyślna baza danych
- *  OK Klasa Settings do przechowywania ustawień użytkownika
- *  OK Klasa ConfigFile do obsługi pliku konfiguracyjnego
- *  Init action zakłada domyślny plik konfiguracyjny
-     * OK w kalatlogu, w którtym był uruchomiony program (workong directorry)
-     * w katalogu, w którym jest plik wykonywalny
-     * w katalogu domowym użytkownika
- *  Używanie konfiguracji z pliku do połączenia z bazą danych
- *  Opis pliku konfiguracyjnego w dokumentacji
-
 **[HT10]** Wydzielenie modułu HtDbTests, w której będą testy korzystające z
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy

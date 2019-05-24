@@ -81,6 +81,16 @@ Zadania dotyczące modułu HT
  *  OK Sprawdzanie przez akcję, czy jest wypełniony filtr
  *  OK Aktualizacja dokumentacji Cli
 
+**[HT08]** Konfiguracja programu - domyślna baza danych
+ *  OK Klasa Settings do przechowywania ustawień użytkownika
+ *  OK Klasa ConfigFile do obsługi pliku konfiguracyjnego
+ *  Init action zakłada domyślny plik konfiguracyjny
+     * OK w kalatlogu, w którtym był uruchomiony program (workong directorry)
+     * w katalogu, w którym jest plik wykonywalny
+     * w katalogu domowym użytkownika
+ *  OK Używanie konfiguracji z pliku do połączenia z bazą danych
+ *  OK Opis pliku konfiguracyjnego w dokumentacji
+
 **[HT09]** Zmiana nazwy programu, aktualna nazwa koliduje z poleceniem linuksa
  *  OK Tytuł dokumentacji
  *  OK Dokumentacja Cli

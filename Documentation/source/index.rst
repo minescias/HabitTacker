@@ -11,6 +11,7 @@ HTR Docs's
    :caption: Spis treści:
 
    Cli
+   ConfigFile
    Versions
    Tables
    Core

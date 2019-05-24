@@ -11,6 +11,7 @@ set(HT_src
     Actions/InitAction.cpp
     Actions/ListAction.cpp
     AppInit/DaoFactoryInitializer.cpp
+    AppInit/GetSettings.cpp
     AppInit/Version.cpp
     Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp
