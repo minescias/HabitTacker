@@ -39,19 +39,4 @@ ParserResult CommandLineParser::parse(int argc, char** argv)
 	return result;
 }
 
-std::string CommandLineParser::getCommandName() const
-{
-	return commandName;
-}
-
-std::string CommandLineParser::getArguments() const
-{
-	return arguments;
-}
-
-std::string CommandLineParser::getFilter() const
-{
-	return filter;
-}
-
 } // namespace Cli
