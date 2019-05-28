@@ -4,7 +4,7 @@ Wersje programu - pseudo changelog
 Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w trakcie)
 *******************************************************************************
 *   Polecenie setall do masowego wypełniania wszystkich nawyków
-*   Oożliwość odznaczenia nawyku
+*   Możliwość odznaczenia nawyku
 *   Obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
 *   Obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych
 *   Możliwość wycofywania i poprawiania nawyków

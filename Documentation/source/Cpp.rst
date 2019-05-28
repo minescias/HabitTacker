@@ -15,6 +15,10 @@ Lista rzeczy do sprawdzenia
 #.  Kiedy używać wskaźników a kiedy referencji?
 #.  Przekazywanie zmiennej przez refencje a tworzenie zmiennej w momencie
     wywołania funkcji
-#.  Wołanie konstruktorów klas bazowych
+#.  Wołanie konstruktorów i metod klas bazowych
 #.  Zwracanie klasy przez metody tej klasy (return \*this)
 #.  Unique_ptr a płytka i głęboka kopia obiektu
+#.  Czy dwie różne lambdy mające tę samą sygnaturę mają ten sam typ (mogą być
+    zapisane w jednym kontenerze)
+#.  Wykorzystanie is_same() albo czegoś podobnego do sprawdzenia jakiego typu
+    jest interfejs

@@ -69,18 +69,6 @@ Zadania dotyczące modułu HT
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
-**[HT14]** Mechanizm tworzenia Dao - DaoFactory
- *  OK Klasa dao facory
- *  OK Rejestrowanie akcji (funkcja tworząca dao?)
- *  OK Wywołanie zarejestrowanej akcji
- *  OK Rejestrowanie mocków dao zamiast normalnych na czas testów
- *  OK Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
-    niezarejestrowanego dao itp
- *  Opis działania DaoFactory i testów z jego użyciem po zakończeniu powyższych
- *  Zabezpieczenie przed próbą zarejetrowania czegoś, czego nie da się
-    skonwertować do Dao::UnknownDao
- *  OK Przekazywanie bazy danych do nowo utworzonego dao
-
 **[HT15]** Zaawansowany parser command line
  *  OK Klasa wyniku działania parsera - filtr , komenda i argumenty dodatkowe
  *  OK Pobieranie prostego polecenia
@@ -103,12 +91,11 @@ Zadania dotyczące modułu HT
     jest przesunięta o jeden znak w lewo :)
 
 **[HT20]** Polecenie Settings
- *  Domyślnie wyśiwietlana jest aktualna konfiguracja z pliku .rc
+ *  Domyślnie wyświietlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
- *  Database creator - przekazywane połączenia do bazy z zewnątrz
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)
  *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w

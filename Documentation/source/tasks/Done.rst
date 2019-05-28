@@ -118,6 +118,19 @@ Zadania dotyczące modułu HT
  *  OK Rejestrowanie akcji i iterowanie po dostępnych akcjach zamiast serii
     else if
 
+**[HT14]** Mechanizm tworzenia Dao - DaoFactory
+ *  OK Klasa dao facory
+ *  OK Rejestrowanie akcji (funkcja tworząca dao?)
+ *  OK Wywołanie zarejestrowanej akcji
+ *  OK Rejestrowanie mocków dao zamiast normalnych na czas testów
+ *  OK Zabezpieczenie przed błędnym użyciem, podwójna rejestracja, użycie
+    niezarejestrowanego dao itp
+ *  OK Opis działania DaoFactory i testów z jego użyciem po zakończeniu
+    powyższych
+ *  Odrzucone - Zabezpieczenie przed próbą zarejetrowania czegoś, czego nie da
+    się skonwertować do Dao::UnknownDao
+ *  OK Przekazywanie bazy danych do nowo utworzonego dao
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych
