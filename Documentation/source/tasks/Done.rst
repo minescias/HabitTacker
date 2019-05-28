@@ -131,6 +131,13 @@ Zadania dotyczące modułu HT
     się skonwertować do Dao::UnknownDao
  *  OK Przekazywanie bazy danych do nowo utworzonego dao
 
+**[HT15]** Zaawansowany parser command line
+ *  OK Klasa wyniku działania parsera - filtr , komenda i argumenty dodatkowe
+ *  OK Pobieranie prostego polecenia
+ *  OK Pobieranie polecenia z argumentami
+ *  OK Pobieranie polecenia z filtrem
+ *  Opis działania całości w dokumentacji
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

@@ -4,6 +4,7 @@ Lista zadań
 .. toctree::
 
    tasks/Done
+   tasks/Cancelled
 
 Project
 *******************************************************************************
@@ -69,20 +70,9 @@ Zadania dotyczące modułu HT
     bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
     czasu i generują sporo bałaganu w komunikatach przez log debugowy
 
-**[HT15]** Zaawansowany parser command line
- *  OK Klasa wyniku działania parsera - filtr , komenda i argumenty dodatkowe
- *  OK Pobieranie prostego polecenia
- *  OK Pobieranie polecenia z argumentami
- *  OK Pobieranie polecenia z filtrem
- *  Opis działania całości w dokumentacji
-
 **[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
  *  Rozszerzenie tabeli, encji i dao
  *  Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
-
-**[HT17]** Rejestrowanie mocków dao za pomocą unique_ptr zamiast raw pointerów.
-    Opis błędu oraz próby jego rozwiązania są w plikach DaoFacoryTest.cpp
-    i DaoMockCreator.h
 
 **[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
     Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
@@ -95,6 +85,27 @@ Zadania dotyczące modułu HT
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
+**[HT21]** Możliwość resetowania
+ *  Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+    parametry z nazwą - składnia -<nazwa>
+ *  Opis powyższego w dokumentacji
+ *  Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy
+ *  Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
+    dodanie opisu do dokumentacji
+
+**[HT22]** Możliwość podawania dnia w opcjonalnych parametrach
+ *  Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+    parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
+ *  Dodanie opcji -date=<day> do komendy done
+ *  Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
+ *  Dokumentacja
+
+**[HT23]** Polecenie edit do poprawiania definicji
+ *  Nowa komenda edit
+ *  Polecenie update/merge do dao definicji
+ *  Dbsługa filtru, parametru name
+ *  Dokumentacja
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)
@@ -104,6 +115,8 @@ Zadania dotyczące modułu HT
  *  Namespace tests dla wszystkich testów
  *  ActionError powinno być w namespace Actions
  *  AddAction pozwala na przekazanie pustej nazwy.
+ *  W przypadku, gdy użytkownik poda błędną nazwę akcji program wysypie się
+    wyjątkiem
 
 Tools
 *******************************************************************************
