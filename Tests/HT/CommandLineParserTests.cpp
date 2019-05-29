@@ -30,6 +30,13 @@ class CommandLineParserTests : public testing::Test
 public:
 	CommandLineParserTests(){}
 
+	void checkResult(Cli::ParserResult actual, Cli::ParserResult expected)
+	{
+		EXPECT_THAT(actual.commandName, Eq(expected.commandName));
+		EXPECT_THAT(actual.filter, Eq(expected.filter));
+		EXPECT_THAT(actual.arguments, Eq(expected.arguments));
+	}
+
 	Cli::CommandLineParser parser;
 };
 
@@ -38,9 +45,9 @@ TEST_F(CommandLineParserTests, returnsEmptyValuesWhenNoParameterIsPassed)
 	int argc{1};
 	char* argv[3] {"programName"_c};
 
-	auto expected = Cli::ParserResult{"", "", ""};
+	auto expected = Cli::ParserResult{"", "", Cli::Arguments{{"", ""}}};
 	auto result = parser.parse(argc, argv);
-	ASSERT_THAT(result, Eq(expected));
+	checkResult(result, expected);
 }
 
 TEST_F(CommandLineParserTests, parsesSimpleCommand)
@@ -48,9 +55,11 @@ TEST_F(CommandLineParserTests, parsesSimpleCommand)
 	int argc{3};
 	char* argv[3] {"programName"_c, "init"_c, "filePath"_c};
 
-	auto expected = Cli::ParserResult{"init", "", "filePath"};
 	auto result = parser.parse(argc, argv);
-	ASSERT_THAT(result, Eq(expected));
+	auto expected = Cli::ParserResult{"init", "",
+		Cli::Arguments{{"", "filePath"}}};
+
+	checkResult(result, expected);
 }
 
 TEST_F(CommandLineParserTests, parsesCommandWithFilter)
@@ -58,9 +67,21 @@ TEST_F(CommandLineParserTests, parsesCommandWithFilter)
 	int argc{3};
 	char* argv[3] {"ht"_c, "3"_c, "done"_c};
 
-	auto expected = Cli::ParserResult{"done", "3", ""};
+	auto expected = Cli::ParserResult{"done", "3", Cli::Arguments{{"", ""}}};
 	auto result = parser.parse(argc, argv);
-	ASSERT_THAT(result, Eq(expected));
+	checkResult(result, expected);
+}
+
+TEST_F(CommandLineParserTests, parsesCommandWithOptionalFlag)
+{
+	const int argc{3};
+	char* argv[argc] = {"ht"_c, "command"_c, "-param"_c};
+
+	auto expected = Cli::ParserResult("command", "",
+		Cli::Arguments{{"", ""}, {"param", ""}});
+
+	auto result = parser.parse(argc, argv);
+	checkResult(result, expected);
 }
 
 } //namespace Tests

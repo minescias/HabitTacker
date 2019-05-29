@@ -19,24 +19,59 @@ namespace Cli
 {
 
 CommandLineParser::CommandLineParser()
+	: commandIsSet(false)
 {
+	result.arguments = Arguments{{"", ""}};
 }
 
 ParserResult CommandLineParser::parse(int argc, char** argv)
 {
-	ParserResult result;
-
 	for (int i=1; i< argc; i++)
 	{
 		if ( i==1 && is_number(argv[i]))
+		{
 			result.filter = argv[i];
-		else if (result.commandName.empty())
-			result.commandName = argv[i];
-		else if (result.argument.empty())
-			result.argument = argv[i];
+		}
+		else
+		{
+			auto parameterType = getParameterType(argv[i]);
+
+			if (parameterType == ParameterType::Simple)
+				readSimpleParameter(argv[i]);
+			else if (parameterType == ParameterType::Flag)
+				readFlag(argv[i]);
+		}
 	}
 
 	return result;
+}
+
+ParameterType CommandLineParser::getParameterType(const std::string& parameter) const
+{
+	if (*parameter.begin() == '-')
+		return ParameterType::Flag;
+
+	return ParameterType::Simple;
+}
+
+
+void CommandLineParser::readSimpleParameter(const std::string& parameter)
+{
+	if (result.commandName.empty())
+	{
+		result.commandName = parameter;
+		return;
+	}
+
+	result.arguments[""] = parameter;
+}
+
+
+void CommandLineParser::readFlag(const std::string& parameter)
+{
+	auto flag = parameter.substr(1);
+	result.arguments[flag] = "";
+
 }
 
 } // namespace Cli

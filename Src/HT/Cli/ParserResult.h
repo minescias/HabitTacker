@@ -1,10 +1,13 @@
 #ifndef __PARSER_RESULT_H
 #define __PARSER_RESULT_H
 
+#include <map>
 #include <string>
 
 namespace Cli
 {
+
+using Arguments = std::map<std::string, std::string>;
 
 struct ParserResult
 {
@@ -13,15 +16,14 @@ struct ParserResult
 
 	ParserResult(const std::string& commandName,
 		const std::string& filter,
-		const std::string& argument)
+		const Arguments& arguments)
 		: commandName(commandName)
 		, filter(filter)
-		, argument(argument)
+		, arguments(arguments)
 	{}
-
 	std::string commandName;
 	std::string filter;
-	std::string argument;
+	Arguments arguments;
 };
 
 } // namespace Cli
