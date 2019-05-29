@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cctype>
 
+#include <Core/Utils/Exceptions/RuntimeError.h>
+
 namespace
 {
 
@@ -63,15 +65,20 @@ void CommandLineParser::readSimpleParameter(const std::string& parameter)
 		return;
 	}
 
+	if (!result.arguments.at("").empty())
+		throw RuntimeError("Unknown command '" + parameter + "'");
+
 	result.arguments[""] = parameter;
 }
-
 
 void CommandLineParser::readFlag(const std::string& parameter)
 {
 	auto flag = parameter.substr(1);
-	result.arguments[flag] = "";
 
+	if (result.arguments.find(flag) != result.arguments.end())
+		throw RuntimeError("Redefinition of '" + flag + "' parameter");
+
+	result.arguments[flag] = "";
 }
 
 } // namespace Cli

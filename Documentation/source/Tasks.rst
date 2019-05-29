@@ -86,7 +86,7 @@ Zadania dotyczące modułu HT
     **htr settings <name>:<value>**
 
 **[HT21]** Możliwość resetowania
- *  Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+ *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą - składnia -<nazwa>
  *  Opis powyższego w dokumentacji
  *  Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy

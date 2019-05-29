@@ -1,5 +1,7 @@
 #include <gmock/gmock.h>
 
+#include <Core/Utils/Exceptions/RuntimeError.h>
+
 #include "HT/Cli/CommandLineParser.h"
 #include "HT/Cli/ParserResult.h"
 
@@ -71,5 +73,40 @@ TEST_F(CommandLineParserTests, parsesCommandWithOptionalFlag)
 	auto result = parser.parse(argc, argv);
 	checkResult(result, expected);
 }
+
+TEST_F(CommandLineParserTests, throwsRuntimeErrorOnDuplicadedDefaultParameter)
+{
+	const int argc{4};
+	char* argv[argc] = {"ht"_c, "command"_c, "first"_c, "second"_c};
+
+	try
+	{
+		parser.parse(argc, argv);
+		FAIL() << "RuntimeError expected";
+	}
+	catch(RuntimeError& err)
+	{
+		auto expected = "Unknown command 'second'";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
+
+TEST_F(CommandLineParserTests, throwsRuntimeErrorOnDuplicadedParameter)
+{
+	const int argc{4};
+	char* argv[argc] = {"ht"_c, "command"_c, "-first"_c, "-first"_c};
+
+	try
+	{
+		parser.parse(argc, argv);
+		FAIL() << "RuntimeError expected";
+	}
+	catch(RuntimeError& err)
+	{
+		auto expected = "Redefinition of 'first' parameter";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
+
 
 } //namespace Tests
