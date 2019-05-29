@@ -42,7 +42,9 @@ public:
 	void testForOutput(const std::string& expectedOutput)
 	{
 		internal::CaptureStdout();
-		listAction.execute(Cli::ParserResult("","",""));
+		listAction.execute(Cli::ParserResult("", "",
+			Cli::Arguments{{"", ""}}));
+
 		auto output = testing::internal::GetCapturedStdout();
 
 		ASSERT_STREQ(output.c_str(), expectedOutput.c_str());
@@ -58,7 +60,7 @@ TEST_F(ListActionTest, getsDefinitionsFromDao)
 	EXPECT_CALL(*daoMock, getDefinitions())
 		.Times(1);
 
-	listAction.execute(Cli::ParserResult("","",""));
+	listAction.execute(Cli::ParserResult("", "", Cli::Arguments{{"", ""}}));
 }
 
 TEST_F(ListActionTest, printsMessageWhenNoHabitsFound)

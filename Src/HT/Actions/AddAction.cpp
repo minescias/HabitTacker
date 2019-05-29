@@ -17,7 +17,7 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 void AddAction::execute(const Cli::ParserResult& parserResult)
 {
 	auto habitDefinition = Entity::HabitDefinitionEntity();
-	habitDefinition.setName(parserResult.argument);
+	habitDefinition.setName(parserResult.arguments.at(""));
 
 	dao->saveDefinition(habitDefinition);
 }

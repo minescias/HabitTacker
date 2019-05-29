@@ -21,7 +21,8 @@ TEST(AddActionTest, savesHabitToDatabase)
 	Dao::DaoFactory factory;
 	factory.registerDao("habitDefinition", createDaoMock(daoMock));
 
-	auto pr = Cli::ParserResult("add", "", "new habit name");
+	auto pr = Cli::ParserResult("add", "",
+		Cli::Arguments{{"", "new habit name"}});
 
 	auto addAction = Actions::AddAction();
 	addAction.setDaoFactory(&factory);

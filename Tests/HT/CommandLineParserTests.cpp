@@ -3,18 +3,6 @@
 #include "HT/Cli/CommandLineParser.h"
 #include "HT/Cli/ParserResult.h"
 
-namespace Cli
-{
-
-bool operator==(const ParserResult &a, const ParserResult &b)
-{
-	return a.commandName == b.commandName
-		&& a.filter == b.filter
-		&& a.argument == b.argument;
-}
-
-} // namespace Cli
-
 namespace Tests
 {
 
