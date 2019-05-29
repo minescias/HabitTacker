@@ -89,7 +89,7 @@ Zadania dotyczące modułu HT
  *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą - składnia -<nazwa>
  *  Opis powyższego w dokumentacji
- *  Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy
+ *  OK Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy
  *  Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
     dodanie opisu do dokumentacji
 

@@ -37,6 +37,22 @@ void HabitDao::saveHabit(const HabitEntity& habit)
 	query.execute();
 }
 
+
+void HabitDao::deleteHabit(const Entity::HabitEntity& habit)
+{
+	auto sql =
+		"\n delete from "
+		"\n 	habit"
+		"\n where"
+		"\n 	habit_id = :habit_id"
+		"\n 	and date = :date";
+
+	Db::Query query(db, sql);
+	query.setParam(":habit_id", habit.getHabitId());
+	query.setParam(":date", habit.getDate());
+	query.execute();
+}
+
 std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id)
 {
 	auto result = std::vector<HabitEntityPtr>();

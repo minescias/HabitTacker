@@ -116,4 +116,18 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 	EXPECT_THAT(*habits[5], Eq(h6));
 }
 
+TEST_F(HabitDaoTests, deleteHabitTests)
+{
+	addDefinition("Some definition");
+
+	auto habit = Entity::HabitEntity();
+	habit.setHabitId(1);
+	habit.setDate(Dt::getCurrentDate());
+
+	habitDao->saveHabit(habit);
+	ASSERT_TRUE(habitDao->checkIfHabitIsSetForDay(habit));
+	habitDao->deleteHabit(habit);
+	ASSERT_FALSE(habitDao->checkIfHabitIsSetForDay(habit));
+}
+
 } // namespace Tests
