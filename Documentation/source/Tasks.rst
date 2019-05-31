@@ -85,14 +85,6 @@ Zadania dotyczące modułu HT
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
-**[HT21]** Możliwość resetowania
- *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
-    parametry z nazwą - składnia -<nazwa>
- *  Opis powyższego w dokumentacji
- *  OK Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy
- *  Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
-    dodanie opisu do dokumentacji
-
 **[HT22]** Możliwość podawania dnia w opcjonalnych parametrach
  *  Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)

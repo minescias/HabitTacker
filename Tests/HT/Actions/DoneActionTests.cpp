@@ -54,6 +54,22 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	doneAction.execute(pr);
 }
 
+TEST_F(DoneActionTest, deleteHabitForToday)
+{
+	auto habit = Entity::HabitEntity();
+	habit.setHabitId(1);
+	habit.setDate(Dt::getCurrentDate());
+
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+
+	EXPECT_CALL(*habitDaoMock, deleteHabit(habit)).Times(1);
+
+	pr.filter = "1";
+	pr.arguments = Cli::Arguments{{"reset", ""}};
+	doneAction.execute(pr);
+}
+
 TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 {
 	auto habit = Entity::HabitEntity();

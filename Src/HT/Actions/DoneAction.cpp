@@ -19,6 +19,9 @@ void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 
 void DoneAction::execute(const Cli::ParserResult& parserResult)
 {
+	auto reset = parserResult.arguments.find("reset")
+		!= parserResult.arguments.end();
+
 	auto habitId = parserResult.filter;
 	if (habitId.empty())
 		throw ActionError ("No filter specified");
@@ -31,10 +34,17 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	habit.setHabitId(definitionId);
 	habit.setDate(Dt::getCurrentDate());
 
-	if (habitDao->checkIfHabitIsSetForDay(habit))
-		throw ActionError("Habit " + habitId + " was already set for this day");
+	if (!reset)
+	{
+		if (habitDao->checkIfHabitIsSetForDay(habit))
+			throw ActionError("Habit " + habitId + " was already set for this day");
 
-	habitDao->saveHabit(habit);
+		habitDao->saveHabit(habit);
+	}
+	else
+	{
+		habitDao->deleteHabit(habit);
+	}
 }
 
 } // namespace Actions

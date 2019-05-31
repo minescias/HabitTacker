@@ -138,6 +138,14 @@ Zadania dotyczące modułu HT
  *  OK Pobieranie polecenia z filtrem
  *  Opis działania całości w dokumentacji
 
+**[HT21]** Możliwość resetowania
+ *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+    parametry z nazwą - składnia -<nazwa>
+ *  OK Opis powyższego w dokumentacji
+ *  OK Rozszerzenie dao o usuwanie wpisów z tabeli habit + testy
+ *  OK Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
+    dodanie opisu do dokumentacji
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

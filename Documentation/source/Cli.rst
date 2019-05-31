@@ -17,9 +17,12 @@ Command Line Interface
 **htr add <name>**
     Adds new habit to the database
 
-**htr <habit_id> done**
+**htr <habit_id> done <options>**
     Sets habit selected by filter as done for today. The only possible value in
     filter is habit id (at least for now :))
+
+    Availiable options:
+     *  -reset - deletes habit if set
 
 **htr list**
     Print all habits in terminal
