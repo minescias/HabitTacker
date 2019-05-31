@@ -6,6 +6,7 @@ set(Config_src
     Config/Settings.cpp)
 
 set(Datetime_src
+    DateTime/DateLiteral.cpp
     DateTime/DateTime.cpp
     DateTime/DateTimeGetter.cpp
     DateTime/Duration.cpp)
