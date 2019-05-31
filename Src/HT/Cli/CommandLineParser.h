@@ -13,6 +13,7 @@ enum class ParameterType
 {
 	Simple,
 	Flag,
+	Parameter,
 };
 
 class CommandLineParser
@@ -25,6 +26,8 @@ private:
 	ParameterType getParameterType(const std::string& parameter) const;
 	void readSimpleParameter(const std::string& parameter);
 	void readFlag(const std::string& parameter);
+	void readParameter(const std::string& parameter);
+
 private:
 	bool commandIsSet;
 	ParserResult result;

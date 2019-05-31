@@ -74,6 +74,18 @@ TEST_F(CommandLineParserTests, parsesCommandWithOptionalFlag)
 	checkResult(result, expected);
 }
 
+TEST_F(CommandLineParserTests, parsesCommandWithOptionalParameter)
+{
+	const int argc{3};
+	char* argv[argc] = {"ht"_c, "command"_c, "-param=value"_c};
+
+	auto expected = Cli::ParserResult("command", "",
+		Cli::Arguments{{"", ""}, {"param", "value"}});
+
+	auto result = parser.parse(argc, argv);
+	checkResult(result, expected);
+}
+
 TEST_F(CommandLineParserTests, throwsRuntimeErrorOnDuplicadedDefaultParameter)
 {
 	const int argc{4};

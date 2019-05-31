@@ -86,7 +86,7 @@ Zadania dotyczące modułu HT
     **htr settings <name>:<value>**
 
 **[HT22]** Możliwość podawania dnia w opcjonalnych parametrach
- *  Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+ *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
  *  Dodanie opcji -date=<day> do komendy done
  *  Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
@@ -97,6 +97,12 @@ Zadania dotyczące modułu HT
  *  Polecenie update/merge do dao definicji
  *  Dbsługa filtru, parametru name
  *  Dokumentacja
+
+**[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
+ *  testy na tę klasę
+ *  pobieranie domyślnego parametru
+ *  pobieranie flagi
+ *  pobieranie wartości parametru
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i

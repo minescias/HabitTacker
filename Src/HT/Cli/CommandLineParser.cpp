@@ -42,6 +42,8 @@ ParserResult CommandLineParser::parse(int argc, char** argv)
 				readSimpleParameter(argv[i]);
 			else if (parameterType == ParameterType::Flag)
 				readFlag(argv[i]);
+			else if (parameterType == ParameterType::Parameter)
+				readParameter(argv[i]);
 		}
 	}
 
@@ -51,11 +53,15 @@ ParserResult CommandLineParser::parse(int argc, char** argv)
 ParameterType CommandLineParser::getParameterType(const std::string& parameter) const
 {
 	if (*parameter.begin() == '-')
-		return ParameterType::Flag;
+	{
+		if (parameter.find('=') != std::string::npos)
+			return ParameterType::Parameter;
+		else
+			return ParameterType::Flag;
+	}
 
 	return ParameterType::Simple;
 }
-
 
 void CommandLineParser::readSimpleParameter(const std::string& parameter)
 {
@@ -79,6 +85,15 @@ void CommandLineParser::readFlag(const std::string& parameter)
 		throw RuntimeError("Redefinition of '" + flag + "' parameter");
 
 	result.arguments[flag] = "";
+}
+
+void CommandLineParser::readParameter(const std::string& parameter)
+{
+	auto equalPos = parameter.find('=');
+	auto param = parameter.substr(1, equalPos - 1);
+	auto value = parameter.substr(equalPos + 1);
+
+	result.arguments[param] = value;
 }
 
 } // namespace Cli
