@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
-#include <Core/DateTime/DateTimeGetter.h>
+#include "Core/DateTime/DateTime.h"
+#include "Core/DateTime/DateTimeGetter.h"
 
 #include "HT/Actions/DoneAction.h"
 #include "HT/Actions/ActionError.h"
@@ -67,6 +68,25 @@ TEST_F(DoneActionTest, deleteHabitForToday)
 
 	pr.filter = "1";
 	pr.arguments = Cli::Arguments{{"reset", ""}};
+	doneAction.execute(pr);
+}
+
+TEST_F(DoneActionTest, savesHabitUsingDateParam)
+{
+	auto habit = Entity::HabitEntity();
+	habit.setHabitId(1);
+	habit.setDate(Dt::DateTime(Dt::getCurrentDate()).addDays(-1).unixTime());
+
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+
+	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
+		.WillOnce(Return(false));
+
+	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
+
+	pr.filter = "1";
+	pr.arguments = Cli::Arguments{{"date", "yesterday"}};
 	doneAction.execute(pr);
 }
 

@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "Core/DateTime/Timestamp.h"
+
 #include "HT/Actions/IAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
@@ -16,6 +18,9 @@ public:
 	DoneAction();
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
 	void execute(const Cli::ParserResult& parserResult);
+
+private:
+	Dt::Timestamp getDate(const Cli::ParserResult& parserResult) const;
 
 private:
 	std::unique_ptr<Dao::IHabitDao> habitDao;

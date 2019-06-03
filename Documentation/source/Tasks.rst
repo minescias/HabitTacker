@@ -53,6 +53,9 @@ Co trzeba dodać/poprawić w Core programu
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
+**[C07]** Jakaś metoda to łatwiejszego pobietrania unixowej daty przesuniętej o
+    n dni
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -88,8 +91,9 @@ Zadania dotyczące modułu HT
 **[HT22]** Możliwość podawania dnia w opcjonalnych parametrach
  *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
- *  Dodanie opcji -date=<day> do komendy done
- *  Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
+ *  OK Dodanie opcji -date=<day> do komendy done
+ *  OK Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
+ *  Przetwarzanie daty formatu DD-MM-YYYY na timestamp
  *  Dokumentacja
 
 **[HT23]** Polecenie edit do poprawiania definicji
