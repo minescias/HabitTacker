@@ -12,6 +12,7 @@ class HabitDefinitionDaoMock : public Dao::IHabitDefinitionDao
 {
 public:
 	MOCK_CONST_METHOD1(saveDefinition, void(const Entity::HabitDefinitionEntity& entity));
+	MOCK_CONST_METHOD1(updateDefinition, void(const Entity::HabitDefinitionEntity& entity));
 	MOCK_CONST_METHOD1(getDefinition, Entity::HabitDefinitionEntityPtr (int definitionId));
 	MOCK_CONST_METHOD0(getDefinitions, Entity::HabitDefinitions());
 };

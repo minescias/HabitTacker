@@ -37,6 +37,22 @@ void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity) con
 	query.execute();
 }
 
+void HabitDefinitionDao::updateDefinition(const HabitDefinitionEntity& entity) const
+{
+	std::string sql =
+		"\n update"
+		"\n 	habit_definition"
+		"\n set"
+		"\n 	name = :name"
+		"\n where"
+		"\n 	id = :id";
+
+	Db::Query query(db, sql);
+	query.setParam(":name", entity.getName());
+	query.setParam(":id", entity.getId());
+	query.execute();
+}
+
 HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) const
 {
 	std::string sql =

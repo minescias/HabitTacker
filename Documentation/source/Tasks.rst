@@ -97,7 +97,7 @@ Zadania dotyczące modułu HT
 
 **[HT23]** Polecenie edit do poprawiania definicji
  *  Nowa komenda edit
- *  Polecenie update/merge do dao definicji
+ *  OK Polecenie update/merge do dao definicji
  *  Dbsługa filtru, parametru name
  *  Dokumentacja
 
@@ -142,3 +142,5 @@ konfiguracji tychże
 **[T08]** Polecenie tests do uruchamiania testów
  *  <default> uruchamianie wszystkich testów
  *  <module name> uruchamianie testów z jednego modułu
+
+**[T09]** Narzędź, który zmieni camesCase na podkreślniki

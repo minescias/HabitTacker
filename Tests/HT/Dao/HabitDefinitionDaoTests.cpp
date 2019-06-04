@@ -44,13 +44,13 @@ public:
 	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
 };
 
-TEST_F(HabitDefinitionDaoTests, readsEmptyPointerWhenDefinitionNotFound)
+TEST_F(HabitDefinitionDaoTests, reads_empty_pointer_when_definition_not_found)
 {
 	auto readDefiniton = dao->getDefinition(1000);
 	ASSERT_FALSE(readDefiniton);
 }
 
-TEST_F(HabitDefinitionDaoTests, saveAndReadByIdTest)
+TEST_F(HabitDefinitionDaoTests, saves_and_reads_by_id)
 {
 	addDefinition("Example definition");
 	auto readDefiniton = dao->getDefinition(1);
@@ -60,7 +60,21 @@ TEST_F(HabitDefinitionDaoTests, saveAndReadByIdTest)
 	EXPECT_STREQ(readDefiniton->getName().c_str(), "Example definition");
 }
 
-TEST_F(HabitDefinitionDaoTests, readAllDefinitions)
+TEST_F(HabitDefinitionDaoTests, updates_definition_when_it_already_exist)
+{
+	addDefinition("Example defiiiiiiinitions"); // creates definition with id=1
+
+	auto definition = Entity::HabitDefinitionEntity();
+	definition.setId(1);
+	definition.setName("Example definition");
+
+	dao->updateDefinition(definition);
+
+	auto readDefinition = dao->getDefinition(1);
+	ASSERT_THAT(readDefinition->getName(), definition.getName());
+}
+
+TEST_F(HabitDefinitionDaoTests, reads_all_definitions)
 {
 	addDefinition("Example definition");
 	addDefinition("Example definition2");
