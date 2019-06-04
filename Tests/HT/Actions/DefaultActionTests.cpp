@@ -121,7 +121,7 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		auto expected = "No habits found, try to add some using 'htr add'\n";
 		ASSERT_STREQ(expected, err.what());

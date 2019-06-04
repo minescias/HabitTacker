@@ -112,7 +112,6 @@ Zadania dotyczące modułu HT
     testy tegoż)
  *  Automatyczne generowanie operatora porównania
  *  Namespace tests dla wszystkich testów
- *  ActionError powinno być w namespace Actions
  *  AddAction pozwala na przekazanie pustej nazwy.
 
 Tools

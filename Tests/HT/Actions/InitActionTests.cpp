@@ -57,7 +57,7 @@ TEST_F(InitActionTest, validFilenameIsSet)
 		initAction.execute("", "");
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		ASSERT_STREQ("No filename specified", err.what());
 	}
@@ -78,7 +78,7 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 		initAction.execute(dbFilePath, configFilePath);
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		std::string msg = std::string("File ") + dbFilePath + " already exists";
 		ASSERT_STREQ(msg.c_str(), err.what());
@@ -92,7 +92,7 @@ TEST_F(InitActionTest, validateConfigFileNameIsSet)
 		initAction.execute(dbFilePath, "");
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		ASSERT_STREQ("Config file path is empty", err.what());
 	}

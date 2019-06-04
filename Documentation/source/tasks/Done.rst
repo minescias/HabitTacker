@@ -156,6 +156,7 @@ Zadania dotyczące modułu HT
     wyjątkiem, który nie jest nigdzie przechwytywany
  *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
     tym. Jeśli tak to zamienić
+ *  ActionError powinno być w namespace Actions
 
 Tools
 *******************************************************************************

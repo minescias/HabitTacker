@@ -108,7 +108,7 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		auto expected = "Habit 1 was already set for this day";
 		ASSERT_STREQ(expected, err.what());
@@ -126,7 +126,7 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		auto expected = "Habit 2 does not exist";
 		ASSERT_STREQ(expected, err.what());
@@ -140,7 +140,7 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		auto expected = "No filter specified";
 		ASSERT_STREQ(expected, err.what());

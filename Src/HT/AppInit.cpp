@@ -54,7 +54,7 @@ int appInit(int argc, char* argv[])
 		action->setDaoFactory(daoFactory.get());
 		action->execute(parserResult);
 	}
-	catch(const ActionError& err)
+	catch(const Actions::ActionError& err)
 	{
 		std::cout << err.what() << "\n";
 	}
