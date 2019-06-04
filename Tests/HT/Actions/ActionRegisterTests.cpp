@@ -1,5 +1,7 @@
 #include <gmock/gmock.h>
 
+#include "Core/Utils/Exceptions/RuntimeError.h"
+
 #include "HT/Actions/ActionRegister.h"
 #include "HT/Actions/IAction.h"
 
@@ -62,7 +64,7 @@ TEST(ActionRegisterTest, throwsLogicErrorWhenRegisteringTheSameActionTwice)
 	}
 }
 
-TEST(ActionRegisterTest, throwsLogicErrorWhenGettingUnregisteredAction)
+TEST(ActionRegisterTest, throwsRuntimeErrorWhenGettingUnregisteredAction)
 {
 	auto actionRegister = Actions::ActionRegister();
 	try
@@ -70,7 +72,7 @@ TEST(ActionRegisterTest, throwsLogicErrorWhenGettingUnregisteredAction)
 		actionRegister.get("firstAction");
 		FAIL() << "LogicError expected";
 	}
-	catch(LogicError& err)
+	catch(RuntimeError& err)
 	{
 		auto expected = "Action 'firstAction' is not registered";
 		ASSERT_STREQ(err.what(), expected);

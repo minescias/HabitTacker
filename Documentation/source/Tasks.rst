@@ -116,8 +116,6 @@ Zadania dotyczące modułu HT
  *  Namespace tests dla wszystkich testów
  *  ActionError powinno być w namespace Actions
  *  AddAction pozwala na przekazanie pustej nazwy.
- *  W przypadku, gdy użytkownik poda błędną nazwę akcji program wysypie się
-    wyjątkiem
 
 Tools
 *******************************************************************************

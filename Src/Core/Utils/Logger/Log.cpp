@@ -4,5 +4,5 @@
 
 void log(const std::string& log)
 {
-    std::cout << log << std::endl;
+//    std::cout << log << std::endl;
 }

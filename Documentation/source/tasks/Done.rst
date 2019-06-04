@@ -152,6 +152,8 @@ Zadania dotyczące modułu HT
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych
+ *  W przypadku, gdy użytkownik poda błędną nazwę akcji program wysypie się
+    wyjątkiem, który nie jest nigdzie przechwytywany
 
 Tools
 *******************************************************************************

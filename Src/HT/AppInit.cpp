@@ -58,6 +58,10 @@ int appInit(int argc, char* argv[])
 	{
 		std::cout << err.what() << "\n";
 	}
+	catch(const RuntimeError& err)
+	{
+		std::cout << err.what() << "\n";
+	}
 
 	return 0;
 }

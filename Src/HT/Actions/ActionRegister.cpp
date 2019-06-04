@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Core/Utils/Exceptions/RuntimeError.h"
+
 namespace Actions
 {
 
@@ -20,7 +22,7 @@ void ActionRegister::reg(const std::string& name, ActionCreatorFunc creator)
 std::unique_ptr<IAction> ActionRegister::get(const std::string& name)
 {
 	if (creatorsMap.find(name) == creatorsMap.end())
-		throw LogicError("Action '" + name + "' is not registered");
+		throw RuntimeError("Action '" + name + "' is not registered");
 
 	return creatorsMap.at(name)();
 }
