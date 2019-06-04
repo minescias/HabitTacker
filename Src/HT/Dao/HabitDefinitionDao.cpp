@@ -20,7 +20,7 @@ HabitDefinitionDao::~HabitDefinitionDao()
 {
 }
 
-void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity)
+void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity) const
 {
 	std::string sql =
 		"\n insert into habit_definition"
@@ -37,7 +37,7 @@ void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity)
 	query.execute();
 }
 
-HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId)
+HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) const
 {
 	std::string sql =
 		"\n select "
@@ -62,9 +62,9 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId)
 	return result;
 }
 
-std::vector<Entity::HabitDefinitionEntityPtr> HabitDefinitionDao::getDefinitions()
+Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 {
-	auto result = std::vector<Entity::HabitDefinitionEntityPtr>();
+	auto result = Entity::HabitDefinitions();
 
 	std::string sql =
 		"\n select "

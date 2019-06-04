@@ -13,12 +13,12 @@ class HabitDao : public IHabitDao
 public:
 	HabitDao(Db::Database* db);
 
-	virtual void saveHabit(const Entity::HabitEntity& habit);
-	virtual void deleteHabit(const Entity::HabitEntity& habit);
+	virtual void saveHabit(const Entity::HabitEntity& habit) const;
+	virtual void deleteHabit(const Entity::HabitEntity& habit) const;
 
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id);
-	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit);
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(Dt::Timestamp date);
+	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id) const;
+	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) const;
+	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(Dt::Timestamp date) const;
 
 private:
 	Db::Database* db;

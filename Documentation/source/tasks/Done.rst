@@ -154,6 +154,8 @@ Zadania dotyczące modułu HT
     handlera do nowo utworzonej bazy danych
  *  W przypadku, gdy użytkownik poda błędną nazwę akcji program wysypie się
     wyjątkiem, który nie jest nigdzie przechwytywany
+ *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
+    tym. Jeśli tak to zamienić
 
 Tools
 *******************************************************************************

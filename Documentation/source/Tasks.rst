@@ -110,8 +110,6 @@ Zadania dotyczące modułu HT
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)
- *  Czy metody w Dao mogą być constowe (czy przekazywanie DB nie przeszkadza w
-    tym. Jeśli tak to zamienić
  *  Automatyczne generowanie operatora porównania
  *  Namespace tests dla wszystkich testów
  *  ActionError powinno być w namespace Actions

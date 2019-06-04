@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace Entity
 {
@@ -26,6 +27,7 @@ private:
 bool operator==(const HabitDefinitionEntity &a, const HabitDefinitionEntity &b);
 
 using HabitDefinitionEntityPtr = std::unique_ptr<HabitDefinitionEntity>;
+using HabitDefinitions = std::vector<HabitDefinitionEntityPtr>;
 
 } // namespace Entity
 

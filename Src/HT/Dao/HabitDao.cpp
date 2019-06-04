@@ -17,7 +17,7 @@ HabitDao::HabitDao(Db::Database* db)
 {
 }
 
-void HabitDao::saveHabit(const HabitEntity& habit)
+void HabitDao::saveHabit(const HabitEntity& habit) const
 {
 	std::string sql =
 		"\n insert into habit"
@@ -38,7 +38,7 @@ void HabitDao::saveHabit(const HabitEntity& habit)
 }
 
 
-void HabitDao::deleteHabit(const Entity::HabitEntity& habit)
+void HabitDao::deleteHabit(const Entity::HabitEntity& habit) const
 {
 	auto sql =
 		"\n delete from "
@@ -53,7 +53,7 @@ void HabitDao::deleteHabit(const Entity::HabitEntity& habit)
 	query.execute();
 }
 
-std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id)
+std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 {
 	auto result = std::vector<HabitEntityPtr>();
 
@@ -80,7 +80,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id)
 	return result;
 }
 
-bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit)
+bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 {
 	std::string sql =
 		"\n select"
@@ -103,7 +103,7 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit)
 }
 
 std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
-	Dt::Timestamp date)
+	Dt::Timestamp date) const
 {
 	auto sql =
 		"\n select"

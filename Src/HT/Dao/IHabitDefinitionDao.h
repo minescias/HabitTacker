@@ -14,9 +14,9 @@ class IHabitDefinitionDao : public UnknownDao
 public:
 	~IHabitDefinitionDao(){}
 
-	virtual void saveDefinition(const Entity::HabitDefinitionEntity& entity) = 0;
-	virtual Entity::HabitDefinitionEntityPtr getDefinition(int definitionId) = 0;
-	virtual std::vector<Entity::HabitDefinitionEntityPtr> getDefinitions() = 0;
+	virtual void saveDefinition(const Entity::HabitDefinitionEntity& entity) const = 0;
+	virtual Entity::HabitDefinitionEntityPtr getDefinition(int definitionId) const = 0;
+	virtual Entity::HabitDefinitions getDefinitions() const = 0;
 };
 
 } //namespace Dao

@@ -11,11 +11,11 @@ namespace Mocks
 class HabitDaoMock : public Dao::IHabitDao
 {
 public:
-	MOCK_METHOD1(saveHabit, void(const Entity::HabitEntity& habit));
-	MOCK_METHOD1(deleteHabit, void(const Entity::HabitEntity& habit));
-	MOCK_METHOD1(getHabitsById, std::vector<Entity::HabitEntityPtr> (int id));
-	MOCK_METHOD1(checkIfHabitIsSetForDay, bool(const Entity::HabitEntity& habit));
-	MOCK_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(Dt::Timestamp date));
+	MOCK_CONST_METHOD1(saveHabit, void(const Entity::HabitEntity& habit));
+	MOCK_CONST_METHOD1(deleteHabit, void(const Entity::HabitEntity& habit));
+	MOCK_CONST_METHOD1(getHabitsById, std::vector<Entity::HabitEntityPtr> (int id));
+	MOCK_CONST_METHOD1(checkIfHabitIsSetForDay, bool(const Entity::HabitEntity& habit));
+	MOCK_CONST_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(Dt::Timestamp date));
 };
 
 } // namespace Mocks
