@@ -75,7 +75,7 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 {
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
-	habit.setDate(Dt::DateTime(Dt::getCurrentDate()).addDays(-1).unixTime());
+	habit.setDate(Dt::getCurrentDateShiftByDays(-1));
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));

@@ -16,9 +16,9 @@ Timestamp DateLiteral::parse(const std::string& date)
 	if (date == "today")
 		return getCurrentDate();
 	else if (date == "yesterday")
-		return DateTime(getCurrentDate()).addDays(-1).unixTime();
+		return getCurrentDateShiftByDays(-1);
 	else if (date == "tomorrow")
-		return DateTime(getCurrentDate()).addDays(1).unixTime();
+		return getCurrentDateShiftByDays(1);
 
 	throw RuntimeError("Cannot read '" + date +"' as date");
 }

@@ -18,10 +18,10 @@ public:
 
 	void checkSimpleLiteral(const std::string& literal, int daysFromToday)
 	{
-		auto expected = DateTime(getCurrentDate()).addDays(daysFromToday);
+		auto expected = getCurrentDateShiftByDays(daysFromToday);
 		auto actual = DateLiteral().parse(literal);
 
-		EXPECT_THAT(actual, Eq(expected.unixTime())) << "Literal:" << literal;
+		EXPECT_THAT(actual, Eq(expected)) << "Literal:" << literal;
 	}
 };
 

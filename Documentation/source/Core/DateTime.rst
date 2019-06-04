@@ -32,6 +32,10 @@ Funkcja Dt::getCurrentDate()
 Zwraca aktualną datę (lokalną z komputera na którym jest uruchomiony program)
 a formacie unixowym (Dt::Timestamp) zaokrągloną do jednego dnia.
 
+Funkcja Dt::getCurrentDateShiftByDays(int nrOfDays)
+*******************************************************************************
+Funckja zwraca unixową datę przesuniętą o n dni od dzisiaj
+
 Reprezentacja daty w bazie danych
 *******************************************************************************
 Data będzie przechowywana w kolumnach o typie **Date** jako czas unixowy

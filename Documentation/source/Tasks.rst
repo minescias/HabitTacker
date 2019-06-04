@@ -53,8 +53,7 @@ Co trzeba dodać/poprawić w Core programu
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
-**[C07]** Jakaś metoda to łatwiejszego pobietrania unixowej daty przesuniętej o
-    n dni
+**[C09]** ...
 
 Docs
 *******************************************************************************
@@ -84,7 +83,7 @@ Zadania dotyczące modułu HT
     jest przesunięta o jeden znak w lewo :)
 
 **[HT20]** Polecenie Settings
- *  Domyślnie wyświietlana jest aktualna konfiguracja z pliku .rc
+ *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 

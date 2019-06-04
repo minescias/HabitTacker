@@ -8,6 +8,8 @@ namespace Dt
 
 Timestamp getCurrentDate();
 
+Timestamp getCurrentDateShiftByDays(int daysToAdd);
+
 } // namespace Dt
 
 #endif // __DATE_TIME_GETTER_H

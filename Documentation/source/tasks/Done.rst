@@ -22,6 +22,9 @@ Co trzeba dodać/poprawić w Core programu
  *  OK Pobieranie dnia tygodnia z daty
  *  OK Klasa Duration do reprezentowania różnicy między dwoma datami
 
+**[C08]** Jakaś metoda to łatwiejszego pobietrania unixowej daty przesuniętej o
+    n dni
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
