@@ -31,6 +31,8 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
 **[B08]** Włączenie wszystkic warningów w gcc tak jak są domyślne w MSVC
 
+**[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -95,12 +97,6 @@ Zadania dotyczące modułu HT
  *  Przetwarzanie daty formatu DD-MM-YYYY na timestamp
  *  Dokumentacja
 
-**[HT23]** Polecenie edit do poprawiania definicji
- *  Nowa komenda edit
- *  OK Polecenie update/merge do dao definicji
- *  Dbsługa filtru, parametru name
- *  Dokumentacja
-
 **[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
  *  testy na tę klasę
  *  pobieranie domyślnego parametru
@@ -113,6 +109,8 @@ Zadania dotyczące modułu HT
  *  Automatyczne generowanie operatora porównania
  *  Namespace tests dla wszystkich testów
  *  AddAction pozwala na przekazanie pustej nazwy.
+ *  Uspójnienie kodu testowego przez dodanie metod do pobierania domyślnej
+    encji i funkcji do porównywania encji - zmiany w module test tools.
 
 Tools
 *******************************************************************************

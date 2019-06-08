@@ -149,6 +149,12 @@ Zadania dotyczące modułu HT
  *  OK Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
     dodanie opisu do dokumentacji
 
+**[HT23]** Polecenie edit do poprawiania definicji
+ *  OK Nowa komenda edit
+ *  OK Polecenie update/merge do dao definicji
+ *  OK Dbsługa filtru, parametru name
+ *  OK Dokumentacja
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

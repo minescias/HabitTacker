@@ -3,6 +3,7 @@
 #include "HT/Actions/AddAction.h"
 #include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/DoneAction.h"
+#include "HT/Actions/EditAction.h"
 #include "HT/Actions/ListAction.h"
 
 std::unique_ptr<Actions::ActionRegister> registerActions()
@@ -17,6 +18,9 @@ std::unique_ptr<Actions::ActionRegister> registerActions()
 
 	actionRegister->reg("done", []()->std::unique_ptr<Actions::IAction>
 		{return std::make_unique<Actions::DoneAction>();});
+
+	actionRegister->reg("edit", []()->std::unique_ptr<Actions::IAction>
+		{return std::make_unique<Actions::EditAction>();});
 
 	actionRegister->reg("list", []()->std::unique_ptr<Actions::IAction>
 		{return std::make_unique<Actions::ListAction>();});

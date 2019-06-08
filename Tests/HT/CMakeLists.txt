@@ -14,6 +14,7 @@ set(HtTests_src
     Actions/AddActionTests.cpp
     Actions/DefaultActionTests.cpp
     Actions/DoneActionTests.cpp
+    Actions/EditActionTests.cpp
     Actions/InitActionTests.cpp
     Actions/ListActionTests.cpp
     CommandLineParserTests.cpp
