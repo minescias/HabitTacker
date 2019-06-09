@@ -3,6 +3,7 @@
 #include <Core/Database/Database.h>
 #include <Core/Database/Dataset.h>
 #include <Core/Database/Query.h>
+#include <Core/DateTime/DateTimeGetter.h>
 
 namespace Dao
 {
@@ -25,15 +26,18 @@ void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity) con
 	std::string sql =
 		"\n insert into habit_definition"
 		"\n ("
-		"\n 	name"
+		"\n 	name,"
+		"\n 	begin_date"
 		"\n )"
 		"\n values"
 		"\n ("
-		"\n 	:name"
+		"\n 	:name,"
+		"\n 	:date"
 		"\n )";
 
 	Db::Query query(db, sql);
 	query.setParam(":name", entity.getName());
+	query.setParam(":date", Dt::getCurrentDate());
 	query.execute();
 }
 
@@ -58,7 +62,8 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 	std::string sql =
 		"\n select "
 		"\n 	id,"
-		"\n 	name"
+		"\n 	name,"
+		"\n 	begin_date"
 		"\n from"
 		"\n 	habit_definition h"
 		"\n where"
@@ -74,6 +79,7 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 	auto result = std::make_unique<HabitDefinitionEntity>();
 	result->setId(dataset->getAs<int>("id"));
 	result->setName(dataset->getAs<std::string>("name"));
+	result->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
 
 	return result;
 }
@@ -85,7 +91,8 @@ Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 	std::string sql =
 		"\n select "
 		"\n 	id,"
-		"\n 	name"
+		"\n 	name,"
+		"\n 	begin_date"
 		"\n from"
 		"\n 	habit_definition h";
 
@@ -97,6 +104,7 @@ Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 		result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
 		result.back()->setId(dataset->getAs<int>("id"));
 		result.back()->setName(dataset->getAs<std::string>("name"));
+		result.back()->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
 	}
 
 	return result;

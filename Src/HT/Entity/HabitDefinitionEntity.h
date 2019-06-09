@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "Core/DateTime/Timestamp.h"
+
 namespace Entity
 {
 
@@ -19,9 +21,13 @@ public:
 	void setName(const std::string& name);
 	std::string getName() const;
 
+	void setBeginDate(Dt::Timestamp date);
+	Dt::Timestamp getBeginDate() const;
+
 private:
 	int id;
 	std::string name;
+	Dt::Timestamp beginDate;
 };
 
 bool operator==(const HabitDefinitionEntity &a, const HabitDefinitionEntity &b);

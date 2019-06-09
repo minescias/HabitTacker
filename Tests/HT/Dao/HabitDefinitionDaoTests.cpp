@@ -3,7 +3,9 @@
 #include <filesystem>
 #include <memory>
 
-#include <HT/Dao/DatabaseCreator.h>
+#include "Core/DateTime/DateTimeGetter.h"
+
+#include "HT/Dao/DatabaseCreator.h"
 #include "HT/Dao/HabitDefinitionDao.h"
 
 namespace Tests
@@ -28,6 +30,7 @@ public:
 		auto definition = std::make_unique<Entity::HabitDefinitionEntity>();
 		definition->setId(id);
 		definition->setName(name);
+		definition->setBeginDate(Dt::getCurrentDate());
 
 		return  definition;
 	}
@@ -57,7 +60,8 @@ TEST_F(HabitDefinitionDaoTests, saves_and_reads_by_id)
 
 	ASSERT_TRUE(readDefiniton);
 	EXPECT_THAT(readDefiniton->getId(), Eq(1));
-	EXPECT_STREQ(readDefiniton->getName().c_str(), "Example definition");
+	EXPECT_THAT(readDefiniton->getName(), Eq("Example definition"));
+	EXPECT_THAT(readDefiniton->getBeginDate(), Eq(Dt::getCurrentDate()));
 }
 
 TEST_F(HabitDefinitionDaoTests, updates_definition_when_it_already_exist)

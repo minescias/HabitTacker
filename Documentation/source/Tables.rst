@@ -7,12 +7,13 @@ habit_definition
 Tabela z definicją nawyku. W tym momencie zawiera tylko nazwę ale przyszłości
 będzie rozwijana o inne opcje takie jak status aktywności, typ itp.
 
-===== ============= ===========================================================
-Nazwa Typ (PK)      Opis
------ ------------- -----------------------------------------------------------
-id    integer       Id nawyku
-name  varchar(40)   Nazwa
-===== ============= ===========================================================
+========== ============= ======================================================
+Nazwa      Typ (PK)      Opis
+---------- ------------- ------------------------------------------------------
+id         integer       Id nawyku
+name       varchar(40)   Nazwa
+begin_date date          Data, od kiedy obowiązuje dany nawyk
+========== ============= ======================================================
 
 habit
 *******************************************************************************

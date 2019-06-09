@@ -13,7 +13,8 @@ auto getCreateHabitDefinitionSql()
 		"\n create table habit_definition"
 		"\n ("
 		"\n 	id integer primary key autoincrement,"
-		"\n 	name varchar(40)"
+		"\n 	name varchar(40),"
+		"\n 	begin_date date not null"
 		"\n )";
 }
 
