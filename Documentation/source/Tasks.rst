@@ -77,7 +77,7 @@ Zadania dotyczące modułu HT
     wypełnieniem jest przesunięta o jeden znak w lewo :)
 
 **[HT20]** Polecenie Settings
- *  Domyślnie wyśśśŋ’wietlana jest aktualna konfiguracja z pliku .rc
+ *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
@@ -86,7 +86,7 @@ Zadania dotyczące modułu HT
     parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
  *  OK Dodanie opcji -date=<day> do komendy done
  *  OK Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
- *  Przetwarzanie daty formatu DD-MM-YYYY na timestamp
+ *  OK Przetwarzanie daty formatu DD-MM-YYYY na timestamp
  *  Zabezpieczenie przed dodaniem daty w przyszłości lub daty przed
     rozpoczęciem nawyku
  *  Dokumentacja

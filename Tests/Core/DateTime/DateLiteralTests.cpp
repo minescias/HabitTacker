@@ -25,11 +25,19 @@ public:
 	}
 };
 
-TEST_F(DateLiteralTests, acceptsToday)
+TEST_F(DateLiteralTests, acceptsDateName)
 {
 	checkSimpleLiteral("today", 0);
 	checkSimpleLiteral("yesterday", -1);
 	checkSimpleLiteral("tomorrow", 1);
+}
+
+TEST_F(DateLiteralTests, acceptsDateString)
+{
+	auto expected = Dt::DateTime("10-01-2015").unixTime();
+	auto actual = DateLiteral().parse("10-01-2015");
+
+	EXPECT_THAT(actual, Eq(expected)) << "Literal:" << "10-01-2015";
 }
 
 TEST_F(DateLiteralTests, throwsRuntimeErrorOnUnknownLiteral)
@@ -41,7 +49,9 @@ TEST_F(DateLiteralTests, throwsRuntimeErrorOnUnknownLiteral)
 	}
 	catch(RuntimeError& err)
 	{
-		auto expected = "Cannot read 'ssssssssssss' as date";
+		auto expected = "Cannot convert 'ssssssssssss' to date. "
+			"Expected date format is DD-MM-YYYY";
+
 		ASSERT_STREQ(err.what(), expected);
 	}
 }
