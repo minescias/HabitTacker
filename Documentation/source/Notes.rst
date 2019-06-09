@@ -68,3 +68,35 @@ fabryki
 Rejestrowanie dao (zwykłych, nie mock) można bardzo uprościć tworząc metdodkę
 template (albo lambda template :) ). Być może w tym momencie udałoby się dodać
 validację na typ dao za pomocą type_traits (np. is_base_of czy jakoś tak)
+
+Notatki nt sqlite
+*******************************************************************************
+SQLite nie obsługuje komendy merge
+
+Log debugowy
+*******************************************************************************
+Potrzebny będzie log debugowy, który pozwoli na wyświetlenie różnych danych
+podczas pracy programu.
+
+Potrzebne opcje:
+ *  Możliwość włączenia, wyłączenia logu w pliku tekstowym
+ *  Określenie poziomów logowania - CLI (parsowanie polecenia), SQL (zapytania,
+    parametry i błędy bazy danych), pozostałe
+ *  Określenie gdzie mają być zapisywane dane (plik, konsola, baza danych)
+ *  Logowanie czasu
+
+Uwagi
+ *  Dostęp z dowolnego miejsca w kodzie - zmienna globalna zamiast singletona
+ *  Dwie metody - setLoggerConfig() - log()
+ *  Docelowo globalne parametry pozwalające na zmianę konfiguracji logowania z
+    wiersza poleceń
+
+CLI parser
+*******************************************************************************
+Potrzebne będą nowe zmiany do parsera wiersza poleceń:
+ *  Walidacja czy wprowadzone parametry są poprawne - chodzi o sprawdzenie czy
+    użytkownik podał poprawne nazwy parametrów - czy wszystkie wymagane dane są
+    wypełnione i czy nie ma niczego nadmiarowego
+ *  Globalne parametry (nazwa bazy danych, informacje o logowaniu itp)
+ *  Poprawione pobieranie danych z wyniku parsowania (klasy parser result)
+ *  Sprawdzanie czy filtr jest cyfrą :)

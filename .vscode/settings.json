@@ -79,7 +79,8 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "unordered_set": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "any": "cpp"
     },
 
     // nie wiem czemu, ale zmienna workspaceFolder nie rozwija się poprawnie
@@ -99,7 +100,7 @@
     },
 
     "files.eol": "\n",
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Monokai",
     "workbench.iconTheme": "vscode-icons"
 
 }
