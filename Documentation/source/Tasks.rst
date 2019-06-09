@@ -70,31 +70,25 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT10]** Wydzielenie modułu HtDbTests, w której będą testy korzystające z
-    bazy danych - testy dao. Chodzi o to, że testy te zajmują stosunkowo dużo
-    czasu i generują sporo bałaganu w komunikatach przez log debugowy
-
-**[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
- *  Rozszerzenie tabeli, encji i dao
- *  Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
-
 **[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
     Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
 
-**[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z wypełnieniem
-    jest przesunięta o jeden znak w lewo :)
+**[HT19] v0.2** Jeśli nazwa nawyku kończy się polską literą to tabela z
+    wypełnieniem jest przesunięta o jeden znak w lewo :)
 
 **[HT20]** Polecenie Settings
- *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
+ *  Domyślnie wyśśśŋ’wietlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
-**[HT22]** Możliwość podawania dnia w opcjonalnych parametrach
+**[HT22] v0.2** Możliwość podawania dnia w opcjonalnych parametrach
  *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
  *  OK Dodanie opcji -date=<day> do komendy done
  *  OK Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
  *  Przetwarzanie daty formatu DD-MM-YYYY na timestamp
+ *  Zabezpieczenie przed dodaniem daty w przyszłości lub daty przed
+    rozpoczęciem nawyku
  *  Dokumentacja
 
 **[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
@@ -103,14 +97,18 @@ Zadania dotyczące modułu HT
  *  pobieranie flagi
  *  pobieranie wartości parametru
 
+**[Ht25] v0.2** Poprawki w działaniu AddAction
+ *  AddAction pozwala na przekazanie pustej nazwy
+ *  AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)
  *  Automatyczne generowanie operatora porównania
  *  Namespace tests dla wszystkich testów
- *  AddAction pozwala na przekazanie pustej nazwy.
  *  Uspójnienie kodu testowego przez dodanie metod do pobierania domyślnej
     encji i funkcji do porównywania encji - zmiany w module test tools.
+ *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
 
 Tools
 *******************************************************************************

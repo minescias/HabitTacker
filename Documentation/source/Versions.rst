@@ -1,9 +1,22 @@
 Wersje programu - pseudo changelog
 ===============================================================================
 
+Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (planowane)
+*******************************************************************************
+Na razie mgliste plany, jak to będzie dokładnie działać
+
+Wersja 0.3 - Nadrobienie długu technologicznego (planowane)
+*******************************************************************************
+*   Poprawienie DaoFactory zgodnie z opisem w notatkach
+*   Poprawki działania CLI - klasa ParserResult i walidacja poprawności
+    wprowadzanych danych - opis w notatkach
+*   Zaawansowany mechanizm logujący
+*   Nowe narzędzia ułatwiające pracę
+*   Uruchomienie statycznej analizy kodu (valgrind?)
+*   Pozostały refaktor
+
 Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w trakcie)
 *******************************************************************************
-*   Polecenie setall do masowego wypełniania wszystkich nawyków
 *   Możliwość odznaczenia nawyku
 *   Obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
 *   Obsługa pliku konfiguracyjnego z przekazaniem domyślnej bazy danych

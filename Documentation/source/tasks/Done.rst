@@ -141,6 +141,10 @@ Zadania dotyczące modułu HT
  *  OK Pobieranie polecenia z filtrem
  *  Opis działania całości w dokumentacji
 
+**[HT16]** Oznaczanie od kiedy dany nawyk obowiązuje (data dodania)
+ *  OK Rozszerzenie tabeli, encji i dao
+ *  OK Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
+
 **[HT21]** Możliwość resetowania
  *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą - składnia -<nazwa>

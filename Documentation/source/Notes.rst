@@ -100,3 +100,8 @@ Potrzebne będą nowe zmiany do parsera wiersza poleceń:
  *  Globalne parametry (nazwa bazy danych, informacje o logowaniu itp)
  *  Poprawione pobieranie danych z wyniku parsowania (klasy parser result)
  *  Sprawdzanie czy filtr jest cyfrą :)
+
+Podpowiadanie składni
+*******************************************************************************
+Dobrze byłoby, gdyby program podowiadał składnie - autouzupełnianie komendy
+i parametrów
