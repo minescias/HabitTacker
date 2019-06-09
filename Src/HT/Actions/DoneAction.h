@@ -20,6 +20,7 @@ public:
 	void execute(const Cli::ParserResult& parserResult);
 
 private:
+	void validateParameters(const Cli::ParserResult& parserResult) const;
 	Dt::Timestamp getDate(const Cli::ParserResult& parserResult) const;
 
 private:

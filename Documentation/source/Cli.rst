@@ -38,3 +38,4 @@ Date options
  *  today
  *  yesterday
  *  tomorrow
+ *  date in format 'DD-MM-YYYY'

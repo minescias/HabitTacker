@@ -153,6 +153,16 @@ Zadania dotyczące modułu HT
  *  OK Dodanie opcji -reset do akcji done - usuwanie wpisu za dzisiaj + testy
     dodanie opisu do dokumentacji
 
+**[HT22] v0.2** Możliwość podawania dnia w opcjonalnych parametrach
+ *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
+    parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
+ *  OK Dodanie opcji -date=<day> do komendy done
+ *  OK Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
+ *  OK Przetwarzanie daty formatu DD-MM-YYYY na timestamp
+ *  OK Zabezpieczenie przed dodaniem daty w przyszłości lub daty przed
+    rozpoczęciem nawyku
+ *  OK Dokumentacja
+
 **[HT23]** Polecenie edit do poprawiania definicji
  *  OK Nowa komenda edit
  *  OK Polecenie update/merge do dao definicji

@@ -81,16 +81,6 @@ Zadania dotyczące modułu HT
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
-**[HT22] v0.2** Możliwość podawania dnia w opcjonalnych parametrach
- *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
-    parametry z nazwą i wartością - składnia -<nazwa>=<wartość> (bez spacji)
- *  OK Dodanie opcji -date=<day> do komendy done
- *  OK Parser przetwarzający datę z parametru na datę wpisaną do bazy danych
- *  OK Przetwarzanie daty formatu DD-MM-YYYY na timestamp
- *  Zabezpieczenie przed dodaniem daty w przyszłości lub daty przed
-    rozpoczęciem nawyku
- *  Dokumentacja
-
 **[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
  *  testy na tę klasę
  *  pobieranie domyślnego parametru

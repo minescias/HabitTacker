@@ -1,6 +1,7 @@
 #include "HT/Actions/DoneAction.h"
 
 #include "Core/DateTime/DateLiteral.h"
+#include "Core/DateTime/DateTime.h"
 #include "Core/DateTime/DateTimeGetter.h"
 
 #include "HT/Actions/ActionError.h"
@@ -20,17 +21,12 @@ void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 
 void DoneAction::execute(const Cli::ParserResult& parserResult)
 {
+	validateParameters(parserResult);
+
 	auto reset = parserResult.arguments.find("reset")
 		!= parserResult.arguments.end();
 
-	auto habitId = parserResult.filter;
-	if (habitId.empty())
-		throw ActionError ("No filter specified");
-
-	auto definitionId = stoi(habitId);
-	if (!definitionDao->getDefinition(definitionId))
-		throw ActionError ("Habit " + habitId + " does not exist");
-
+	auto definitionId = stoi(parserResult.filter);
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(definitionId);
 	habit.setDate(getDate(parserResult));
@@ -38,7 +34,10 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	if (!reset)
 	{
 		if (habitDao->checkIfHabitIsSetForDay(habit))
-			throw ActionError("Habit " + habitId + " was already set for this day");
+		{
+			throw ActionError("Habit " + parserResult.filter +
+				" was already set for this day");
+		}
 
 		habitDao->saveHabit(habit);
 	}
@@ -46,6 +45,27 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	{
 		habitDao->deleteHabit(habit);
 	}
+}
+
+void DoneAction::validateParameters(const Cli::ParserResult& parserResult) const
+{
+	auto habitId = parserResult.filter;
+	if (habitId.empty())
+		throw ActionError ("No filter specified");
+
+	auto definition = definitionDao->getDefinition(stoi(habitId));
+	if (!definition)
+		throw ActionError ("Habit " + habitId + " does not exist");
+
+	auto date = getDate(parserResult);
+	if (date < definition->getBeginDate())
+	{
+		throw ActionError("Cannot set habit before it's begin date which is " +
+			Dt::DateTime(definition->getBeginDate()).dateString());
+	}
+
+	if (date > Dt::getCurrentDate())
+		throw ActionError("Cannot set habit in the future");
 }
 
 Dt::Timestamp DoneAction::getDate(const Cli::ParserResult& parserResult) const

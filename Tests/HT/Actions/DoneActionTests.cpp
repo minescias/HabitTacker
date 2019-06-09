@@ -30,6 +30,18 @@ public:
 		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
 
 		doneAction.setDaoFactory(&daoFactory);
+
+		pr.filter = "1";
+	}
+
+	Entity::HabitDefinitionEntityPtr getDefinition()
+	{
+		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
+		entity->setId(1);
+		entity->setName("name");
+		entity->setBeginDate(Dt::getCurrentDateShiftByDays(-10));
+
+		return entity;
 	}
 
 	Mocks::HabitDaoMock* habitDaoMock;
@@ -45,13 +57,12 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	habit.setDate(Dt::getCurrentDate());
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
-		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+		.WillOnce(Return(ByMove(getDefinition())));
 
 	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(false));
 
-	pr.filter = "1";
 	doneAction.execute(pr);
 }
 
@@ -62,11 +73,10 @@ TEST_F(DoneActionTest, deleteHabitForToday)
 	habit.setDate(Dt::getCurrentDate());
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
-		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+		.WillOnce(Return(ByMove(getDefinition())));
 
 	EXPECT_CALL(*habitDaoMock, deleteHabit(habit)).Times(1);
 
-	pr.filter = "1";
 	pr.arguments = Cli::Arguments{{"reset", ""}};
 	doneAction.execute(pr);
 }
@@ -78,14 +88,13 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 	habit.setDate(Dt::getCurrentDateShiftByDays(-1));
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
-		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+		.WillOnce(Return(ByMove(getDefinition())));
 
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(false));
 
 	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
 
-	pr.filter = "1";
 	pr.arguments = Cli::Arguments{{"date", "yesterday"}};
 	doneAction.execute(pr);
 }
@@ -97,14 +106,13 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 	habit.setDate(Dt::getCurrentDate());
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
-		.WillOnce(Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+		.WillOnce(Return(ByMove(getDefinition())));
 
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habit))
 		.WillOnce(Return(true));
 
 	try
 	{
-		pr.filter = "1";
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
@@ -137,12 +145,52 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 {
 	try
 	{
-		doneAction.execute(pr);
+		doneAction.execute(Cli::ParserResult());
 		FAIL() << "Expected ActionError";
 	}
 	catch(const Actions::ActionError& err)
 	{
 		auto expected = "No filter specified";
+		ASSERT_STREQ(expected, err.what());
+	}
+}
+
+TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
+{
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+		.WillOnce(Return(ByMove(getDefinition())));
+
+	auto dateStr = Dt::DateTime(Dt::getCurrentDateShiftByDays(-11)).dateString();
+
+	try
+	{
+		pr.arguments = Cli::Arguments{{"", ""}, {"date", dateStr}};
+		doneAction.execute(pr);
+		FAIL() << "Expected ActionError";
+	}
+	catch(const Actions::ActionError& err)
+	{
+		auto expected = "Cannot set habit before it's begin date which is " +
+			Dt::DateTime(Dt::getCurrentDateShiftByDays(-10)).dateString();
+
+		ASSERT_THAT(expected, Eq(err.what()));
+	}
+}
+
+TEST_F(DoneActionTest, cannot_done_habit_in_the_future)
+{
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+		.WillOnce(Return(ByMove(getDefinition())));
+
+	try
+	{
+		pr.arguments = Cli::Arguments{{"", ""}, {"date", "tomorrow"}};
+		doneAction.execute(pr);
+		FAIL() << "Expected ActionError";
+	}
+	catch(const Actions::ActionError& err)
+	{
+		auto expected = "Cannot set habit in the future";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
