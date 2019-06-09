@@ -31,12 +31,15 @@ public:
 		defaultAction.setDaoFactory(&daoFactory);
 	}
 
-	Entity::HabitDefinitionEntityPtr getHabitDefinition(int id, const std::string& name)
+	Entity::HabitDefinitionEntityPtr getHabitDefinition(
+		int id, const std::string& name, int beginDateShift)
 	{
+		auto ts = Dt::Timestamp{1557014400};
 		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
 
 		entity->setId(id);
 		entity->setName(name);
+		entity->setBeginDate(Dt::DateTime{ts}.addDays(beginDateShift).unixTime());
 
 		return entity;
 	}
@@ -44,9 +47,8 @@ public:
 	std::vector<Entity::HabitDefinitionEntityPtr> getHabitDefinitions()
 	{
 		std::vector<Entity::HabitDefinitionEntityPtr> habits;
-		habits.emplace_back(getHabitDefinition(1, "Pierwszy"));
-		habits.emplace_back(getHabitDefinition(2, "Drugi"));
-
+		habits.emplace_back(getHabitDefinition(1, "Pierwszy", -10));
+		habits.emplace_back(getHabitDefinition(2, "Drugi", -50));
 		return habits;
 	}
 
@@ -95,12 +97,13 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 	auto expectedOutput =
 		"\n  id name                                     Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su"
 		"\n---- ---------------------------------------- -----------------------------------------"
-		"\n   1 Pierwszy                                 __ __ __ __ __ __ __ __ __ __ __ XX __ XX"
+		"\n   1 Pierwszy                                          __ __ __ __ __ __ __ __ XX __ XX"
 		"\n   2 Drugi                                    __ XX __ XX __ __ __ __ __ __ __ XX XX __"
 		"\n"
 	;
 
 	internal::CaptureStdout();
+
 	defaultAction.execute(Cli::ParserResult("", "",
 		Cli::Arguments{{"", "05-05-2019"}}));
 

@@ -13,6 +13,7 @@ namespace Actions
 {
 
 DefaultAction::DefaultAction()
+	: daysToPrint(14)
 {
 }
 
@@ -35,7 +36,7 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 	if (habitDefinitions.empty())
 		throw ActionError ("No habits found, try to add some using 'htr add'\n");
 
-	prepareCompletionTable(habitDefinitions);
+	prepareCompletionTable(date, habitDefinitions);
 	fillCompletionTable(date);
 	printHeader(date);
 
@@ -66,9 +67,7 @@ std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) c
 {
 	std::string result;
 	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
-
 	const auto firstDay = (Dt::DateTime{date}.weekDay() + 1) % 7;
-	const auto daysToPrint{14};
 
 	for (int i = firstDay; i < firstDay + daysToPrint; i++)
 		result += " " + weekDays[i % 7];
@@ -76,22 +75,34 @@ std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) c
 	return result;
 }
 
-void DefaultAction::prepareCompletionTable(
+void DefaultAction::prepareCompletionTable(Dt::Timestamp date,
 	const std::vector<Entity::HabitDefinitionEntityPtr>& definitions)
 {
 	for(auto const& definition: definitions)
-		completionTable.emplace(definition->getId(), std::vector<bool>(14, false));
+	{
+		auto id = definition->getId();
+		completionTable.emplace(id, std::vector<CompletionType>(14, CompletionType::No));
+
+		auto daysBack = Dt::Duration{date - definition->getBeginDate()}.getDays();
+		auto dayId = daysToPrint - daysBack - 1;
+
+		if (dayId >= 0)
+		{
+			for (int i = 0; i < dayId; i++)
+				completionTable.at(id)[i] = CompletionType::None;
+		}
+	}
 }
 
 void DefaultAction::fillCompletionTable(Dt::Timestamp date)
 {
-	const auto printedDays{14};
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
 
 	for (auto const& habit: habits)
 	{
 		auto daysBack = Dt::Duration{date - habit->getDate()}.getDays();
-		completionTable.at(habit->getHabitId())[printedDays - daysBack - 1] = true;
+		auto dayId = daysToPrint - daysBack - 1;
+		completionTable.at(habit->getHabitId())[dayId] = CompletionType::Yes;
 	}
 }
 
@@ -103,10 +114,12 @@ std::string DefaultAction::getCompletionString(int habitId)
 
 	for (auto resultForDay: completion)
 	{
-		if (resultForDay == false)
+		if (resultForDay == CompletionType::No)
 			result += " __";
-		else
+		else if (resultForDay == CompletionType::Yes)
 			result += " XX";
+		else
+			result += "   ";
 	}
 
 	return result;
