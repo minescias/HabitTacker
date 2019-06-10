@@ -169,6 +169,10 @@ Zadania dotyczące modułu HT
  *  OK Dbsługa filtru, parametru name
  *  OK Dokumentacja
 
+**[Ht25] v0.2** Poprawki w działaniu AddAction
+ *  OK AddAction pozwala na przekazanie pustej nazwy
+ *  OK AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

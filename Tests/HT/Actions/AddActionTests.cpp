@@ -33,6 +33,10 @@ TEST_F(AddActionTests, savesHabitToDatabase)
 {
 	Entity::HabitDefinitionEntity entity;
 	entity.setName("new habit name");
+
+	EXPECT_CALL(*daoMock, getDefinition("new habit name")).WillOnce(
+		Return(ByMove(Entity::HabitDefinitionEntityPtr())));
+
 	EXPECT_CALL(*daoMock, saveDefinition(entity));
 
 	pr.arguments = Cli::Arguments{{"", "new habit name"}};
@@ -51,7 +55,24 @@ TEST_F(AddActionTests, ensures_that_name_is_not_empty)
 		auto expected{"No habit name specified"};
 		ASSERT_STREQ(err.what(), expected);
 	}
+}
 
+TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
+{
+	EXPECT_CALL(*daoMock, getDefinition("new habit name")).WillOnce(
+		Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+
+	try
+	{
+		pr.arguments = Cli::Arguments{{"", "new habit name"}};
+		addAction.execute(pr);
+		FAIL() << "Action error expected";
+	}
+	catch(Actions::ActionError& err)
+	{
+		auto expected{"Habit with name 'new habit name' already exists"};
+		ASSERT_STREQ(err.what(), expected);
+	}
 }
 
 } // namespace Tests

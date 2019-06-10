@@ -87,10 +87,6 @@ Zadania dotyczące modułu HT
  *  pobieranie flagi
  *  pobieranie wartości parametru
 
-**[Ht25] v0.2** Poprawki w działaniu AddAction
- *  OK AddAction pozwala na przekazanie pustej nazwy
- *  AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje
-
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
     testy tegoż)

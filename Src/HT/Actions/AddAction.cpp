@@ -16,14 +16,18 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 
 void AddAction::execute(const Cli::ParserResult& parserResult)
 {
-	auto newHabitName = parserResult.arguments.at("");
-	if (newHabitName.empty())
+	auto name = parserResult.arguments.at("");
+
+	if (name.empty())
 		throw ActionError("No habit name specified");
 
-	auto habitDefinition = Entity::HabitDefinitionEntity();
-	habitDefinition.setName(parserResult.arguments.at(""));
+	auto existingDefinition = dao->getDefinition(name);
+	if (existingDefinition)
+		throw ActionError("Habit with name '" + name + "' already exists");
 
-	dao->saveDefinition(habitDefinition);
+	auto newDefinition = Entity::HabitDefinitionEntity();
+	newDefinition.setName(name);
+	dao->saveDefinition(newDefinition);
 }
 
 } // namespace Actions
