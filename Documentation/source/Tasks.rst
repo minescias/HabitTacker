@@ -88,7 +88,7 @@ Zadania dotyczące modułu HT
  *  pobieranie wartości parametru
 
 **[Ht25] v0.2** Poprawki w działaniu AddAction
- *  AddAction pozwala na przekazanie pustej nazwy
+ *  OK AddAction pozwala na przekazanie pustej nazwy
  *  AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze

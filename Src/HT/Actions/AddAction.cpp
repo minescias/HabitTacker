@@ -1,6 +1,6 @@
 #include <HT/Actions/AddAction.h>
 
-#include <iostream>
+#include <HT/Actions/ActionError.h>
 
 namespace Actions
 {
@@ -16,6 +16,10 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 
 void AddAction::execute(const Cli::ParserResult& parserResult)
 {
+	auto newHabitName = parserResult.arguments.at("");
+	if (newHabitName.empty())
+		throw ActionError("No habit name specified");
+
 	auto habitDefinition = Entity::HabitDefinitionEntity();
 	habitDefinition.setName(parserResult.arguments.at(""));
 
