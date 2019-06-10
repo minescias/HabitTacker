@@ -18,6 +18,7 @@ public:
 	void updateDefinition(const Entity::HabitDefinitionEntity& entity) const;
 
 	Entity::HabitDefinitionEntityPtr getDefinition(int definitionId) const;
+	Entity::HabitDefinitionEntityPtr getDefinition(const std::string& name) const;
 	Entity::HabitDefinitions getDefinitions() const;
 
 private:

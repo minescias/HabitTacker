@@ -84,6 +84,34 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 	return result;
 }
 
+Entity::HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(
+	const std::string& name) const
+{
+	std::string sql =
+		"\n select "
+		"\n 	id,"
+		"\n 	name,"
+		"\n 	begin_date"
+		"\n from"
+		"\n 	habit_definition h"
+		"\n where"
+		"\n 	h.name = :name";
+
+	Db::Query query(db, sql);
+	query.setParam(":name", name);
+	auto dataset = query.execute();
+
+	if (dataset->empty())
+		return HabitDefinitionEntityPtr();
+
+	auto result = std::make_unique<HabitDefinitionEntity>();
+	result->setId(dataset->getAs<int>("id"));
+	result->setName(dataset->getAs<std::string>("name"));
+	result->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
+
+	return result;
+}
+
 Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 {
 	auto result = Entity::HabitDefinitions();

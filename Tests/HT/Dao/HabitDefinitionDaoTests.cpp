@@ -64,6 +64,17 @@ TEST_F(HabitDefinitionDaoTests, saves_and_reads_by_id)
 	EXPECT_THAT(readDefiniton->getBeginDate(), Eq(Dt::getCurrentDate()));
 }
 
+TEST_F(HabitDefinitionDaoTests, read_definition_by_name)
+{
+	addDefinition("Example definition");
+	auto readDefiniton = dao->getDefinition("Example definition");
+
+	ASSERT_TRUE(readDefiniton);
+	EXPECT_THAT(readDefiniton->getId(), Eq(1));
+	EXPECT_THAT(readDefiniton->getName(), Eq("Example definition"));
+	EXPECT_THAT(readDefiniton->getBeginDate(), Eq(Dt::getCurrentDate()));
+}
+
 TEST_F(HabitDefinitionDaoTests, updates_definition_when_it_already_exist)
 {
 	addDefinition("Example defiiiiiiinitions"); // creates definition with id=1
