@@ -15,7 +15,7 @@ Wersja 0.3 - Nadrobienie długu technologicznego (planowane)
 *   Uruchomienie statycznej analizy kodu (valgrind?)
 *   Pozostały refaktor
 
-Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi (w trakcie)
+Wersja 0.2 - Trochę bardziej przyjazna użytkownikowi
 *******************************************************************************
 *   Możliwość odznaczenia nawyku
 *   Obsługa znacznika dni np. day:yesterday do wpisania nawyku za wczoraj
@@ -56,21 +56,7 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
 **Zwracanie ID przez funkcje zapisujące w dao**
     Jak w temacie, uprości to trochę kod testów
 
-**Logowanie zapytań**
-    Zapisywane lib wyświetlanie aktualnie wykonywanych zapytań i parametrów z
-    jakimi zostają wywoływane
-
-**I w ogóle jakaś zaaawansowana klasa logująca**
-
 **Wyświetlanie znaków unicode w konsoli**
-
-**Plik konfiguracyjny**
-    domyślna baza danych
-    informacje o poziomach logwania
-
-**Zaawansowany system logowania**
-    Określenie czy logować na konsoli czy do pliku, nazwa pliku z logiem,
-    poziomy logowania lub co ma być logowane
 
 **Kolorowanie outputu konsoli**
 
