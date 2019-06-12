@@ -11,7 +11,8 @@ enable_testing()
 set(CppTests_src
     main.cpp
     LambdaTests.cpp
-    RegexTests.cpp)
+    RegexTests.cpp
+    SmartPtrTests.cpp)
 
 # system dependent libraries
 if (UNIX)
