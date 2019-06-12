@@ -5,6 +5,7 @@ import sys
 from detail.genCpp import generateClass
 from detail.genCpp import generateFile
 from detail.genCpp import generateTest
+from detail.genCmake import generateCMake
 
 if len(sys.argv) < 2:
 	sys.exit("Missing arguments")
@@ -30,6 +31,10 @@ if sys.argv[1] == "file":
 
 if sys.argv[1] == "test":
 	generateTest(sys.argv[2])
+	sys.exit()
+
+if sys.argv[1] == "cmake":
+	generateCMake(sys.argv)
 	sys.exit()
 
 sys.exit("Unknown command")

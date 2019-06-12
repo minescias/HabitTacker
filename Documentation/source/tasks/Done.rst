@@ -187,4 +187,8 @@ Tools
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
 konfiguracji tychże
 
+**[T01]** Generator plików
+ *  OK pliki \*.cpp i \*.h
+ *  OK pliki CMakeLists.txt
+
 **[T04]** VSCode - Osobne ustawienia dla plików \*.rst - spacje zamiast tabów

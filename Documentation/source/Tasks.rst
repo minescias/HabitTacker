@@ -101,10 +101,6 @@ Tools
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
 konfiguracji tychże
 
-**[T01]** Generator plików
- *  OK pliki \*.cpp i \*.h
- *  pliki CMakeLists.txt
-
 **[T02]** Generator tabel do systemu rst/sphinx
 
 **[T03]** Generator encji
@@ -126,3 +122,5 @@ konfiguracji tychże
  *  <module name> uruchamianie testów z jednego modułu
 
 **[T09]** Narzędź, który zmieni camesCase na podkreślniki
+
+**[T10]** Dodawanie plików cpp do cmake

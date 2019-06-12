@@ -20,6 +20,8 @@ Skrypt, który pozwala na dodawanie plików c++ do projektu. Dostępne są 3 opc
  *  class <name> - plik .h i .cpp z pustą klasą
  *  test <name> - plik z testami .cpp zawierający pusty fixture zawierający
     wymagane includy, usingi i namespace.
+ *  cmake <name> test - tworzy plik projektowy. Opcjonalny parametr <test>
+    pozwala na stworzenie pliku cmake do testów
 
 Podczas tworzenia pliku .cpp automatycznie jest dodawany include do pliku
 nagłówkowego od katalogu Src\
