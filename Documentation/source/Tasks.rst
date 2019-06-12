@@ -33,13 +33,21 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
 **[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
 
+**[B10]** Sprawdzić co to jest profiler i jak można tego użyć
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
 
 **[C01]** Nowy system zapytań do bazy danych.
- *  Sprawdzić już istniejący kod i zobaczyć co można użyć ponownie
- *  Klasa Dataset2 i polecenie execute2() w klasie Query
+ *  Klasa field reprezentująca jedno pole - klasa ta pownna zajmować się
+    rzutowaniem wyników na typ, jakiego oczekuje użytkownik
+ *  Klasa row/record - wektor pól z dostępem po nazwie kolumny
+ *  Klasa Dataset2 - zestaw pól - powinna obdługiwać zakresowe pętle for
+ *  Polecenie execute2() i executeCommand() w klasie Query. Jedno powinno
+    zwracać dataset a drugie nie
+ *  Zamiana starych zapytań na nowe
+ *  Opis działania w dokumentacji
 
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
@@ -55,7 +63,17 @@ Co trzeba dodać/poprawić w Core programu
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
-**[C09]** ...
+**[C09]** Zaawansowany mechanizm logujący zmiany
+ *  Globalny obiekt do logowania
+ *  Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
+    SQL, wywoływanie alcji i zwykły log debugowy
+ *  Logowanie danych w zależności od tego na jakim poziomie są logowane
+ *  Logowanie miejsca logowania (jakkolwiek głupio to brzmi :) __FILE__ i
+    __LINE__)
+ *  Logowanie czasu
+ *  Miejsce logowania - konsola lub plik (lub oba)
+ *  Parametry do pliku konfiguracyjnego włączające funkconalności opisane wyżej
+ *  Opis działania całości w dokumentacji
 
 Docs
 *******************************************************************************
@@ -71,9 +89,13 @@ HT
 Zadania dotyczące modułu HT
 
 **[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
-    Obecnie kod pobierający daoFactory powtarza się w wielu miejscach
+ *  Blokowane przez [HT27]
+ *  Przeniesienie metody setDaoFactory do klasy bazowej.
+ *  Pobieranie dao z fabryki w momencie użycia a nie w metodzie setDaoFactory
+ *  Wywoływanie sprawdzania poprwaności danych w klasie bazowej (uzupełnianie
+    jakie to dane będzie w klasach pochodnych
 
-**[HT19] v0.2** Jeśli nazwa nawyku kończy się polską literą to tabela z
+**[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z
     wypełnieniem jest przesunięta o jeden znak w lewo :)
 
 **[HT20]** Polecenie Settings
@@ -86,6 +108,27 @@ Zadania dotyczące modułu HT
  *  pobieranie domyślnego parametru
  *  pobieranie flagi
  *  pobieranie wartości parametru
+
+**[HT26]** Nowe DaoFactory
+ *  Zwracanie shared_ptr przez daoFactory
+ *  Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
+ *  Jeśli dao zostało wcześniej utworzone to będize zwracane istniejące zamiast
+    tworzenia nowego
+ *  Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie kopia
+    w dao
+ *  Zamiana kodu tak, żeby korzystał z nowego factory
+ *  Poprawa testów
+ *  Aktualizacja dokumentacji
+ *  Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
+
+**[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
+ *  Blokowane przez [HT24]
+ *  Nowa klasa walidatora + testy
+ *  Walidacja poprawności filtra (tylko sprawdzanie czy wymagany i czy cyfra)
+ *  Walidacja poprawności flag
+ *  Walidacja poprawności domyślnego parametru
+ *  Walidacja poprawności parametrów
+ *  Dokumentacja
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i

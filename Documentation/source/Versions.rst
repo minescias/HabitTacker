@@ -5,13 +5,14 @@ Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (planowane)
 *******************************************************************************
 Na razie mgliste plany, jak to będzie dokładnie działać
 
-Wersja 0.3 - Nadrobienie długu technologicznego (planowane)
+Wersja 0.3 - Nadrobienie długu technologicznego (w trakcie)
 *******************************************************************************
 *   Poprawienie DaoFactory zgodnie z opisem w notatkach
 *   Poprawki działania CLI - klasa ParserResult i walidacja poprawności
     wprowadzanych danych - opis w notatkach
 *   Zaawansowany mechanizm logujący
 *   Nowe narzędzia ułatwiające pracę
+*   Nowy system obsługi baz danych
 *   Uruchomienie statycznej analizy kodu (valgrind?)
 *   Pozostały refaktor
 
