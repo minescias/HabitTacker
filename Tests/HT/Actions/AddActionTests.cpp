@@ -16,14 +16,18 @@ class AddActionTests : public testing::Test
 public:
 	AddActionTests()
 	{
-		daoMock = new Mocks::HabitDefinitionDaoMock();
-		factory.registerDao("habitDefinition", createDaoMock(daoMock));
-		addAction.setDaoFactory(&factory);
+		factory.registerDao("habitDefinition",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDefinitionDaoMock>(db); });
 
+		daoMock = factory.createDao<Mocks::HabitDefinitionDaoMock>("habitDefinition");
+
+
+		addAction.setDaoFactory(&factory);
 		pr = Cli::ParserResult("add", "", Cli::Arguments{{"", ""}});
 	}
 
-	Mocks::HabitDefinitionDaoMock* daoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	Dao::DaoFactory factory;
 	Actions::AddAction addAction;
 	Cli::ParserResult pr;

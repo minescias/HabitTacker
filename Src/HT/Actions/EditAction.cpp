@@ -11,7 +11,7 @@ EditAction::EditAction()
 
 void EditAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 {
-	// dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void EditAction::execute(const Cli::ParserResult& parserResult)

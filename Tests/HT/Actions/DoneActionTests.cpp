@@ -21,13 +21,16 @@ public:
 	DoneActionTest()
 		: doneAction()
 	{
-		Dao::DaoFactory daoFactory;
-		habitDaoMock = new Mocks::HabitDaoMock();
-		pr.commandName = "done";
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
+		daoFactory.registerDao("habit",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDaoMock>(db); });
 
-		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+		daoFactory.registerDao("habitDefinition",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDefinitionDaoMock>(db); });
+
+		habitDaoMock = daoFactory.createDao<Mocks::HabitDaoMock>("habit");
+		definitionDaoMock = daoFactory.createDao<Mocks::HabitDefinitionDaoMock>("habitDefinition");
 
 		doneAction.setDaoFactory(&daoFactory);
 
@@ -44,8 +47,9 @@ public:
 		return entity;
 	}
 
-	Mocks::HabitDaoMock* habitDaoMock;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	Dao::DaoFactory daoFactory;
+	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	Actions::DoneAction doneAction;
 	Cli::ParserResult pr;
 };

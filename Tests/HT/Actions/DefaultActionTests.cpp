@@ -22,11 +22,16 @@ public:
 	DefaultActionTest()
 		: defaultAction()
 	{
-		habitDaoMock = new Mocks::HabitDaoMock();
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
+		daoFactory.registerDao("habit",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDaoMock>(db); });
 
-		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+		daoFactory.registerDao("habitDefinition",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDefinitionDaoMock>(db); });
+
+		habitDaoMock = daoFactory.createDao<Mocks::HabitDaoMock>("habit");
+		definitionDaoMock = daoFactory.createDao<Mocks::HabitDefinitionDaoMock>("habitDefinition");
 
 		defaultAction.setDaoFactory(&daoFactory);
 	}
@@ -79,8 +84,8 @@ public:
 
 public:
 	Dao::DaoFactory daoFactory;
-	Mocks::HabitDaoMock* habitDaoMock;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	Actions::DefaultAction defaultAction;
 };
 

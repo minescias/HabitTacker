@@ -11,7 +11,7 @@ AddAction::AddAction()
 
 void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 {
-	// dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void AddAction::execute(const Cli::ParserResult& parserResult)

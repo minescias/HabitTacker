@@ -19,8 +19,8 @@ DefaultAction::DefaultAction()
 
 void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 {
-	// habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
-	// definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
+	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void DefaultAction::execute(const Cli::ParserResult& parserResult)

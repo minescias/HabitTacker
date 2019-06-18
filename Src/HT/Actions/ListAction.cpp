@@ -13,7 +13,7 @@ ListAction::ListAction()
 
 void ListAction::setDaoFactory(Dao::DaoFactory* factory)
 {
-	// dao = factory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	dao = factory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
 void ListAction::execute(const Cli::ParserResult& parserResult)

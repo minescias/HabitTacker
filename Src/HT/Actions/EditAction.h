@@ -16,7 +16,7 @@ public:
 	void execute(const Cli::ParserResult& parserResult);
 
 private:
-	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
+	std::shared_ptr<Dao::IHabitDefinitionDao> dao;
 };
 
 } // namespace Actions

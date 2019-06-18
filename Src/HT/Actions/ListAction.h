@@ -19,7 +19,7 @@ private:
 	void printHeader() const;
 
 private:
-	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
+	std::shared_ptr<Dao::IHabitDefinitionDao> dao;
 };
 
 } // namespace Actions

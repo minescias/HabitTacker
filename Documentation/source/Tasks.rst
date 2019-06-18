@@ -116,8 +116,8 @@ Zadania dotyczące modułu HT
     zamiast tworzenia nowego
  *  OK Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie
     kopia w dao
- *  Zamiana kodu tak, żeby korzystał z nowego factory
- *  Poprawa testów
+ *  OK Zamiana kodu tak, żeby korzystał z nowego factory
+ *  OK Poprawa testów
  *  Aktualizacja dokumentacji
  *  Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
 

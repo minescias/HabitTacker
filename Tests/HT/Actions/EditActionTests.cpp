@@ -18,10 +18,12 @@ class EditActionTests : public testing::Test
 public:
 	EditActionTests()
 	{
-		pr.arguments = Cli::Arguments{{"", ""}};
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+		daoFactory.registerDao("habitDefinition",
+			[](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_shared<Mocks::HabitDefinitionDaoMock>(db); });
 
+		definitionDaoMock = daoFactory.createDao<Mocks::HabitDefinitionDaoMock>("habitDefinition");
+		pr.arguments = Cli::Arguments{{"", ""}};
 		action.setDaoFactory(&daoFactory);
 	}
 
@@ -37,7 +39,7 @@ public:
 	Cli::ParserResult pr;
 	Dao::DaoFactory daoFactory;
 	Actions::EditAction action;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 };
 
 TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
