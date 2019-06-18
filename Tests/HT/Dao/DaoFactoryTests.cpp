@@ -35,6 +35,8 @@ private:
 class DummmyDaoMock : public IDummyDao
 {
 public:
+	DummmyDaoMock(Db::Database* db) {}
+
 	MOCK_METHOD0(foo, int());
 	MOCK_METHOD0(getDatabasePointer, Db::Database*());
 };
@@ -88,38 +90,28 @@ TEST_F(DaoFactoryTests, destroys_dao_when_no_one_is_using_it)
 		{ return std::make_shared<SomeDummyDao>(db); });
 
 	Dao::UnknownDao* firstDaoPtr;
+
 	{
 		auto firstDao = daoFactory.createDao<IDummyDao>("someDao");
 		EXPECT_THAT(firstDao.use_count(), Eq(1)); //ensure that dao was created
 		firstDaoPtr = firstDao.get(); //saving the first dao address
-	}
+	}	// first dao get destroyed here
 
 	auto secondDao = daoFactory.createDao<IDummyDao>("someDao");
-
 	ASSERT_FALSE(firstDaoPtr == secondDao.get());
 }
 
-// TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
-// {
-// 	auto daoMock = new DummmyDaoMock(); //grrr...
-// 	EXPECT_CALL(*daoMock, foo()).WillOnce(Return(9786));
+TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
+{
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_shared<DummmyDaoMock>(db); });
 
-// 	daoFactory.registerDao("someDao", createDaoMock(daoMock));
+	auto daoMock = daoFactory.createDao<DummmyDaoMock>("someDao");
+	EXPECT_CALL(*daoMock, foo()).WillOnce(Return(9786));
 
-// 	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
-// 	ASSERT_EQ(someDao->foo(), 9786);
-
-// 	// jeśli dao nigdy nie zostanie utworzone to nie będzie uniqie_ptr, który
-// 	// usunąłby później to co jest pod wskaźnikiem - wyciek pamięci, dlatego
-// 	// muszę robić to ręcznie tutaj
-
-// 	// żeby było jeszcze śmieszniej akurat w tym przypadku nie mogę usuwać 
-// 	// wskaźnika ręcznie bo unique_ptr spróbuje usunąć go i tak przy
-// 	// zakończeniu testu :)
-
-// 	// if (daoMock) // grrr^2...
-// 	// 	delete daoMock;
-// }
+	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
+	ASSERT_EQ(someDao->foo(), 9786);
+}
 
 // TEST_F(DaoFactoryTests, passesDatabaseToNewlyCreatedDao)
 // {
