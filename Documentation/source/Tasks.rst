@@ -119,7 +119,7 @@ Zadania dotyczące modułu HT
  *  OK Zamiana kodu tak, żeby korzystał z nowego factory
  *  OK Poprawa testów
  *  Aktualizacja dokumentacji
- *  Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
+ *  OK Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
 
 **[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
  *  Blokowane przez [HT24]

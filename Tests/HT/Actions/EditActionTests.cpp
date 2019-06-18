@@ -6,7 +6,7 @@
 #include "HT/Dao/DaoFactory.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
@@ -18,11 +18,9 @@ class EditActionTests : public testing::Test
 public:
 	EditActionTests()
 	{
-		daoFactory.registerDao("habitDefinition",
-			[](Db::Database* db) -> Dao::UnknownDaoPtr
-			{ return std::make_shared<Mocks::HabitDefinitionDaoMock>(db); });
+		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&daoFactory, "habitDefinition");
 
-		definitionDaoMock = daoFactory.createDao<Mocks::HabitDefinitionDaoMock>("habitDefinition");
 		pr.arguments = Cli::Arguments{{"", ""}};
 		action.setDaoFactory(&daoFactory);
 	}

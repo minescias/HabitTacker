@@ -5,12 +5,10 @@
 #include "HT/Dao/DaoFactory.h"
 #include "HT/Dao/UnknownDao.h"
 
-#include "Tests/Tools/DaoMockCreator.h"
-
-using namespace testing;
-
 namespace
 {
+
+using namespace testing;
 
 class IDummyDao : public Dao::UnknownDao
 {
