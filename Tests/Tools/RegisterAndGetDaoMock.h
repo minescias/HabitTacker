@@ -10,7 +10,7 @@ template<typename T>
 auto registerAndGetDaoMock(Dao::DaoFactory* factory, const std::string& name)
 {
 	factory->registerDao(name, [](Db::Database* db) -> Dao::UnknownDaoPtr
-		{return std::make_shared<T>(db);});
+		{return std::make_shared<T>();});
 
 	return factory->createDao<T>(name);
 }

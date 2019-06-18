@@ -33,8 +33,6 @@ private:
 class DummmyDaoMock : public IDummyDao
 {
 public:
-	DummmyDaoMock(Db::Database* db) {}
-
 	MOCK_METHOD0(foo, int());
 	MOCK_METHOD0(getDatabasePointer, Db::Database*());
 };
@@ -102,7 +100,7 @@ TEST_F(DaoFactoryTests, destroys_dao_when_no_one_is_using_it)
 TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
 {
 	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
-		{ return std::make_shared<DummmyDaoMock>(db); });
+		{ return std::make_shared<DummmyDaoMock>(); });
 
 	auto daoMock = daoFactory.createDao<DummmyDaoMock>("someDao");
 	EXPECT_CALL(*daoMock, foo()).WillOnce(Return(9786));

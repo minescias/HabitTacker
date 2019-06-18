@@ -12,8 +12,6 @@ namespace Mocks
 class HabitDaoMock : public Dao::IHabitDao
 {
 public:
-	HabitDaoMock(Db::Database* db = nullptr){}
-
 	MOCK_CONST_METHOD1(saveHabit, void(const Entity::HabitEntity& habit));
 	MOCK_CONST_METHOD1(deleteHabit, void(const Entity::HabitEntity& habit));
 	MOCK_CONST_METHOD1(getHabitsById, std::vector<Entity::HabitEntityPtr> (int id));

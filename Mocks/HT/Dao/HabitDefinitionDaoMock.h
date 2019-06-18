@@ -13,8 +13,6 @@ namespace Mocks
 class HabitDefinitionDaoMock : public Dao::IHabitDefinitionDao
 {
 public:
-	HabitDefinitionDaoMock(Db::Database* db = nullptr){}
-
 	MOCK_CONST_METHOD1(saveDefinition, void(const Entity::HabitDefinitionEntity& entity));
 	MOCK_CONST_METHOD1(updateDefinition, void(const Entity::HabitDefinitionEntity& entity));
 	MOCK_CONST_METHOD1(getDefinition, Entity::HabitDefinitionEntityPtr (int definitionId));
