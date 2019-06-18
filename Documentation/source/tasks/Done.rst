@@ -173,6 +173,18 @@ Zadania dotyczące modułu HT
  *  OK AddAction pozwala na przekazanie pustej nazwy
  *  OK AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje
 
+**[HT26]** Nowe DaoFactory
+ *  OK Zwracanie shared_ptr przez daoFactory
+ *  OK Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
+ *  OK Jeśli dao zostało wcześniej utworzone to będzie zwracane istniejące
+    zamiast tworzenia nowego
+ *  OK Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie
+    kopia w dao
+ *  OK Zamiana kodu tak, żeby korzystał z nowego factory
+ *  OK Poprawa testów
+ *  OK Aktualizacja dokumentacji
+ *  OK Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

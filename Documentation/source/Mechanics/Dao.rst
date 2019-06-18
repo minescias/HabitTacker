@@ -9,23 +9,28 @@ Podstawowe założenia:
     fabrykę
  *  Interfejs dao musi dziedziczyć z Dao::UnknownDao
 
-
 Klasa DaoFactory
 *******************************************************************************
 Klasa, która zajmuje sie tworzeniem dao. Tworzy klasy typu dao w momencie
-wywołania metody getDao(...) i zwraca je w postaci unique_ptr. W  Wszystkie dao
-przed użyciem muszą zostać zarejestrowane.
+wywołania metody getDao(...) i zwraca je w postaci shared_ptr według ponizszych
+reguł:
 
-Rejestrowanie dao do fabryki
+*  w danym momencie może istnieć tylko jedna instancja danego dao. W przypadku
+   gdy gdzieś w programie istnieje dao stworzone przez fabrykę, próba
+   stworzenia dao w innym miejscu zwróci wskaźnik do już istniejącego dao
+*  Nieużywane dao zostaje zniszczone. Próba pobrania dao stworzy nową instancję
+   klasy
+
+Wszystkie dao przed użyciem muszą zostać zarejestrowane.
 
 .. code-block:: c
+   :caption: Rejestrowanie dao do fabryki
 
    daoFactory->registerDao("habitDefinition", [](Db::Database* db){
       return std::make_unique<Dao::HabitDefinitionDao>(db);});
 
-Tworzenie dao z użyciem DaoFactory
-
 .. code-block:: c
+   :caption: Tworzenie dao z użyciem DaoFactory
 
    auto dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 
@@ -34,7 +39,7 @@ Testy
 
 Testy Dao
 -------------------------------------------------------------------------------
-Przed rozpoczęciem testu utworzyć nową testową bazę danych za pomocą
+Przed rozpoczęciem testu należy utworzyć nową testową bazę danych za pomocą
 databaseCreatora. Powinny zostać utworzone tylko te tabele, z których dao
 korzysta podczas testów.
 
@@ -42,31 +47,38 @@ Każde zapytanie powino zostać przetestowane w osobnym teście. Jeśli
 przygotowanie danych testowych i jest zbyt skomplikowane można pominąć
 sprawdzanie wyniku i zostawić samo uruchamianie zapytania
 
-
 Testy z użyciem dao
 -------------------------------------------------------------------------------
 Testy klas, które korzystają z dao odbywają się z użyciem mocków dao. Mocki
 każdego dao są zdefiniowane w osobnym folderze Mocks
 
-Ponieważ z założenia wszystkie dao są tworzone przez fabrykę trzeba
-zarejestrować mocka dao do fabryki zamiast zwykłego dao i taką fabrykę
-przekazać do testowanego obiektu. Do rejestrowania służy metoda createDaoMock.
-
-Rejestrowanie mocka dao do fabryki
+Mock dao rejestruje się tak jak każde inne dao. Wystarczy zarejestrować mocka
+dao z taką nazwą jak dao używane w testowanej klasie
 
 .. code-block:: c
+   :caption: Rejestrowanie mocka dao do fabryki
 
-   // rejestrowanie mocka dao
-   definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
-   daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+   factory->registerDao("daoName", [](Db::Database* db) -> Dao::UnknownDaoPtr
+      {return std::make_shared<Dao::DaoMock>(db);});
 
-   // kod testu
-   EXPECT_CALL(*definitionDaoMock, getDefinitions())
-      .WillOnce(Return(ByMove(getHabitDefinitions())));
+Po zarestrowaniu należy pobrać mocka. Jest to niemal identyczne z pobieraniem
+zwykłego dao, tylko zamiast interfejsu należy przekazać pełną klasę mocka.
+Na tak pobranym dao ustawiamy jakie funkcje powinny zostać wywołane.
+UWAGA: Mock dao musi istnieć przez cały czas trwania testu, inaczej zostanie
+usunięty zanim zostanie użyty przez testowaną klasę, dlatego najlepiej jest
+przechowywać mocka jako pole w klasie fixture
 
-   // pole klasy fixture
-   Mocks::HabitDaoMock* habitDaoMock;
+.. code-block:: c
+   :caption: Pobieranie mocka dao z fabryki
 
-Rejestracja odbywa się przez raw pointer, nie ma sekcji delete, ponieważ w
-momencie pobierania dao z fabryki przez testowaną mock jest pakowany do
-uniqie_ptr
+   daoMock =  factory->createDao<Dao::DaoMock>("daoName");
+
+Ponieważ bardzo często będzie potrzeba zarejestrowania i pobrania dao dodano
+funkcję ``registerAndGetDaoMock``, która pozwala na wykonanie powyższych
+czynności w jednym poleceniu
+
+.. code-block:: c
+   :caption: Przykład użycia registerAndGetDaoMock
+
+   daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+      &factory, "habitDefinition");
