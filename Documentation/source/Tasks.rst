@@ -110,7 +110,7 @@ Zadania dotyczące modułu HT
  *  pobieranie wartości parametru
 
 **[HT26]** Nowe DaoFactory
- *  Zwracanie shared_ptr przez daoFactory
+ *  OK Zwracanie shared_ptr przez daoFactory
  *  Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
  *  Jeśli dao zostało wcześniej utworzone to będize zwracane istniejące zamiast
     tworzenia nowego

@@ -26,24 +26,13 @@ public:
 	void setDatabase(Db::Database* db);
 
 	template<typename T>
-	std::unique_ptr<T> createDao(const std::string& daoName) const
+	std::shared_ptr<T> createDao(const std::string& daoName) const
 	{
-		if (!isDaoRegistered(daoName))
-			throw LogicError("DaoFactory: " + daoName + " is not registered");
-
-		auto unknownDaoPtr = registeredDaos.at(daoName)(db);
-		auto daoPtr = dynamic_cast<T*>(unknownDaoPtr.release());
-
-		if (daoPtr == nullptr)
-		{
-			throw LogicError("DaoFactory: "
-				"trying to cast " + daoName + " to wrong type");
-		}
-
-		return std::unique_ptr<T>(daoPtr);
+		return std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
 	}
 
 private:
+	Dao::UnknownDaoPtr getDaoAsUnknown(const std::string& daoName) const;
 	bool isDaoRegistered(const std::string& daoName) const;
 
 private:

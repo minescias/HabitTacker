@@ -21,6 +21,23 @@ void DaoFactory::setDatabase(Db::Database* db)
 	this->db = db;
 }
 
+Dao::UnknownDaoPtr DaoFactory::getDaoAsUnknown(const std::string& daoName) const
+{
+		// if (!isDaoRegistered(daoName))
+		// 	throw LogicError("DaoFactory: " + daoName + " is not registered");
+
+		return registeredDaos.at(daoName)(db);
+		// auto daoPtr = dynamic_cast<T*>(unknownDaoPtr.release());
+
+		// if (daoPtr == nullptr)
+		// {
+		// 	throw LogicError("DaoFactory: "
+		// 		"trying to cast " + daoName + " to wrong type");
+		// }
+
+		// return std::shared_ptr<T>();
+}
+
 bool DaoFactory::isDaoRegistered(const std::string& daoName) const
 {
 	// c++20 - std::map::contains(...)

@@ -15,8 +15,8 @@ DoneAction::DoneAction()
 
 void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 {
-	definitionDao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
-	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
+	// definitionDao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	// habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 }
 
 void DoneAction::execute(const Cli::ParserResult& parserResult)
