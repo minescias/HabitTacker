@@ -8,7 +8,7 @@
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 using namespace testing;
 
@@ -21,17 +21,13 @@ public:
 	DoneActionTest()
 		: doneAction()
 	{
-		Dao::DaoFactory daoFactory;
-		habitDaoMock = new Mocks::HabitDaoMock();
-		pr.commandName = "done";
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
-
-		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
-
-		doneAction.setDaoFactory(&daoFactory);
+		habitDaoMock = registerAndGetDaoMock<Mocks::HabitDaoMock>(
+			&daoFactory, "habit");
+		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&daoFactory, "habitDefinition");
 
 		pr.filter = "1";
+		doneAction.setDaoFactory(&daoFactory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getDefinition()
@@ -44,8 +40,9 @@ public:
 		return entity;
 	}
 
-	Mocks::HabitDaoMock* habitDaoMock;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	Dao::DaoFactory daoFactory;
+	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	Actions::DoneAction doneAction;
 	Cli::ParserResult pr;
 };

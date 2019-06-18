@@ -39,8 +39,8 @@ void fillCompletionTable(Dt::Timestamp date);
 
 private:
 	int daysToPrint;
-	std::unique_ptr<Dao::IHabitDao> habitDao;
-	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
+	std::shared_ptr<Dao::IHabitDao> habitDao;
+	std::shared_ptr<Dao::IHabitDefinitionDao> definitionDao;
 	CompletionTable completionTable;
 };
 

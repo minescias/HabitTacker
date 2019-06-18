@@ -3,7 +3,7 @@
 #include "HT/Actions/ListAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
@@ -15,8 +15,9 @@ class ListActionTest : public testing::Test
 public:
 	ListActionTest()
 	{
-		daoMock = new Mocks::HabitDefinitionDaoMock();
-		factory.registerDao("habitDefinition", createDaoMock(daoMock));
+		daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&factory, "habitDefinition");
+
 		listAction.setDaoFactory(&factory);
 	}
 
@@ -50,7 +51,7 @@ public:
 		ASSERT_STREQ(output.c_str(), expectedOutput.c_str());
 	}
 
-	Mocks::HabitDefinitionDaoMock* daoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	Actions::ListAction listAction;
 	Dao::DaoFactory factory;
 };

@@ -109,18 +109,6 @@ Zadania dotyczące modułu HT
  *  pobieranie flagi
  *  pobieranie wartości parametru
 
-**[HT26]** Nowe DaoFactory
- *  Zwracanie shared_ptr przez daoFactory
- *  Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
- *  Jeśli dao zostało wcześniej utworzone to będize zwracane istniejące zamiast
-    tworzenia nowego
- *  Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie kopia
-    w dao
- *  Zamiana kodu tak, żeby korzystał z nowego factory
- *  Poprawa testów
- *  Aktualizacja dokumentacji
- *  Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
-
 **[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
  *  Blokowane przez [HT24]
  *  Nowa klasa walidatora + testy

@@ -12,7 +12,7 @@ public:
 	virtual ~UnknownDao(){};
 };
 
-using UnknownDaoPtr = std::unique_ptr<UnknownDao>;
+using UnknownDaoPtr = std::shared_ptr<UnknownDao>;
 
 } // namespace Dao
 

@@ -6,7 +6,7 @@
 #include "HT/Dao/DaoFactory.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
@@ -18,10 +18,10 @@ class EditActionTests : public testing::Test
 public:
 	EditActionTests()
 	{
-		pr.arguments = Cli::Arguments{{"", ""}};
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&daoFactory, "habitDefinition");
 
+		pr.arguments = Cli::Arguments{{"", ""}};
 		action.setDaoFactory(&daoFactory);
 	}
 
@@ -37,7 +37,7 @@ public:
 	Cli::ParserResult pr;
 	Dao::DaoFactory daoFactory;
 	Actions::EditAction action;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 };
 
 TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)

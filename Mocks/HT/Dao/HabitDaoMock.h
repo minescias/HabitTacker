@@ -3,6 +3,7 @@
 
 #include <gmock/gmock.h>
 
+#include <Core/Database/Database.h>
 #include "HT/Dao/IHabitDao.h"
 
 namespace Mocks

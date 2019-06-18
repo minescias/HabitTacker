@@ -9,7 +9,7 @@
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 using namespace testing;
 
@@ -22,11 +22,10 @@ public:
 	DefaultActionTest()
 		: defaultAction()
 	{
-		habitDaoMock = new Mocks::HabitDaoMock();
-		definitionDaoMock = new Mocks::HabitDefinitionDaoMock();
-
-		daoFactory.registerDao("habit", createDaoMock(habitDaoMock));
-		daoFactory.registerDao("habitDefinition", createDaoMock(definitionDaoMock));
+		habitDaoMock = registerAndGetDaoMock<Mocks::HabitDaoMock>(
+			&daoFactory, "habit");
+		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&daoFactory, "habitDefinition");
 
 		defaultAction.setDaoFactory(&daoFactory);
 	}
@@ -79,8 +78,8 @@ public:
 
 public:
 	Dao::DaoFactory daoFactory;
-	Mocks::HabitDaoMock* habitDaoMock;
-	Mocks::HabitDefinitionDaoMock* definitionDaoMock;
+	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	Actions::DefaultAction defaultAction;
 };
 

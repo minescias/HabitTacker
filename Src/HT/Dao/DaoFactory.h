@@ -13,8 +13,6 @@
 namespace Dao
 {
 
-// pointer to a function that creates Dao
-// using DaoCreatorFunc = Dao::UnknownDaoPtr (*)();
 using DaoCreatorFunc = std::function<Dao::UnknownDaoPtr(Db::Database* db)>;
 
 class DaoFactory
@@ -26,28 +24,24 @@ public:
 	void setDatabase(Db::Database* db);
 
 	template<typename T>
-	std::unique_ptr<T> createDao(const std::string& daoName) const
+	std::shared_ptr<T> createDao(const std::string& daoName)
 	{
-		if (!isDaoRegistered(daoName))
-			throw LogicError("DaoFactory: " + daoName + " is not registered");
+		auto dao = std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
 
-		auto unknownDaoPtr = registeredDaos.at(daoName)(db);
-		auto daoPtr = dynamic_cast<T*>(unknownDaoPtr.release());
+		if (dao != nullptr)
+			return dao;
 
-		if (daoPtr == nullptr)
-		{
-			throw LogicError("DaoFactory: "
-				"trying to cast " + daoName + " to wrong type");
-		}
-
-		return std::unique_ptr<T>(daoPtr);
+		throw LogicError("DaoFactory: "
+			"trying to cast " + daoName + " to wrong type");
 	}
 
 private:
+	Dao::UnknownDaoPtr getDaoAsUnknown(const std::string& daoName);
 	bool isDaoRegistered(const std::string& daoName) const;
 
 private:
 	std::map<std::string, DaoCreatorFunc> registeredDaos;
+	std::map<std::string, std::weak_ptr<UnknownDao>> createdDaos;
 	Db::Database* db;
 };
 

@@ -8,10 +8,10 @@
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/InitAction.h"
 
-#include "HT/AppInit/DaoFactoryInitializer.h"
 #include "HT/AppInit/GetSettings.h"
-#include "HT/AppInit/RegisterActions.h"
+#include "HT/AppInit/InitDaoFactory.h"
 #include "HT/AppInit/Help.h"
+#include "HT/AppInit/RegisterActions.h"
 #include "HT/AppInit/Vesrion.h"
 
 #include "HT/Cli/CommandLineParser.h"
@@ -46,7 +46,7 @@ int appInit(int argc, char* argv[])
 
 		auto settings = getSettings("htr.ini");
 		auto database = Db::Database(settings->get("database"));
-		auto daoFactory = initDaoFactory(&database);
+		auto daoFactory = AppInit::initDaoFactory(&database);
 
 		auto actionRegister = registerActions();
 

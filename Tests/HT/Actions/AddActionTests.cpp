@@ -4,7 +4,7 @@
 #include "HT/Actions/AddAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/DaoMockCreator.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
@@ -16,14 +16,14 @@ class AddActionTests : public testing::Test
 public:
 	AddActionTests()
 	{
-		daoMock = new Mocks::HabitDefinitionDaoMock();
-		factory.registerDao("habitDefinition", createDaoMock(daoMock));
-		addAction.setDaoFactory(&factory);
+		daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
+			&factory, "habitDefinition");
 
+		addAction.setDaoFactory(&factory);
 		pr = Cli::ParserResult("add", "", Cli::Arguments{{"", ""}});
 	}
 
-	Mocks::HabitDefinitionDaoMock* daoMock;
+	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	Dao::DaoFactory factory;
 	Actions::AddAction addAction;
 	Cli::ParserResult pr;
