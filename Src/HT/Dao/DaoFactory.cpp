@@ -24,6 +24,9 @@ void DaoFactory::setDatabase(Db::Database* db)
 
 Dao::UnknownDaoPtr DaoFactory::getDaoAsUnknown(const std::string& daoName)
 {
+	if (!isDaoRegistered(daoName))
+		throw LogicError("DaoFactory: " + daoName + " is not registered");
+
 	auto dao = createdDaos.at(daoName).lock();
 
 	if (!dao)
@@ -33,23 +36,6 @@ Dao::UnknownDaoPtr DaoFactory::getDaoAsUnknown(const std::string& daoName)
 	}
 
 	return dao;
-
-
-		// if (!isDaoRegistered(daoName))
-		// 	throw LogicError("DaoFactory: " + daoName + " is not registered");
-
-		// if (createdDaos.find(daoName) != createdDaos.end())
-		// 	return createdDaos
-
-		// auto daoPtr = dynamic_cast<T*>(unknownDaoPtr.release());
-
-		// if (daoPtr == nullptr)
-		// {
-		// 	throw LogicError("DaoFactory: "
-		// 		"trying to cast " + daoName + " to wrong type");
-		// }
-
-		// return std::shared_ptr<T>();
 }
 
 bool DaoFactory::isDaoRegistered(const std::string& daoName) const

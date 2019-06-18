@@ -13,8 +13,6 @@
 namespace Dao
 {
 
-// pointer to a function that creates Dao
-// using DaoCreatorFunc = Dao::UnknownDaoPtr (*)();
 using DaoCreatorFunc = std::function<Dao::UnknownDaoPtr(Db::Database* db)>;
 
 class DaoFactory
@@ -28,7 +26,13 @@ public:
 	template<typename T>
 	std::shared_ptr<T> createDao(const std::string& daoName)
 	{
-		return std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
+		auto dao = std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
+
+		if (dao != nullptr)
+			return dao;
+
+		throw LogicError("DaoFactory: "
+			"trying to cast " + daoName + " to wrong type");
 	}
 
 private:

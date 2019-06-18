@@ -113,75 +113,72 @@ TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)
 	ASSERT_EQ(someDao->foo(), 9786);
 }
 
-// TEST_F(DaoFactoryTests, passesDatabaseToNewlyCreatedDao)
-// {
-// 	// I dont want to create full Db::Database object here. Instad I'm creating
-// 	// an int and setting its addres to the pointer of Db::Database :)
-// 	auto i{3};
-// 	Db::Database* db = reinterpret_cast<Db::Database*>(i);
+TEST_F(DaoFactoryTests, passesDatabaseToNewlyCreatedDao)
+{
+	// I dont want to create full Db::Database object here. Instad I'm creating
+	// an int and setting its addres to the pointer of Db::Database :)
+	auto i{3};
+	Db::Database* db = reinterpret_cast<Db::Database*>(i);
 
-// 	daoFactory.setDatabase(db);
-// 	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
-// 		{ return std::make_unique<SomeDummyDao>(db); });
+	daoFactory.setDatabase(db);
 
-// 	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
-// 	ASSERT_EQ(db, someDao->getDatabasePointer());
-// }
+	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
 
-// TEST_F(DaoFactoryTests, throwsLogicErrorWhenDaoIsRegisteredTwice)
-// {
-// 	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
-// 		{ return std::make_unique<SomeDummyDao>(db); });
+	ASSERT_EQ(db, someDao->getDatabasePointer());
+}
 
-// 	try
-// 	{
-// 		daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
-// 			{ return std::make_unique<SomeDummyDao>(db); });
+TEST_F(DaoFactoryTests, throwsLogicErrorWhenDaoIsRegisteredTwice)
+{
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
-// 		FAIL() << "Expected logic error";
-// 	}
-// 	catch(LogicError& err)
-// 	{
-// 		auto expected = "DaoFactory: someDao was already registered";
-// 		ASSERT_STREQ(err.what(), expected);
-// 	}
-// }
+	try
+	{
+		daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+			{ return std::make_unique<SomeDummyDao>(db); });
 
-// TEST_F(DaoFactoryTests, throwsLogicErrorAccessingUnregisteredDao)
-// {
-// 	try
-// 	{
-// 		daoFactory.createDao<IDummyDao>("unregisteredDao");
+		FAIL() << "Expected logic error";
+	}
+	catch(LogicError& err)
+	{
+		auto expected = "DaoFactory: someDao was already registered";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
 
-// 		FAIL() << "Expected logic error";
-// 	}
-// 	catch(LogicError& err)
-// 	{
-// 		auto expected = "DaoFactory: unregisteredDao is not registered";
-// 		ASSERT_STREQ(err.what(), expected);
-// 	}
-// }
+TEST_F(DaoFactoryTests, throwsLogicErrorAccessingUnregisteredDao)
+{
+	try
+	{
+		daoFactory.createDao<IDummyDao>("unregisteredDao");
 
-// TEST_F(DaoFactoryTests, throwsLogicErrorWhenTryingToCastDaoToWrongType)
-// {
-// 	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
-// 		{ return std::make_unique<SomeDummyDao>(db); });
+		FAIL() << "Expected logic error";
+	}
+	catch(LogicError& err)
+	{
+		auto expected = "DaoFactory: unregisteredDao is not registered";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
 
-// 	// IDummyDao* unknownDao = new SomeDummyDao();
-// 	// IOtherDummyDao* otherDao = dynamic_cast<IOtherDummyDao*>(unknownDao);
+TEST_F(DaoFactoryTests, throwsLogicErrorWhenTryingToCastDaoToWrongType)
+{
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_unique<SomeDummyDao>(db); });
 
-// 	try
-// 	{
-// 		auto someDao = daoFactory.createDao<IOtherDummyDao>("someDao");
-// 		// someDao->bar();
-// 		FAIL() << "Expected logic error";
-// 	}
-// 	catch(LogicError& err)
-// 	{
-// 		auto expected = "DaoFactory: trying to cast someDao to wrong type";
-// 		ASSERT_STREQ(err.what(), expected);
-// 	}
-// }
+	try
+	{
+		auto someDao = daoFactory.createDao<IOtherDummyDao>("someDao");
+		FAIL() << "Expected logic error";
+	}
+	catch(LogicError& err)
+	{
+		auto expected = "DaoFactory: trying to cast someDao to wrong type";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
 
 } // namespace Tests

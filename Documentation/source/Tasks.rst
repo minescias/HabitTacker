@@ -111,11 +111,11 @@ Zadania dotyczące modułu HT
 
 **[HT26]** Nowe DaoFactory
  *  OK Zwracanie shared_ptr przez daoFactory
- *  Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
- *  Jeśli dao zostało wcześniej utworzone to będize zwracane istniejące zamiast
-    tworzenia nowego
- *  Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie kopia
-    w dao
+ *  OK Dao factory wewnętrzenie przechowuje weak_ptr do przechowywania dao
+ *  OK Jeśli dao zostało wcześniej utworzone to będzie zwracane istniejące
+    zamiast tworzenia nowego
+ *  OK Jeśli wszystkie instance dao zostaną zniszczone, zniszczona zostanie
+    kopia w dao
  *  Zamiana kodu tak, żeby korzystał z nowego factory
  *  Poprawa testów
  *  Aktualizacja dokumentacji
