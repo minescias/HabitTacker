@@ -62,13 +62,41 @@ public:
 	Dao::DaoFactory daoFactory;
 };
 
-TEST_F(DaoFactoryTests, allowsToRegisterAndGetDao)
+TEST_F(DaoFactoryTests, allows_to_register_and_get_dao)
 {
 	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
 		{ return std::make_shared<SomeDummyDao>(db); });
 
 	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
 	ASSERT_EQ(someDao->foo(), 2342);
+}
+
+TEST_F(DaoFactoryTests, returns_the_dame_dao_when_created_more_than_once)
+{
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_shared<SomeDummyDao>(db); });
+
+	auto someDao = daoFactory.createDao<IDummyDao>("someDao");
+	auto someDao2 = daoFactory.createDao<IDummyDao>("someDao");
+
+	ASSERT_TRUE(someDao.get() == someDao2.get());
+}
+
+TEST_F(DaoFactoryTests, destroys_dao_when_no_one_is_using_it)
+{
+	daoFactory.registerDao("someDao", [](Db::Database* db) -> Dao::UnknownDaoPtr
+		{ return std::make_shared<SomeDummyDao>(db); });
+
+	Dao::UnknownDao* firstDaoPtr;
+	{
+		auto firstDao = daoFactory.createDao<IDummyDao>("someDao");
+		EXPECT_THAT(firstDao.use_count(), Eq(1)); //ensure that dao was created
+		firstDaoPtr = firstDao.get(); //saving the first dao address
+	}
+
+	auto secondDao = daoFactory.createDao<IDummyDao>("someDao");
+
+	ASSERT_FALSE(firstDaoPtr == secondDao.get());
 }
 
 // TEST_F(DaoFactoryTests, allowsToRegisterAndGetDaoMock)

@@ -26,17 +26,18 @@ public:
 	void setDatabase(Db::Database* db);
 
 	template<typename T>
-	std::shared_ptr<T> createDao(const std::string& daoName) const
+	std::shared_ptr<T> createDao(const std::string& daoName)
 	{
 		return std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
 	}
 
 private:
-	Dao::UnknownDaoPtr getDaoAsUnknown(const std::string& daoName) const;
+	Dao::UnknownDaoPtr getDaoAsUnknown(const std::string& daoName);
 	bool isDaoRegistered(const std::string& daoName) const;
 
 private:
 	std::map<std::string, DaoCreatorFunc> registeredDaos;
+	std::map<std::string, std::weak_ptr<UnknownDao>> createdDaos;
 	Db::Database* db;
 };
 
