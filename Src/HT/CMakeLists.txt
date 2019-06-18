@@ -13,9 +13,9 @@ set(HT_Actions_src
 
 set(HT_src
     AppInit.cpp
-    AppInit/DaoFactoryInitializer.cpp
     AppInit/GetSettings.cpp
     AppInit/Help.cpp
+    AppInit/InitDaoFactory.cpp
     AppInit/RegisterActions.cpp
     AppInit/Version.cpp
     Dao/DaoFactory.cpp
