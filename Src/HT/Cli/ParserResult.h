@@ -2,6 +2,7 @@
 #define __PARSER_RESULT_H
 
 #include <map>
+#include <set>
 #include <string>
 
 namespace Cli
@@ -21,6 +22,14 @@ struct ParserResult
 		, filter(filter)
 		, arguments(arguments)
 	{}
+
+	void setFilter(const std::string& filter);
+	std::string getFilter() const;
+
+	void setFlag(const std::string& flagName);
+	bool getFlag(const std::string& flagName) const;
+
+	std::set<std::string> flags;
 	std::string commandName;
 	std::string filter;
 	Arguments arguments;
