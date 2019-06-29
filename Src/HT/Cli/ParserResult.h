@@ -23,15 +23,25 @@ struct ParserResult
 		, arguments(arguments)
 	{}
 
+	void setCommandName(const std::string& name);
+	std::string getCommandName() const;
+
 	void setFilter(const std::string& filter);
 	std::string getFilter() const;
 
 	void setFlag(const std::string& flagName);
 	bool getFlag(const std::string& flagName) const;
 
-	std::set<std::string> flags;
+	void setDefaultParameter(const std::string& value);
+	std::string getDefaultParameter() const;
+
+	void setParameter(const std::string& name, const std::string& value);
+	std::string getParameter(const std::string& name) const;
+
 	std::string commandName;
 	std::string filter;
+	std::string defaultParameter;
+	std::set<std::string> flags;
 	Arguments arguments;
 };
 
