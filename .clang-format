@@ -1,0 +1,12 @@
+BasedOnStyle: WebKit
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterClass: true
+    AfterStruct: true
+    AfterFunction: true
+    AfterNamespace: true
+    AfterControlStatement: true
+    BeforeCatch: true
+
+FixNamespaceComments: true

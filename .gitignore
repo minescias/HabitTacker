@@ -5,6 +5,7 @@ Documentation/source/.doctrees
 Libraries
 .vscode/cquery_cached_index
 .vscode/ipch
+.ccls-cache
 
 #files
 compile_commands.json
