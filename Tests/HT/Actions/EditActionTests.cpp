@@ -21,7 +21,6 @@ public:
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
 
-		pr.arguments = Cli::Arguments{{"", ""}};
 		action.setDaoFactory(&daoFactory);
 	}
 
@@ -57,7 +56,7 @@ TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
 TEST_F(EditActionTests, throws_action_error_when_nothing_to_change)
 {
 	try
-	{	pr.filter = 2;
+	{	pr.setFilter("2");
 		action.execute(pr);
 		FAIL() << "ActionError expected";
 	}
@@ -70,21 +69,21 @@ TEST_F(EditActionTests, throws_action_error_when_nothing_to_change)
 
 TEST_F(EditActionTests, throws_error_when_habit_does_not_exist)
 {
-	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
-		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
+    EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+        .WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
 
-	try
-	{
-		pr.filter = "1";
-		pr.arguments = Cli::Arguments{{"", ""}, {"name", "My new name"}};
-		action.execute(pr);
-		FAIL() << "ActionError expected";
-	}
-	catch(Actions::ActionError& err)
-	{
-		auto expected = "Habit with id = 1 does not exist";
-		ASSERT_STREQ(expected, err.what());
-	}
+    try
+    {
+        pr.setFilter("1");
+        pr.setParameter("name", "My new name");
+        action.execute(pr);
+        FAIL() << "ActionError expected";
+    }
+    catch (Actions::ActionError& err)
+    {
+        auto expected = "Habit with id = 1 does not exist";
+        ASSERT_STREQ(expected, err.what());
+    }
 }
 
 TEST_F(EditActionTests, overrides_habit_name)
@@ -97,8 +96,8 @@ TEST_F(EditActionTests, overrides_habit_name)
 
 	EXPECT_CALL(*definitionDaoMock, updateDefinition(*expected));
 
-	pr.filter = "1";
-	pr.arguments = Cli::Arguments{{"", ""}, {"name", "New definition name"}};
+	pr.setFilter("1");
+	pr.setParameter("name", "New definition name");
 	action.execute(pr);
 }
 

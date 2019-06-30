@@ -9,8 +9,8 @@
 #include "HT/Actions/InitAction.h"
 
 #include "HT/AppInit/GetSettings.h"
-#include "HT/AppInit/InitDaoFactory.h"
 #include "HT/AppInit/Help.h"
+#include "HT/AppInit/InitDaoFactory.h"
 #include "HT/AppInit/RegisterActions.h"
 #include "HT/AppInit/Vesrion.h"
 
@@ -18,50 +18,49 @@
 
 int appInit(int argc, char* argv[])
 {
-	Cli::CommandLineParser parser;
-	auto parserResult = Cli::CommandLineParser().parse(argc, argv);
-	auto command = parserResult.commandName;
+    Cli::CommandLineParser parser;
+    auto parserResult = Cli::CommandLineParser().parse(argc, argv);
+    auto commandName = parserResult.getCommandName();
 
-	if (command == "help")
-	{
-		printHelpMessage();
-		return 0;
-	}
+    if (commandName == "help")
+    {
+        printHelpMessage();
+        return 0;
+    }
 
-	if (command == "version")
-	{
-		printVersionNumber();
-		return 0;
-	}
+    if (commandName == "version")
+    {
+        printVersionNumber();
+        return 0;
+    }
 
-	try
-	{
-		if (command == "init")
-		{
-			Actions::InitAction().execute(
-				parserResult.arguments.at(""), "htr.ini");
+    try
+    {
+        if (commandName == "init")
+        {
+            Actions::InitAction().execute(
+                parserResult.getDefaultParameter(), "htr.ini");
 
-			return 0;
-		}
+            return 0;
+        }
 
-		auto settings = getSettings("htr.ini");
-		auto database = Db::Database(settings->get("database"));
-		auto daoFactory = AppInit::initDaoFactory(&database);
+        auto settings = getSettings("htr.ini");
+        auto database = Db::Database(settings->get("database"));
+        auto daoFactory = AppInit::initDaoFactory(&database);
+        auto actionRegister = registerActions();
+        auto action = actionRegister->get(commandName);
 
-		auto actionRegister = registerActions();
+        action->setDaoFactory(daoFactory.get());
+        action->execute(parserResult);
+    }
+    catch (const Actions::ActionError& err)
+    {
+        std::cout << err.what() << "\n";
+    }
+    catch (const RuntimeError& err)
+    {
+        std::cout << err.what() << "\n";
+    }
 
-		auto action = actionRegister->get(parserResult.commandName);
-		action->setDaoFactory(daoFactory.get());
-		action->execute(parserResult);
-	}
-	catch(const Actions::ActionError& err)
-	{
-		std::cout << err.what() << "\n";
-	}
-	catch(const RuntimeError& err)
-	{
-		std::cout << err.what() << "\n";
-	}
-
-	return 0;
+    return 0;
 }

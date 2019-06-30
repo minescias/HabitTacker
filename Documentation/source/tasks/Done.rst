@@ -169,6 +169,15 @@ Zadania dotyczące modułu HT
  *  OK Dbsługa filtru, parametru name
  *  OK Dokumentacja
 
+**[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
+ *  OK testy na tę klasę
+ *  OK pobieranie filtra
+ *  OK pobieranie domyślnego parametru
+ *  OK pobieranie flagi
+ *  OK pobieranie wartości parametru
+ *  OK zamiana użycia na nowe w akcjach i parserze command line
+ *  OK usunięcie starych wywołań
+
 **[Ht25] v0.2** Poprawki w działaniu AddAction
  *  OK AddAction pozwala na przekazanie pustej nazwy
  *  OK AddAction nie sprawdza czy nawyk o takiej nazwie już istnieje

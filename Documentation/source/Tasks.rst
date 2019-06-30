@@ -103,11 +103,6 @@ Zadania dotyczące modułu HT
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
-**[HT24]** Wygodniejsze pobieranie wartości z klasy ParserResult
- *  testy na tę klasę
- *  pobieranie domyślnego parametru
- *  pobieranie flagi
- *  pobieranie wartości parametru
 
 **[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
  *  Blokowane przez [HT24]

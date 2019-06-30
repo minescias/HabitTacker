@@ -23,7 +23,6 @@ namespace Cli
 CommandLineParser::CommandLineParser()
 	: commandIsSet(false)
 {
-	result.arguments = Arguments{{"", ""}};
 }
 
 ParserResult CommandLineParser::parse(int argc, char** argv)
@@ -32,7 +31,7 @@ ParserResult CommandLineParser::parse(int argc, char** argv)
 	{
 		if ( i==1 && is_number(argv[i]))
 		{
-			result.filter = argv[i];
+			result.setFilter(argv[i]);
 		}
 		else
 		{
@@ -65,35 +64,38 @@ ParameterType CommandLineParser::getParameterType(const std::string& parameter) 
 
 void CommandLineParser::readSimpleParameter(const std::string& parameter)
 {
-	if (result.commandName.empty())
+	if (result.getCommandName().empty())
 	{
-		result.commandName = parameter;
+		result.setCommandName(parameter);
 		return;
 	}
 
-	if (!result.arguments.at("").empty())
+	if (!result.getDefaultParameter().empty())
 		throw RuntimeError("Unknown command '" + parameter + "'");
 
-	result.arguments[""] = parameter;
+	result.setDefaultParameter(parameter);
 }
 
-void CommandLineParser::readFlag(const std::string& parameter)
+void CommandLineParser::readFlag(const std::string& name)
 {
-	auto flag = parameter.substr(1);
+	auto flag = name.substr(1);
 
-	if (result.arguments.find(flag) != result.arguments.end())
-		throw RuntimeError("Redefinition of '" + flag + "' parameter");
+	if (result.getFlag(flag))
+		throw RuntimeError("Redefinition of flag '" + flag + "'");
 
-	result.arguments[flag] = "";
+	result.setFlag(flag);
 }
 
 void CommandLineParser::readParameter(const std::string& parameter)
 {
 	auto equalPos = parameter.find('=');
-	auto param = parameter.substr(1, equalPos - 1);
+	auto name = parameter.substr(1, equalPos - 1);
 	auto value = parameter.substr(equalPos + 1);
 
-	result.arguments[param] = value;
+	if (!result.getParameter(name).empty())
+		throw RuntimeError("Redefinition of parameter '" + name + "'");
+
+	result.setParameter(name, value);
 }
 
 } // namespace Cli

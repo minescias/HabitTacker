@@ -23,10 +23,9 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 {
 	validateParameters(parserResult);
 
-	auto reset = parserResult.arguments.find("reset")
-		!= parserResult.arguments.end();
+	auto reset = parserResult.getFlag("reset");
 
-	auto definitionId = stoi(parserResult.filter);
+	auto definitionId = stoi(parserResult.getFilter());
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(definitionId);
 	habit.setDate(getDate(parserResult));
@@ -35,7 +34,7 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	{
 		if (habitDao->checkIfHabitIsSetForDay(habit))
 		{
-			throw ActionError("Habit " + parserResult.filter +
+			throw ActionError("Habit " + parserResult.getFilter() +
 				" was already set for this day");
 		}
 
@@ -49,7 +48,7 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 
 void DoneAction::validateParameters(const Cli::ParserResult& parserResult) const
 {
-	auto habitId = parserResult.filter;
+	auto habitId = parserResult.getFilter();
 	if (habitId.empty())
 		throw ActionError ("No filter specified");
 
@@ -70,8 +69,8 @@ void DoneAction::validateParameters(const Cli::ParserResult& parserResult) const
 
 Dt::Timestamp DoneAction::getDate(const Cli::ParserResult& parserResult) const
 {
-	if (parserResult.arguments.find("date") != parserResult.arguments.end())
-		return Dt::DateLiteral().parse(parserResult.arguments.at("date"));
+	if (!parserResult.getParameter("date").empty())
+		return Dt::DateLiteral().parse(parserResult.getParameter("date"));
 
 	return Dt::getCurrentDate();
 }
