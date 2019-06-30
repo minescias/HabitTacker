@@ -16,7 +16,7 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 
 void AddAction::execute(const Cli::ParserResult& parserResult)
 {
-	auto name = parserResult.arguments.at("");
+	auto name = parserResult.getDefaultParameter();
 
 	if (name.empty())
 		throw ActionError("No habit name specified");

@@ -20,7 +20,7 @@ public:
 			&factory, "habitDefinition");
 
 		addAction.setDaoFactory(&factory);
-		pr = Cli::ParserResult("add", "", Cli::Arguments{{"", ""}});
+		pr.setCommandName("add");
 	}
 
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
@@ -39,7 +39,7 @@ TEST_F(AddActionTests, savesHabitToDatabase)
 
 	EXPECT_CALL(*daoMock, saveDefinition(entity));
 
-	pr.arguments = Cli::Arguments{{"", "new habit name"}};
+	pr.setDefaultParameter("new habit name");
 	addAction.execute(pr);
 }
 
@@ -64,7 +64,7 @@ TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
 
 	try
 	{
-		pr.arguments = Cli::Arguments{{"", "new habit name"}};
+		pr.setDefaultParameter("new habit name");
 		addAction.execute(pr);
 		FAIL() << "Action error expected";
 	}

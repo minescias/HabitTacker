@@ -24,7 +24,7 @@ public:
 	void setDatabase(Db::Database* db);
 
 	template<typename T>
-	std::shared_ptr<T> createDao(const std::string& daoName)
+	auto createDao(const std::string& daoName)
 	{
 		auto dao = std::dynamic_pointer_cast<T>(getDaoAsUnknown(daoName));
 

@@ -26,7 +26,7 @@ public:
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
 
-		pr.filter = "1";
+		pr.setFilter("1");
 		doneAction.setDaoFactory(&daoFactory);
 	}
 
@@ -74,7 +74,7 @@ TEST_F(DoneActionTest, deleteHabitForToday)
 
 	EXPECT_CALL(*habitDaoMock, deleteHabit(habit)).Times(1);
 
-	pr.arguments = Cli::Arguments{{"reset", ""}};
+	pr.setFlag("reset");
 	doneAction.execute(pr);
 }
 
@@ -92,7 +92,7 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 
 	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
 
-	pr.arguments = Cli::Arguments{{"date", "yesterday"}};
+	pr.setParameter("date", "yesterday");
 	doneAction.execute(pr);
 }
 
@@ -127,7 +127,7 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 
 	try
 	{
-		pr.filter = "2";
+		pr.setFilter("2");
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
@@ -161,7 +161,7 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 
 	try
 	{
-		pr.arguments = Cli::Arguments{{"", ""}, {"date", dateStr}};
+		pr.setParameter("date", dateStr);
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}
@@ -181,7 +181,7 @@ TEST_F(DoneActionTest, cannot_done_habit_in_the_future)
 
 	try
 	{
-		pr.arguments = Cli::Arguments{{"", ""}, {"date", "tomorrow"}};
+		pr.setParameter("date", "tomorrow");
 		doneAction.execute(pr);
 		FAIL() << "Expected ActionError";
 	}

@@ -28,10 +28,10 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 	auto habitDefinitions = definitionDao->getDefinitions();
 
 	Dt::Timestamp date;
-	if (parserResult.arguments.at("").empty())
+	if (parserResult.getDefaultParameter().empty())
 		date = Dt::getCurrentDate();
 	else
-		date = Dt::DateTime{parserResult.arguments.at("")}.unixTime();
+		date = Dt::DateTime{parserResult.getDefaultParameter()}.unixTime();
 
 	if (habitDefinitions.empty())
 		throw ActionError ("No habits found, try to add some using 'htr add'\n");

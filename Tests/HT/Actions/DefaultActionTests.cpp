@@ -103,8 +103,9 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 	internal::CaptureStdout();
 
-	defaultAction.execute(Cli::ParserResult("", "",
-		Cli::Arguments{{"", "05-05-2019"}}));
+	auto pr = Cli::ParserResult();
+	pr.setDefaultParameter("05-05-2019");
+	defaultAction.execute(pr);
 
 	auto output = testing::internal::GetCapturedStdout();
 
@@ -118,8 +119,9 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 	try
 	{
-		defaultAction.execute(Cli::ParserResult("", "",
-			Cli::Arguments{{"", "05-05-2019"}}));
+		auto pr = Cli::ParserResult();
+		pr.setDefaultParameter("05-05-2019");
+		defaultAction.execute(pr);
 
 		FAIL() << "Expected ActionError";
 	}
@@ -137,7 +139,7 @@ TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
 
 	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(Dt::getCurrentDate()));
 
-	defaultAction.execute(Cli::ParserResult("", "", Cli::Arguments{{"", ""}}));
+	defaultAction.execute(Cli::ParserResult());
 }
 
 } // namespace Tests
