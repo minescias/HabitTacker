@@ -20,7 +20,6 @@ set(Database_src
 set(Utils_src
     Utils/Exceptions/LogicError.cpp
     Utils/Exceptions/RuntimeError.cpp
-    Utils/Logger/Log.cpp
     Utils/Strings/Case.cpp
     Utils/Strings/Compare.cpp
     Utils/Strings/Replace.cpp
