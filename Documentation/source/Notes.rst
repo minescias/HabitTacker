@@ -6,6 +6,13 @@ Notatki, plany na przyszłość, rzeczy do przemyślenia itp.
 
    Notes/Notes-archive
 
+Konfiguracja
+*******************************************************************************
+- instalacja lynx do podglądu pliku w mock
+- limit szerokości w edytorze VS Code
+- VS Codium
+- wyłączenie refów ccls + skrót klawiszowy do przełączania tej opcji
+
 Wersjonowanie bazy danych
 *******************************************************************************
     Początkowo zakładałem, że stworzę klasę, która będzie tworzyć czystą bazę
@@ -105,3 +112,15 @@ Podpowiadanie składni
 *******************************************************************************
 Dobrze byłoby, gdyby program podowiadał składnie - autouzupełnianie komendy
 i parametrów
+
+Zarządzanie procesem budowania - luźne notatki
+*******************************************************************************
+Dostępne komendy:
+ *  prepare - przygotowanie projektu do kompilacji, w tym:
+     *  założenie wymaganych folderów
+     *  sprawdzenie czy zostały pobrane odpowiednie biblioteki (gtest)
+     *  pobranie odpowiednich bibliotek
+     *  uruchomienie CMake
+     *  sprawdzenie czy istnieje sphinx - jeśli nie warning, że budowanie
+        dokumentacji nie będzie możliwe
+ *  build - budowanie całego projektu

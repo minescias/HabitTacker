@@ -4,13 +4,23 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "name": "Python",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/Src/Core/Utils/Logger",
+            "args": ["Log.cpp"]
+        },
         {
             "name": "HT tests",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/HtTests",
-            "args": ["--gtest_filter=EditAction*"],
+            "args": [
+                "--gtest_filter=EditAction*"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
             "environment": [],
@@ -25,13 +35,14 @@
                 }
             ],
         },
-
         {
             "name": "Core tests",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/CoreTests",
-            "args": ["--gtest_filter=DateLiteral*"],
+            "args": [
+                "--gtest_filter=DateLiteral*"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
             "environment": [],
@@ -52,7 +63,11 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/htr",
-            "args": ["3", "edit", "name=Trzeci"],
+            "args": [
+                "3",
+                "edit",
+                "name=Trzeci"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
             "environment": [],

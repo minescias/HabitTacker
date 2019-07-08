@@ -117,14 +117,14 @@ Zadania dotyczące modułu HT
  *  Walidacja poprawności parametrów
  *  Dokumentacja
 
+**[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy braku bazy
+    skutkuje wywaleniem błędu LogicError
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
- *  Lista inicjalizacyjna do tworzenia encji habit definition (AddAction.cpp i
-    testy tegoż)
- *  Automatyczne generowanie operatora porównania
- *  Namespace tests dla wszystkich testów
- *  Uspójnienie kodu testowego przez dodanie metod do pobierania domyślnej
-    encji i funkcji do porównywania encji - zmiany w module test tools.
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
+ *  Help jest bardzo nieczytelny + zawiera literówki :)
+ *  Dane testowe powinny być zapisywane w folderze testFiles lub testSamples
+    albo najlepiej całkowicie usunięte po zakończeniu testów
 
 Tools
 *******************************************************************************
