@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+import subprocess
+
+cmakeFile = open("CMakeLists.txt", "r")
+lines = cmakeFile.readlines()
+
+
+def getAllProjects(pathToCmake=""):
+
+    cmakeFile = open(pathToCmake + "CMakeLists.txt", "r")
+    lines = cmakeFile.readlines()
+
+    result = []
+    pathToProject = ""
+    for line in lines:
+        if line.startswith("add_subdirectory"):
+            result.append(line[17:-2])
+
+    return result
+
+
+def getTestProjects(projectList):
+    result = []
+    for project in projectList:
+        if project.startswith("Test"):
+            result.append(project)
+
+    return result
+
+
+def getProjectNameFromCMake(pathToCmake):
+    cmakeFile = open(pathToCmake + "/CMakeLists.txt", "r")
+
+    for line in cmakeFile.readlines():
+        if line.startswith("project"):
+            return line[8:-2]
+
+
+for cmakeFile in getTestProjects(getAllProjects()):
+    print(getProjectNameFromCMake(cmakeFile) + "\n\n")
+    subprocess.call("bin/" + getProjectNameFromCMake(cmakeFile))

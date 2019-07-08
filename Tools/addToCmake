@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+from cmake.findCmakeFile import findCmakeFile
+from cmake.cmakeFileManager import addFileToCmake
+
+
+def printHelpMessage():
+    print("Blah, blah, blah")
+    sys.exit()
+
+if len(sys.argv) == 1:
+    print("Mising file name")
+    printHelpMessage()
+
+if len(sys.argv) > 2:
+    print("Too many parameters")
+    printHelpMessage()
+
+if sys.argv[1] == "help":
+    printHelpMessage()
+
+fileName = sys.argv[1]
+
+if os.path.exists(fileName) is False:
+    sys.exit("File '" + fileName + "' does not exist")
+
+cwd = os.getcwd()
+pathToCmake = findCmakeFile(cwd)
+print("CMake file found in:" + pathToCmake)
+
+addFileToCmake(pathToCmake, fileName)

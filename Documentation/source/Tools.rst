@@ -27,3 +27,11 @@ Podczas tworzenia pliku .cpp automatycznie jest dodawany include do pliku
 nagłówkowego od katalogu Src\
 
 W przypadku, gdy plik już istnieje nie zostanie nadpidany
+
+addToCmake
+********************************************************************************
+Dodaje plik do projektu CMake. Użycie ``addToCmake <filename>``
+
+Poszukuje pliku CMake w górę drzewa folderów. Po znalezieniu udpowiedniego
+pliku pyta się użytkownika do której grupy dodać plik. Na razie nie ma
+możliwości utworzenia nowej grupy, będzie to dodane później.

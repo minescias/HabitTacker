@@ -19,6 +19,9 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
     "make doc" z folderu, w którym są normalnie budowane pliki cpp
 
 **[B03]** Budowanie jednego modułu
+    Dostępna jest opcja cmake --build . --target <nazwa modułu> ale to buduje
+    wszystkie moduły, od których zależy ten, który chcemy zbudować (chociaż
+    może to i lepiej?
 
 **[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
 
@@ -84,6 +87,8 @@ Lista rzeczy do opisania
 
 **[D03]** Dodawanie nowego polecenia - wszystko co trzeba uwzględnić
 
+**[D04]** Struktura pliku CMake (ze względu na narzędzia parsujące)
+
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT
@@ -102,7 +107,6 @@ Zadania dotyczące modułu HT
  *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
-
 
 **[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
  *  Blokowane przez [HT24]
@@ -149,4 +153,10 @@ konfiguracji tychże
 
 **[T09]** Narzędź, który zmieni camesCase na podkreślniki
 
-**[T10]** Dodawanie plików cpp do cmake
+**[T10]** Zarządzanie plikami CMake
+ *  OK Dodawanie plików do CMake
+ *  Pytanie o dodanie pliku do CMake po utworzeniu za pomocą gen
+ *  Walidacja, czy dany plik jest już dodany
+ *  Walidacja rozszerzenia, podpowiadanie tylko plików .cpp po wciśnięciu Tab
+ *  Tworzenie nowych grup
+ *  Usuwanie plików z kompilacji
