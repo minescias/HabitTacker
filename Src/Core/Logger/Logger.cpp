@@ -5,13 +5,17 @@
 namespace Log
 {
 
-Logger::Logger()
+Logger::Logger(bool enabled)
+    : enabled(enabled)
 {
+    std::cout << "Init";
+
 }
 
 void Logger::log(const std::string& message)
 {
-    std::cout << message;
+   // if (enabled)
+        std::cout << message;
 }
 
 } // namespace Log

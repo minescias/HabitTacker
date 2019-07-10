@@ -67,7 +67,7 @@ Co trzeba dodać/poprawić w Core programu
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
 **[C09]** Zaawansowany mechanizm logujący zmiany
- *  Globalny obiekt do logowania
+ *  OK Globalny obiekt do logowania
  *  Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
     SQL, wywoływanie alcji i zwykły log debugowy
  *  Logowanie danych w zależności od tego na jakim poziomie są logowane

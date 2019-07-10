@@ -18,7 +18,8 @@ set(Database_src
     Database/Parameters.cpp)
 
 set(Logger_src
-    Logger/Logger.cpp)
+	Logger/Log.cpp
+	Logger/Logger.cpp)
 
 set(Utils_src
     Utils/Exceptions/LogicError.cpp

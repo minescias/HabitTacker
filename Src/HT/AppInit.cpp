@@ -4,6 +4,8 @@
 
 #include <Core/Config/Settings.h>
 #include <Core/Database/Database.h>
+#include <Core/Logger/Log.h>
+#include <Core/Logger/Logger.h>
 
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/InitAction.h"
@@ -21,6 +23,9 @@ int appInit(int argc, char* argv[])
     Cli::CommandLineParser parser;
     auto parserResult = Cli::CommandLineParser().parse(argc, argv);
     auto commandName = parserResult.getCommandName();
+
+    auto logger = std::make_unique<Log::Logger>(true);
+    Log::setLogger(logger.get());
 
     if (commandName == "help")
     {

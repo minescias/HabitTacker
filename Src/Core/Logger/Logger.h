@@ -9,9 +9,12 @@ namespace Log
 class Logger
 {
 public:
-    Logger();
+    Logger(bool enabled);
 
     void log(const std::string& message);
+
+private:
+    bool enabled;
 };
 
 } // namespace Log
