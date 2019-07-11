@@ -19,6 +19,7 @@ HTR Docs's
    Cpp
    Tests
    Tools
+   UsefulCommands
    Notes
    Tasks
 

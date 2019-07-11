@@ -10,13 +10,6 @@ Project
 *******************************************************************************
 Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
-**[B01]** Budowanie dokumentacji razem z projektem za pomocą polecenia make
-    Tak, żeby i kod i dokumentacja były budowane za pomocą jednego polecenia
-
-**[B02]** Budowanie dokumentacji jako osobny target CMake
-    Celem jest możliwość zbudowania dokumentacji z
-    a pomocą polecenia np.
-    "make doc" z folderu, w którym są normalnie budowane pliki cpp
 
 **[B03]** Budowanie jednego modułu
     Dostępna jest opcja cmake --build . --target <nazwa modułu> ale to buduje

@@ -31,3 +31,6 @@ add_subdirectory(Tests/HT)
 
 # executables
 add_subdirectory(Src/Main)
+
+#other
+add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Documentation)
