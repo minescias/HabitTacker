@@ -145,6 +145,9 @@ Zadania dotyczące modułu HT
  *  OK Rozszerzenie tabeli, encji i dao
  *  OK Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
 
+**[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z
+    wypełnieniem jest przesunięta o jeden znak w lewo :)
+
 **[HT21]** Możliwość resetowania
  *  OK Rozszerzenie command line parsera tak, żeby przekazywać opcjonalne
     parametry z nazwą - składnia -<nazwa>

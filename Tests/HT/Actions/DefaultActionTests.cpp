@@ -47,7 +47,7 @@ public:
 	{
 		std::vector<Entity::HabitDefinitionEntityPtr> habits;
 		habits.emplace_back(getHabitDefinition(1, "Pierwszy", -10));
-		habits.emplace_back(getHabitDefinition(2, "Drugi", -50));
+		habits.emplace_back(getHabitDefinition(2, "Drugi zżź", -50));
 		return habits;
 	}
 
@@ -97,7 +97,7 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 		"\n  id name                                     Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su"
 		"\n---- ---------------------------------------- -----------------------------------------"
 		"\n   1 Pierwszy                                          __ __ __ __ __ __ __ __ XX __ XX"
-		"\n   2 Drugi                                    __ XX __ XX __ __ __ __ __ __ __ XX XX __"
+		"\n   2 Drugi zżź                                __ XX __ XX __ __ __ __ __ __ __ XX XX __"
 		"\n"
 	;
 

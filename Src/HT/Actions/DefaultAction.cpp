@@ -12,6 +12,17 @@
 namespace Actions
 {
 
+// https://stackoverflow.com/questions/4063146/getting-the-actual-length-of-a-utf-8-encoded-stdstring
+int getUtf8StringLength(const std::string& str)
+{
+    int len = 0;
+
+    for (auto c : str)
+        len += (c & 0xc0) != 0x80;
+
+    return len;
+}
+
 DefaultAction::DefaultAction()
 	: daysToPrint(14)
 {
@@ -46,7 +57,7 @@ void DefaultAction::execute(const Cli::ParserResult& parserResult)
 		std::cout
 			<< "\n" <<  std::setw (4) << definition->getId()
 			<< " " << definition->getName()
-			<< std::setw (40 - definition->getName().length()) << " "
+			<< std::setw (40 - getUtf8StringLength(definition->getName())) << " "
 			<< getCompletionString(definition->getId());
 	}
 

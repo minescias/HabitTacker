@@ -100,9 +100,6 @@ Zadania dotyczące modułu HT
  *  Wywoływanie sprawdzania poprwaności danych w klasie bazowej (uzupełnianie
     jakie to dane będzie w klasach pochodnych
 
-**[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z
-    wypełnieniem jest przesunięta o jeden znak w lewo :)
-
 **[HT20]** Polecenie Settings
  *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia
