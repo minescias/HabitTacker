@@ -22,3 +22,5 @@ Lista rzeczy do sprawdzenia
     zapisane w jednym kontenerze)
 #.  Wykorzystanie is_same() albo czegoś podobnego do sprawdzenia jakiego typu
     jest interfejs
+#.  Gdzieś wyczytałem, żeby używać enum class z typem (poszukać i sprawdzić
+    czemu tak a nie inaczej)

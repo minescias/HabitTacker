@@ -8,18 +8,18 @@ Lista zadań
 
 Project
 *******************************************************************************
-Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
-
-**[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
+Wszystko co jest związane z zarządzaniem projektem, systemem budowania oraz
+różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
 **[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się
-    tak zrobić
+    tak zrobić https://jefflirion.github.io/sphinx-github-pages.html
+    https://daler.github.io/sphinxdoc-test/includeme.html
 
 **[B07]** W przypadku błędy działanie programu często kończy się komunikatem
     Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
     tego wyciągnąć
 
-**[B08]** Włączenie wszystkic warningów w gcc tak jak są domyślne w MSVC
+**[B08]** Włączenie wszystkich warningów w gcc tak jak są domyślne w MSVC
 
 **[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
 
@@ -101,19 +101,39 @@ Zadania dotyczące modułu HT
  *  Walidacja poprawności parametrów
  *  Dokumentacja
 
-**[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy braku bazy
-    skutkuje wywaleniem błędu LogicError
+**[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy
+    braku bazy skutkuje wywaleniem błędu LogicError. Trzeba dodać sprawdzanie
+    czy baza istnieje przed uruchomieniem jakiejkolwiek operacji na bazie
+    danych
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
  *  Help jest bardzo nieczytelny + zawiera literówki :)
  *  Dane testowe powinny być zapisywane w folderze testFiles lub testSamples
     albo najlepiej całkowicie usunięte po zakończeniu testów
+ *  Podczas kompilacji całości projektu pojawiło się sporo warningów.
+    Prawdopobnie po dodaniu flagi -Wall w pliku głównym CMake
+
+Lib
+********************************************************************************
+Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
+
+**[Lib1]** Biblioteka ICU - rozpoznanie, czy i jak mogę jej użyć w moim
+    projekcie do poprawnego wyświetlania tekstu na konsoli
+
+**[Lib2]** Sprawdzić czy i jak mogę użyć biblioteki
+    https://github.com/HowardHinnant/date do zarządzania datami. Docelowo moje
+    funkcje obsługujące czas są do wywalenia albo do zamiany na wrapper do ww
+    biblioteki
+
+**[Lib3]** Biblioteka do obsługi formatu JSON lub XML do zapisu/odczytu pliku
+    konfiguracyjnego
 
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
-konfiguracji tychże
+konfiguracji tychże. W tym rozdziale są brane pod uwagę tylko te narzędzia,
+które sam napisałem lub napiszę w przyszłości
 
 **[T02]** Generator tabel do systemu rst/sphinx
 

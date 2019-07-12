@@ -8,8 +8,7 @@ Notatki, plany na przyszłość, rzeczy do przemyślenia itp.
 
 Konfiguracja
 *******************************************************************************
-- instalacja lynx do podglądu pliku w mock
-- limit szerokości w edytorze VS Code
+- instalacja lynx do podglądu pliku w mc
 - VS Codium
 - wyłączenie refów ccls + skrót klawiszowy do przełączania tej opcji
 

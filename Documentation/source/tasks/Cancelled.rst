@@ -1,6 +1,17 @@
 Lista anulowanych zadań
 ===============================================================================
 
+
+Project
+*******************************************************************************
+Wszystko co jest związane z zarządzaniem projektem, systemem budowania oraz
+różnymi zeznętrznymi narzędziami, które może warto sprawdzić
+
+**[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
+    Na tym etapie pracy jest to całkowicie niepotrzebne, zbędna praca, która
+    nie da żadnego wymiernego rezultatu. Może później wrócę do zadania, jak
+    projekt się trochę rozrośnie.
+
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT
