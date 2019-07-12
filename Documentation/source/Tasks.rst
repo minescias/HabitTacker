@@ -10,12 +10,6 @@ Project
 *******************************************************************************
 Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
-
-**[B03]** Budowanie jednego modułu
-    Dostępna jest opcja cmake --build . --target <nazwa modułu> ale to buduje
-    wszystkie moduły, od których zależy ten, który chcemy zbudować (chociaż
-    może to i lepiej?
-
 **[B04]** Udostępnianie klas między modułami - makro DLL_EXPORT
 
 **[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się

@@ -9,9 +9,13 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
     Tak, żeby i kod i dokumentacja były budowane za pomocą jednego polecenia
 
 **[B02]** Budowanie dokumentacji jako osobny target CMake
-    Celem jest możliwość zbudowania dokumentacji z
-    a pomocą polecenia np.
+    Celem jest możliwość zbudowania dokumentacji za pomocą polecenia np.
     "make doc" z folderu, w którym są normalnie budowane pliki cpp
+
+**[B03]** Budowanie jednego modułu
+    Dostępna jest opcja cmake --build . --target <nazwa modułu> ale to buduje
+    wszystkie moduły, od których zależy ten, który chcemy zbudować (chociaż
+    może to i lepiej?
 
 **[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
     ostatnich zmianach w Windowsie

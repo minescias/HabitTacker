@@ -11,3 +11,6 @@ Wszystkie komendy podane poniżej powinny być uruchamiane z folderu builds
     budowana do tego samego folderu co użycie komendy ``make html`` w folderze
     Documents
 
+``cmake --build . --target <nazwa modułu>``
+    Budowanie konkretnego modułu w projekcie razerm z wszystkimi jego 
+    zaleźnościami
