@@ -4,8 +4,8 @@
 
 #include "Core/Database/Database.h"
 #include "Core/Database/Dataset.h"
+#include "Core/Logger/Log.h"
 #include "Core/Utils/Exceptions/LogicError.h"
-#include "Core/Utils/Logger/Log.h"
 
 namespace Db
 {
@@ -17,6 +17,7 @@ Query::Query(Database* database, const std::string& sql)
         sql.size(), &statement, nullptr);
     checkForDbError(dbStatus);
 
+    log("Prepare query " +sql, Log::Levels::Sql);
     parameters = std::make_unique<Parameters>(database, statement);
 }
 

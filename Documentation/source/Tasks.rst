@@ -54,16 +54,23 @@ Co trzeba dodać/poprawić w Core programu
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
 
 **[C09]** Zaawansowany mechanizm logujący zmiany
- *  Globalny obiekt do logowania
- *  Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
+ *  OK Globalny obiekt do logowania
+ *  OK Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
     SQL, wywoływanie alcji i zwykły log debugowy
- *  Logowanie danych w zależności od tego na jakim poziomie są logowane
+ *  OK Logowanie danych w zależności od tego na jakim poziomie są logowane
  *  Logowanie miejsca logowania (jakkolwiek głupio to brzmi :) __FILE__ i
     __LINE__)
  *  Logowanie czasu
  *  Miejsce logowania - konsola lub plik (lub oba)
- *  Parametry do pliku konfiguracyjnego włączające funkconalności opisane wyżej
  *  Opis działania całości w dokumentacji
+
+**[C10]** Poprawiony plik konfiguracyjny
+ *  wybrać format pliku (xml,json, yaml lub coś innego)
+ *  klasa do odczytu zawartości pliku konfiguracyjnego
+ *  zapis pliku konfiguracyjnego w katalogu domowym użytkownika - tak, żeby był
+    dostępny z każdej lokalizacji
+ *  ustawienie dot. bazy danych
+ *  ustawienie dot. konfiguracji logowania
 
 Docs
 *******************************************************************************

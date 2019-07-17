@@ -4,6 +4,8 @@
 
 #include <Core/Config/Settings.h>
 #include <Core/Database/Database.h>
+#include <Core/Logger/Log.h>
+#include <Core/Logger/Logger.h>
 
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/InitAction.h"
@@ -21,6 +23,14 @@ int appInit(int argc, char* argv[])
     Cli::CommandLineParser parser;
     auto parserResult = Cli::CommandLineParser().parse(argc, argv);
     auto commandName = parserResult.getCommandName();
+
+    auto logConfig = std::make_unique<Log::Config>();
+    logConfig->enabled = true;
+    logConfig->levels = {Log::Levels::Error, Log::Levels::Sql};
+    auto logger = std::make_unique<Log::Logger>(std::move(logConfig));
+    Log::setLogger(logger.get());
+
+    log ("Execute command: " + commandName);
 
     if (commandName == "help")
     {
@@ -43,6 +53,7 @@ int appInit(int argc, char* argv[])
 
             return 0;
         }
+
 
         auto settings = getSettings("htr.ini");
         auto database = Db::Database(settings->get("database"));

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <Libraries/SQLite/sqlite3.h>
 #include "Core/Utils/Exceptions/LogicError.h"
-#include "Core/Utils/Logger/Log.h"
 
 namespace
 {
@@ -33,9 +32,7 @@ void Database::connect(const std::string& name)
 
     dbStatus = sqlite3_open(name.c_str(), &handler);
 
-    if (dbStatus == SQLITE_OK)
-        log ("Database " + databaseName + " opened");
-    else
+    if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
 }
 
@@ -45,9 +42,7 @@ void Database::disconnect()
 
     dbStatus = sqlite3_close(handler);
 
-    if (dbStatus == SQLITE_OK)
-        log ("Database " + databaseName  + " closed");
-    else
+    if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
 }
 
