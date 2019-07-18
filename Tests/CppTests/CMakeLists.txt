@@ -9,10 +9,12 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(CppTests_src
-    main.cpp
-    LambdaTests.cpp
-    RegexTests.cpp
-    SmartPtrTests.cpp)
+	LambdaTests.cpp
+	RegexTests.cpp
+	SmartPtrTests.cpp
+	StringTests.cpp
+	VariableParametersTest.cpp
+	main.cpp)
 
 # system dependent libraries
 if (UNIX)
