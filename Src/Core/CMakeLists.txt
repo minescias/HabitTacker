@@ -21,12 +21,15 @@ set(Logger_src
 	Logger/Log.cpp
 	Logger/Logger.cpp)
 
+set(Strings_src
+	Strings/Format.cpp
+	Utils/Strings/Case.cpp
+	Utils/Strings/Compare.cpp
+	Utils/Strings/Replace.cpp)
+
 set(Utils_src
     Utils/Exceptions/LogicError.cpp
     Utils/Exceptions/RuntimeError.cpp
-    Utils/Strings/Case.cpp
-    Utils/Strings/Compare.cpp
-    Utils/Strings/Replace.cpp
     Utils/Types/TypeNames.cpp)
 
 add_library(${PROJECT_NAME}
@@ -34,6 +37,7 @@ add_library(${PROJECT_NAME}
     ${Datetime_src}
     ${Database_src}
     ${Logger_src}
+    ${Strings_src}
     ${Utils_src})
 
 target_link_libraries(${PROJECT_NAME} SQLite)

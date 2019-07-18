@@ -9,17 +9,18 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(CoreTests_src
-    main.cpp
-    Config/ConfigFileTests.cpp
-    Config/SettingsTests.cpp
-    Database/DatasetTests.cpp
-    Database/QueryTests.cpp
-    DateTime/DateLiteralTests.cpp
-    DateTime/DateTimeTests.cpp
-    DateTime/DurationTests.cpp
-    Utils/Strings/CaseTests.cpp
-    Utils/Strings/CompareTests.cpp
-    Utils/Strings/ReplaceTests.cpp)
+	Config/ConfigFileTests.cpp
+	Config/SettingsTests.cpp
+	Database/DatasetTests.cpp
+	Database/QueryTests.cpp
+	DateTime/DateLiteralTests.cpp
+	DateTime/DateTimeTests.cpp
+	DateTime/DurationTests.cpp
+	Strings/FormatTests.cpp
+	Utils/Strings/CaseTests.cpp
+	Utils/Strings/CompareTests.cpp
+	Utils/Strings/ReplaceTests.cpp
+	main.cpp)
 
 # system dependent libraries
 if (UNIX)
