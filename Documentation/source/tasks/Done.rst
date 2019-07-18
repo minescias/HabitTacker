@@ -29,6 +29,9 @@ Co trzeba dodać/poprawić w Core programu
  *  OK klasa datetime obsługująca datę i czas
  *  OK funkja pobierająca dzisiejszą datę
 
+**[C05]** Funkcja do składania tekstu na wzór boost::format. Mogłaby
+    wykorzystywać string literals ()_xx
+
 **[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
  *  OK Możliwość dodawania/odejmowania dni od daty
  *  OK Pobieranie dnia tygodnia z daty

@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 
+#include <Core/Utils/Exceptions/LogicError.h>
+
 namespace Strings::Detail
 {
 
@@ -12,21 +14,24 @@ std::string getIdentifier(int index)
 	return std::string("%") + std::to_string(index) + "%";
 }
 
-
-
 template<typename T>
 std::string format(const std::string& str, int index,  T value)
 {
 	auto tmpStr = str;
-	auto pos = tmpStr.find(getIdentifier(index));
+	auto identifier = getIdentifier(index);
 	
+	auto pos = tmpStr.find(identifier);
+	if (pos == std::string::npos)
+		throw LogicError("Strings::format: more variables than placeholders");
+
+
 	while (pos != std::string::npos)
 	{
 		std::stringstream ss;
 		ss << tmpStr.substr(0, pos) << value << tmpStr.substr(pos + 3);
 		tmpStr = ss.str();
 
-		pos = tmpStr.find(getIdentifier(index));
+		pos = tmpStr.find(identifier);
 	}
 
 	return tmpStr;

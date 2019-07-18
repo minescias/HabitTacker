@@ -12,5 +12,8 @@ Wszystkie komendy podane poniżej powinny być uruchamiane z folderu builds
     Documents
 
 ``cmake --build . --target <nazwa modułu>``
-    Budowanie konkretnego modułu w projekcie razerm z wszystkimi jego 
-    zaleźnościami
+    Budowanie konkretnego modułu w projekcie razerm z wszystkimi jego
+    zależnościami
+
+``../bin/<nazwa modułu> --gtest_filter=<test fixture>*``
+    Uruchomienie testów z konkretnego modułu pasujących do filtra

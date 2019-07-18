@@ -1,5 +1,6 @@
 #include <gmock/gmock.h>
 
+#include <Core/Utils/Exceptions/LogicError.h>
 #include <Core/Strings/Format.h>
 namespace Tests
 {
@@ -53,6 +54,20 @@ TEST(FormatTest, formats_text_with_multiple_usage_of_one_placeholder)
 	auto actual = format("abc; %1%, def %2% ghi %1% jkl", 123, 4.56);
 
 	ASSERT_THAT(actual, Eq(expected));
+}
+
+TEST(FormatTest, throws_logic_error_when_there_is_more_placeholders_than_variables)
+{
+	try
+	{
+		format("abc; %1%, def %2% ghi", 123, 4.56, "asdsa");
+		FAIL() << "Expected LogcError";
+	}
+	catch (LogicError& err)
+	{
+		auto expected = "Strings::format: more variables than placeholders";
+		ASSERT_STREQ(err.what(), expected);
+	}  
 }
 
 } // namespace Tests

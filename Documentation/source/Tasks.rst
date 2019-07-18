@@ -46,9 +46,6 @@ Co trzeba dodać/poprawić w Core programu
     się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
     template, które są w dataset
 
-**[C05]** Funkcja do składania tekstu na wzór boost::format. Mogłaby
-    wykorzystywać string literals ()_xx
-
 **[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
