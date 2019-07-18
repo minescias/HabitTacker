@@ -12,22 +12,31 @@ std::string getIdentifier(int index)
 	return std::string("%") + std::to_string(index) + "%";
 }
 
+
+
 template<typename T>
 std::string format(const std::string& str, int index,  T value)
 {
-	auto pos = str.find(getIdentifier(index));
-	std::stringstream ss;
-	ss << str.substr(0, pos) << value << str.substr(pos + 3);
-	return ss.str();
+	auto tmpStr = str;
+	auto pos = tmpStr.find(getIdentifier(index));
+	
+	while (pos != std::string::npos)
+	{
+		std::stringstream ss;
+		ss << tmpStr.substr(0, pos) << value << tmpStr.substr(pos + 3);
+		tmpStr = ss.str();
+
+		pos = tmpStr.find(getIdentifier(index));
+	}
+
+	return tmpStr;
 }
 
 template<typename T, typename... TArgs>
 std::string format(const std::string& str, int index,  T value, TArgs... args)
 {
-	auto pos = str.find(getIdentifier(index));
-	std::stringstream ss;
-	ss << str.substr(0, pos) << value << str.substr(pos + 3);
-	return format(ss.str(), index + 1, args...);
+	auto tmpStr = format (str, index, value);
+	return format(tmpStr, index + 1, args...);
 }
 
 } // namespace Strings::Detail
