@@ -1,12 +1,26 @@
 #include "Core/Database/Parameters.h"
 
 #include <ctime>
-//#include <iostream>
+#include <string_view>
 
 #include <Libraries/SQLite/sqlite3.h>
 
+#include <Core/Logger/Log.h>
+#include <Core/Strings/Format.h>
 #include <Core/Database/Database.h>
 #include <Core/Utils/Exceptions/LogicError.h>
+
+namespace
+{
+
+template<typename T>
+void logParamIsSet(std::string_view name, T value, sqlite3_stmt* statement)
+{
+    log(Strings::format("Query %1%: parameter %2% set to %3%", 
+        std::addressof(*statement), name, value), Log::Levels::Sql);
+}
+
+} // namespace
 
 namespace Db
 {
@@ -20,42 +34,42 @@ Parameters::Parameters(Db::Database* db, sqlite3_stmt* statement)
 template<>
 void Parameters::setParam(const std::string& name, std::string value)
 {
-    //std::cout << "Param " << name << " set to " << value << "\n";
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_text(statement, index, value.c_str(),
         value.size(), SQLITE_TRANSIENT);
 
     checkForDbError(dbStatus);
     removeFromUnsetParamsList(name);
+    logParamIsSet(name, value, statement);
 }
 
 template<>
 void Parameters::setParam(const std::string& name, const char* value)
 {
-    //std::cout << "Param " << name << " set to " << value << "\n";
     setParam(name, std::string(value));
 }
 
 template<>
 void Parameters::setParam(const std::string& name, int value)
 {
-    //std::cout << "Param " << name << " set to " << value << "\n";
+    logParamIsSet(name, value, statement);
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_int(statement, index, value);
-    checkForDbError(dbStatus);
 
+    checkForDbError(dbStatus);
     removeFromUnsetParamsList(name);
+    logParamIsSet(name, value, statement);
 }
 
 template<>
 void Parameters::setParam(const std::string& name, time_t value)
 {
-    //std::cout << "Param " << name << " set to " << value << "\n";
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_int64(statement, index, value);
-    checkForDbError(dbStatus);
 
+    checkForDbError(dbStatus);
     removeFromUnsetParamsList(name);
+    logParamIsSet(name, value, statement);
 }
 
 template<>
@@ -63,9 +77,10 @@ void Parameters::setParam(const std::string& name, double value)
 {
     auto index = getParamIndex(name);
     auto dbStatus = sqlite3_bind_double(statement, index, value);
-    checkForDbError(dbStatus);
 
+    checkForDbError(dbStatus);
     removeFromUnsetParamsList(name);
+    logParamIsSet(name, value, statement);
 }
 
 void Parameters::createUnsetParametersList()

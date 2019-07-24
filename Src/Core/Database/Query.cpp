@@ -5,6 +5,7 @@
 #include "Core/Database/Database.h"
 #include "Core/Database/Dataset.h"
 #include "Core/Logger/Log.h"
+#include "Core/Strings/Format.h"
 #include "Core/Utils/Exceptions/LogicError.h"
 
 namespace Db
@@ -15,16 +16,21 @@ Query::Query(Database* database, const std::string& sql)
 {
     auto dbStatus = sqlite3_prepare_v2(database->getHandler(), sql.c_str(),
         sql.size(), &statement, nullptr);
+    
     checkForDbError(dbStatus);
-
-    log("Prepare query " +sql, Log::Levels::Sql);
     parameters = std::make_unique<Parameters>(database, statement);
+    
+    log(Strings::format("Query %1% prepared with %2%",
+        std::addressof(*statement), sql), Log::Levels::Sql);
 }
 
 Query::~Query()
 {
     auto dbStatus = sqlite3_finalize(statement);
     checkForDbError(dbStatus);
+
+    log(Strings::format("Query %1% unprepared", std::addressof(*statement)),
+        Log::Levels::Sql);
 }
 
 std::unique_ptr<Dataset> Query::execute()
@@ -36,6 +42,9 @@ std::unique_ptr<Dataset> Query::execute()
 
     if (!dataset->initialized())
         setDatasetColumns(dataset.get());
+
+    log(Strings::format("Query %1% executed", 
+        std::addressof(*statement)), Log::Levels::Sql);
 
     while (dbStatus == SQLITE_ROW)
     {

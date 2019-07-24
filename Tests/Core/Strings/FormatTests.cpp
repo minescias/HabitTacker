@@ -2,9 +2,11 @@
 
 #include <Core/Utils/Exceptions/LogicError.h>
 #include <Core/Strings/Format.h>
+
 namespace Tests
 {
 
+using Strings::format;
 using namespace testing;
 
 TEST(FormatTest, formats_text_without_parameters)
