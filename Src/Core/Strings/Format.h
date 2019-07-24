@@ -6,10 +6,13 @@
 
 #include <Core/Utils/Exceptions/LogicError.h>
 
-namespace Strings::Detail
+namespace Strings
 {
 
-std::string getIdentifier(int index)
+namespace Detail
+{
+
+inline std::string getIdentifier(int index)
 {
 	return std::string("%") + std::to_string(index) + "%";
 }
@@ -44,9 +47,9 @@ std::string format(const std::string& str, int index,  T value, TArgs... args)
 	return format(tmpStr, index + 1, args...);
 }
 
-} // namespace Strings::Detail
+} // namespace Detail
 
-std::string format(const std::string& str)
+inline std::string format(const std::string& str)
 {
 	return str;
 }
@@ -54,7 +57,9 @@ std::string format(const std::string& str)
 template <typename... TArtgs>
 std::string format(const std::string& str, TArtgs... targs)
 {
-	return Strings::Detail::format(str, 1, targs...);
+	return Detail::format(str, 1, targs...);
 }
+
+} // namespace Strings
 
 #endif // __FORMAT_H

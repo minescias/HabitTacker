@@ -22,7 +22,6 @@ set(Logger_src
 	Logger/Logger.cpp)
 
 set(Strings_src
-	Strings/Format.cpp
 	Utils/Strings/Case.cpp
 	Utils/Strings/Compare.cpp
 	Utils/Strings/Replace.cpp)
