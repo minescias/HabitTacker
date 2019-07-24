@@ -7,12 +7,6 @@ namespace Tests
 
 using namespace testing;
 
-class FormatTests : public testing::Test
-{
-public:
-	FormatTests(){};
-};
-
 TEST(FormatTest, formats_text_without_parameters)
 {
 	auto expected = "onetwothree";
