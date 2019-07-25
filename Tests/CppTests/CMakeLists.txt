@@ -9,6 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(CppTests_src
+	ForLoopTests.cpp
 	LambdaTests.cpp
 	RegexTests.cpp
 	SmartPtrTests.cpp
