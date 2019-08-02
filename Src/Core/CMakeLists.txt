@@ -12,10 +12,12 @@ set(Datetime_src
     DateTime/Duration.cpp)
 
 set(Database_src
-    Database/Database.cpp
-    Database/Dataset.cpp
-    Database/Query.cpp
-    Database/Parameters.cpp)
+	Database/Database.cpp
+	Database/Dataset.cpp
+	Database/Parameters.cpp
+	Database/Query.cpp
+	Database/Row.cpp
+	Database/ValueGetter.cpp)
 
 set(Logger_src
 	Logger/Log.cpp

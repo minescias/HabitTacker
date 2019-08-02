@@ -35,6 +35,7 @@ TEST(ValueGetterTest, throws_logic_error_when_casting_null_to_int)
 	try
 	{
 		Db::getVal<int>("foo", "");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -48,6 +49,7 @@ TEST(ValueGetterTest, throws_logic_error_when_casting_null_to_double)
 	try
 	{
 		Db::getVal<double>("foo", "");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -61,6 +63,7 @@ TEST(ValueGetterTest, throws_logic_error_when_casting_null_to_time_t)
 	try
 	{
 		Db::getVal<time_t>("foo", "");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -75,6 +78,7 @@ TEST(ValueGetterTest, throws_logic_error_when_cannot_cast_to_int)
 	try
 	{
 		Db::getVal<int>("foo", "bar");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -88,6 +92,7 @@ TEST(ValueGetterTest, throws_logic_error_when_cannot_cast_to_double)
 	try
 	{
 		Db::getVal<double>("foo", "bar");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -101,6 +106,7 @@ TEST(ValueGetterTest, throws_logic_error_when_cannot_cast_to_time_t)
 	try
 	{
 		Db::getVal<time_t>("foo", "bar");
+		FAIL() << "Expected logic error";
 	}
 	catch(LogicError& err)
 	{
@@ -108,6 +114,5 @@ TEST(ValueGetterTest, throws_logic_error_when_cannot_cast_to_time_t)
 		ASSERT_STREQ(err.what(), expected);
 	}
 }
-
 
 } // namespace Tests
