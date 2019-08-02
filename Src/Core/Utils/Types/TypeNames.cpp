@@ -12,4 +12,9 @@ std::string getTypeName(std::size_t typeId)
 
     if (typeId == typeid(std::string).hash_code())
         return "std::string";
+
+    if (typeId == typeid(time_t).hash_code())
+        return "time_t";
+
+    return "unknown type";
 }

@@ -13,6 +13,7 @@ set(CoreTests_src
 	Config/SettingsTests.cpp
 	Database/DatasetTests.cpp
 	Database/QueryTests.cpp
+	Database/ValueGetterTest.cpp
 	DateTime/DateLiteralTests.cpp
 	DateTime/DateTimeTests.cpp
 	DateTime/DurationTests.cpp
