@@ -6,12 +6,10 @@
 #include <vector>
 
 #include <Core/Database/ValueGetter.h>
+#include <Core/Database/DatasetHeader.h>
 
 namespace Db
 {
-
-// column name to index
-using DatasetHeader = std::map<std::string, int>; 
 
 class Row
 {

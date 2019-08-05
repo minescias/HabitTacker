@@ -14,6 +14,7 @@ set(Datetime_src
 set(Database_src
 	Database/Database.cpp
 	Database/Dataset.cpp
+	Database/Dataset2.cpp
 	Database/Parameters.cpp
 	Database/Query.cpp
 	Database/Row.cpp
