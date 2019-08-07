@@ -31,9 +31,7 @@ public:
 
 		Iterator& operator++() 
 		{
-			if(++position == data->size())
-				position = 0;
-			
+			position++;
 			return *this;
 		}
 
@@ -48,13 +46,13 @@ public:
 	};
 
 	Iterator begin() { return Iterator(&data, 0); }
-	Iterator end() { return Iterator(&data, data.size() - 1); }
+	Iterator end() { return Iterator(&data, data.size()); }
 
 	class ConstIterator
 	{
 	public:
 		ConstIterator(const std::vector<std::unique_ptr<Row>>* data, int position)
-			: data(data),position(position) {}
+			: data(data),position(position) {} 
 
       	const Row& operator*() const 
 		{
@@ -65,9 +63,7 @@ public:
 
 		ConstIterator& operator++()
 		{
-			if(++position == data->size())
-				position = 0;
-			
+			position++;	
 			return *this;
 		}
 
