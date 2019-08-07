@@ -34,9 +34,8 @@ void HabitDao::saveHabit(const HabitEntity& habit) const
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", habit.getHabitId());
 	query.setParam(":date", habit.getDate());
-	query.execute();
+	query.executeCommand();
 }
-
 
 void HabitDao::deleteHabit(const Entity::HabitEntity& habit) const
 {
@@ -50,7 +49,7 @@ void HabitDao::deleteHabit(const Entity::HabitEntity& habit) const
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", habit.getHabitId());
 	query.setParam(":date", habit.getDate());
-	query.execute();
+	query.executeCommand();
 }
 
 std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
@@ -67,14 +66,13 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", id);
-	auto queryResult = query.execute();
-
-	// ale buła :)
-	if (queryResult->next())
+	auto queryResult = query.execute2();
+	
+	for (const auto& row: queryResult)
 	{
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
 		habit->setHabitId(id);
-		habit->setDate(queryResult->getAs<Dt::Timestamp>("date"));
+		habit->setDate(row.get<Dt::Timestamp>("date"));
 	}
 
 	return result;
@@ -94,9 +92,9 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", habit.getHabitId());
 	query.setParam(":date", habit.getDate());
-	auto queryResult = query.execute();
+	auto queryResult = query.execute2();
 
-	if (queryResult->empty())
+	if (queryResult.isEmpty())
 		return false;
 	else
 		return true;
@@ -117,15 +115,15 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
 	Db::Query query(db, sql);
 	query.setParam(":date_from", Dt::DateTime{date}.addDays(-13).unixTime());
 	query.setParam(":date_to", date);
-	query.execute();
 
-	auto queryResult = query.execute();
+	auto queryResult = query.execute2();
 	auto result = std::vector<HabitEntityPtr>();
-	while (queryResult->next())
+
+	for (const auto& row: queryResult)
 	{
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
-		habit->setHabitId(queryResult->getAs<int>("habit_id"));
-		habit->setDate(queryResult->getAs<Dt::Timestamp>("date"));
+		habit->setHabitId(row.get<int>("habit_id"));
+		habit->setDate(row.get<Dt::Timestamp>("date"));
 	}
 
 	return result;

@@ -38,7 +38,7 @@ void HabitDefinitionDao::saveDefinition(const HabitDefinitionEntity& entity) con
 	Db::Query query(db, sql);
 	query.setParam(":name", entity.getName());
 	query.setParam(":date", Dt::getCurrentDate());
-	query.execute();
+	query.executeCommand();
 }
 
 void HabitDefinitionDao::updateDefinition(const HabitDefinitionEntity& entity) const
@@ -54,7 +54,7 @@ void HabitDefinitionDao::updateDefinition(const HabitDefinitionEntity& entity) c
 	Db::Query query(db, sql);
 	query.setParam(":name", entity.getName());
 	query.setParam(":id", entity.getId());
-	query.execute();
+	query.executeCommand();
 }
 
 HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) const
@@ -71,15 +71,16 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 
 	Db::Query query(db, sql);
 	query.setParam(":id", definitionId);
-	auto dataset = query.execute();
+	auto dataset = query.execute2();
 
-	if (dataset->empty())
+	if (dataset.isEmpty())
 		return HabitDefinitionEntityPtr();
 
+	auto row = dataset.getFirstRow();
 	auto result = std::make_unique<HabitDefinitionEntity>();
-	result->setId(dataset->getAs<int>("id"));
-	result->setName(dataset->getAs<std::string>("name"));
-	result->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
+	result->setId(row->get<int>("id"));
+	result->setName(row->get<std::string>("name"));
+	result->setBeginDate(row->get<Dt::Timestamp>("begin_date"));
 
 	return result;
 }
@@ -99,15 +100,16 @@ Entity::HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(
 
 	Db::Query query(db, sql);
 	query.setParam(":name", name);
-	auto dataset = query.execute();
+	auto dataset = query.execute2();
 
-	if (dataset->empty())
+	if (dataset.isEmpty())
 		return HabitDefinitionEntityPtr();
 
+	auto row = dataset.getFirstRow();
 	auto result = std::make_unique<HabitDefinitionEntity>();
-	result->setId(dataset->getAs<int>("id"));
-	result->setName(dataset->getAs<std::string>("name"));
-	result->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
+	result->setId(row->get<int>("id"));
+	result->setName(row->get<std::string>("name"));
+	result->setBeginDate(row->get<Dt::Timestamp>("begin_date"));
 
 	return result;
 }
@@ -125,14 +127,15 @@ Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 		"\n 	habit_definition h";
 
 	Db::Query query(db, sql);
-	auto dataset = query.execute();
+	auto dataset = query.execute2();
 
-	while(dataset->next())
+	// while(dataset->next())
+	for (const auto& row: dataset)
 	{
 		result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
-		result.back()->setId(dataset->getAs<int>("id"));
-		result.back()->setName(dataset->getAs<std::string>("name"));
-		result.back()->setBeginDate(dataset->getAs<Dt::Timestamp>("begin_date"));
+		result.back()->setId(row.get<int>("id"));
+		result.back()->setName(row.get<std::string>("name"));
+		result.back()->setBeginDate(row.get<Dt::Timestamp>("begin_date"));
 	}
 
 	return result;

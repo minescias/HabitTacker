@@ -52,13 +52,13 @@ std::unique_ptr<Db::Database> DatabaseCreator::createEmptyDatabase() const
 void DatabaseCreator::createHabitDefinitionTable(Db::Database* db) const
 {
 	Db::Query query(db, getCreateHabitDefinitionSql());
-	query.execute();
+	query.executeCommand();
 }
 
 void DatabaseCreator::createHabitTable(Db::Database* db) const
 {
 	Db::Query query(db, getCreateHabitTable());
-	query.execute();
+	query.executeCommand();
 }
 
 } // namespace

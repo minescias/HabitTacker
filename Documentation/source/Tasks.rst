@@ -29,16 +29,6 @@ Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
 
-**[C01]** Nowy system zapytań do bazy danych.
- *  Klasa field reprezentująca jedno pole - klasa ta pownna zajmować się
-    rzutowaniem wyników na typ, jakiego oczekuje użytkownik
- *  Klasa row/record - wektor pól z dostępem po nazwie kolumny
- *  Klasa Dataset2 - zestaw pól - powinna obdługiwać zakresowe pętle for
- *  Polecenie execute2() i executeCommand() w klasie Query. Jedno powinno
-    zwracać dataset a drugie nie
- *  Zamiana starych zapytań na nowe
- *  Opis działania w dokumentacji
-
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
 **[C04]** Poprawki po ostatnich zmianach w module bazy danych.
