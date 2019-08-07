@@ -20,7 +20,7 @@ public:
     Query(Database* database, const std::string& sql);
     ~Query();
 
-    std::unique_ptr<Dataset> execute();
+    [[deprecated]] std::unique_ptr<Dataset> execute();
     void executeCommand();
     Dataset2 execute2();
 
