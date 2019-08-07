@@ -7,6 +7,7 @@
 
 #include <Core/Database/Database_fwd.h>
 #include <Core/Database/Dataset_fwd.h>
+#include <Core/Database/Dataset2.h>
 #include <Core/Database/Parameters.h>
 #include <Core/Database/SQLite_fwd.h>
 
@@ -20,6 +21,8 @@ public:
     ~Query();
 
     std::unique_ptr<Dataset> execute();
+    void executeCommand();
+    Dataset2 execute2();
 
     template<typename T>
     void setParam(const std::string& name, T value)
@@ -28,6 +31,7 @@ public:
     }
 
 private:
+    int runQuery();
     void setDatasetColumns(Dataset* dataset);
     void addDatasetRow(Dataset* dataset);
     void checkForDbError(int dbStatus);
