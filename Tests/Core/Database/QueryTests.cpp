@@ -346,7 +346,7 @@ TEST_F(QueryTests, select_using_parameters)
     query.setParam(":id", 2);
     auto dataset = query.execute2();
 
-    ASSERT_FALSE(dataset.isEmpty());
+    ASSERT_FALSE(dataset.empty());
     validateRow2(dataset.getFirstRow(), 2, 1000, "Tysiąc", 1.2);
 }
 
@@ -357,8 +357,8 @@ TEST_F(QueryTests, select_that_returns_empty_dataset)
     query.setParam(":id", 1000); //some nonexisting index
     auto result = query.execute2();
 
-    EXPECT_TRUE(result.isInitialized());
-    EXPECT_TRUE(result.isEmpty());
+    EXPECT_TRUE(result.initialized());
+    EXPECT_TRUE(result.empty());
 }
 
 TEST_F(QueryTests, select_multiple_rows)

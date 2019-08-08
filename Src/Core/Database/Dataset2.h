@@ -89,8 +89,8 @@ public:
 	int getColumnsCount() const;
 	int getRowsCount() const;
 
-	bool isInitialized() const;
-	bool isEmpty() const;
+	bool initialized() const;
+	bool empty() const;
 
 	Row* getFirstRow() const;
 

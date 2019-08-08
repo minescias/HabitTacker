@@ -33,19 +33,19 @@ int Dataset2::getRowsCount() const
 	return data.size();
 }
 
-bool Dataset2::isInitialized() const
+bool Dataset2::initialized() const
 {
 	return !header.empty();
 }
 
-bool Dataset2::isEmpty() const
+bool Dataset2::empty() const
 {
 	return data.empty();
 }
 
 Row* Dataset2::getFirstRow() const
 {
-	if (isEmpty())
+	if (empty())
 		throw LogicError("Db: Cannot get first row from empty dataset"); 
 
 

@@ -73,7 +73,7 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 	query.setParam(":id", definitionId);
 	auto dataset = query.execute2();
 
-	if (dataset.isEmpty())
+	if (dataset.empty())
 		return HabitDefinitionEntityPtr();
 
 	auto row = dataset.getFirstRow();
@@ -102,7 +102,7 @@ Entity::HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(
 	query.setParam(":name", name);
 	auto dataset = query.execute2();
 
-	if (dataset.isEmpty())
+	if (dataset.empty())
 		return HabitDefinitionEntityPtr();
 
 	auto row = dataset.getFirstRow();

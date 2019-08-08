@@ -77,17 +77,17 @@ TEST_F(Dataset2Tests, returns_first_row)
 
 TEST_F(Dataset2Tests, returns_true_if_initialized)
 {
-	EXPECT_FALSE(dataset.isInitialized());
+	EXPECT_FALSE(dataset.initialized());
 	initDataset();
-	EXPECT_TRUE(dataset.isInitialized());
+	EXPECT_TRUE(dataset.initialized());
 }
 
 TEST_F(Dataset2Tests, returns_true_if_empty)
 {
 	initDataset();
-	EXPECT_TRUE(dataset.isEmpty());
+	EXPECT_TRUE(dataset.empty());
 	dataset.addRow();
-	EXPECT_FALSE(dataset.isEmpty());
+	EXPECT_FALSE(dataset.empty());
 }
 
 TEST_F(Dataset2Tests, allows_to_iterate_using_range_for_loop)

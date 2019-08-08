@@ -94,7 +94,7 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 	query.setParam(":date", habit.getDate());
 	auto queryResult = query.execute2();
 
-	if (queryResult.isEmpty())
+	if (queryResult.empty())
 		return false;
 	else
 		return true;
