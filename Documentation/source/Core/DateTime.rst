@@ -45,20 +45,3 @@ Z dokumentacji:
 
 W zapytaniach będzie można wyświetlić datę w ludzkim formacie np. za pomocą
 **SELECT date('now');**
-
-Reprezentacja daty w C++
-*******************************************************************************
-* https://en.cppreference.com/w/cpp/chrono
-* https://en.cppreference.com/w/cpp/chrono/time_point
-* https://github.com/HowardHinnant/date
-
-Docelowo będę chciał skorzystać z biblioteki znajdującej się na stronie
-https://github.com/HowardHinnant/date. Najpierw jednak chciałbym zrobić
-uboższą wersję tej biblioteki i samemu sprawdzić jak to działa w C++
-
-Przechowywanie daty:
-    using Date = std::chrono::system_clock::time_point;
-
-Użyłbym chrono do przechowywania daty i czasu ale większość fajnych
-funkcjonalności jest dopiero od c++20...
-

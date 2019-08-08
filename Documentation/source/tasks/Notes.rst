@@ -2,16 +2,6 @@ Notatki
 ===============================================================================
 Notatki, plany na przyszłość, rzeczy do przemyślenia itp.
 
-.. toctree::
-
-   Notes/Notes-archive
-
-Konfiguracja
-*******************************************************************************
-- instalacja lynx do podglądu pliku w mc
-- VS Codium
-- wyłączenie refów ccls + skrót klawiszowy do przełączania tej opcji
-
 Wersjonowanie bazy danych
 *******************************************************************************
     Początkowo zakładałem, że stworzę klasę, która będzie tworzyć czystą bazę
@@ -19,19 +9,6 @@ Wersjonowanie bazy danych
     rowzijania i tu pojawia się problem przenoszenia moich danych do nowej
     wersji. Do przemyślenia system upgrade lub przenoszenia danych między
     różnymi wersjami baz danych.
-
-Nowy system połączenia do bazy danych
-*******************************************************************************
-Obecny system jest wzorowany na jakimś borlandowym badziewiu. Sama klasa bazy
-danych i tworzenie wywoływanie zapytań jest ok. Problemem jest zwracanie wyniku
-zapytania. Obecnie korzystam z klasy dataset która ma wewnętrzny iterator i
-sama zarządza tym, który wiersz zapytania aktualnie zwraca. Docelowo chciałbym,
-żeby to działało z zakresową pętlą for np **for (auto const& row: dataset){}**
-
-Typy danych, które musi uwzględniać nowa klasa dataset
- *  typy podstawowe - int, float, bool
- *  std::string
- *  time_t do zapisu i odczytu daty
 
 Polecenie init i plik konfiguracyjny
 *******************************************************************************
@@ -56,24 +33,6 @@ Wybór bazy danych
  *  polecenie -database=<filename> do opcjonalnego przekazywania bazy danych
 
 Polecenie settings do ustawiania konfiguracji programu
-
-Dao
-*******************************************************************************
-Obecnie DaoFactory zwraca unique_ptr, zamiast tego mógłby zwracać shared_ptr.
-Dodatkowo zamist tworzyć dao za każdym pobraniem, fabryka mogłaby przechowywać
-wskaźnik na utworzoną wcześniej klasę i zwracać wskaźnik do niej tak, żeby w
-całym projekcie była dokładnie jedna klasa dao danego typu.
-
-Będzie to odczuwalne w działaniu programu dopiero wtedy kiedy dodam możliwość
-wykonywania wielu komend za jednym uruchomieniem programu
-
-Dodatkowo uprościłoby to kod testów. Zamiast tworzenia surowych wskaźników,
-można tworzyć shared_ptr na dao mock i za pomocą tego rejestrować mocki do
-fabryki
-
-Rejestrowanie dao (zwykłych, nie mock) można bardzo uprościć tworząc metdodkę
-template (albo lambda template :) ). Być może w tym momencie udałoby się dodać
-validację na typ dao za pomocą type_traits (np. is_base_of czy jakoś tak)
 
 Notatki nt sqlite
 *******************************************************************************
@@ -107,11 +66,6 @@ Potrzebne będą nowe zmiany do parsera wiersza poleceń:
  *  Poprawione pobieranie danych z wyniku parsowania (klasy parser result)
  *  Sprawdzanie czy filtr jest cyfrą :)
 
-Podpowiadanie składni
-*******************************************************************************
-Dobrze byłoby, gdyby program podowiadał składnie - autouzupełnianie komendy
-i parametrów
-
 Zarządzanie procesem budowania - luźne notatki
 *******************************************************************************
 Dostępne komendy:
@@ -123,3 +77,24 @@ Dostępne komendy:
      *  sprawdzenie czy istnieje sphinx - jeśli nie warning, że budowanie
         dokumentacji nie będzie możliwe
  *  build - budowanie całego projektu
+
+Obsługa locale
+********************************************************************************
+Do ustalenia kiedy i jak miałoby to działać
+
+Reprezentacja daty w C++
+*******************************************************************************
+* https://en.cppreference.com/w/cpp/chrono
+* https://en.cppreference.com/w/cpp/chrono/time_point
+* https://github.com/HowardHinnant/date
+
+Docelowo będę chciał skorzystać z biblioteki znajdującej się na stronie
+https://github.com/HowardHinnant/date. Najpierw jednak chciałbym zrobić
+uboższą wersję tej biblioteki i samemu sprawdzić jak to działa w C++
+
+Przechowywanie daty:
+    using Date = std::chrono::system_clock::time_point;
+
+Użyłbym chrono do przechowywania daty i czasu ale większość fajnych
+funkcjonalności jest dopiero od c++20...
+

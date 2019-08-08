@@ -18,7 +18,7 @@ Command Line Interface
     Adds new habit to the database
 
 **htr <habit_id> edit <options>**
-    Adds new habit to the database
+    Edits habit with given ID
 
     Availiable options:
      *  -name=<new name> - sets new habit name

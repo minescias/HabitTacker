@@ -7,21 +7,17 @@ HTR Docs's
 ===================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Spis treści:
 
    Cli
-   ConfigFile
    Versions
    Tables
+   ConfigFile
    Core
    Mechanics
-   Cpp
-   Tests
-   Tools
-   UsefulCommands
-   Notes
    Tasks
+   Programming
 
 Indices and tables
 ==================

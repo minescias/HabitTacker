@@ -5,6 +5,10 @@ Lista zadań
 
    tasks/Done
    tasks/Cancelled
+   tasks/Planned
+   tasks/Notes
+   tasks/Notes-archive
+   tasks/Cpp
 
 Project
 *******************************************************************************
@@ -15,7 +19,7 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
     tak zrobić https://jefflirion.github.io/sphinx-github-pages.html
     https://daler.github.io/sphinxdoc-test/includeme.html
 
-**[B07]** W przypadku błędy działanie programu często kończy się komunikatem
+**[B07]** W przypadku błędu działanie programu często kończy się komunikatem
     Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
     tego wyciągnąć
 
@@ -23,7 +27,14 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
 **[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
 
-**[B10]** Sprawdzić co to jest profiler i jak można tego użyć
+**[B10]** Sprawdzić co to jest profiler i jak można tego użyć\
+
+**[B11]** Pobieranie gtest z githuba przez CMake. Podobno jest to możliwe
+
+**[B12]** Automatycznie tworznie folderu na dane testowe przy uruchomieniu
+testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
+uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
+nie można utworzyć bazy testowej.
 
 Core
 *******************************************************************************
@@ -58,6 +69,36 @@ Co trzeba dodać/poprawić w Core programu
     dostępny z każdej lokalizacji
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
+
+**[C11]** Poprawki w klasie Dataset2 - zakończenie zmian związanych z db
+ *  Zmienić nazwę metody z isEmpty() na empty()
+ *  Zmienić nazwę metody z isInitialized() na initialized()
+ *  Metoda isInitialized chyba nie ma żadnego sensu. Jeśli zapytanie nie zwraca
+    żadnych wierszy to nie zwraca też listy kolumn, dlatego nigdy nie dojdzie
+    do sytuacji, że dataset jest initialized i empty. Sprawdzić i jeśli tak
+    jest faktycznie usunąć metodę isInitialized
+ *  Metoda getFirstRow() jest problematyczna. Zwraca wskaźnik na Row, sam Row
+    nie może istnieć bez dataseta, dlatego nie można użyć konstrukcji
+    *auto row = query.execute().getFirstRow().* Do rozważenia czy getFirstRow
+    nie powinien zwracać klasy innej od Row ale mającej te same działanie.
+ *  Jeśli wszystko będzie OK usunąć starą metodę execute() i dataset. Następnie
+    usunąć "2" z nazw nowych metod i klas.
+ *  Zaktualizować opis w dokumentacji
+
+**[C12]** Przenieść dao factory do core
+Mechanizm dao nie realizuje żadnej logiki związanej z nawykami więc może warto
+przenieść go do Core. Mechanizm podoba mi się na tyle, że możę użyję go w czymś
+innym
+
+**[C13]** Poprawki w CommandLineParser
+ *  Przenieść, całość do core, CLP nie realizuje żadnej logiki związanej
+    z nawykami
+ *  Zmienić nazwę z Cli::ParserResult na Cli::Parameters
+ *  Przykłady pobierania parametrów w dokumentacji
+ *  Ustawiwanie domyślnych wartości mogłoby być constexpr :)
+
+**[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
+type_traits.
 
 Docs
 *******************************************************************************
@@ -97,8 +138,10 @@ Zadania dotyczące modułu HT
 
 **[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy
     braku bazy skutkuje wywaleniem błędu LogicError. Trzeba dodać sprawdzanie
-    czy baza istnieje przed uruchomieniem jakiejkolwiek operacji na bazie
+    czy baza istnieje przed uruchomieniem jakiejkolwiek5 operacji na bazie
     danych
+
+**[HT29]** Każda akcja powinna obsługiwać polecenie --help
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje

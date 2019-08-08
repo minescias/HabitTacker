@@ -24,3 +24,12 @@ Lista rzeczy do sprawdzenia
     jest interfejs
 #.  Gdzieś wyczytałem, żeby używać enum class z typem (poszukać i sprawdzić
     czemu tak a nie inaczej)
+#.  Używanie string_view z mapą, która przechowuje wewnętrznie stringa
+    (raczej niemożliwe ze względu na dedukcje typów w template ale sprawdzić)
+#.  Czy w momencie, gdy przekazuję obiekt przez referencję do kontruktora a
+    zapisuję w klasie przez wartość następuje kopiowanie obiektu?
+#.  RVO
+
+Modern Cpp
+********************************************************************************
+1. string_view zamiast zwykłego stringa tam, gdzie to możliwe
