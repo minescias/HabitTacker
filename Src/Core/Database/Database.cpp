@@ -1,7 +1,8 @@
 #include "Core/Database/Database.h"
 
-#include <iostream>
 #include <Libraries/SQLite/sqlite3.h>
+
+#include <Core/Logger/Log.h>
 #include "Core/Utils/Exceptions/LogicError.h"
 
 namespace
@@ -34,6 +35,8 @@ void Database::connect(const std::string& name)
 
     if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
+
+    log("Connected to dabase '" + name + "'", Log::Levels::Sql);
 }
 
 void Database::disconnect()
@@ -44,6 +47,8 @@ void Database::disconnect()
 
     if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
+
+    log("Disconnected from dabase '" + databaseName + "'", Log::Levels::Sql);
 }
 
 sqlite3* Database::getHandler()
