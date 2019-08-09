@@ -33,8 +33,7 @@ set(Strings_src
 
 set(Misc_src
     Exceptions/LogicError.cpp
-    Exceptions/RuntimeError.cpp
-    Types/TypeNames.cpp)
+    Exceptions/RuntimeError.cpp)
 
 add_library(${PROJECT_NAME}
     ${Config_src}

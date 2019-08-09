@@ -7,8 +7,9 @@
 #include <string>
 
 #include "Core/Dao/UnknownDao.h"
-#include <Core/Database/Database.h>
-#include <Core/Exceptions/LogicError.h>
+#include "Core/Database/Database.h"
+#include "Core/Exceptions/LogicError.h"
+#include "Core/Types/DemangledTypeName.h"
 
 namespace Dao
 {
@@ -31,8 +32,8 @@ public:
 		if (dao != nullptr)
 			return dao;
 
-		throw LogicError("DaoFactory: "
-			"trying to cast " + daoName + " to wrong type");
+		throw LogicError("DaoFactory: cannot cast dao '" + daoName + "' "
+			"to type '" + Core::getDemangledTypeName<T>() + "'");
 	}
 
 private:

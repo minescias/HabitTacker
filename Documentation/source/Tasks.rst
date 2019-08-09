@@ -40,10 +40,6 @@ Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
 
-**[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
-    DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
-    // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
-
 **[C10]** Poprawiony plik konfiguracyjny
  *  wybrać format pliku (xml,json, yaml lub coś innego)
  *  klasa do odczytu zawartości pliku konfiguracyjnego

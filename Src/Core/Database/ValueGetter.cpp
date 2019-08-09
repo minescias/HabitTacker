@@ -4,7 +4,7 @@
 
 #include "Core/Strings/Format.h"
 #include "Core/Exceptions/LogicError.h"
-#include "Core/Types/TypeNames.h"
+#include "Core/Types/DemangledTypeName.h"
 
 namespace
 {
@@ -24,7 +24,7 @@ T tryToCast(std::string_view name, const std::string& value,
     {
         throw LogicError(Strings::format(
             "Db: Cannot cast value '%1%' of column '%2%' to type %3%", 
-             value, name, getTypeName(typeid(T).hash_code())));
+             value, name, Core::getDemangledTypeName<T>()));
     }
 }
 
@@ -35,7 +35,7 @@ void assertValueIsNotEmpty(std::string_view name, std::string_view value)
     {
         throw LogicError(Strings::format(
             "Db: Cannot cast null value of column '%1%' to type %2%", 
-            name, getTypeName(typeid(T).hash_code())));
+            name, Core::getDemangledTypeName<T>()));
     }
 }
 

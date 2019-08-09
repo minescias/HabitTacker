@@ -10,3 +10,4 @@ Opis mechanizmów występujących w Core programu
    Core/DateTime
    Core/Log
    Core/Strings
+   Core/Types

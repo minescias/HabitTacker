@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
-#include "Core/Exceptions/LogicError.h"
 #include "Core/Dao/DaoFactory.h"
 #include "Core/Dao/UnknownDao.h"
+#include "Core/Exceptions/LogicError.h"
 
 namespace
 {
@@ -171,7 +171,9 @@ TEST_F(DaoFactoryTests, throwsLogicErrorWhenTryingToCastDaoToWrongType)
 	}
 	catch(LogicError& err)
 	{
-		auto expected = "DaoFactory: trying to cast someDao to wrong type";
+		auto expected = "DaoFactory: cannot cast dao 'someDao' to type "
+			"'(anonymous namespace)::IOtherDummyDao'" ;
+
 		ASSERT_STREQ(err.what(), expected);
 	}
 }

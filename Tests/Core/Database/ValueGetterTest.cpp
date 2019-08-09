@@ -67,7 +67,7 @@ TEST(ValueGetterTest, throws_logic_error_when_casting_null_to_time_t)
 	}
 	catch(LogicError& err)
 	{
-		auto expected = "Db: Cannot cast null value of column 'foo' to type time_t";
+		auto expected = "Db: Cannot cast null value of column 'foo' to type long";
 		ASSERT_STREQ(err.what(), expected);
 	}
 }
@@ -110,7 +110,7 @@ TEST(ValueGetterTest, throws_logic_error_when_cannot_cast_to_time_t)
 	}
 	catch(LogicError& err)
 	{
-		auto expected = "Db: Cannot cast value 'bar' of column 'foo' to type time_t";
+		auto expected = "Db: Cannot cast value 'bar' of column 'foo' to type long";
 		ASSERT_STREQ(err.what(), expected);
 	}
 }

@@ -44,6 +44,10 @@ Co trzeba dodać/poprawić w Core programu
 **[C05]** Funkcja do składania tekstu na wzór boost::format. Mogłaby
     wykorzystywać string literals ()_xx
 
+**[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
+    DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
+    // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
+
 **[C07]** Końcowe porządki z datą i czasem - szczegóły w notatkach
  *  OK Możliwość dodawania/odejmowania dni od daty
  *  OK Pobieranie dnia tygodnia z daty

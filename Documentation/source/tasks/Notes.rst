@@ -10,6 +10,14 @@ Wersjonowanie bazy danych
     wersji. Do przemyślenia system upgrade lub przenoszenia danych między
     różnymi wersjami baz danych.
 
+Cross compilation
+********************************************************************************
+Dodałem funckję Core::getDemangledTypeName(), która bazuje na funkcji
+dostępnej tylko w GCC. Jeśli kiedykowliek chciałbym przejść na inny kompilator
+trzeba będzie ją zmienić. Nazwy zmiennych są zależne od kompilatora, więc
+nawet jeśli poprawię działanie tak, żeby kompilowało się niezależnie od
+kompilatora to mogę mieć problem z testami, które od tego zależą.
+
 Polecenie init i plik konfiguracyjny
 *******************************************************************************
 Propozycja zmian do inicjowania i używania pliku konfiguracyjnego:
