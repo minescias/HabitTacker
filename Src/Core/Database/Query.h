@@ -6,7 +6,7 @@
 #include <string>
 
 #include <Core/Database/Database_fwd.h>
-#include <Core/Database/Dataset2.h>
+#include <Core/Database/Dataset.h>
 #include <Core/Database/Parameters.h>
 #include <Core/Database/SQLite_fwd.h>
 
@@ -20,7 +20,7 @@ public:
     ~Query();
 
     void executeCommand();
-    Dataset2 execute2();
+    Dataset execute();
 
     template<typename T>
     void setParam(const std::string& name, T value)

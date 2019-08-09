@@ -65,7 +65,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", id);
-	auto queryResult = query.execute2();
+	auto queryResult = query.execute();
 	
 	for (const auto& row: queryResult)
 	{
@@ -91,7 +91,7 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", habit.getHabitId());
 	query.setParam(":date", habit.getDate());
-	auto queryResult = query.execute2();
+	auto queryResult = query.execute();
 
 	if (queryResult.empty())
 		return false;
@@ -115,7 +115,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
 	query.setParam(":date_from", Dt::DateTime{date}.addDays(-13).unixTime());
 	query.setParam(":date_to", date);
 
-	auto queryResult = query.execute2();
+	auto queryResult = query.execute();
 	auto result = std::vector<HabitEntityPtr>();
 
 	for (const auto& row: queryResult)

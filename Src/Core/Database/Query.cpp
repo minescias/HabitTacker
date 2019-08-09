@@ -43,11 +43,11 @@ void Query::executeCommand()
         checkForDbError(dbStatus);
 }
 
-Dataset2 Query::execute2()
+Dataset Query::execute()
 {
     auto dbStatus = runQuery();
     auto columnsCount = sqlite3_column_count(statement);
-    Dataset2 dataset;
+    Dataset dataset;
 
     for (auto currentColumn = 0; currentColumn < columnsCount; ++currentColumn)
         dataset.addColumn(sqlite3_column_name(statement, currentColumn));    

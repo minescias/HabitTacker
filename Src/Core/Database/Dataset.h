@@ -1,5 +1,5 @@
-#ifndef __DATASET2_H
-#define __DATASET2_H
+#ifndef __Dataset_H
+#define __Dataset_H
 
 #include <memory>
 #include <set>
@@ -12,7 +12,7 @@
 namespace Db
 {
 
-class Dataset2
+class Dataset
 {
 public:
 	
@@ -81,7 +81,7 @@ public:
 	ConstIterator end() const { return ConstIterator(&data, data.size() - 1); }
 
 public:
-	Dataset2();
+	Dataset();
 
 	void addColumn(const std::string& name);
 	Row* addRow();
@@ -101,4 +101,4 @@ private:
 
 } // namespace Db
 
-#endif // __DATASET2_H
+#endif // __Dataset_H

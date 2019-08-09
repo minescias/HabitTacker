@@ -1,15 +1,15 @@
-#include "Core/Database/Dataset2.h"
+#include "Core/Database/Dataset.h"
 
 #include <Core/Utils/Exceptions/LogicError.h>
 
 namespace Db
 {
 
-Dataset2::Dataset2()
+Dataset::Dataset()
 {
 }
 
-void Dataset2::addColumn(const std::string& name)
+void Dataset::addColumn(const std::string& name)
 {
 	if(header.find(name) != header.end())
 		throw LogicError("Db: Redefinition of " + name + " column"); 
@@ -17,33 +17,33 @@ void Dataset2::addColumn(const std::string& name)
 	header.insert({name, header.size()});
 }
 
-Row* Dataset2::addRow()
+Row* Dataset::addRow()
 {
 	auto row = data.emplace_back(std::make_unique<Row>(&header)).get();
 	return row;
 }
 
-int Dataset2::getColumnsCount() const
+int Dataset::getColumnsCount() const
 {
 	return (header.size());
 }
 
-int Dataset2::getRowsCount() const
+int Dataset::getRowsCount() const
 {
 	return data.size();
 }
 
-bool Dataset2::initialized() const
+bool Dataset::initialized() const
 {
 	return !header.empty();
 }
 
-bool Dataset2::empty() const
+bool Dataset::empty() const
 {
 	return data.empty();
 }
 
-Row* Dataset2::getFirstRow() const
+Row* Dataset::getFirstRow() const
 {
 	if (empty())
 		throw LogicError("Db: Cannot get first row from empty dataset"); 

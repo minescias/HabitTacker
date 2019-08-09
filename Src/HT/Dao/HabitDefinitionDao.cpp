@@ -70,7 +70,7 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 
 	Db::Query query(db, sql);
 	query.setParam(":id", definitionId);
-	auto dataset = query.execute2();
+	auto dataset = query.execute();
 
 	if (dataset.empty())
 		return HabitDefinitionEntityPtr();
@@ -99,7 +99,7 @@ Entity::HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(
 
 	Db::Query query(db, sql);
 	query.setParam(":name", name);
-	auto dataset = query.execute2();
+	auto dataset = query.execute();
 
 	if (dataset.empty())
 		return HabitDefinitionEntityPtr();
@@ -126,7 +126,7 @@ Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 		"\n 	habit_definition h";
 
 	Db::Query query(db, sql);
-	auto dataset = query.execute2();
+	auto dataset = query.execute();
 
 	// while(dataset->next())
 	for (const auto& row: dataset)

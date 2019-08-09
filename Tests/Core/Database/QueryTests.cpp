@@ -4,7 +4,7 @@
 #include <optional>
 
 #include "Core/Database/Database.h"
-#include "Core/Database/Dataset2.h"
+#include "Core/Database/Dataset.h"
 #include "Core/Database/Query.h"
 #include "Core/Utils/Exceptions/LogicError.h"
 
@@ -80,7 +80,7 @@ public:
     void validateThirdRow()
     {
         auto sql = "select * from main m where m.id=3";
-        auto result = Db::Query(db.get(), sql).execute2();
+        auto result = Db::Query(db.get(), sql).execute();
 
         validateRow(result.getFirstRow(), 3, 1000000, "Milijon", 1.3245);
     }
@@ -152,7 +152,7 @@ TEST_F(QueryTests, throws_error_when_parameter_is_not_set)
     {
         auto sql = "select * from main m where m.id = :id";
         auto query = Db::Query(db.get(), sql);
-        query.execute2();
+        query.execute();
 
         FAIL() << "Logic error about unknown param shoul be thrown";
     }
@@ -237,13 +237,13 @@ TEST_F(QueryTests, throws_error_on_incorrect_command)
     }
 }
 
-//execute2
+//execute
 TEST_F(QueryTests, select_using_parameters)
 {
     auto sql = "select * from main m where m.id = :id";
     auto query = Db::Query(db.get(), sql);
     query.setParam(":id", 2);
-    auto dataset = query.execute2();
+    auto dataset = query.execute();
 
     ASSERT_FALSE(dataset.empty());
     validateRow2(dataset.getFirstRow(), 2, 1000, "Tysiąc", 1.2);
@@ -254,7 +254,7 @@ TEST_F(QueryTests, select_that_returns_empty_dataset)
     auto sql = "select * from main m where m.id = :id";
     auto query = Db::Query(db.get(), sql);
     query.setParam(":id", 1000); //some nonexisting index
-    auto result = query.execute2();
+    auto result = query.execute();
 
     EXPECT_TRUE(result.initialized());
     EXPECT_TRUE(result.empty());
@@ -264,7 +264,7 @@ TEST_F(QueryTests, select_multiple_rows)
 {
     auto sql = "select * from main m order by m.id";
     auto query = Db::Query(db.get(), sql);
-    auto dataset = query.execute2();
+    auto dataset = query.execute();
 
     auto index{0};
 
@@ -300,7 +300,7 @@ TEST_F(QueryTests, selecting_null_values)
     auto query = Db::Query(db.get(), sql);
     query.setParam(":id", 3);
 
-    auto dataset = query.execute2();
+    auto dataset = query.execute();
     auto row = dataset.getFirstRow();
 
     ASSERT_THAT(row->get<std::string>("second"), Eq(""));
