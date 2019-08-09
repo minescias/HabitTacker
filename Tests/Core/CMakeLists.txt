@@ -12,7 +12,6 @@ set(CoreTests_src
 	Config/ConfigFileTests.cpp
 	Config/SettingsTests.cpp
 	Database/Dataset2Tests.cpp
-	Database/DatasetTests.cpp
 	Database/QueryTests.cpp
 	Database/RowTests.cpp
 	Database/ValueGetterTest.cpp

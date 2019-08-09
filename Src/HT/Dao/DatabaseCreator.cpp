@@ -1,7 +1,6 @@
 #include "HT/Dao/DatabaseCreator.h"
 
 #include <Core/Database/Database.h>
-#include <Core/Database/Dataset.h>
 #include <Core/Database/Query.h>
 
 namespace

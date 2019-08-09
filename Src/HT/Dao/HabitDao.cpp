@@ -1,7 +1,6 @@
 #include "HT/Dao/HabitDao.h"
 
 #include <Core/Database/Database.h>
-#include <Core/Database/Dataset.h>
 #include <Core/Database/Query.h>
 #include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/Timestamp.h>
