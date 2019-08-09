@@ -1,11 +1,11 @@
 #include <gmock/gmock.h>
 
+#include "Core/Dao/DaoFactory.h"
 #include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/ActionError.h"
-#include "HT/Dao/DaoFactory.h"
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"

@@ -1,12 +1,12 @@
 #ifndef __DAO_FACTORY_H
 #define __DAO_FACTORY_H
 
-#include "HT/Dao/UnknownDao.h"
 
 #include <functional>
 #include <map>
 #include <string>
 
+#include "Core/Dao/UnknownDao.h"
 #include <Core/Database/Database.h>
 #include <Core/Exceptions/LogicError.h>
 

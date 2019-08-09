@@ -18,7 +18,6 @@ set(HT_src
     AppInit/InitDaoFactory.cpp
     AppInit/RegisterActions.cpp
     AppInit/Version.cpp
-    Dao/DaoFactory.cpp
     Dao/DatabaseCreator.cpp
     Dao/HabitDao.cpp
     Dao/HabitDefinitionDao.cpp

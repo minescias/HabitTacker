@@ -2,7 +2,7 @@
 #define __ACTION_H
 
 #include "HT/Cli/ParserResult.h"
-#include "HT/Dao/DaoFactory.h"
+#include "Core/Dao/DaoFactory.h"
 
 namespace Actions
 {

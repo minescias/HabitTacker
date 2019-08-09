@@ -1,9 +1,8 @@
 #include <gmock/gmock.h>
 
 #include "Core/Exceptions/LogicError.h"
-
-#include "HT/Dao/DaoFactory.h"
-#include "HT/Dao/UnknownDao.h"
+#include "Core/Dao/DaoFactory.h"
+#include "Core/Dao/UnknownDao.h"
 
 namespace
 {

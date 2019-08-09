@@ -11,6 +11,7 @@ enable_testing()
 set(CoreTests_src
 	Config/ConfigFileTests.cpp
 	Config/SettingsTests.cpp
+	Dao/DaoFactoryTests.cpp
 	Database/DatasetTests.cpp
 	Database/QueryTests.cpp
 	Database/RowTests.cpp

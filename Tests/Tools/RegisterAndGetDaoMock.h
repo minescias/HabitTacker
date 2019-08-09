@@ -1,7 +1,7 @@
 #ifndef __REGISTER_AND_GET_DAO_MOCK_H
 #define __REGISTER_AND_GET_DAO_MOCK_H
 
-#include "HT/Dao/DaoFactory.h"
+#include "Core/Dao/DaoFactory.h"
 
 namespace Tests
 {

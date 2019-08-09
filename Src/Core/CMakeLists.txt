@@ -19,6 +19,9 @@ set(Database_src
 	Database/Row.cpp
 	Database/ValueGetter.cpp)
 
+set(Dao_src
+	Dao/DaoFactory.cpp)
+
 set(Logger_src
 	Logger/Log.cpp
 	Logger/Logger.cpp)
@@ -28,17 +31,18 @@ set(Strings_src
 	Strings/Compare.cpp
 	Strings/Replace.cpp)
 
-set(Utils_src
+set(Misc_src
     Exceptions/LogicError.cpp
     Exceptions/RuntimeError.cpp
     Types/TypeNames.cpp)
 
 add_library(${PROJECT_NAME}
     ${Config_src}
+    ${Dao_src}
     ${Datetime_src}
     ${Database_src}
     ${Logger_src}
     ${Strings_src}
-    ${Utils_src})
+    ${Misc_src})
 
 target_link_libraries(${PROJECT_NAME} SQLite)

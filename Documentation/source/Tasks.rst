@@ -52,10 +52,6 @@ Co trzeba dodać/poprawić w Core programu
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
-**[C12]** Przenieść dao factory do core
-Mechanizm dao nie realizuje żadnej logiki związanej z nawykami więc może warto
-przenieść go do Core. Mechanizm podoba mi się na tyle, że możę użyję go w czymś
-innym
 
 **[C13]** Poprawki w CommandLineParser
  *  Przenieść, całość do core, CLP nie realizuje żadnej logiki związanej

@@ -76,6 +76,11 @@ Co trzeba dodać/poprawić w Core programu
     Następnie usunąć "2" z nazw nowych metod i klas.
  *  OK Zaktualizować opis w dokumentacji
 
+**[C12]** Przenieść dao factory do core
+Mechanizm dao nie realizuje żadnej logiki związanej z nawykami więc może warto
+przenieść go do Core. Mechanizm podoba mi się na tyle, że może użyję go w czymś
+innym
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

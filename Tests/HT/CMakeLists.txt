@@ -19,7 +19,6 @@ set(HtTests_src
     Actions/ListActionTests.cpp
     CLI/ParserResultTests.cpp
     CommandLineParserTests.cpp
-    Dao/DaoFactoryTests.cpp
     Dao/HabitDefinitionDaoTests.cpp
     Dao/HabitDaoTests.cpp)
 
