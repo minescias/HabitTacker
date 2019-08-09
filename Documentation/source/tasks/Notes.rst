@@ -34,10 +34,6 @@ Wybór bazy danych
 
 Polecenie settings do ustawiania konfiguracji programu
 
-Notatki nt sqlite
-*******************************************************************************
-SQLite nie obsługuje komendy merge
-
 Log debugowy
 *******************************************************************************
 Potrzebny będzie log debugowy, który pozwoli na wyświetlenie różnych danych

@@ -28,8 +28,8 @@ Co trzeba dodać/poprawić w Core programu
  *  Klasa field reprezentująca jedno pole - klasa ta pownna zajmować się
     rzutowaniem wyników na typ, jakiego oczekuje użytkownik
  *  Klasa row/record - wektor pól z dostępem po nazwie kolumny
- *  Klasa Dataset2 - zestaw pól - powinna obdługiwać zakresowe pętle for
- *  Polecenie execute2() i executeCommand() w klasie Query. Jedno powinno
+ *  Klasa Dataset - zestaw pól - powinna obdługiwać zakresowe pętle for
+ *  Polecenie execute() i executeCommand() w klasie Query. Jedno powinno
     zwracać dataset a drugie nie
  *  Zamiana starych zapytań na nowe
  *  Opis działania w dokumentacji
@@ -49,6 +49,24 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C08]** Jakaś metoda to łatwiejszego pobietrania unixowej daty przesuniętej o
     n dni
+
+**[C11]** Poprawki w klasie Dataset - zakończenie zmian związanych z db
+ *  OK Zmienić nazwę metody z isEmpty() na empty()
+ *  OK Zmienić nazwę metody z isInitialized() na initialized()
+ *  XX Metoda isInitialized chyba nie ma żadnego sensu. Jeśli zapytanie nie
+    zwraca żadnych wierszy to nie zwraca też listy kolumn, dlatego nigdy nie
+    dojdzie do sytuacji, że dataset jest initialized i empty. Sprawdzić i jeśli
+    tak jest faktycznie usunąć metodę isInitialized >> lista kolumn jest
+    zwracana nawet, jeśli zapytanie nic nie wybierze.
+ *  XX Metoda getFirstRow() jest problematyczna. Zwraca wskaźnik na Row, sam
+    Row nie może istnieć bez dataseta, dlatego nie można użyć konstrukcji
+    *auto row = query.execute().getFirstRow().* Do rozważenia czy getFirstRow
+    nie powinien zwracać klasy innej od Row ale mającej bte same działanie. >>
+    Przed wybraniem jednego wiersza i tak, trzeba sprawdzać czy zapytanie coś
+    zwróciło, więc to rozwiązanie nie będzie zbyt uzyteczne
+ *  OK Jeśli wszystko będzie OK usunąć starą metodę execute() i dataset.
+    Następnie usunąć "2" z nazw nowych metod i klas.
+ *  OK Zaktualizować opis w dokumentacji
 
 Docs
 *******************************************************************************

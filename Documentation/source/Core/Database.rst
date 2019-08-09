@@ -22,8 +22,8 @@ Wykonanie prostego zapytania
 
 .. code-block:: cpp
 
-   Db::Query query(database.get(), getCreateHabitDefinitionSql());
-   query.execute();
+   Db::Query query(database.get(), getDefinitionaSql());
+   auto result = query.execute();
 
 Wykonanie zapytania z przekazaniem parametrów.
 -------------------------------------------------------------------------------
@@ -32,10 +32,22 @@ Wykonanie zapytania z przekazaniem parametrów.
 
     Db::Query query(db, sql);
     query.setParam(":name", entity.getName());
-    query.execute();
+    auto result = query.execute();
 
 Ustawienie nieistniejącego parametru lub nieustawienie istniejącego spowoduje
 rzuceniem wyjątku logic error
+
+Wykonanie zapytania, które nie zwraca wyniku
+--------------------------------------------------------------------------------
+W przypadku zapytania, które nie zwraca wyniku (np. insert albo update) można
+skorzystać z metody Query::executeCommand(). Podczas wywołania tej metody nie
+jest tworzony dataset. Ponadto funkjca sprawdzi, czy zapytanie na pewno niczego
+nie zwróciło. Przykład:
+
+.. code-block:: cpp
+
+   Db::Query query(database.get(), getInsertDefinitionaSql());
+   query.execute();
 
 Pobieranie wyniku zapytania - 1 wiersz
 -------------------------------------------------------------------------------
@@ -46,12 +58,16 @@ Pobieranie wyniku zapytania - 1 wiersz
     query.setParam(":id", definitionId);
     auto dataset = query.execute();
 
-    if (dataset->empty())
+    if (dataset.empty())
         return HabitDefinitionEntityPtr();
 
+    auto row = dataset.getFirstRow()
     auto result = std::make_unique<HabitDefinitionEntity>();
-    result->setId(dataset->getAs<int>("id"));
-    result->setName(dataset->getAs<std::string>("name"));
+    result->setId(row->get<int>("id"));
+    result->setName(row->get<std::string>("name"));
+
+UWAGA: W przypadku, gdy pobieramy tylko pierwszy wiersz to funkcja zwróci
+wskaźnik na wiersz a nie referencję jak ma to miejsce w przypadku iteratorów.
 
 Pobieranie wyniku zapytania - iterowanie po datasecie
 -------------------------------------------------------------------------------
@@ -60,15 +76,12 @@ Pobieranie wyniku zapytania - iterowanie po datasecie
     Db::Query query(db, sql);
     auto dataset = query.execute();
 
-    while(dataset->next())
+    for (const auto& row: dataset)
     {
         result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
-        result.back()->setId(dataset->getAs<int>("id"));
-        result.back()->setName(dataset->getAs<std::string>("name"));
+        result.back()->setId(row.get<int>("id"));
+        result.back()->setName(row.get<std::string>("name"));
     }
 
-Wywołanie zapytania tak jak w poprzednim przykładzie. Różnicza polega na tym,
-że zamykamy pobieranie wyników z bazy danych w pętli
-**while(dataset->next())**. Dataset ma swój wewnętrzny iterator, który jest
-przestawiany na następny wiersz przy poleceniu **next()**. Słabe, ale tak to
-kiedyś zrobiłem i w działa w miarę dobrze...
+Do iterowania po wynikach zapytania można skorzystać z zakresowej pętli for.
+Iteratory będą zwracały referencję do kolejnych wierszy.

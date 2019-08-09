@@ -70,21 +70,6 @@ Co trzeba dodać/poprawić w Core programu
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
-**[C11]** Poprawki w klasie Dataset2 - zakończenie zmian związanych z db
- *  Zmienić nazwę metody z isEmpty() na empty()
- *  Zmienić nazwę metody z isInitialized() na initialized()
- *  Metoda isInitialized chyba nie ma żadnego sensu. Jeśli zapytanie nie zwraca
-    żadnych wierszy to nie zwraca też listy kolumn, dlatego nigdy nie dojdzie
-    do sytuacji, że dataset jest initialized i empty. Sprawdzić i jeśli tak
-    jest faktycznie usunąć metodę isInitialized
- *  Metoda getFirstRow() jest problematyczna. Zwraca wskaźnik na Row, sam Row
-    nie może istnieć bez dataseta, dlatego nie można użyć konstrukcji
-    *auto row = query.execute().getFirstRow().* Do rozważenia czy getFirstRow
-    nie powinien zwracać klasy innej od Row ale mającej te same działanie.
- *  Jeśli wszystko będzie OK usunąć starą metodę execute() i dataset. Następnie
-    usunąć "2" z nazw nowych metod i klas.
- *  Zaktualizować opis w dokumentacji
-
 **[C12]** Przenieść dao factory do core
 Mechanizm dao nie realizuje żadnej logiki związanej z nawykami więc może warto
 przenieść go do Core. Mechanizm podoba mi się na tyle, że możę użyję go w czymś

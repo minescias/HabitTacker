@@ -13,6 +13,7 @@ HTR Docs's
    Cli
    Versions
    Tables
+   SQLite
    ConfigFile
    Core
    Mechanics
