@@ -34,6 +34,8 @@ Co trzeba dodać/poprawić w Core programu
  *  Zamiana starych zapytań na nowe
  *  Opis działania w dokumentacji
 
+**[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
+
 **[C03]** Dodanie DateTime do Core programu
  *  OK typedef na time_t
  *  OK klasa datetime obsługująca datę i czas

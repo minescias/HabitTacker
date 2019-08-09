@@ -24,14 +24,14 @@ set(Logger_src
 	Logger/Logger.cpp)
 
 set(Strings_src
-	Utils/Strings/Case.cpp
-	Utils/Strings/Compare.cpp
-	Utils/Strings/Replace.cpp)
+	Strings/Case.cpp
+	Strings/Compare.cpp
+	Strings/Replace.cpp)
 
 set(Utils_src
-    Utils/Exceptions/LogicError.cpp
-    Utils/Exceptions/RuntimeError.cpp
-    Utils/Types/TypeNames.cpp)
+    Exceptions/LogicError.cpp
+    Exceptions/RuntimeError.cpp
+    Types/TypeNames.cpp)
 
 add_library(${PROJECT_NAME}
     ${Config_src}

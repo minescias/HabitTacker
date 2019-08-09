@@ -1,4 +1,4 @@
-#include <Core/Utils/Strings/Case.h>
+#include <Core/Strings/Case.h>
 
 #include <algorithm>
 #include <locale>

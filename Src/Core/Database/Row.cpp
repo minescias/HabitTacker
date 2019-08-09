@@ -1,7 +1,7 @@
 #include "Core/Database/Row.h"
 
 #include <Core/Strings/Format.h>
-#include <Core/Utils/Exceptions/LogicError.h>
+#include <Core/Exceptions/LogicError.h>
 
 namespace Db
 {

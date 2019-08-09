@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 
-#include "Core/Utils/Strings/Compare.h"
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Strings/Compare.h"
+#include "Core/Exceptions/LogicError.h"
 
 using namespace testing;
 

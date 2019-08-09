@@ -2,7 +2,7 @@
 
 #include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/DateTimeGetter.h>
-#include <Core/Utils/Exceptions/RuntimeError.h>
+#include <Core/Exceptions/RuntimeError.h>
 
 namespace Dt
 {

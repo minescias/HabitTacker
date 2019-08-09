@@ -5,7 +5,7 @@
 #include "Core/Database/Database.h"
 #include "Core/Logger/Log.h"
 #include "Core/Strings/Format.h"
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Exceptions/LogicError.h"
 
 namespace Db
 {

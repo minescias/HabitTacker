@@ -19,9 +19,9 @@ set(CoreTests_src
 	DateTime/DateTimeTests.cpp
 	DateTime/DurationTests.cpp
 	Strings/FormatTests.cpp
-	Utils/Strings/CaseTests.cpp
-	Utils/Strings/CompareTests.cpp
-	Utils/Strings/ReplaceTests.cpp
+	Strings/CaseTests.cpp
+	Strings/CompareTests.cpp
+	Strings/ReplaceTests.cpp
 	main.cpp)
 
 # system dependent libraries

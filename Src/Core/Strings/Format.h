@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-#include <Core/Utils/Exceptions/LogicError.h>
+#include <Core/Exceptions/LogicError.h>
 
 namespace Strings
 {

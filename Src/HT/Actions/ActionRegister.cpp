@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Core/Utils/Exceptions/RuntimeError.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 namespace Actions
 {

@@ -40,8 +40,6 @@ Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
 
-**[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
-
 **[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object

@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "Core/Utils/Strings/Replace.h"
+#include "Core/Strings/Replace.h"
 
 using namespace testing;
 

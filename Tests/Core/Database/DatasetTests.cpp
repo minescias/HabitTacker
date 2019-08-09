@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 
 #include <Core/Database/Dataset.h>
-#include <Core/Utils/Exceptions/LogicError.h>
+#include <Core/Exceptions/LogicError.h>
 
 namespace Tests
 {

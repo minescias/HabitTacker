@@ -1,4 +1,4 @@
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Exceptions/LogicError.h"
 
 #include "Core/Logger/Log.h"
 

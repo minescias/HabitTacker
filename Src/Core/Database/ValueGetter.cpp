@@ -3,8 +3,8 @@
 #include "string"
 
 #include "Core/Strings/Format.h"
-#include "Core/Utils/Exceptions/LogicError.h"
-#include "Core/Utils/Types/TypeNames.h"
+#include "Core/Exceptions/LogicError.h"
+#include "Core/Types/TypeNames.h"
 
 namespace
 {

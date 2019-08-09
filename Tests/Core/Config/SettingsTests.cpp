@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "Core/Utils/Exceptions/RuntimeError.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 #include "Core/Config/Settings.h"
 

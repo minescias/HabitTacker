@@ -1,7 +1,7 @@
 #ifndef __ACTION_ERROR
 #define __ACTION_ERROR
 
-#include "Core/Utils/Exceptions/RuntimeError.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 namespace Actions
 {

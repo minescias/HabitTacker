@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "Core/Utils/Strings/Case.h"
+#include "Core/Strings/Case.h"
 
 using namespace testing;
 

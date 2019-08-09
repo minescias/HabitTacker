@@ -6,7 +6,7 @@
 #include "Core/Database/Database.h"
 #include "Core/Database/Dataset.h"
 #include "Core/Database/Query.h"
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Exceptions/LogicError.h"
 
 
 namespace Tests

@@ -3,7 +3,7 @@
 #include <Libraries/SQLite/sqlite3.h>
 
 #include <Core/Logger/Log.h>
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Exceptions/LogicError.h"
 
 namespace
 {

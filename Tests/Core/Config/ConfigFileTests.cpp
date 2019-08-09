@@ -5,7 +5,7 @@
 
 #include "Core/Config/Settings.h"
 #include "Core/Config/ConfigFile.h"
-#include "Core/Utils/Exceptions/RuntimeError.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 namespace
 {

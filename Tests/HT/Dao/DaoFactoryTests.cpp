@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "Core/Utils/Exceptions/LogicError.h"
+#include "Core/Exceptions/LogicError.h"
 
 #include "HT/Dao/DaoFactory.h"
 #include "HT/Dao/UnknownDao.h"

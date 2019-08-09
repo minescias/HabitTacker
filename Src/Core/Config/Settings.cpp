@@ -1,6 +1,6 @@
 #include "Core/Config/Settings.h"
 
-#include "Core/Utils/Exceptions/RuntimeError.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 namespace Config
 {
