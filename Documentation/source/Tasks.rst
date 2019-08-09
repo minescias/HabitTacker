@@ -42,25 +42,9 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C02]** Usunięcie folderu utils i Trzymanie wszystkiego bezpośrednio w Core
 
-**[C04]** Poprawki po ostatnich zmianach w module bazy danych.
-    Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
-    się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
-    template, które są w dataset
-
 **[C06]** Funkcja do pobierania nazwy klasy + poprawić komunikat błędu w teście
     DaoFactoryTests::throwsLogicErrorWhenTryingToCastDaoToWrongType
     // https://stackoverflow.com/questions/3649278/how-can-i-get-the-class-name-from-a-c-object
-
-**[C09]** Zaawansowany mechanizm logujący zmiany
- *  OK Globalny obiekt do logowania
- *  OK Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
-    SQL, wywoływanie alcji i zwykły log debugowy
- *  OK Logowanie danych w zależności od tego na jakim poziomie są logowane
- *  Logowanie miejsca logowania (jakkolwiek głupio to brzmi :) __FILE__ i
-    __LINE__)
- *  Logowanie czasu
- *  Miejsce logowania - konsola lub plik (lub oba)
- *  Opis działania całości w dokumentacji
 
 **[C10]** Poprawiony plik konfiguracyjny
  *  wybrać format pliku (xml,json, yaml lub coś innego)

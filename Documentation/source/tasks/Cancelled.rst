@@ -1,7 +1,6 @@
 Lista anulowanych zadań
 ===============================================================================
 
-
 Project
 *******************************************************************************
 Wszystko co jest związane z zarządzaniem projektem, systemem budowania oraz
@@ -11,6 +10,14 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
     Na tym etapie pracy jest to całkowicie niepotrzebne, zbędna praca, która
     nie da żadnego wymiernego rezultatu. Może później wrócę do zadania, jak
     projekt się trochę rozrośnie.
+
+Core
+********************************************************************************
+**[C04]** Poprawki po ostatnich zmianach w module bazy danych.
+    Dodałem tam obługę time_t, ale nie robiłem żadnych testów na to. Przydałoby
+    się je dodać - ponadto wydaje mi się, że można jakoś uporządkować te bieda
+    template, które są w dataset -> stary dataset został usunięty więc to 
+    zadanie jest już nieaktualne 
 
 HT
 *******************************************************************************

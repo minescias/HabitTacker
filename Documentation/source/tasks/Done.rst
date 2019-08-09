@@ -50,6 +50,12 @@ Co trzeba dodać/poprawić w Core programu
 **[C08]** Jakaś metoda to łatwiejszego pobietrania unixowej daty przesuniętej o
     n dni
 
+**[C09]** Zaawansowany mechanizm logujący zmiany
+ *  OK Globalny obiekt do logowania
+ *  OK Flagi/enum do oznaczania co ma być logowane (na początek będą potrzebne:
+    SQL, wywoływanie alcji i zwykły log debugowy
+ *  OK Logowanie danych w zależności od tego na jakim poziomie są logowane
+
 **[C11]** Poprawki w klasie Dataset - zakończenie zmian związanych z db
  *  OK Zmienić nazwę metody z isEmpty() na empty()
  *  OK Zmienić nazwę metody z isInitialized() na initialized()

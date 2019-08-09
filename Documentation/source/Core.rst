@@ -8,4 +8,5 @@ Opis mechanizmów występujących w Core programu
    Core/Config
    Core/Database
    Core/DateTime
+   Core/Log
    Core/Strings

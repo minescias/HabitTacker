@@ -36,21 +36,21 @@ Polecenie settings do ustawiania konfiguracji programu
 
 Log debugowy
 *******************************************************************************
-Potrzebny będzie log debugowy, który pozwoli na wyświetlenie różnych danych
-podczas pracy programu.
+Sprawy, dotyczące logowania, których nie udało się zakończyć w poprzednim
+zadaniu:
 
-Potrzebne opcje:
- *  Możliwość włączenia, wyłączenia logu w pliku tekstowym
- *  Określenie poziomów logowania - CLI (parsowanie polecenia), SQL (zapytania,
-    parametry i błędy bazy danych), pozostałe
- *  Określenie gdzie mają być zapisywane dane (plik, konsola, baza danych)
- *  Logowanie czasu
+*  Logowanie miejsca logowania (jakkolwiek głupio to brzmi :) __FILE__ i
+    __LINE__)
+*  Logowanie czasu
+*  Miejsce logowania - konsola lub plik (lub oba)
 
-Uwagi
- *  Dostęp z dowolnego miejsca w kodzie - zmienna globalna zamiast singletona
- *  Dwie metody - setLoggerConfig() - log()
- *  Docelowo globalne parametry pozwalające na zmianę konfiguracji logowania z
-    wiersza poleceń
+Jeśli do logowania jest przekazany np. string format to olbiczenia zostaną
+wykonane niezależnie od tego, czy logowanie jest włączone czy nie :(
+
+Kilka spraw zależnych od od innych zadanek
+ * Możliwość ustawiania konfiguracji w pliku konfiguracyjnym
+ * Kolowanie logu na inny kolor w konsoli
+ * Konfiguracja logowania z wiersza poleceń
 
 CLI parser
 *******************************************************************************
