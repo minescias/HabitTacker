@@ -33,4 +33,4 @@ add_subdirectory(Tests/HT)
 add_subdirectory(Src/Main)
 
 #other
-add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Documentation)
+add_custom_target(Doc ALL make html WORKING_DIRECTORY ../docs)
