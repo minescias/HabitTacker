@@ -1,7 +1,7 @@
 #directories
 bin
 build
-docs/source/.doctrees
+Docs/source/.doctrees
 Libraries
 .vscode/cquery_cached_index
 .vscode/ipch

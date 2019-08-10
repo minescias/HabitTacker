@@ -15,10 +15,6 @@ Project
 Wszystko co jest związane z zarządzaniem projektem, systemem budowania oraz
 różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
-**[B06]** Podpięcie mojej dokumentacji do githuba - wydaje mi się, że  da się
-    tak zrobić https://jefflirion.github.io/sphinx-github-pages.html
-    https://daler.github.io/sphinxdoc-test/includeme.html
-
 **[B07]** W przypadku błędu działanie programu często kończy się komunikatem
     Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
     tego wyciągnąć
