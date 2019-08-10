@@ -10,15 +10,15 @@ HTR Docs's
    :maxdepth: 1
    :caption: Spis treści:
 
-   Cli
-   Versions
-   Tables
-   SQLite
-   ConfigFile
-   Core
-   Mechanics
-   Tasks
-   Programming
+   source/Cli
+   source/Versions
+   source/Tables
+   source/SQLite
+   source/ConfigFile
+   source/Core
+   source/Mechanics
+   source/Tasks
+   source/Programming
 
 Indices and tables
 ==================
