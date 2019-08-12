@@ -8,7 +8,7 @@ Na razie mgliste plany, jak to będzie dokładnie działać
 Wersja 0.3 - Nadrobienie długu technologicznego (w trakcie)
 *******************************************************************************
 *   Poprawienie DaoFactory zgodnie z opisem w notatkach
-*   Poprawki działania CLI - klasa ParserResult i walidacja poprawności
+*   Poprawki działania CLI - klasa Parameters i walidacja poprawności
     wprowadzanych danych - opis w notatkach
 *   Zaawansowany mechanizm logujący
 *   Nowe narzędzia ułatwiające pracę

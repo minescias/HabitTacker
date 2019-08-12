@@ -85,6 +85,13 @@ Mechanizm dao nie realizuje żadnej logiki związanej z nawykami więc może war
 przenieść go do Core. Mechanizm podoba mi się na tyle, że może użyję go w czymś
 innym
 
+**[C13]** Poprawki w CommandLineParser
+ *  Przenieść, całość do core, CLP nie realizuje żadnej logiki związanej
+    z nawykami
+ *  Zmienić nazwę z Cli::Parameters na Cli::Parameters
+ *  Przykłady pobierania parametrów w dokumentacji
+ *  Ustawiwanie domyślnych wartości mogłoby być constexpr :)
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

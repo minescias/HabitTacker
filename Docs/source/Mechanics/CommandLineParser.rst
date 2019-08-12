@@ -2,7 +2,7 @@ CommandLineParser
 ===============================================================================
 
 Klasa parsująca to co wpisał użytkownik i pakująca wyjście do struktury
-ParserResult. Parser sprawdza poprawność pod względem składniowym a nie
+Parameters. Parser sprawdza poprawność pod względem składniowym a nie
 logiczym. To czy komenda wpisana przez użytkownika ma sens jest sprawdzanie
 dopiero wewnątrz konkretnej akcji
 
@@ -25,7 +25,7 @@ Gdzie
     jeden parametr domyślny i wiele parametrów typu flag (z myślnikiem)
     lub param (-<param>=<wartosc>)
 
-Wynik parsowania jest zapisywany do struktury ParserResult, który przechowuje
+Wynik parsowania jest zapisywany do struktury Parameters, który przechowuje
 każdą z wyżej wymienionych sekcji w osobnym polu.
 
 Przykłady:
@@ -36,7 +36,15 @@ Przykłady:
      *  -bar, -bar2 - flagi (przechowują tylko wartość typu bool)
      *  -par, -par2 - parametry (one, two - wartości tych parametóww
 
-ParserResult
+Parameters
 *******************************************************************************
 Klasa z wynikami parsowania wiersza poleceń. Argumenty są zapisywane w formie
 mapy. Nazwy parametrów są przechowywane bez myślnika
+
+Parametry są podzielone na 3 grupy:
+ *  default parameters - parametr podany bez myślnika
+ *  flag
+ *  parameters
+
+Każda grupa parametrów ma swojego gettera i settera. Wartości są przechowywnane
+w formie tekstowej.

@@ -44,14 +44,6 @@ Co trzeba dodać/poprawić w Core programu
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
-
-**[C13]** Poprawki w CommandLineParser
- *  Przenieść, całość do core, CLP nie realizuje żadnej logiki związanej
-    z nawykami
- *  Zmienić nazwę z Cli::ParserResult na Cli::Parameters
- *  Przykłady pobierania parametrów w dokumentacji
- *  Ustawiwanie domyślnych wartości mogłoby być constexpr :)
-
 **[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
 type_traits.
 
