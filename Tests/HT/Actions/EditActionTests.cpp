@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 
 #include "Core/Dao/DaoFactory.h"
-#include "Core/Cli/ParserResult.h"
+#include "Core/Cli/Parameters.h"
 
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/EditAction.h"
@@ -34,7 +34,7 @@ public:
 		return habitDefinition;
 	}
 
-	Cli::ParserResult pr;
+	Cli::Parameters pr;
 	Dao::DaoFactory daoFactory;
 	Actions::EditAction action;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;

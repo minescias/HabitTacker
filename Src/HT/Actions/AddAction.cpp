@@ -14,7 +14,7 @@ void AddAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void AddAction::execute(const Cli::ParserResult& parserResult)
+void AddAction::execute(const Cli::Parameters& parserResult)
 {
 	auto name = parserResult.getDefaultParameter();
 

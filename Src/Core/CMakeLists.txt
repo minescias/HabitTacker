@@ -3,7 +3,7 @@ project(Core)
 
 set(Cli_src
 	Cli/CommandLineParser.cpp
-	Cli/ParserResult.cpp)
+	Cli/Parameters.cpp)
 
 set(Config_src
     Config/ConfigFile.cpp

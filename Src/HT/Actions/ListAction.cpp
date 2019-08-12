@@ -16,7 +16,7 @@ void ListAction::setDaoFactory(Dao::DaoFactory* factory)
 	dao = factory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void ListAction::execute(const Cli::ParserResult& parserResult)
+void ListAction::execute(const Cli::Parameters& parserResult)
 {
 	auto habits = dao->getDefinitions();
 

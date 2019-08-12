@@ -25,7 +25,7 @@ CommandLineParser::CommandLineParser()
 {
 }
 
-ParserResult CommandLineParser::parse(int argc, char** argv)
+Parameters CommandLineParser::parse(int argc, char** argv)
 {
 	for (int i=1; i< argc; i++)
 	{

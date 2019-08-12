@@ -14,14 +14,14 @@ class FirstAction : public Actions::IAction
 {
 public:
 	void setDaoFactory(Dao::DaoFactory* daoFactory){};
-	void execute(const Cli::ParserResult& parserResult){actionResult = 1;};
+	void execute(const Cli::Parameters& parserResult){actionResult = 1;};
 };
 
 class SecondAction : public Actions::IAction
 {
 public:
 	void setDaoFactory(Dao::DaoFactory* daoFactory){};
-	void execute(const Cli::ParserResult& parserResult){actionResult = 2;};
+	void execute(const Cli::Parameters& parserResult){actionResult = 2;};
 };
 
 } // namespace
@@ -39,9 +39,9 @@ TEST(ActionRegisterTest, registerAndGetActions)
 	actionRegister.reg("secondAction", []()->std::unique_ptr<Actions::IAction>
 		{return std::make_unique<SecondAction>();});
 
-	actionRegister.get("firstAction")->execute(Cli::ParserResult());
+	actionRegister.get("firstAction")->execute(Cli::Parameters());
 	EXPECT_THAT(actionResult, Eq(1));
-	actionRegister.get("secondAction")->execute(Cli::ParserResult());
+	actionRegister.get("secondAction")->execute(Cli::Parameters());
 	EXPECT_THAT(actionResult, Eq(2));
 }
 

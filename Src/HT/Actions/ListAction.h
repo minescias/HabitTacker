@@ -13,7 +13,7 @@ public:
 	ListAction();
 
 	void setDaoFactory(Dao::DaoFactory* factory);
-	void execute(const Cli::ParserResult& parserResult);
+	void execute(const Cli::Parameters& parserResult);
 
 private:
 	void printHeader() const;

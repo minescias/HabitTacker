@@ -34,7 +34,7 @@ void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void DefaultAction::execute(const Cli::ParserResult& parserResult)
+void DefaultAction::execute(const Cli::Parameters& parserResult)
 {
 	auto habitDefinitions = definitionDao->getDefinitions();
 

@@ -17,11 +17,11 @@ class DoneAction : public IAction
 public:
 	DoneAction();
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::ParserResult& parserResult);
+	void execute(const Cli::Parameters& parserResult);
 
 private:
-	void validateParameters(const Cli::ParserResult& parserResult) const;
-	Dt::Timestamp getDate(const Cli::ParserResult& parserResult) const;
+	void validateParameters(const Cli::Parameters& parserResult) const;
+	Dt::Timestamp getDate(const Cli::Parameters& parserResult) const;
 
 private:
 	std::shared_ptr<Dao::IHabitDao> habitDao;

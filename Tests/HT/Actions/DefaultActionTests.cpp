@@ -103,7 +103,7 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 	internal::CaptureStdout();
 
-	auto pr = Cli::ParserResult();
+	auto pr = Cli::Parameters();
 	pr.setDefaultParameter("05-05-2019");
 	defaultAction.execute(pr);
 
@@ -119,7 +119,7 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 	try
 	{
-		auto pr = Cli::ParserResult();
+		auto pr = Cli::Parameters();
 		pr.setDefaultParameter("05-05-2019");
 		defaultAction.execute(pr);
 
@@ -139,7 +139,7 @@ TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
 
 	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(Dt::getCurrentDate()));
 
-	defaultAction.execute(Cli::ParserResult());
+	defaultAction.execute(Cli::Parameters());
 }
 
 } // namespace Tests

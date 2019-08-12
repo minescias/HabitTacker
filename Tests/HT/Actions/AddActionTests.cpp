@@ -26,7 +26,7 @@ public:
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	Dao::DaoFactory factory;
 	Actions::AddAction addAction;
-	Cli::ParserResult pr;
+	Cli::Parameters pr;
 };
 
 TEST_F(AddActionTests, savesHabitToDatabase)

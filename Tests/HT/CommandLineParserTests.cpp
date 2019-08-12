@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Core/Cli/CommandLineParser.h"
-#include "Core/Cli/ParserResult.h"
+#include "Core/Cli/Parameters.h"
 #include "Core/Exceptions/RuntimeError.h"
 
 namespace Tests
@@ -21,7 +21,7 @@ class CommandLineParserTests : public testing::Test
 public:
     CommandLineParserTests() {}
 
-    void checkResult(Cli::ParserResult actual, Cli::ParserResult expected,
+    void checkResult(Cli::Parameters actual, Cli::Parameters expected,
         std::vector<std::string> flags, std::vector<std::string> parameters)
     {
         EXPECT_THAT(actual.getCommandName(), Eq(expected.getCommandName()));
@@ -43,7 +43,7 @@ TEST_F(CommandLineParserTests, returnsEmptyValuesWhenNoParameterIsPassed)
 	int argc{1};
 	char* argv[3] {"programName"_c};
 
-	auto expected = Cli::ParserResult();
+	auto expected = Cli::Parameters();
 	auto result = parser.parse(argc, argv);
 	checkResult(result, expected, {}, {});
 }
@@ -54,7 +54,7 @@ TEST_F(CommandLineParserTests, parsesSimpleCommand)
 	char* argv[3] {"programName"_c, "init"_c, "filePath"_c};
 
 	auto result = parser.parse(argc, argv);
-	auto expected = Cli::ParserResult();
+	auto expected = Cli::Parameters();
 	expected.setCommandName("init");
 	expected.setDefaultParameter("filePath");
 
@@ -66,7 +66,7 @@ TEST_F(CommandLineParserTests, parsesCommandWithFilter)
 	int argc{3};
 	char* argv[3] {"ht"_c, "3"_c, "done"_c};
 
-	auto expected = Cli::ParserResult();
+	auto expected = Cli::Parameters();
 	expected.setCommandName("done");
 	expected.setFilter("3");
 
@@ -79,7 +79,7 @@ TEST_F(CommandLineParserTests, parsesCommandWithOptionalFlag)
 	const int argc{3};
 	char* argv[argc] = {"ht"_c, "command"_c, "-param"_c};
 
-	auto expected = Cli::ParserResult();
+	auto expected = Cli::Parameters();
 	expected.setCommandName("command");
 	expected.setFlag("param");
 
@@ -92,7 +92,7 @@ TEST_F(CommandLineParserTests, parsesCommandWithOptionalParameter)
 	const int argc{3};
 	char* argv[argc] = {"ht"_c, "command"_c, "-param=value"_c};
 
-	auto expected = Cli::ParserResult();
+	auto expected = Cli::Parameters();
 	expected.setCommandName("command");
 	expected.setParameter("param", "value");
 

@@ -26,7 +26,7 @@ class DefaultAction : public IAction
 public:
 	DefaultAction();
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::ParserResult& parserResult);
+	void execute(const Cli::Parameters& parserResult);
 
 private:
 	void printHeader(Dt::Timestamp date) const;

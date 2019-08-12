@@ -14,7 +14,7 @@ class AddAction : public IAction
 public:
 	AddAction();
 	virtual void setDaoFactory(Dao::DaoFactory* daoFactory);
-	virtual void execute(const Cli::ParserResult& parserResult);
+	virtual void execute(const Cli::Parameters& parserResult);
 
 private:
 	std::shared_ptr<Dao::IHabitDefinitionDao> dao;

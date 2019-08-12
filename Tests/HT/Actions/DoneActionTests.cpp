@@ -44,7 +44,7 @@ public:
 	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	Actions::DoneAction doneAction;
-	Cli::ParserResult pr;
+	Cli::Parameters pr;
 };
 
 TEST_F(DoneActionTest, setsHabitAsDoneForToday)
@@ -142,7 +142,7 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 {
 	try
 	{
-		doneAction.execute(Cli::ParserResult());
+		doneAction.execute(Cli::Parameters());
 		FAIL() << "Expected ActionError";
 	}
 	catch(const Actions::ActionError& err)

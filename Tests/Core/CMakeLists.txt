@@ -9,7 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(CoreTests_src
-	CLI/ParserResultTests.cpp
+	CLI/ParametersTests.cpp
 	Config/ConfigFileTests.cpp
 	Config/SettingsTests.cpp
 	Dao/DaoFactoryTests.cpp

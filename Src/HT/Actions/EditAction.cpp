@@ -14,7 +14,7 @@ void EditAction::setDaoFactory(Dao::DaoFactory* daoFactory)
     dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void EditAction::execute(const Cli::ParserResult& parserResult)
+void EditAction::execute(const Cli::Parameters& parserResult)
 {
     auto habitId = parserResult.getFilter();
     if (habitId.empty())

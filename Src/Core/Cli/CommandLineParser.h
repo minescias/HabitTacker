@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Core/Cli/ParserResult.h"
+#include "Core/Cli/Parameters.h"
 
 namespace Cli
 {
@@ -20,7 +20,7 @@ class CommandLineParser
 {
 public:
 	CommandLineParser();
-	ParserResult parse(int argc, char** argv);
+	Parameters parse(int argc, char** argv);
 
 private:
 	ParameterType getParameterType(const std::string& parameter) const;
@@ -30,7 +30,7 @@ private:
 
 private:
 	bool commandIsSet;
-	ParserResult result;
+	Parameters result;
 };
 
 } // namespace Cli

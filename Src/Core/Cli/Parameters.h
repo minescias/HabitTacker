@@ -8,9 +8,9 @@
 namespace Cli
 {
 
-struct ParserResult
+struct Parameters
 {
-    ParserResult();
+    Parameters();
 
     void setCommandName(const std::string& name);
     std::string getCommandName() const;

@@ -19,7 +19,7 @@ void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 }
 
-void DoneAction::execute(const Cli::ParserResult& parserResult)
+void DoneAction::execute(const Cli::Parameters& parserResult)
 {
 	validateParameters(parserResult);
 
@@ -46,7 +46,7 @@ void DoneAction::execute(const Cli::ParserResult& parserResult)
 	}
 }
 
-void DoneAction::validateParameters(const Cli::ParserResult& parserResult) const
+void DoneAction::validateParameters(const Cli::Parameters& parserResult) const
 {
 	auto habitId = parserResult.getFilter();
 	if (habitId.empty())
@@ -67,7 +67,7 @@ void DoneAction::validateParameters(const Cli::ParserResult& parserResult) const
 		throw ActionError("Cannot set habit in the future");
 }
 
-Dt::Timestamp DoneAction::getDate(const Cli::ParserResult& parserResult) const
+Dt::Timestamp DoneAction::getDate(const Cli::Parameters& parserResult) const
 {
 	if (!parserResult.getParameter("date").empty())
 		return Dt::DateLiteral().parse(parserResult.getParameter("date"));
