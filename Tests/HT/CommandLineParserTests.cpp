@@ -2,10 +2,9 @@
 
 #include <vector>
 
-#include <Core/Exceptions/RuntimeError.h>
-
-#include "HT/Cli/CommandLineParser.h"
-#include "HT/Cli/ParserResult.h"
+#include "Core/Cli/CommandLineParser.h"
+#include "Core/Cli/ParserResult.h"
+#include "Core/Exceptions/RuntimeError.h"
 
 namespace Tests
 {

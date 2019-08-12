@@ -1,10 +1,10 @@
 #include <gmock/gmock.h>
 
 #include "Core/Dao/DaoFactory.h"
+#include "Core/Cli/ParserResult.h"
 
 #include "HT/Actions/ActionError.h"
 #include "HT/Actions/EditAction.h"
-#include "HT/Cli/ParserResult.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"

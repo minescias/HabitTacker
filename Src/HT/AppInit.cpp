@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <Core/Cli/CommandLineParser.h>
 #include <Core/Config/Settings.h>
 #include <Core/Database/Database.h>
 #include <Core/Logger/Log.h>
@@ -15,8 +16,6 @@
 #include "HT/AppInit/InitDaoFactory.h"
 #include "HT/AppInit/RegisterActions.h"
 #include "HT/AppInit/Vesrion.h"
-
-#include "HT/Cli/CommandLineParser.h"
 
 int appInit(int argc, char* argv[])
 {

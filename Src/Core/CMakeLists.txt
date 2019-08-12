@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(Core)
 
+set(Cli_src
+	Cli/CommandLineParser.cpp
+	Cli/ParserResult.cpp)
+
 set(Config_src
     Config/ConfigFile.cpp
     Config/Settings.cpp)
@@ -36,6 +40,7 @@ set(Misc_src
     Exceptions/RuntimeError.cpp)
 
 add_library(${PROJECT_NAME}
+    ${Cli_src}
     ${Config_src}
     ${Dao_src}
     ${Datetime_src}

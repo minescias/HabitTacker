@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "HT/Cli/ParserResult.h"
+#include "Core/Cli/ParserResult.h"
 
 namespace Tests
 {
