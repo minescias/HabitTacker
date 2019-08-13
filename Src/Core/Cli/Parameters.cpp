@@ -60,4 +60,14 @@ std::string Parameters::getParameter(const std::string& name) const
     return arguments.at(name);
 }
 
+std::set<std::string> Parameters::getAllFlags() const
+{
+    return  flags;
+}
+
+std::map<std::string, std::string> Parameters::getAllArguments() const
+{
+    return  arguments;
+}
+
 } // namespace Cli

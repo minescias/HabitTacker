@@ -3,7 +3,8 @@ project(Core)
 
 set(Cli_src
 	Cli/CommandLineParser.cpp
-	Cli/Parameters.cpp)
+	Cli/Parameters.cpp
+	Cli/Validator.cpp)
 
 set(Config_src
     Config/ConfigFile.cpp

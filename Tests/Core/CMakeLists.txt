@@ -10,6 +10,7 @@ enable_testing()
 
 set(CoreTests_src
 	CLI/ParametersTests.cpp
+	CLI/ValidatorTests.cpp
 	Config/ConfigFileTests.cpp
 	Config/SettingsTests.cpp
 	Dao/DaoFactoryTests.cpp

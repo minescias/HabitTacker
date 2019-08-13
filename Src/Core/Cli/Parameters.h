@@ -27,6 +27,10 @@ struct Parameters
     void setParameter(const std::string& name, const std::string& value);
     std::string getParameter(const std::string& name) const;
 
+    // for validation
+    std::set<std::string> getAllFlags() const;
+    std::map<std::string, std::string> getAllArguments() const;
+
 private:
     std::string commandName;
     std::string filter;
