@@ -104,11 +104,13 @@ TEST_F(ValidatorTests, passes_when_types_are_correct)
 	validator.addParam("foo").type(Cli::ParamType::Integer);
 	validator.addParam("bar").type(Cli::ParamType::Double);
 	validator.addParam("aaa").type(Cli::ParamType::String);
+	validator.addParam("bbb").type(Cli::ParamType::Date);
 
 	parameters.setFlag("flag");
 	parameters.setParameter("foo", "123");
 	parameters.setParameter("bar", "1.23");
 	parameters.setParameter("aaa", "razdwatrzy");
+	parameters.setParameter("aaa", "01-01-2019");
 
 	testForPass();
 }
@@ -144,5 +146,14 @@ TEST_F(ValidatorTests, throws_error_when_double_type_doesnt_match)
 	
 	testForError("Cannot read value 'xyz' of parameter 'foo' as real number");	
 }
+
+TEST_F(ValidatorTests, throws_error_when_date_type_doesnt_match)
+{
+	validator.addParam("foo").type(Cli::ParamType::Date);
+	parameters.setParameter("foo", "xyz");
+	
+	testForError("Cannot read value 'xyz' of parameter 'foo' as date");	
+}
+
 
 } // namespace Tests

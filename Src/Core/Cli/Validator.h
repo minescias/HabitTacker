@@ -13,7 +13,8 @@ enum class ParamType
 	Boolean,
 	Integer,
 	Double,
-	String 
+	String,
+	Date
 };
 
 class ParamProperties

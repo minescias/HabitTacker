@@ -1,5 +1,6 @@
 #include "Core/Cli/Validator.h"
 
+#include <Core/DateTime/DateLiteral.h>
 #include <Core/Exceptions/RuntimeError.h>
 
 namespace Cli
@@ -77,6 +78,20 @@ void Validator::checkType(ParamType type, const std::string& name,  const std::s
 		{
 			throw RuntimeError("Cannot read value '" + value + "' of parameter '"
 				+ name + "' as real number");
+		}
+	}
+
+	if (type == ParamType::Date)
+	{
+		try
+		{
+			Dt::DateLiteral().parse(value);
+			// DateTime::DateTime(const std::string& dateString)
+		}
+		catch (RuntimeError& err)
+		{
+			throw RuntimeError("Cannot read value '" + value + "' of parameter '"
+				+ name + "' as date");
 		}
 	}
 }
