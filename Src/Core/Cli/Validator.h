@@ -8,6 +8,24 @@
 namespace Cli
 {
 
+class ParamProperties
+{
+public:
+	ParamProperties()
+	{}
+
+	ParamProperties& required() 
+	{
+		_required = true;
+		return *this;	
+	}
+
+	bool isRequired() const {return _required; }
+
+private:
+	bool _required;
+};
+
 class Validator
 {
 public:
@@ -15,13 +33,15 @@ public:
 
 	void validate(Parameters& parameters);
 
-	void addParam(const std::string& foo);
+	ParamProperties& addParam(const std::string& foo);
 
 private:
 	void checkParam(const std::string& name);
+	void checkRequired(const Parameters& parameters);
+	void checkRequired(const Parameters& parameters, const std::string& name);
 
 private:
-	std::vector<std::string> registeredParams;
+	std::map<std::string, ParamProperties> registeredParams;
 };
 
 } // namespace Cli

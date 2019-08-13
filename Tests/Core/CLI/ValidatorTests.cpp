@@ -76,4 +76,14 @@ TEST_F(ValidatorTests, passes_when_argument_is_set)
 	ASSERT_NO_THROW(validator.validate(parameters));
 }
 
+// required parameter
+TEST_F(ValidatorTests, throws_error_when_required_parameter_is_not_set)
+{
+	validator.addParam("foo").required();
+	testForError("Missing required parameter '-foo'");
+
+	parameters.setFlag("foo");
+	testForPass();
+}
+
 } // namespace Tests
