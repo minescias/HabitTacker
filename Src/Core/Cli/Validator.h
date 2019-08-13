@@ -8,10 +8,20 @@
 namespace Cli
 {
 
+enum class ParamType
+{
+	Boolean,
+	Integer,
+	Double,
+	String 
+};
+
 class ParamProperties
 {
 public:
 	ParamProperties()
+		: _type(ParamType::Boolean)
+		, _required(false)
 	{}
 
 	ParamProperties& required() 
@@ -20,10 +30,18 @@ public:
 		return *this;	
 	}
 
+	ParamProperties& type(ParamType type)
+	{
+		_type = type;
+		return  *this;
+	}
+
 	bool isRequired() const {return _required; }
+	ParamType getType() const {return _type; }
 
 private:
 	bool _required;
+	ParamType _type;
 };
 
 class Validator
@@ -36,7 +54,8 @@ public:
 	ParamProperties& addParam(const std::string& foo);
 
 private:
-	void checkParam(const std::string& name);
+	void checkParam(const std::string& name, const std::string& value);
+	void checkType(ParamType type, const std::string& name, const std::string& value);
 	void checkRequired(const Parameters& parameters);
 	void checkRequired(const Parameters& parameters, const std::string& name);
 

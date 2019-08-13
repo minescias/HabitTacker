@@ -12,10 +12,10 @@ Validator::Validator()
 void Validator::validate(Parameters& parameters)
 {
 	for (const auto& flag: parameters.getAllFlags())
-		checkParam(flag);
+		checkParam(flag, "");
 	
 	for (const auto& param: parameters.getAllArguments())
-		checkParam(param.first);
+		checkParam(param.first, param.second);
 
 	checkRequired(parameters);
 }
@@ -27,15 +27,58 @@ ParamProperties& Validator::addParam(const std::string& name)
 	return registeredParams.emplace(name, ParamProperties()).first->second;
 }
 
-void Validator::checkParam(const std::string& name)
+void Validator::checkParam(const std::string& name, const std::string& value)
 {
 	for (const auto& param: registeredParams)
 	{
 		if (param.first == name)
+		{
+			checkType(param.second.getType(), name, value);
 			return;
-	}	
+		}
+	}
 
 	throw RuntimeError("-" + name + " is not defined");
+}
+
+void Validator::checkType(ParamType type, const std::string& name,  const std::string& value)
+{
+	if (type == ParamType::Boolean)
+	{
+		if (value.empty())
+			return;
+		else
+			throw RuntimeError("Parameter '" + name + "' does not require any value");
+	}
+
+	if (value.empty())
+		throw RuntimeError("Parameter '" + name + "' requires a value");
+
+	if (type == ParamType::Integer)
+	{
+		try
+		{
+			stoi(value);
+		}
+		catch (std::invalid_argument& err)
+		{
+			throw RuntimeError("Cannot read value '" + value + "' of parameter '"
+				+ name + "' as number");
+		}
+	}
+
+	if (type == ParamType::Double)
+	{
+		try
+		{
+			stod(value);
+		}
+		catch (std::invalid_argument& err)
+		{
+			throw RuntimeError("Cannot read value '" + value + "' of parameter '"
+				+ name + "' as real number");
+		}
+	}
 }
 
 void Validator::checkRequired(const Parameters& parameters)
