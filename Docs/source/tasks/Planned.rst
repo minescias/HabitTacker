@@ -4,6 +4,10 @@ Planowane
 Czego to ja nie planuję :) Jest to lista rzeczy, które planuje dodać w
 przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
 
+**Różne**
+ #. W jednym z konstruktorów DateTime rzucam wyjątkiem. Wydaje mi się,
+    że nie powinno się tego robić. Do sprawdzenia.
+
 **Grupownaie nawyków**
     Np. poranne aktywności są zazwyczaj wykonywane razem dobrze byłoby je
     pogrupować tak, żeby zaznaczać wszystkie jako wykonane za jednym poleceniem

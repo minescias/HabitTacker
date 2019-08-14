@@ -51,12 +51,12 @@ Docs
 *******************************************************************************
 Lista rzeczy do opisania
 
-**[D02]** Opis akcji, wyjątku ActionError i w ogóle tego co się dzieje po
-    podaniu polecenia. Do opisania po wyklarowaniu działania mechanizmu.
-
 **[D03]** Dodawanie nowego polecenia - wszystko co trzeba uwzględnić
 
 **[D04]** Struktura pliku CMake (ze względu na narzędzia parsujące)
+
+**[D05]** Opis działania odczytu i walidacji parametrów z wiersza poleceń
+    Po zakończeniu zadania HT30
 
 HT
 *******************************************************************************
@@ -74,21 +74,23 @@ Zadania dotyczące modułu HT
  *  Możliwość ustawiania wartości z pomocą polecenia
     **htr settings <name>:<value>**
 
-**[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
- *  Blokowane przez [HT24]
- *  Nowa klasa walidatora + testy
- *  Walidacja poprawności filtra (tylko sprawdzanie czy wymagany i czy cyfra)
- *  Walidacja poprawności flag
- *  Walidacja poprawności domyślnego parametru
- *  Walidacja poprawności parametrów
- *  Dokumentacja
-
 **[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy
     braku bazy skutkuje wywaleniem błędu LogicError. Trzeba dodać sprawdzanie
     czy baza istnieje przed uruchomieniem jakiejkolwiek5 operacji na bazie
     danych
 
 **[HT29]** Każda akcja powinna obsługiwać polecenie --help
+
+**[HT30]** Poprawki po dodaniu walidatora:
+ *  Sprawdzanie czy domyślny parametr jest wymagany
+ *  Sprawdzić czy tworzenie walidatora mogłoby być constexpr
+ *  w momencie dodania walidatora rozdział parametrów na parametry i flagi
+    straci chyba rację bytu. Wcześniej zostało to dodane, żeby nie było
+    problemu z sprawdzaniem odpowiedniego typu podczas pobierania wartości.
+    Po zmianach sprawdzaniem typu zajmie się walidator, więc wszystko może
+    siedzieć w jednej strukturze
+ *  Enum do okreslenia poziomnu wymagalności
+ *  Refaktor, przeniesienie całości do odpowiednich folderów
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
@@ -148,3 +150,10 @@ które sam napisałem lub napiszę w przyszłości
  *  Walidacja rozszerzenia, podpowiadanie tylko plików .cpp po wciśnięciu Tab
  *  Tworzenie nowych grup
  *  Usuwanie plików z kompilacji
+
+**[T11]** Uruchamianie testów skrótem klawiszowym z poziomu visual studio code
+ *  Kompilacja modułu z testami przed uruchomieniem + ew. zależności
+ *  Uruchamianie wsyzstkich testów z modułu
+ *  Wszystkie testy z pliku
+ *  Jeden konkretny test
+ *  Możliwość debugowania

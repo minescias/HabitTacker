@@ -62,13 +62,26 @@ Kilka spraw zależnych od od innych zadanek
 
 CLI parser
 *******************************************************************************
-Potrzebne będą nowe zmiany do parsera wiersza poleceń:
- *  Walidacja czy wprowadzone parametry są poprawne - chodzi o sprawdzenie czy
-    użytkownik podał poprawne nazwy parametrów - czy wszystkie wymagane dane są
-    wypełnione i czy nie ma niczego nadmiarowego
- *  Globalne parametry (nazwa bazy danych, informacje o logowaniu itp)
- *  Poprawione pobieranie danych z wyniku parsowania (klasy parser result)
- *  Sprawdzanie czy filtr jest cyfrą :)
+Uwagi w takcie pisania walidatora wiersza poleceń
+ *  tworzenie walidatora mogłoby być constExpr
+ *  przydałaby się jedna funkcja/klasa do rzutowania stringa na inne typy
+    (coś jak boost::lexical_cast() tylko bez boosta)
+ *  w momencie dodania walidatora rozdział parametrów na parametry i flagi
+    straci chyba rację bytu. Wcześniej zostało to dodane, żeby nie było
+    problemu z sprawdzaniem odpowiedniego typu podczas pobierania wartości.
+    Po zmianach sprawdzaniem typu zajmie się walidator, więc wszystko może
+    siedzieć w jednej strukturze
+
+Kolorowanie
+********************************************************************************
+Przydałoby się trochę kolorków tak, żeby wynik był nieco bardziej czytelny
+
+Luźne pomysły:
+ * Zebra koloring (dwa kolory na zmianę w tabelce z nawykami
+ * Kolorowanie nawyków względem wykonania
+ * Osobna klasa do umieszczania kolorowego tekstu
+ * Kolorowanie logu debugowwgo (np lekkie wyszarzenie, żeby nie zlewał się
+   z zwykłym tekstem
 
 Zarządzanie procesem budowania - luźne notatki
 *******************************************************************************

@@ -48,3 +48,33 @@ Parametry są podzielone na 3 grupy:
 
 Każda grupa parametrów ma swojego gettera i settera. Wartości są przechowywnane
 w formie tekstowej.
+
+Validator
+********************************************************************************
+Klasa służąca do sprawdzania, czy użytkownik przekazał takie paramerty jakie są
+oczekiwane przez użytkownika.
+
+Validator jest przewidziany do używania przed rozpoczęciem wykonywania akcji.
+Przed użyciem należy stworzyć validator i zarejestrować w nim wszystkie
+informacje, które będą sprawdzane.
+
+.. code-block:: c
+   :caption: Tworzenie validatora
+
+    auto validator = Cli::Validator();                      // utworzenie nowego walidatora
+    validator.enableFilter();                               // włączenie filtra
+    validator.addParam("foo");                              // dodanie opcjonalnej flagi foo
+    validator.addParam("bar").type(Cli::ParamType::Double); // dodanie opcjonalnego parametru typu double
+    validator.addParam("spam").required();                  // dodanie wymaganej flagi
+    validator.validate(parameters);                         // uruchomienie walidacji
+
+Powyżej znajduje się przykład na utworzenie walidatora. Parametry mają
+domyślnie flagi typu bool, domyślnie są tworzone jako opcjonalne, można to
+nadpisać używając metod type() i required().
+
+Aktualnie dotępne typy parametrów:
+ *  Boolean
+ *  Integer
+ *  Double
+ *  String
+ *  Date

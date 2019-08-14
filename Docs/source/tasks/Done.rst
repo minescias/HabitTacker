@@ -98,6 +98,9 @@ Lista rzeczy do opisania
 
 **[D01]** Działanie aktualnego systemu zapytań do bazy danych
 
+**[D02]** Opis akcji, wyjątku ActionError i w ogóle tego co się dzieje po
+    podaniu polecenia. Do opisania po wyklarowaniu działania mechanizmu.
+
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT
@@ -263,6 +266,14 @@ Zadania dotyczące modułu HT
  *  OK Poprawa testów
  *  OK Aktualizacja dokumentacji
  *  OK Prawdobodobnie metoda createDaoMock stanie się zbędna i można ją usunąć
+
+**[HT27]** Walidacja poprawności danych wprowadzonych przez użytkownika
+ *  Blokowane przez [HT24]
+ *  Nowa klasa walidatora + testy
+ *  Walidacja poprawności filtra (tylko sprawdzanie czy wymagany i czy cyfra)
+ *  Walidacja poprawności flag
+ *  Walidacja poprawności parametrów
+ *  Dokumentacja
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
