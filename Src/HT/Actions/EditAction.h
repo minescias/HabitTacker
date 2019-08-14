@@ -13,7 +13,10 @@ public:
 	EditAction();
 
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::Parameters& parserResult);
+	void execute(const Cli::Parameters& parameters);
+
+private:
+	void validateParameters(const Cli::Parameters& parameters);
 
 private:
 	std::shared_ptr<Dao::IHabitDefinitionDao> dao;

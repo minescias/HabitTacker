@@ -1,5 +1,6 @@
 #include "HT/Actions/EditAction.h"
 
+#include <Core/Cli/Validator.h>
 #include "HT/Actions/ActionError.h"
 
 namespace Actions
@@ -14,13 +15,13 @@ void EditAction::setDaoFactory(Dao::DaoFactory* daoFactory)
     dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void EditAction::execute(const Cli::Parameters& parserResult)
+void EditAction::execute(const Cli::Parameters& parameters)
 {
-    auto habitId = parserResult.getFilter();
-    if (habitId.empty())
-        throw ActionError("No filter specified");
+    validateParameters(parameters);
 
-    auto name = parserResult.getParameter("name");
+    auto habitId = parameters.getFilter();
+
+    auto name = parameters.getParameter("name");
     if (name.empty())
         throw ActionError("Nothing to change");
 
@@ -30,6 +31,14 @@ void EditAction::execute(const Cli::Parameters& parserResult)
 
     defintion->setName(name);
     dao->updateDefinition(*defintion);
+}
+
+void EditAction::validateParameters(const Cli::Parameters& parameters)
+{
+    auto validator = Cli::Validator();
+    validator.enableFilter();
+    validator.addParam("name").type(Cli::ParamType::String);
+    validator.validate(parameters);
 }
 
 } // namespace Actions

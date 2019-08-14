@@ -29,6 +29,7 @@ public:
 	void execute(const Cli::Parameters& parserResult);
 
 private:
+	void validateParameters(const Cli::Parameters& parameters);
 	void printHeader(Dt::Timestamp date) const;
 	std::string getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) const;
 	std::string getCompletionString(int habitId);

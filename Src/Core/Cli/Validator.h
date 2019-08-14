@@ -50,7 +50,7 @@ class Validator
 public:
 	Validator();
 
-	void validate(Parameters& parameters);
+	void validate(const Parameters& parameters);
 
 	ParamProperties& addParam(const std::string& foo);
 	void enableFilter();

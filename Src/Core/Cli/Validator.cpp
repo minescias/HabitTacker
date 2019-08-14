@@ -11,7 +11,7 @@ Validator::Validator()
 {
 }
 
-void Validator::validate(Parameters& parameters)
+void Validator::validate(const Parameters& parameters)
 {
 	for (const auto& flag: parameters.getAllFlags())
 		checkParam(flag, "");

@@ -13,9 +13,10 @@ public:
 	ListAction();
 
 	void setDaoFactory(Dao::DaoFactory* factory);
-	void execute(const Cli::Parameters& parserResult);
+	void execute(const Cli::Parameters& parameters);
 
 private:
+	void validateParameters(const Cli::Parameters& parameters);
 	void printHeader() const;
 
 private:

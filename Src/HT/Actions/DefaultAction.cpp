@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 
+#include <Core/Cli/Validator.h>
 #include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/DateTimeGetter.h>
 
@@ -34,15 +35,16 @@ void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
 	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 }
 
-void DefaultAction::execute(const Cli::Parameters& parserResult)
+void DefaultAction::execute(const Cli::Parameters& parameters)
 {
+	validateParameters(parameters);
 	auto habitDefinitions = definitionDao->getDefinitions();
 
 	Dt::Timestamp date;
-	if (parserResult.getDefaultParameter().empty())
+	if (parameters.getDefaultParameter().empty())
 		date = Dt::getCurrentDate();
 	else
-		date = Dt::DateTime{parserResult.getDefaultParameter()}.unixTime();
+		date = Dt::DateTime{parameters.getDefaultParameter()}.unixTime();
 
 	if (habitDefinitions.empty())
 		throw ActionError ("No habits found, try to add some using 'htr add'\n");
@@ -62,6 +64,12 @@ void DefaultAction::execute(const Cli::Parameters& parserResult)
 	}
 
 	std::cout << "\n";
+}
+
+void DefaultAction::validateParameters(const Cli::Parameters& parameters)
+{
+	// korzystamy tylko z parametru domyślnego, stąd brak ustawień walidatora
+	Cli::Validator().validate(parameters); 
 }
 
 void DefaultAction::printHeader(Dt::Timestamp date) const

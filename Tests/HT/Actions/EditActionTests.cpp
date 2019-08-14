@@ -47,7 +47,7 @@ TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
 		action.execute(pr);
 		FAIL() << "ActionError expected";
 	}
-	catch(Actions::ActionError& err)
+	catch(RuntimeError& err)
 	{
 		auto expected = "No filter specified";
 		ASSERT_STREQ(expected, err.what());

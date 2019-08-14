@@ -145,7 +145,7 @@ TEST_F(DoneActionTest, ensuresThatFilterIsSet)
 		doneAction.execute(Cli::Parameters());
 		FAIL() << "Expected ActionError";
 	}
-	catch(const Actions::ActionError& err)
+	catch(const RuntimeError& err)
 	{
 		auto expected = "No filter specified";
 		ASSERT_STREQ(expected, err.what());

@@ -17,10 +17,10 @@ class DoneAction : public IAction
 public:
 	DoneAction();
 	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::Parameters& parserResult);
+	void execute(const Cli::Parameters& parameters);
 
 private:
-	void validateParameters(const Cli::Parameters& parserResult) const;
+	void validateParameters(const Cli::Parameters& parameters) const;
 	Dt::Timestamp getDate(const Cli::Parameters& parserResult) const;
 
 private:
