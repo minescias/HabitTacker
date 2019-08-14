@@ -7,6 +7,7 @@ namespace Cli
 {
 
 Validator::Validator()
+	: filterEnabled(false)
 {
 }
 
@@ -19,6 +20,7 @@ void Validator::validate(Parameters& parameters)
 		checkParam(param.first, param.second);
 
 	checkRequired(parameters);
+	checkFilter(parameters);
 }
 
 ParamProperties& Validator::addParam(const std::string& name)
@@ -26,6 +28,11 @@ ParamProperties& Validator::addParam(const std::string& name)
 	// std::map::emplace() returns std::pair<iterator,bool>...
 	// that's why i had to do that strange .first->second thing
 	return registeredParams.emplace(name, ParamProperties()).first->second;
+}
+
+void Validator::enableFilter()
+{
+	filterEnabled = true;
 }
 
 void Validator::checkParam(const std::string& name, const std::string& value)
@@ -120,6 +127,15 @@ void Validator::checkRequired(const Parameters& parameters, const std::string& n
 	}
 
 	throw RuntimeError("Missing required parameter '-" + name + "'");
+}
+
+void Validator::checkFilter(const Parameters& parameters)
+{
+	if (filterEnabled && parameters.getFilter().empty())
+		throw RuntimeError("No filter specified");
+
+	if (!filterEnabled && !parameters.getFilter().empty())
+		throw RuntimeError("Filter cannot be used with this command");
 }
 
 } // namespace Cli

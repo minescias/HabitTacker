@@ -53,15 +53,18 @@ public:
 	void validate(Parameters& parameters);
 
 	ParamProperties& addParam(const std::string& foo);
+	void enableFilter();
 
 private:
 	void checkParam(const std::string& name, const std::string& value);
 	void checkType(ParamType type, const std::string& name, const std::string& value);
 	void checkRequired(const Parameters& parameters);
 	void checkRequired(const Parameters& parameters, const std::string& name);
+	void checkFilter(const Parameters& parameters);
 
 private:
 	std::map<std::string, ParamProperties> registeredParams;
+	bool filterEnabled;
 };
 
 } // namespace Cli

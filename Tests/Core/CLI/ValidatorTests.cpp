@@ -155,5 +155,18 @@ TEST_F(ValidatorTests, throws_error_when_date_type_doesnt_match)
 	testForError("Cannot read value 'xyz' of parameter 'foo' as date");	
 }
 
+// filter
+TEST_F(ValidatorTests, throws_error_when_filter_is_required_and_not_set)
+{
+	validator.enableFilter();
+	testForError("No filter specified");		
+}
+
+TEST_F(ValidatorTests, throws_error_when_filter_not_required_and_set)
+{
+	parameters.setFilter("22");
+
+	testForError("Filter cannot be used with this command");		
+}
 
 } // namespace Tests
