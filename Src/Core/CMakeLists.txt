@@ -3,6 +3,7 @@ project(Core)
 
 set(Cli_src
 	Cli/CommandLineParser.cpp
+	Cli/ParamProperties.cpp
 	Cli/Parameters.cpp
 	Cli/Validator.cpp)
 
