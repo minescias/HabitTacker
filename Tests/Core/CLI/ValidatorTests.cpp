@@ -196,4 +196,18 @@ TEST_F(ValidatorTests, throws_error_with_custom_error_message)
 	testForError("No filename specified");		
 }
 
+TEST_F(ValidatorTests, validates_default_parameter_type)
+{
+	validator
+		.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Required)
+		.type(Cli::ParamType::Integer);
+
+	parameters.setDefaultParameter("1234");
+	testForPass();
+
+	parameters.setDefaultParameter("aaaa");
+	testForError("Cannot read value 'aaaa' of parameter '' as number");	
+}
+
 } // namespace Tests

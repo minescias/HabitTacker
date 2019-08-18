@@ -71,7 +71,7 @@ void DefaultAction::validateParameters(const Cli::Parameters& parameters)
 
 	auto validator = Cli::Validator();
 	validator
-		.addDefaultParameter()
+		.addDefaultParameter().type(Cli::ParamType::Date)
 		.requirement(Cli::RequirementLevel::Optional);
 
 	validator.validate(parameters); 

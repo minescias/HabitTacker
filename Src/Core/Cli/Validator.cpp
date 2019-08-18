@@ -9,7 +9,10 @@ namespace Cli
 Validator::Validator()
 {
 	filter.requirement(RequirementLevel::Forbidden);
-	defaultParameter.requirement(RequirementLevel::Forbidden);
+	
+	defaultParameter
+		.requirement(RequirementLevel::Forbidden)
+		.type(Cli::ParamType::String);
 }
 
 void Validator::validate(const Parameters& parameters)
@@ -143,7 +146,8 @@ void Validator::checkFilter(const Parameters& parameters)
 void Validator::checkDefaultParameter(const Parameters& parameters)
 {
 	auto requirement = defaultParameter.getRequirement();
-	auto specified = !parameters.getDefaultParameter().empty();
+	auto paramValue = parameters.getDefaultParameter();
+	auto specified = !paramValue.empty();
 
 	if (requirement == RequirementLevel::Required && !specified)
 	{
@@ -155,11 +159,11 @@ void Validator::checkDefaultParameter(const Parameters& parameters)
 
 	if (requirement == RequirementLevel::Forbidden && specified)
 	{
-		auto paramName = parameters.getDefaultParameter();
-		throw RuntimeError("Unknown parameter '" + paramName + "'");
+		throw RuntimeError("Unknown parameter '" + paramValue + "'");
 	}
+
+	if (specified)
+		checkType(defaultParameter.getType(), "", paramValue);
 }
-
-
 
 } // namespace Cli
