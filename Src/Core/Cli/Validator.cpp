@@ -9,6 +9,7 @@ namespace Cli
 Validator::Validator()
 {
 	filter.requirement(RequirementLevel::Forbidden);
+	defaultParameter.requirement(RequirementLevel::Forbidden);
 }
 
 void Validator::validate(const Parameters& parameters)
@@ -21,6 +22,7 @@ void Validator::validate(const Parameters& parameters)
 
 	checkRequired(parameters);
 	checkFilter(parameters);
+	checkDefaultParameter(parameters);
 }
 
 ParamProperties& Validator::addParam(const std::string& name)
@@ -34,6 +36,12 @@ ParamProperties& Validator::addFilter()
 {
 	filter.requirement(RequirementLevel::Optional);
 	return filter;
+}
+
+ParamProperties& Validator::addDefaultParameter()
+{
+	defaultParameter.requirement(RequirementLevel::Optional);
+	return defaultParameter;
 }
 
 void Validator::checkParam(const std::string& name, const std::string& value)
@@ -140,5 +148,27 @@ void Validator::checkFilter(const Parameters& parameters)
 	else if (requirement == RequirementLevel::Forbidden && filterSpecified)
 		throw RuntimeError("Filter cannot be used with this command");
 }
+
+void Validator::checkDefaultParameter(const Parameters& parameters)
+{
+	auto requirement = defaultParameter.getRequirement();
+	auto specified = !parameters.getDefaultParameter().empty();
+
+	if (requirement == RequirementLevel::Required && !specified)
+	{
+		if (defaultParameter.getErrorMessage().empty())
+			throw RuntimeError("Default parameter is missing");
+		else
+			throw RuntimeError(defaultParameter.getErrorMessage());
+	}
+
+	if (requirement == RequirementLevel::Forbidden && specified)
+	{
+		auto paramName = parameters.getDefaultParameter();
+		throw RuntimeError("Unknown parameter '" + paramName + "'");
+	}
+}
+
+
 
 } // namespace Cli

@@ -170,9 +170,30 @@ TEST_F(ValidatorTests, throws_error_when_filter_not_required_and_set)
 }
 
 // default parameter
-// TEST_F(ValidatorTests, throws_error_when_default_param_is_required_and_not_set)
-// {
-// 	validator.enableDefaultParameter();
-// }
+TEST_F(ValidatorTests, throws_error_when_default_param_is_required_and_not_set)
+{
+	validator
+		.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Required);
+
+	testForError("Default parameter is missing");		
+}
+
+TEST_F(ValidatorTests, throws_error_when_default_param_is_forbidden_and_set)
+{
+	parameters.setDefaultParameter("asdasf");
+
+	testForError("Unknown parameter 'asdasf'");	
+}
+
+TEST_F(ValidatorTests, throws_error_with_custom_error_message)
+{
+	validator
+		.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Required)
+		.errorMessage("No filename specified");
+
+	testForError("No filename specified");		
+}
 
 } // namespace Tests

@@ -41,15 +41,23 @@ public:
 	ParamProperties& type(ParamType type)
 	{
 		_type = type;
-		return  *this;
+		return *this;
+	}
+
+	ParamProperties& errorMessage(const std::string& message)
+	{
+		_errorMessage = message;
+		return *this;
 	}
 
 	RequirementLevel getRequirement() const {return _requirementLevel; }
 	ParamType getType() const {return _type; }
+	std::string getErrorMessage(){return _errorMessage; }
 
 private:
 	RequirementLevel _requirementLevel;
 	ParamType _type;
+	std::string _errorMessage;
 };
 
 class Validator
@@ -61,6 +69,7 @@ public:
 
 	ParamProperties& addParam(const std::string& foo);
 	ParamProperties& addFilter();
+	ParamProperties& addDefaultParameter();
 
 private:
 	void checkParam(const std::string& name, const std::string& value);
@@ -68,10 +77,12 @@ private:
 	void checkRequired(const Parameters& parameters);
 	void checkRequired(const Parameters& parameters, const std::string& name);
 	void checkFilter(const Parameters& parameters);
+	void checkDefaultParameter(const Parameters& parameters);
 
 private:
 	std::map<std::string, ParamProperties> registeredParams;
 	ParamProperties filter;
+	ParamProperties defaultParameter;
 };
 
 } // namespace Cli
