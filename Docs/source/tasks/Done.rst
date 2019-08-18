@@ -275,6 +275,16 @@ Zadania dotyczące modułu HT
  *  Walidacja poprawności parametrów
  *  Dokumentacja
 
+**[HT30]** Poprawki po dodaniu walidatora:
+ *  OK Sprawdzanie czy domyślny parametr jest wymagany
+ *  OK w momencie dodania walidatora rozdział parametrów na parametry i flagi
+    straci chyba rację bytu. Wcześniej zostało to dodane, żeby nie było
+    problemu z sprawdzaniem odpowiedniego typu podczas pobierania wartości.
+    Po zmianach sprawdzaniem typu zajmie się walidator, więc wszystko może
+    siedzieć w jednej strukturze
+ *  OK Enum do okreslenia poziomnu wymagalności
+ *  OK Refaktor, przeniesienie całości do odpowiednich folderów
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

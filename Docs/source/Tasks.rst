@@ -81,17 +81,6 @@ Zadania dotyczące modułu HT
 
 **[HT29]** Każda akcja powinna obsługiwać polecenie --help
 
-**[HT30]** Poprawki po dodaniu walidatora:
- *  Sprawdzanie czy domyślny parametr jest wymagany
- *  Sprawdzić czy tworzenie walidatora mogłoby być constexpr
- *  w momencie dodania walidatora rozdział parametrów na parametry i flagi
-    straci chyba rację bytu. Wcześniej zostało to dodane, żeby nie było
-    problemu z sprawdzaniem odpowiedniego typu podczas pobierania wartości.
-    Po zmianach sprawdzaniem typu zajmie się walidator, więc wszystko może
-    siedzieć w jednej strukturze
- *  Enum do okreslenia poziomnu wymagalności
- *  Refaktor, przeniesienie całości do odpowiednich folderów
-
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
  *  Help jest bardzo nieczytelny + zawiera literówki :)

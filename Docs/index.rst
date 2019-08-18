@@ -10,7 +10,7 @@ HTR Docs's
    :maxdepth: 1
    :caption: Spis treści:
 
-   source/Cli
+   source/CommandLineInterface
    source/Versions
    source/Tables
    source/SQLite

@@ -115,3 +115,8 @@ Przechowywanie daty:
 Użyłbym chrono do przechowywania daty i czasu ale większość fajnych
 funkcjonalności jest dopiero od c++20...
 
+Constexpr
+********************************************************************************
+Chciałbym zacząć używać constexpr w kodzie tam, gdzie jest to możliwe.
+Na początek zacznę od tworzenia definicji validatora w momencie kompilacji.
+Do sprawdzenia na ile jest to możliwe
