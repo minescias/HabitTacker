@@ -87,7 +87,7 @@ TEST_F(ValidatorTests, passes_when_argument_is_set)
 // required parameter
 TEST_F(ValidatorTests, throws_error_when_required_parameter_is_not_set)
 {
-	validator.addParam("foo").required();
+	validator.addParam("foo").requirement(Cli::RequirementLevel::Required);
 	testForError("Missing required parameter '-foo'");
 
 	parameters.setFlag("foo");
@@ -158,7 +158,7 @@ TEST_F(ValidatorTests, throws_error_when_date_type_doesnt_match)
 // filter
 TEST_F(ValidatorTests, throws_error_when_filter_is_required_and_not_set)
 {
-	validator.enableFilter();
+	validator.addFilter().requirement(Cli::RequirementLevel::Required);
 	testForError("No filter specified");		
 }
 
@@ -168,5 +168,11 @@ TEST_F(ValidatorTests, throws_error_when_filter_not_required_and_set)
 
 	testForError("Filter cannot be used with this command");		
 }
+
+// default parameter
+// TEST_F(ValidatorTests, throws_error_when_default_param_is_required_and_not_set)
+// {
+// 	validator.enableDefaultParameter();
+// }
 
 } // namespace Tests

@@ -7,8 +7,8 @@ namespace Cli
 {
 
 Validator::Validator()
-	: filterEnabled(false)
 {
+	filter.requirement(RequirementLevel::Forbidden);
 }
 
 void Validator::validate(const Parameters& parameters)
@@ -30,9 +30,10 @@ ParamProperties& Validator::addParam(const std::string& name)
 	return registeredParams.emplace(name, ParamProperties()).first->second;
 }
 
-void Validator::enableFilter()
+ParamProperties& Validator::addFilter()
 {
-	filterEnabled = true;
+	filter.requirement(RequirementLevel::Optional);
+	return filter;
 }
 
 void Validator::checkParam(const std::string& name, const std::string& value)
@@ -93,7 +94,6 @@ void Validator::checkType(ParamType type, const std::string& name,  const std::s
 		try
 		{
 			Dt::DateLiteral().parse(value);
-			// DateTime::DateTime(const std::string& dateString)
 		}
 		catch (RuntimeError& err)
 		{
@@ -107,7 +107,7 @@ void Validator::checkRequired(const Parameters& parameters)
 {
 	for (const auto& param: registeredParams)
 	{
-		if (param.second.isRequired())
+		if (param.second.getRequirement() == RequirementLevel::Required)
 			checkRequired(parameters, param.first);
 	}	
 }
@@ -131,10 +131,13 @@ void Validator::checkRequired(const Parameters& parameters, const std::string& n
 
 void Validator::checkFilter(const Parameters& parameters)
 {
-	if (filterEnabled && parameters.getFilter().empty())
+	auto requirement = filter.getRequirement();
+	auto filterSpecified = !parameters.getFilter().empty();
+
+	if (requirement == RequirementLevel::Required && !filterSpecified)
 		throw RuntimeError("No filter specified");
 
-	if (!filterEnabled && !parameters.getFilter().empty())
+	else if (requirement == RequirementLevel::Forbidden && filterSpecified)
 		throw RuntimeError("Filter cannot be used with this command");
 }
 

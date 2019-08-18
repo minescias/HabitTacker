@@ -17,17 +17,24 @@ enum class ParamType
 	Date
 };
 
+enum class RequirementLevel
+{
+	Forbidden,
+	Optional,
+	Required
+};
+
 class ParamProperties
 {
 public:
 	ParamProperties()
 		: _type(ParamType::Boolean)
-		, _required(false)
+		, _requirementLevel(RequirementLevel::Optional)
 	{}
 
-	ParamProperties& required() 
+	ParamProperties& requirement(RequirementLevel level) 
 	{
-		_required = true;
+		_requirementLevel = level;
 		return *this;	
 	}
 
@@ -37,11 +44,11 @@ public:
 		return  *this;
 	}
 
-	bool isRequired() const {return _required; }
+	RequirementLevel getRequirement() const {return _requirementLevel; }
 	ParamType getType() const {return _type; }
 
 private:
-	bool _required;
+	RequirementLevel _requirementLevel;
 	ParamType _type;
 };
 
@@ -53,7 +60,7 @@ public:
 	void validate(const Parameters& parameters);
 
 	ParamProperties& addParam(const std::string& foo);
-	void enableFilter();
+	ParamProperties& addFilter();
 
 private:
 	void checkParam(const std::string& name, const std::string& value);
@@ -64,7 +71,7 @@ private:
 
 private:
 	std::map<std::string, ParamProperties> registeredParams;
-	bool filterEnabled;
+	ParamProperties filter;
 };
 
 } // namespace Cli
