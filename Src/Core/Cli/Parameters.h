@@ -28,14 +28,12 @@ struct Parameters
     std::string getParameter(const std::string& name) const;
 
     // for validation
-    std::set<std::string> getAllFlags() const;
     std::map<std::string, std::string> getAllArguments() const;
 
 private:
     std::string commandName;
     std::string filter;
     std::string defaultParameter;
-    std::set<std::string> flags;
     std::map<std::string, std::string> arguments;
 };
 

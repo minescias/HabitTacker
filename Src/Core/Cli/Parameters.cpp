@@ -29,12 +29,13 @@ std::string Parameters::getFilter() const
 
 void Parameters::setFlag(const std::string& flagName)
 {
-    flags.emplace(flagName);
+    arguments[flagName] = "";
 }
 
 bool Parameters::getFlag(const std::string& flagName) const
 {
-    return flags.find(flagName) != flags.end();
+    return arguments.find(flagName) != arguments.end()
+        && arguments.at(flagName).empty();
 }
 
 void Parameters::setDefaultParameter(const std::string& value)
@@ -58,11 +59,6 @@ std::string Parameters::getParameter(const std::string& name) const
         return "";
 
     return arguments.at(name);
-}
-
-std::set<std::string> Parameters::getAllFlags() const
-{
-    return  flags;
 }
 
 std::map<std::string, std::string> Parameters::getAllArguments() const

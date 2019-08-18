@@ -14,9 +14,6 @@ Validator::Validator()
 
 void Validator::validate(const Parameters& parameters)
 {
-	for (const auto& flag: parameters.getAllFlags())
-		checkParam(flag, "");
-	
 	for (const auto& param: parameters.getAllArguments())
 		checkParam(param.first, param.second);
 
@@ -58,7 +55,7 @@ void Validator::checkParam(const std::string& name, const std::string& value)
 	throw RuntimeError("-" + name + " is not defined");
 }
 
-void Validator::checkType(ParamType type, const std::string& name,  const std::string& value)
+void Validator::checkType(ParamType type, const std::string& name, const std::string& value)
 {
 	if (type == ParamType::Boolean)
 	{
@@ -122,12 +119,6 @@ void Validator::checkRequired(const Parameters& parameters)
 
 void Validator::checkRequired(const Parameters& parameters, const std::string& name)
 {
-	for (const auto& flag: parameters.getAllFlags())
-	{
-		if (name == flag)
-			return;	
-	}
-
 	for (const auto& userParam: parameters.getAllArguments())
 	{
 		if (name == userParam.first)
