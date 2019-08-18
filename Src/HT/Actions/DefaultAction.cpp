@@ -68,8 +68,13 @@ void DefaultAction::execute(const Cli::Parameters& parameters)
 
 void DefaultAction::validateParameters(const Cli::Parameters& parameters)
 {
-	// korzystamy tylko z parametru domyślnego, stąd brak ustawień walidatora
-	Cli::Validator().validate(parameters); 
+
+	auto validator = Cli::Validator();
+	validator
+		.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Optional);
+
+	validator.validate(parameters); 
 }
 
 void DefaultAction::printHeader(Dt::Timestamp date) const

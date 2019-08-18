@@ -48,9 +48,9 @@ TEST_F(AddActionTests, ensures_that_name_is_not_empty)
 	try
 	{
 		addAction.execute(pr);
-		FAIL() << "Action error expected";
+		FAIL() << "Expected runtime error";
 	}
-	catch(Actions::ActionError& err)
+	catch(RuntimeError& err)
 	{
 		auto expected{"No habit name specified"};
 		ASSERT_STREQ(err.what(), expected);

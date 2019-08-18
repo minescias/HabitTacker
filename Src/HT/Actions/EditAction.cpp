@@ -36,7 +36,7 @@ void EditAction::execute(const Cli::Parameters& parameters)
 void EditAction::validateParameters(const Cli::Parameters& parameters)
 {
     auto validator = Cli::Validator();
-    validator.enableFilter();
+    validator.addFilter().requirement(Cli::RequirementLevel::Required);
     validator.addParam("name").type(Cli::ParamType::String);
     validator.validate(parameters);
 }

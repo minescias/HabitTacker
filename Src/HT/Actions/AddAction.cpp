@@ -19,11 +19,8 @@ void AddAction::execute(const Cli::Parameters& parameters)
 {
 	validateParameters(parameters);
 	auto name = parameters.getDefaultParameter();
-
-	if (name.empty())
-		throw ActionError("No habit name specified");
-
 	auto existingDefinition = dao->getDefinition(name);
+
 	if (existingDefinition)
 		throw ActionError("Habit with name '" + name + "' already exists");
 
@@ -35,7 +32,13 @@ void AddAction::execute(const Cli::Parameters& parameters)
 void AddAction::validateParameters(const Cli::Parameters& parameters)
 {
 	// korzystamy tylko z parametru domyślnego, stąd brak ustawień walidatora
-	Cli::Validator().validate(parameters); 
+	auto validator = Cli::Validator();
+	validator
+		.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Required)
+		.errorMessage("No habit name specified");
+
+	validator.validate(parameters);
 }
 
 } // namespace Actions

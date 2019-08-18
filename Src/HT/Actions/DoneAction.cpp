@@ -50,7 +50,7 @@ void DoneAction::execute(const Cli::Parameters& parserResult)
 void DoneAction::validateParameters(const Cli::Parameters& parameters) const
 {
 	auto validator = Cli::Validator();
-	validator.enableFilter();
+	validator.addFilter().requirement(Cli::RequirementLevel::Required);
 	validator.addParam("date").type(Cli::ParamType::Date);
 	validator.addParam("reset");
 	validator.validate(parameters);
