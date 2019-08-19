@@ -35,3 +35,11 @@ Dodaje plik do projektu CMake. Użycie ``addToCmake <filename>``
 Poszukuje pliku CMake w górę drzewa folderów. Po znalezieniu udpowiedniego
 pliku pyta się użytkownika do której grupy dodać plik. Na razie nie ma
 możliwości utworzenia nowej grupy, będzie to dodane później.
+
+cart - compile and run tests
+********************************************************************************
+Składnia cart <nazwa projektu z testami> <filtr>
+
+Kompiluje moduł z testami oraz wszystkie jego zależności, a następnie uruchamia
+testy. Możliwe jest przekazanie filtra, którego składnia jest identyczna jak
+-gtest_filter
