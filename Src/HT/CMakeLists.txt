@@ -2,14 +2,15 @@ cmake_minimum_required(VERSION 3.0.2)
 project(HT)
 
 set(HT_Actions_src
-    Actions/ActionRegister.cpp
-    Actions/ActionError.cpp
-    Actions/AddAction.cpp
-    Actions/DefaultAction.cpp
-    Actions/DoneAction.cpp
-    Actions/EditAction.cpp
-    Actions/InitAction.cpp
-    Actions/ListAction.cpp)
+	Actions/ActionError.cpp
+	Actions/ActionRegister.cpp
+	Actions/AddAction.cpp
+	Actions/BaseAction.cpp
+	Actions/DefaultAction.cpp
+	Actions/DoneAction.cpp
+	Actions/EditAction.cpp
+	Actions/InitAction.cpp
+	Actions/ListAction.cpp)
 
 set(HT_src
     AppInit.cpp

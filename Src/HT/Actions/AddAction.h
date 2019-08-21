@@ -3,24 +3,19 @@
 
 #include <string>
 
-#include "HT/Actions/IAction.h"
-#include "HT/Dao/IHabitDefinitionDao.h"
+#include "HT/Actions/BaseAction.h"
 
 namespace Actions
 {
 
-class AddAction : public IAction
+class AddAction : public BaseAction
 {
 public:
-	AddAction();
-	virtual void setDaoFactory(Dao::DaoFactory* daoFactory);
-	virtual void execute(const Cli::Parameters& parameters);
+	AddAction() = default;
 
-private:
-	void validateParameters(const Cli::Parameters& parameters);
-
-private:
-	std::shared_ptr<Dao::IHabitDefinitionDao> dao;
+protected:
+	void initValidator() final;
+	void doExecute(const Cli::Parameters& parameters) final;
 };
 
 } // namespace Actions

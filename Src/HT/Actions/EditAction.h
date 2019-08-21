@@ -1,25 +1,19 @@
 #ifndef __EDIT_ACTION_H
 #define __EDIT_ACTION_H
 
-#include "HT/Actions/IAction.h"
-#include "HT/Dao/IHabitDefinitionDao.h"
+#include "HT/Actions/BaseAction.h"
 
 namespace Actions
 {
 
-class EditAction : public IAction
+class EditAction : public BaseAction
 {
 public:
-	EditAction();
+	EditAction() = default;
 
-	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::Parameters& parameters);
-
-private:
-	void validateParameters(const Cli::Parameters& parameters);
-
-private:
-	std::shared_ptr<Dao::IHabitDefinitionDao> dao;
+protected:
+	void initValidator() final;
+	void doExecute(const Cli::Parameters& parameters);
 };
 
 } // namespace Actions

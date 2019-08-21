@@ -215,6 +215,13 @@ Zadania dotyczące modułu HT
  *  OK Rozszerzenie tabeli, encji i dao
  *  OK Uwzględnienie tego podczas wyświetlania listy wypełnionych nawyków
 
+**[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
+ *  Blokowane przez [HT27]
+ *  Przeniesienie metody setDaoFactory do klasy bazowej.
+ *  Pobieranie dao z fabryki w momencie użycia a nie w metodzie setDaoFactory
+ *  Wywoływanie sprawdzania poprwaności danych w klasie bazowej (uzupełnianie
+    jakie to dane będzie w klasach pochodnych
+
 **[HT19]** Jeśli nazwa nawyku kończy się polską literą to tabela z
     wypełnieniem jest przesunięta o jeden znak w lewo :)
 

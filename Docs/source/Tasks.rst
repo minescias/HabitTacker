@@ -62,13 +62,6 @@ HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT18]** Klasa BaseAction w której byłaby podstawowa implementacja akcji.
- *  Blokowane przez [HT27]
- *  Przeniesienie metody setDaoFactory do klasy bazowej.
- *  Pobieranie dao z fabryki w momencie użycia a nie w metodzie setDaoFactory
- *  Wywoływanie sprawdzania poprwaności danych w klasie bazowej (uzupełnianie
-    jakie to dane będzie w klasach pochodnych
-
 **[HT20]** Polecenie Settings
  *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
  *  Możliwość ustawiania wartości z pomocą polecenia

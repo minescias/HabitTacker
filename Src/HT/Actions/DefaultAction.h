@@ -5,14 +5,14 @@
 
 #include <Core/DateTime/Timestamp.h>
 
-#include "HT/Actions/IAction.h"
+#include "HT/Actions/BaseAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
 
-class DefaultAction : public IAction
+class DefaultAction : public BaseAction
 {
 	enum class CompletionType
 	{
@@ -25,15 +25,16 @@ class DefaultAction : public IAction
 
 public:
 	DefaultAction();
-	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::Parameters& parserResult);
+
+protected:
+	void initValidator() final;
+	void doExecute(const Cli::Parameters &parameters) final;
 
 private:
-	void validateParameters(const Cli::Parameters& parameters);
 	void printHeader(Dt::Timestamp date) const;
 	std::string getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) const;
 	std::string getCompletionString(int habitId);
-void fillCompletionTable(Dt::Timestamp date);
+	void fillCompletionTable(Dt::Timestamp date);
 
 	void prepareCompletionTable(Dt::Timestamp date,
 		const Entity::HabitDefinitions& definitions);
@@ -45,6 +46,6 @@ private:
 	CompletionTable completionTable;
 };
 
-};
+}
 
 #endif // __DEFAULT_ACTION_H

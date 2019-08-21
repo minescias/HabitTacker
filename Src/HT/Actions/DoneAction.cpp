@@ -1,6 +1,5 @@
 #include "HT/Actions/DoneAction.h"
 
-#include <Core/Cli/Validator.h>
 #include "Core/DateTime/DateLiteral.h"
 #include "Core/DateTime/DateTime.h"
 #include "Core/DateTime/DateTimeGetter.h"
@@ -10,18 +9,11 @@
 namespace Actions
 {
 
-DoneAction::DoneAction()
-{
-}
-
-void DoneAction::setDaoFactory(Dao::DaoFactory* daoFactory)
+void DoneAction::doExecute(const Cli::Parameters& parserResult)
 {
 	definitionDao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
-}
 
-void DoneAction::execute(const Cli::Parameters& parserResult)
-{
 	validateParameters(parserResult);
 
 	auto reset = parserResult.getFlag("reset");
@@ -47,17 +39,17 @@ void DoneAction::execute(const Cli::Parameters& parserResult)
 	}
 }
 
-void DoneAction::validateParameters(const Cli::Parameters& parameters) const
+void DoneAction::initValidator()
 {
-	auto validator = Cli::Validator();
 	validator.addFilter().requirement(Cli::RequirementLevel::Required);
 	validator.addParam("date").type(Cli::ParamType::Date);
 	validator.addParam("reset");
-	validator.validate(parameters);
+	validator.addFilter().requirement(Cli::RequirementLevel::Required);
+}
 
+void DoneAction::validateParameters(const Cli::Parameters& parameters) const
+{
 	auto habitId = parameters.getFilter();
-	if (habitId.empty())
-		throw ActionError ("No filter specified");
 
 	auto definition = definitionDao->getDefinition(stoi(habitId));
 	if (!definition)

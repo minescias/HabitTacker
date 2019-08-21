@@ -1,24 +1,14 @@
 #include "HT/Actions/EditAction.h"
 
-#include <Core/Cli/Validator.h>
 #include "HT/Actions/ActionError.h"
+#include "HT/Dao/HabitDefinitionDao.h"
 
 namespace Actions
 {
 
-EditAction::EditAction()
+void EditAction::doExecute(const Cli::Parameters& parameters)
 {
-}
-
-void EditAction::setDaoFactory(Dao::DaoFactory* daoFactory)
-{
-    dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
-}
-
-void EditAction::execute(const Cli::Parameters& parameters)
-{
-    validateParameters(parameters);
-
+    auto dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
     auto habitId = parameters.getFilter();
 
     auto name = parameters.getParameter("name");
@@ -33,12 +23,10 @@ void EditAction::execute(const Cli::Parameters& parameters)
     dao->updateDefinition(*defintion);
 }
 
-void EditAction::validateParameters(const Cli::Parameters& parameters)
+void EditAction::initValidator()
 {
-    auto validator = Cli::Validator();
     validator.addFilter().requirement(Cli::RequirementLevel::Required);
     validator.addParam("name").type(Cli::ParamType::String);
-    validator.validate(parameters);
 }
 
 } // namespace Actions

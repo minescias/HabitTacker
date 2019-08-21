@@ -3,25 +3,12 @@
 #include <iomanip>
 #include <iostream>
 
-#include <Core/Cli/Validator.h>
-
 namespace Actions
 {
 
-ListAction::ListAction()
+void ListAction::doExecute(const Cli::Parameters& parameters)
 {
-
-}
-
-void ListAction::setDaoFactory(Dao::DaoFactory* factory)
-{
-	dao = factory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
-}
-
-void ListAction::execute(const Cli::Parameters& parameters)
-{
-	validateParameters(parameters);
-
+	auto dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 	auto habits = dao->getDefinitions();
 
 	if (habits.empty())
@@ -43,10 +30,9 @@ void ListAction::execute(const Cli::Parameters& parameters)
 
 }
 
-void ListAction::validateParameters(const Cli::Parameters& parameters)
+void ListAction::initValidator()
 {
-	// korzystamy tylko z parametru domyślnego, stąd brak ustawień walidatora
-	Cli::Validator().validate(parameters); 
+
 }
 
 void ListAction::printHeader() const

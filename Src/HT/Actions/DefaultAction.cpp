@@ -2,9 +2,7 @@
 
 #include <iomanip>
 #include <iostream>
-#include <vector>
 
-#include <Core/Cli/Validator.h>
 #include <Core/DateTime/DateTime.h>
 #include <Core/DateTime/DateTimeGetter.h>
 
@@ -29,15 +27,11 @@ DefaultAction::DefaultAction()
 {
 }
 
-void DefaultAction::setDaoFactory(Dao::DaoFactory* daoFactory)
+void DefaultAction::doExecute(const Cli::Parameters& parameters)
 {
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 	definitionDao= daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
-}
 
-void DefaultAction::execute(const Cli::Parameters& parameters)
-{
-	validateParameters(parameters);
 	auto habitDefinitions = definitionDao->getDefinitions();
 
 	Dt::Timestamp date;
@@ -66,15 +60,11 @@ void DefaultAction::execute(const Cli::Parameters& parameters)
 	std::cout << "\n";
 }
 
-void DefaultAction::validateParameters(const Cli::Parameters& parameters)
+void DefaultAction::initValidator()
 {
-
-	auto validator = Cli::Validator();
 	validator
 		.addDefaultParameter().type(Cli::ParamType::Date)
 		.requirement(Cli::RequirementLevel::Optional);
-
-	validator.validate(parameters); 
 }
 
 void DefaultAction::printHeader(Dt::Timestamp date) const

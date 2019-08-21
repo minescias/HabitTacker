@@ -5,19 +5,21 @@
 
 #include "Core/DateTime/Timestamp.h"
 
-#include "HT/Actions/IAction.h"
+#include "HT/Actions/BaseAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
 
-class DoneAction : public IAction
+class DoneAction : public BaseAction
 {
 public:
-	DoneAction();
-	void setDaoFactory(Dao::DaoFactory* daoFactory);
-	void execute(const Cli::Parameters& parameters);
+	DoneAction() = default;
+
+protected:
+	void initValidator() final;
+	void doExecute(const Cli::Parameters &parameters) final;
 
 private:
 	void validateParameters(const Cli::Parameters& parameters) const;
