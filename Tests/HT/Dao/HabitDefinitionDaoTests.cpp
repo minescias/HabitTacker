@@ -43,6 +43,14 @@ public:
 		dao->saveDefinition(definition);
 	}
 
+	void compareDefinitions(const Entity::HabitDefinitionEntity& actual, 
+		const Entity::HabitDefinitionEntity& expected) const
+	{
+		EXPECT_THAT(actual.getId(), Eq(expected.getId()));
+		EXPECT_THAT(actual.getName(), Eq(expected.getName()));
+		EXPECT_THAT(actual.getBeginDate(), Eq(expected.getBeginDate()));
+	}
+
 	std::unique_ptr<Db::Database> db;
 	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
 };
@@ -98,9 +106,9 @@ TEST_F(HabitDefinitionDaoTests, reads_all_definitions)
 	auto definitions = dao->getDefinitions();
 
 	ASSERT_THAT(definitions.size(), Eq(3));
-	EXPECT_THAT(*definitions[0], Eq(*getDefinition(1, "Example definition")));
-	EXPECT_THAT(*definitions[1], Eq(*getDefinition(2, "Example definition2")));
-	EXPECT_THAT(*definitions[2], Eq(*getDefinition(3, "Example definition3")));
+	compareDefinitions(*definitions[0], *getDefinition(1, "Example definition")); 
+	compareDefinitions(*definitions[1], *getDefinition(2, "Example definition2")); 
+	compareDefinitions(*definitions[2], *getDefinition(3, "Example definition3")); 
 }
 
 } // namespace Tests

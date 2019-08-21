@@ -53,6 +53,13 @@ public:
 		return habit;
 	}
 
+	void compareHabits(const Entity::HabitEntity& actual,
+		const Entity::HabitEntity& expected) const
+	{
+		EXPECT_THAT(actual.getHabitId(), Eq(expected.getHabitId()));
+		EXPECT_THAT(actual.getDate(), Eq(expected.getDate()));
+	}
+
 	std::unique_ptr<Db::Database> db;
 	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
 	std::unique_ptr<Dao::IHabitDao> habitDao;
@@ -70,7 +77,7 @@ TEST_F(HabitDaoTests, readAndWriteTest)
 	auto readHabits = habitDao->getHabitsById(1);
 
 	ASSERT_THAT(readHabits.size(), Eq(1));
-	EXPECT_THAT(*readHabits[0], Eq(writtenHabit));
+	compareHabits(*readHabits[0], writtenHabit);
 }
 
 TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
@@ -108,12 +115,12 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 
 	ASSERT_THAT(habits.size(), Eq(6));
-	EXPECT_THAT(*habits[0], Eq(h1));
-	EXPECT_THAT(*habits[1], Eq(h2));
-	EXPECT_THAT(*habits[2], Eq(h3));
-	EXPECT_THAT(*habits[3], Eq(h4));
-	EXPECT_THAT(*habits[4], Eq(h5));
-	EXPECT_THAT(*habits[5], Eq(h6));
+	compareHabits(*habits[0], h1);
+	compareHabits(*habits[1], h2);
+	compareHabits(*habits[2], h3);
+	compareHabits(*habits[3], h4);
+	compareHabits(*habits[4], h5);
+	compareHabits(*habits[5], h6);
 }
 
 TEST_F(HabitDaoTests, deleteHabitTests)
