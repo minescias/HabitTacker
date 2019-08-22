@@ -4,5 +4,5 @@
 
 void printVersionNumber()
 {
-	std::cout << "Habit Tracker V0.2\n";
+	std::cout << "Habit Tracker V0.3\n";
 }

@@ -60,18 +60,6 @@ Kilka spraw zależnych od od innych zadanek
  * Kolowanie logu na inny kolor w konsoli
  * Konfiguracja logowania z wiersza poleceń
 
-CLI parser
-*******************************************************************************
-Uwagi w takcie pisania walidatora wiersza poleceń
- *  tworzenie walidatora mogłoby być constExpr
- *  przydałaby się jedna funkcja/klasa do rzutowania stringa na inne typy
-    (coś jak boost::lexical_cast() tylko bez boosta)
- *  w momencie dodania walidatora rozdział parametrów na parametry i flagi
-    straci chyba rację bytu. Wcześniej zostało to dodane, żeby nie było
-    problemu z sprawdzaniem odpowiedniego typu podczas pobierania wartości.
-    Po zmianach sprawdzaniem typu zajmie się walidator, więc wszystko może
-    siedzieć w jednej strukturze
-
 Kolorowanie
 ********************************************************************************
 Przydałoby się trochę kolorków tak, żeby wynik był nieco bardziej czytelny
@@ -120,3 +108,6 @@ Constexpr
 Chciałbym zacząć używać constexpr w kodzie tam, gdzie jest to możliwe.
 Na początek zacznę od tworzenia definicji validatora w momencie kompilacji.
 Do sprawdzenia na ile jest to możliwe
+
+Wymagania wobec v0.4
+
