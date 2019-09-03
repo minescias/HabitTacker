@@ -20,6 +20,8 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
     ostatnich zmianach w Windowsie
 
+**[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -100,6 +102,9 @@ Lista rzeczy do opisania
 
 **[D02]** Opis akcji, wyjątku ActionError i w ogóle tego co się dzieje po
     podaniu polecenia. Do opisania po wyklarowaniu działania mechanizmu.
+
+**[D05]** Opis działania odczytu i walidacji parametrów z wiersza poleceń
+    Po zakończeniu zadania HT30
 
 HT
 *******************************************************************************

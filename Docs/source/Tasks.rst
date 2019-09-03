@@ -2,6 +2,8 @@ Lista zadań
 ===============================================================================
 
 .. toctree::
+   :maxdepth: 19
+   :caption: Spis treści:
 
    tasks/Done
    tasks/Cancelled
@@ -21,9 +23,7 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
 **[B08]** Włączenie wszystkich warningów w gcc tak jak są domyślne w MSVC
 
-**[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
-
-**[B10]** Sprawdzić co to jest profiler i jak można tego użyć\
+**[B10]** Sprawdzić co to jest profiler i jak można tego użyć
 
 **[B11]** Pobieranie gtest z githuba przez CMake. Podobno jest to możliwe
 
@@ -31,6 +31,11 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
 uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
 nie można utworzyć bazy testowej.
+
+**[B13]** Usunięcie wszystkich warningów kompilacji po włączeniu dodatkowych
+opcji kompilatora (-Wall, -pedantic)
+
+**[B14]** Wprowadzenie clang-formata - przygotowanie formatki pliku
 
 Core
 *******************************************************************************
@@ -47,6 +52,13 @@ Co trzeba dodać/poprawić w Core programu
 **[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
 type_traits.
 
+**[C15]** Wprowadzenie nowego formatu daty i czasu (w tym momencie są używane
+ *  Na początek wystarczy jedynie obsługa dat (nie używam czasu, jeszcze)
+ *  Zapis/odczyt z bazy danych
+ *  Odczyt danych z linii poleceń
+ *  Pobieranie aktualnej daty
+ *  Strefa czasowa?
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -55,32 +67,46 @@ Lista rzeczy do opisania
 
 **[D04]** Struktura pliku CMake (ze względu na narzędzia parsujące)
 
-**[D05]** Opis działania odczytu i walidacji parametrów z wiersza poleceń
-    Po zakończeniu zadania HT30
-
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT
 
-**[HT20]** Polecenie Settings
- *  Domyślnie wyświetlana jest aktualna konfiguracja z pliku .rc
- *  Możliwość ustawiania wartości z pomocą polecenia
-    **htr settings <name>:<value>**
+**[HT20]** Poprawiona konfiguracja programu
+ *  Odczyt pliku konfiguracyjnego z globalnej lokalizacji
+ *  W wersji testowej odczyt z hardkodowanego folderu
+ *  Nowa stronka - różnice między wersją testową a stabilną - co trzeba
+    sprawdzać przy generowaniu
+ *  Konfiguracja logowania przekazywana w pliku konfiguracyjnym
+ *  Polecenie 'settings' wyświetlające aktualne ustawienia - wynikowe suma
+    domyślnych i z pliku konfiguracyjnego
 
 **[HT28]** Wywołanie domyślnej komendy (i prawdopodobue każdej innej) przy
     braku bazy skutkuje wywaleniem błędu LogicError. Trzeba dodać sprawdzanie
-    czy baza istnieje przed uruchomieniem jakiejkolwiek5 operacji na bazie
+    czy baza istnieje przed uruchomieniem jakiejkolwiej operacji na bazie
     danych
 
-**[HT29]** Każda akcja powinna obsługiwać polecenie --help
+**[HT29]** Poprawki w help message
+ *  Poprawić czytelność i błędy w ogólnym help message
+ *  Każda akcja powinna obsługiwać polecenie --help (funkcja w klasie bazowej)
+
+**[HT31]** Możliwość dodawania nawyków liczbowych
+ *  Nowa kolumna w tabeli habit_definition określająca cel na dany dzień
+ *  Rozszerzenie dao i encji o nową kolumnę
+ *  Możliwość dodawania celu w trakcie dodawania nawyku
+
+**[HT32]** Wypełnianie nawyków liczbowych
+ *  Nowa kolumna w tabeli habit do wpisywania celu za dany dzień
+ *  Rozszerzenie dao i encji o nową kolumnę
+ *  Nowy parametr do akcji done
+ *  Określanie wykonania na podstawie porównania z definicją i wyświetlanie
+    w tabeli
+
+**[HT33]** Poprawione wyświetlanie nawyków z listy
+ *  Wyświetlanie celu w tabeli wyników (nowa kolumna)
+ *  Wyświetlanie przybliżonego procentu wykonania (za pomocą znaków unicode)
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
- *  Help jest bardzo nieczytelny + zawiera literówki :)
- *  Dane testowe powinny być zapisywane w folderze testFiles lub testSamples
-    albo najlepiej całkowicie usunięte po zakończeniu testów
- *  Podczas kompilacji całości projektu pojawiło się sporo warningów.
-    Prawdopobnie po dodaniu flagi -Wall w pliku głównym CMake
 
 Lib
 ********************************************************************************

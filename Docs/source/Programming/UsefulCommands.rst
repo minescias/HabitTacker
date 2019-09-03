@@ -17,3 +17,8 @@ Wszystkie komendy podane poniżej powinny być uruchamiane z folderu builds
 
 ``../bin/<nazwa modułu> --gtest_filter=<test fixture>*``
     Uruchomienie testów z konkretnego modułu pasujących do filtra
+
+Valgrind
+********************************************************************************
+``valgrind --leak-check=yes --track-origins=yes <program>``
+    Podstawowe wywołanie valgrinda. Na razie wystarcza :)

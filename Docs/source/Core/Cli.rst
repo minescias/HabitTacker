@@ -38,7 +38,7 @@ Przykład:
      *  command - nazwa komendy
      *  foo - parametr domyślny (bez myślnika)
      *  -bar, -bar2 - flagi (przechowują tylko wartość typu bool)
-     *  -par, -par2 - parametry (one, two - wartości tych parametóww
+     *  -par, -par2 - parametry (one, two - wartości tych parametów)
 
 Współpraca między klasami Cli
 ================================================================================
@@ -94,10 +94,10 @@ informacje o paramerach, które mają zostać sprawdzane.
 .. code-block:: c
    :caption: Tworzenie i użycie validatora
 
-    auto validator = Cli::Validator();                      // utworzenie nowego walidatora
-    validator.addFilter();                                  // włączenie filtra
-    validator.addParam("foo");                              // dodanie opcjonalnej flagi foo
-    validator.validate(parameters);                         // uruchomienie walidacji
+    auto validator = Cli::Validator();  // utworzenie nowego walidatora
+    validator.addFilter();              // włączenie filtra
+    validator.addParam("foo");          // dodanie opcjonalnej flagi foo
+    validator.validate(parameters);     // uruchomienie walidacji
 
 Walidator pozwala na ustawienie trzech rodzajów elementów:
  *  **filtr** - domyślnie wyłączony. Po użyciu metody ``addFilter()`` staje się

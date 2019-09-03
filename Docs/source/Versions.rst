@@ -1,11 +1,18 @@
 Wersje programu - pseudo changelog
 ===============================================================================
 
-Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (planowane)
+Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (w trakcie)
 *******************************************************************************
-Na razie mgliste plany, jak to będzie dokładnie działać
+ *  Nawyki liczbowe - możliwość określenia celu liczbowego dla dni (ile razy na
+    dzień coś ma być zrobione
+ *  Poprawienie pliku konfiguracyjnego
+ *  Dostęp do programu z każdego miejsca w systemie
+ *  Konfiguracja logowania (plik konfiguracyjny i parametry)
+ *  Wprowadzenie clang formata
+ *  Poprawiony help message - w tym help do konkretnych akcji
+ *  Wprowadzenie nowego formatu daty i czasu
 
-Wersja 0.3 - Nadrobienie długu technologicznego (w trakcie)
+Wersja 0.3 - Nadrobienie długu technologicznego
 *******************************************************************************
 *   Poprawienie DaoFactory zgodnie z opisem w notatkach
 *   Poprawki działania CLI - klasa Parameters i walidacja poprawności

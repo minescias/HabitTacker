@@ -7,6 +7,7 @@ Opis mechanizmów występujących w Core programu
 
    Core/Cli
    Core/Config
+   Core/Dao
    Core/Database
    Core/DateTime
    Core/Log

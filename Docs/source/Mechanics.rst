@@ -6,4 +6,3 @@ Opis rozwiązań różnych problemów
 .. toctree::
 
    Mechanics/Actions
-   Mechanics/Dao.rst
