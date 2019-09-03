@@ -20,7 +20,7 @@ public:
 	{
 	public:
 		Iterator(std::vector<std::unique_ptr<Row>>* data, int position)
-			: data(data),position(position) {}
+			: data(data), position(position) {}
 
       	Row& operator*() const
 		{
@@ -41,8 +41,8 @@ public:
 		}
 
 	private:
-		int position;
 		std::vector<std::unique_ptr<Row>>* data;	
+		int position;
 	};
 
 	Iterator begin() { return Iterator(&data, 0); }
@@ -52,7 +52,7 @@ public:
 	{
 	public:
 		ConstIterator(const std::vector<std::unique_ptr<Row>>* data, int position)
-			: data(data),position(position) {} 
+			: data(data), position(position) {} 
 
       	const Row& operator*() const 
 		{
@@ -73,8 +73,8 @@ public:
 		}
 
 	private:
+		const std::vector<std::unique_ptr<Row>>* data;
 		int position;
-		const std::vector<std::unique_ptr<Row>>* data;	
 	};
 
 	ConstIterator begin() const { return ConstIterator(&data, 0); }

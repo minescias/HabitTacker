@@ -20,7 +20,12 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B05]** Sprawdzić czy program wciąż się kompiluje na Linuskie po moich
     ostatnich zmianach w Windowsie
 
+**[B08]** Włączenie wszystkich warningów w gcc tak jak są domyślne w MSVC
+
 **[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
+
+**[B13]** Usunięcie wszystkich warningów kompilacji po włączeniu dodatkowych
+opcji kompilatora (-Wall, -pedantic)
 
 Core
 *******************************************************************************

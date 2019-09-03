@@ -59,7 +59,6 @@ Dataset Query::execute()
         for (auto currentColumn = 0; currentColumn < columnsCount; ++currentColumn)
         {
             char* value = (char*)sqlite3_column_text(statement, currentColumn);
-            auto name = sqlite3_column_name(statement, currentColumn);
 
             if (value)
                 row->set(sqlite3_column_name(statement, currentColumn), value);

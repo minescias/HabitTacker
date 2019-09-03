@@ -22,8 +22,8 @@ private:
     void connect(const std::string& name);
     void disconnect();
 
-    std::string databaseName;
     sqlite3* handler;
+    std::string databaseName;
 };
 
 } // namespace Db

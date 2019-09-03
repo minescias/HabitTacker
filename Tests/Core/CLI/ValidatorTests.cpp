@@ -24,7 +24,6 @@ public:
 		}
 		catch (RuntimeError& err)
 		{
-			auto expected = "-foo is not defined";
 			ASSERT_STREQ(err.what(), errorMessage);
 		}
 	}

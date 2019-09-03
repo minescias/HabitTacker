@@ -22,8 +22,8 @@ public:
 	std::string getErrorMessage() const;
 
 private:
-	RequirementLevel _requirementLevel;
 	ParamType _type;
+	RequirementLevel _requirementLevel;
 	std::string _errorMessage;
 };
 

@@ -21,8 +21,6 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
     Segmnetation fault (Core dumped) - sprawdzić co to za core i co można z
     tego wyciągnąć
 
-**[B08]** Włączenie wszystkich warningów w gcc tak jak są domyślne w MSVC
-
 **[B10]** Sprawdzić co to jest profiler i jak można tego użyć
 
 **[B11]** Pobieranie gtest z githuba przez CMake. Podobno jest to możliwe
@@ -31,9 +29,6 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
 uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
 nie można utworzyć bazy testowej.
-
-**[B13]** Usunięcie wszystkich warningów kompilacji po włączeniu dodatkowych
-opcji kompilatora (-Wall, -pedantic)
 
 **[B14]** Wprowadzenie clang-formata - przygotowanie formatki pliku
 

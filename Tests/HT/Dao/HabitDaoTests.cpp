@@ -109,8 +109,8 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 	auto h6 = addHabit(2, Dt::DateTime{today}.addDays(-13).unixTime());
 
 	// excluded data over 14 days
-	auto h7 = addHabit(1, Dt::DateTime{today}.addDays(-14).unixTime());
-	auto h8 = addHabit(2, Dt::DateTime{today}.addDays(-15).unixTime());
+	addHabit(1, Dt::DateTime{today}.addDays(-14).unixTime());
+	addHabit(2, Dt::DateTime{today}.addDays(-15).unixTime());
 
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 

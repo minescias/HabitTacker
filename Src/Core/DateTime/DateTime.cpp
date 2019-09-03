@@ -10,7 +10,7 @@
 namespace
 {
 
-std::string formatNumber(int value, int length)
+std::string formatNumber(int value, unsigned length)
 {
 	auto result = std::to_string(value);
 
