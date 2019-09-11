@@ -311,6 +311,13 @@ Zadania dotyczące modułu HT
     tym. Jeśli tak to zamienić
  *  ActionError powinno być w namespace Actions
 
+Lib
+********************************************************************************
+**[Lib2]** Sprawdzić czy i jak mogę użyć biblioteki
+    https://github.com/HowardHinnant/date do zarządzania datami. Docelowo moje
+    funkcje obsługujące czas są do wywalenia albo do zamiany na wrapper do ww
+    biblioteki
+
 Tools
 *******************************************************************************
 Lista narzędzi do zrobienia, lista poprawek do już istniejących narzędzi lub
