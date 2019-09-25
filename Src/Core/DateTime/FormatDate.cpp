@@ -1,11 +1,13 @@
 #include "Core/DateTime/FormatDate.h"
 
+#include <Core/DateTime/DateFormat.h>
+
 namespace Dt
 {
 
-std::string formatDate(date::year_month_day date)
+std::string formatDate(Date date)
 {
-	return date::format("%d.%m.%Y", date);
+	return date::format(conversionDateFormat, date);
 }
 
 } // namespace Dt

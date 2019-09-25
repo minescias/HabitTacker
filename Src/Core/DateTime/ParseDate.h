@@ -1,13 +1,14 @@
 #ifndef __PARSE_DATE_H
 #define __PARSE_DATE_H
 
-#include <date/date.h>
 #include <string_view>
+
+#include <Core/DateTime/Date.h>
 
 namespace Dt
 {
 
-date::year_month_day parseDate(std::string_view dateString);
+Date parseDate(std::string_view dateString);
 
 } // namespace Dt
 

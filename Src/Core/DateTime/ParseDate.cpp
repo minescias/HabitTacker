@@ -1,5 +1,6 @@
 #include "Core/DateTime/ParseDate.h"
 
+#include <Core/DateTime/DateFormat.h>
 #include <Core/Exceptions/RuntimeError.h>
 
 namespace Dt
@@ -7,22 +8,22 @@ namespace Dt
 using namespace date;
 using namespace std::string_literals;
 
-date::year_month_day parseDate(std::string_view dateString)
+Date parseDate(std::string_view dateString)
 {
 	auto days = sys_days();
 	auto timezone = ""s;
 	
 	std::istringstream ss{dateString.data()};
-	ss >> date::parse("%d.%m.%Y", days, timezone);
+	ss >> date::parse(conversionDateFormat, days, timezone);
 
 	if (!bool(ss))
 	{
 		throw RuntimeError(
 			"Cannot read "s + dateString.data() + " as date. "
-			"Expected date format is DD.MM.YYYY.");
+			"Expected date format is " + printedDateFormat + ".");
 	}
 
-	return year_month_day(days);
+	return Date(days);
 }
 
 } // namespace Dt

@@ -1,12 +1,12 @@
 #ifndef __ADD_DAYS_H
 #define __ADD_DAYS_H
 
-#include <date/date.h>
+#include <Core/DateTime/Date.h>
 
 namespace Dt
 {
 
-date::year_month_day addDays(const date::year_month_day& date, int daysToAdd);
+Date addDays(const Date& date, int daysToAdd);
 
 } // namespace Dt
 

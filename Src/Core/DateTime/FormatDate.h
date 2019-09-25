@@ -2,12 +2,13 @@
 #define __FORMAT_DATE_H
 
 #include <string>
-#include <date/date.h>
+
+#include <Core/DateTime/Date.h>
 
 namespace Dt
 {
 
-std::string formatDate(date::year_month_day date);
+std::string formatDate(Date date);
 
 } // namespace Dt
 

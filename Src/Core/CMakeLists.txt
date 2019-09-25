@@ -13,6 +13,7 @@ set(Config_src
 
 set(Datetime_src
 	DateTime/AddDays.cpp
+	DateTime/DateFormat.cpp
 	DateTime/DateLiteral.cpp
 	DateTime/DateTime.cpp
 	DateTime/DateTimeGetter.cpp
