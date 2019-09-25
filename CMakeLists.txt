@@ -16,6 +16,10 @@ link_directories(${CMAKE_SOURCE_DIR}/bin)
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Src)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/date/include)
+
+# https://github.com/HowardHinnant/date/issues/474
+add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # availiable after 3.12
 
 # external libraries
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
