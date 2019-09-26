@@ -1,17 +1,18 @@
 #include "HT/Actions/DoneAction.h"
 
-#include "Core/DateTime/DateLiteral.h"
-#include "Core/DateTime/DateTime.h"
-#include "Core/DateTime/DateTimeGetter.h"
+#include <Core/DateTime/DateLiteral.h>
+#include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/FormatDate.h>
 
 #include "HT/Actions/ActionError.h"
 
 namespace Actions
 {
-
 void DoneAction::doExecute(const Cli::Parameters& parserResult)
 {
-	definitionDao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	definitionDao =
+		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 
 	validateParameters(parserResult);
@@ -27,8 +28,9 @@ void DoneAction::doExecute(const Cli::Parameters& parserResult)
 	{
 		if (habitDao->checkIfHabitIsSetForDay(habit))
 		{
-			throw ActionError("Habit " + parserResult.getFilter() +
-				" was already set for this day");
+			throw ActionError(
+				"Habit " + parserResult.getFilter()
+				+ " was already set for this day");
 		}
 
 		habitDao->saveHabit(habit);
@@ -53,20 +55,21 @@ void DoneAction::validateParameters(const Cli::Parameters& parameters) const
 
 	auto definition = definitionDao->getDefinition(stoi(habitId));
 	if (!definition)
-		throw ActionError ("Habit " + habitId + " does not exist");
+		throw ActionError("Habit " + habitId + " does not exist");
 
 	auto date = getDate(parameters);
 	if (date < definition->getBeginDate())
 	{
-		throw ActionError("Cannot set habit before it's begin date which is " +
-			Dt::DateTime(definition->getBeginDate()).dateString());
+		throw ActionError(
+			"Cannot set habit before it's begin date which is "
+			+ Dt::formatDate(definition->getBeginDate()));
 	}
 
 	if (date > Dt::getCurrentDate())
 		throw ActionError("Cannot set habit in the future");
 }
 
-Dt::Timestamp DoneAction::getDate(const Cli::Parameters& parserResult) const
+Dt::Date DoneAction::getDate(const Cli::Parameters& parserResult) const
 {
 	if (!parserResult.getParameter("date").empty())
 		return Dt::DateLiteral().parse(parserResult.getParameter("date"));

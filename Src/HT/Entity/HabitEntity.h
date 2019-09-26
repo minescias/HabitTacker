@@ -3,11 +3,10 @@
 
 #include <memory>
 
-#include <Core/DateTime/Timestamp.h>
+#include <Core/DateTime/Date.h>
 
 namespace Entity
 {
-
 class HabitEntity
 {
 public:
@@ -16,17 +15,17 @@ public:
 	int getHabitId() const;
 	void setHabitId(int id);
 
-	Dt::Timestamp getDate() const;
-	void setDate(const Dt::Timestamp& date);
+	Dt::Date getDate() const;
+	void setDate(const Dt::Date& date);
 
 private:
 	int habitId;
-	Dt::Timestamp date;
+	Dt::Date date;
 };
 
-bool operator==(const HabitEntity &a, const HabitEntity &b);
+bool operator==(const HabitEntity& a, const HabitEntity& b);
 
-using HabitEntityPtr = std::unique_ptr<HabitEntity>	;
+using HabitEntityPtr = std::unique_ptr<HabitEntity>;
 
 } // namespace Entity
 

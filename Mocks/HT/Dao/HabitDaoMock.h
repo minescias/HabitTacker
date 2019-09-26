@@ -4,6 +4,7 @@
 #include <gmock/gmock.h>
 
 #include <Core/Database/Database.h>
+
 #include "HT/Dao/IHabitDao.h"
 
 namespace Mocks
@@ -16,7 +17,7 @@ public:
 	MOCK_CONST_METHOD1(deleteHabit, void(const Entity::HabitEntity& habit));
 	MOCK_CONST_METHOD1(getHabitsById, std::vector<Entity::HabitEntityPtr> (int id));
 	MOCK_CONST_METHOD1(checkIfHabitIsSetForDay, bool(const Entity::HabitEntity& habit));
-	MOCK_CONST_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(Dt::Timestamp date));
+	MOCK_CONST_METHOD1(getHabitsFromLastTwoWeeks, std::vector<Entity::HabitEntityPtr>(Dt::Date date));
 };
 
 } // namespace Mocks

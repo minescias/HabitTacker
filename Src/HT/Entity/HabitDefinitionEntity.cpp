@@ -2,10 +2,7 @@
 
 namespace Entity
 {
-
-HabitDefinitionEntity::HabitDefinitionEntity()
-	: id(0)
-	, beginDate(0)
+HabitDefinitionEntity::HabitDefinitionEntity() : id(0)
 {
 }
 
@@ -29,21 +26,22 @@ std::string HabitDefinitionEntity::getName() const
 	return name;
 }
 
-void HabitDefinitionEntity::setBeginDate(Dt::Timestamp date)
+void HabitDefinitionEntity::setBeginDate(Dt::Date date)
 {
 	this->beginDate = date;
 }
 
-Dt::Timestamp HabitDefinitionEntity::getBeginDate() const
+Dt::Date HabitDefinitionEntity::getBeginDate() const
 {
 	return beginDate;
 }
 
-bool operator==(const HabitDefinitionEntity &a, const HabitDefinitionEntity &b)
+bool operator==(const HabitDefinitionEntity& a, const HabitDefinitionEntity& b)
 {
-	return a.getId() == b.getId()
-		&& a.getName() == b.getName()
-		&& a.getBeginDate() == b.getBeginDate();
+	// TODO: custom method to compare dates
+	return a.getId() == b.getId() && a.getName() == b.getName()
+		&& ((!a.getBeginDate().ok() && !b.getBeginDate().ok())
+			|| a.getBeginDate() == b.getBeginDate());
 }
 
 } // namespace Entity

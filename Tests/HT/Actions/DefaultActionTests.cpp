@@ -1,29 +1,28 @@
 #include <gmock/gmock.h>
 
 #include "Core/Dao/DaoFactory.h"
-#include <Core/DateTime/DateTime.h>
+#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
 
-#include "HT/Actions/DefaultAction.h"
 #include "HT/Actions/ActionError.h"
+#include "HT/Actions/DefaultAction.h"
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
-using namespace testing;
-
 namespace Tests
 {
+using namespace date;
+using namespace testing;
 
 class DefaultActionTest : public testing::Test
 {
 public:
-	DefaultActionTest()
-		: defaultAction()
+	DefaultActionTest() : defaultAction()
 	{
-		habitDaoMock = registerAndGetDaoMock<Mocks::HabitDaoMock>(
-			&daoFactory, "habit");
+		habitDaoMock =
+			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
 
@@ -33,12 +32,12 @@ public:
 	Entity::HabitDefinitionEntityPtr getHabitDefinition(
 		int id, const std::string& name, int beginDateShift)
 	{
-		auto ts = Dt::Timestamp{1557014400};
+		auto date = 2019_y / May / 05_d;
 		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
 
 		entity->setId(id);
 		entity->setName(name);
-		entity->setBeginDate(Dt::DateTime{ts}.addDays(beginDateShift).unixTime());
+		entity->setBeginDate(Dt::addDays(date, beginDateShift));
 
 		return entity;
 	}
@@ -51,7 +50,7 @@ public:
 		return habits;
 	}
 
-	auto getHabit(int habitId, Dt::Timestamp date)
+	auto getHabit(int habitId, Dt::Date date)
 	{
 		auto entity = std::make_unique<Entity::HabitEntity>();
 
@@ -63,15 +62,15 @@ public:
 
 	std::vector<Entity::HabitEntityPtr> getHabits()
 	{
-		auto ts = Dt::Timestamp{1557014400};
+		auto date = 2019_y / May / 05_d;
 
 		std::vector<Entity::HabitEntityPtr> habits;
-		habits.emplace_back(getHabit(1, Dt::DateTime{ts}.unixTime()));
-		habits.emplace_back(getHabit(1, Dt::DateTime{ts}.addDays(-2).unixTime()));
-		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-1).unixTime()));
-		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-2).unixTime()));
-		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-10).unixTime()));
-		habits.emplace_back(getHabit(2, Dt::DateTime{ts}.addDays(-12).unixTime()));
+		habits.emplace_back(getHabit(1, date));
+		habits.emplace_back(getHabit(1, Dt::addDays(date, -2)));
+		habits.emplace_back(getHabit(2, Dt::addDays(date, -1)));
+		habits.emplace_back(getHabit(2, Dt::addDays(date, -2)));
+		habits.emplace_back(getHabit(2, Dt::addDays(date, -10)));
+		habits.emplace_back(getHabit(2, Dt::addDays(date, -12)));
 
 		return habits;
 	}
@@ -85,12 +84,12 @@ public:
 
 TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 {
-	auto day = Dt::Timestamp{1557014400}; // Niedziela/Sunday
+	auto date = 2019_y / May / 05_d;
 
 	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
 
-	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(day))
+	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(date))
 		.WillOnce(Return(ByMove(getHabits())));
 
 	auto expectedOutput =
@@ -98,13 +97,12 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 		"\n---- ---------------------------------------- -----------------------------------------"
 		"\n   1 Pierwszy                                          __ __ __ __ __ __ __ __ XX __ XX"
 		"\n   2 Drugi zżź                                __ XX __ XX __ __ __ __ __ __ __ XX XX __"
-		"\n"
-	;
+		"\n";
 
 	internal::CaptureStdout();
 
 	auto pr = Cli::Parameters();
-	pr.setDefaultParameter("05-05-2019");
+	pr.setDefaultParameter("05.05.2019");
 	defaultAction.execute(pr);
 
 	auto output = testing::internal::GetCapturedStdout();
@@ -114,18 +112,18 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 {
-	EXPECT_CALL(*definitionDaoMock, getDefinitions()).WillOnce(
-		Return(ByMove(std::vector<Entity::HabitDefinitionEntityPtr>())));
+	EXPECT_CALL(*definitionDaoMock, getDefinitions())
+		.WillOnce(Return(ByMove(std::vector<Entity::HabitDefinitionEntityPtr>())));
 
 	try
 	{
 		auto pr = Cli::Parameters();
-		pr.setDefaultParameter("05-05-2019");
+		pr.setDefaultParameter("05.05.2019");
 		defaultAction.execute(pr);
 
 		FAIL() << "Expected ActionError";
 	}
-	catch(const Actions::ActionError& err)
+	catch (const Actions::ActionError& err)
 	{
 		auto expected = "No habits found, try to add some using 'htr add'\n";
 		ASSERT_STREQ(expected, err.what());

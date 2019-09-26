@@ -6,14 +6,11 @@
 
 namespace Dao
 {
-
 using Entity::HabitDefinitionEntity;
 using Entity::HabitDefinitionEntityPtr;
 
-HabitDefinitionDao::HabitDefinitionDao(Db::Database* db)
-	:db(db)
+HabitDefinitionDao::HabitDefinitionDao(Db::Database* db) : db(db)
 {
-
 }
 
 HabitDefinitionDao::~HabitDefinitionDao()
@@ -79,7 +76,7 @@ HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(int definitionId) con
 	auto result = std::make_unique<HabitDefinitionEntity>();
 	result->setId(row->get<int>("id"));
 	result->setName(row->get<std::string>("name"));
-	result->setBeginDate(row->get<Dt::Timestamp>("begin_date"));
+	result->setBeginDate(row->get<Dt::Date>("begin_date"));
 
 	return result;
 }
@@ -108,7 +105,7 @@ Entity::HabitDefinitionEntityPtr HabitDefinitionDao::getDefinition(
 	auto result = std::make_unique<HabitDefinitionEntity>();
 	result->setId(row->get<int>("id"));
 	result->setName(row->get<std::string>("name"));
-	result->setBeginDate(row->get<Dt::Timestamp>("begin_date"));
+	result->setBeginDate(row->get<Dt::Date>("begin_date"));
 
 	return result;
 }
@@ -128,13 +125,12 @@ Entity::HabitDefinitions HabitDefinitionDao::getDefinitions() const
 	Db::Query query(db, sql);
 	auto dataset = query.execute();
 
-	// while(dataset->next())
-	for (const auto& row: dataset)
+	for (const auto& row : dataset)
 	{
 		result.emplace_back(std::make_unique<Entity::HabitDefinitionEntity>());
 		result.back()->setId(row.get<int>("id"));
 		result.back()->setName(row.get<std::string>("name"));
-		result.back()->setBeginDate(row.get<Dt::Timestamp>("begin_date"));
+		result.back()->setBeginDate(row.get<Dt::Date>("begin_date"));
 	}
 
 	return result;

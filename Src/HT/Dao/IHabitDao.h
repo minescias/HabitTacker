@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "Core/Dao/UnknownDao.h"
+#include <Core/Dao/UnknownDao.h>
+
 #include "HT/Entity/HabitEntity.h"
 
 namespace Dao
 {
-
 class IHabitDao : public UnknownDao
 {
 public:
@@ -19,7 +19,7 @@ public:
 	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) const = 0;
 
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(
-		Dt::Timestamp date) const = 0;
+		Dt::Date date) const = 0;
 
 	virtual ~IHabitDao(){};
 };

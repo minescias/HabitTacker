@@ -110,11 +110,6 @@ Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
 **[Lib1]** Biblioteka ICU - rozpoznanie, czy i jak mogę jej użyć w moim
     projekcie do poprawnego wyświetlania tekstu na konsoli
 
-**[Lib2]** Sprawdzić czy i jak mogę użyć biblioteki
-    https://github.com/HowardHinnant/date do zarządzania datami. Docelowo moje
-    funkcje obsługujące czas są do wywalenia albo do zamiany na wrapper do ww
-    biblioteki
-
 **[Lib3]** Biblioteka do obsługi formatu JSON lub XML do zapisu/odczytu pliku
     konfiguracyjnego
 
@@ -156,7 +151,7 @@ które sam napisałem lub napiszę w przyszłości
 
 **[T11]** Uruchamianie testów skrótem klawiszowym z poziomu visual studio code
  *  Kompilacja modułu z testami przed uruchomieniem + ew. zależności
- *  Uruchamianie wsyzstkich testów z modułu
+ *  Uruchamianie wszystkich testów z modułu
  *  Wszystkie testy z pliku
  *  Jeden konkretny test
  *  Możliwość debugowania

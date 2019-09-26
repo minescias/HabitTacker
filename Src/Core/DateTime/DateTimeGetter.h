@@ -1,14 +1,11 @@
 #ifndef __DATE_TIME_GETTER_H
 #define __DATE_TIME_GETTER_H
 
-#include "Core/DateTime/Timestamp.h"
+#include <Core/DateTime/Date.h>
 
 namespace Dt
 {
-
-Timestamp getCurrentDate();
-
-Timestamp getCurrentDateShiftByDays(int daysToAdd);
+Dt::Date getCurrentDate();
 
 } // namespace Dt
 

@@ -5,11 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "Core/DateTime/Timestamp.h"
+#include "Core/DateTime/Date.h"
 
 namespace Entity
 {
-
 class HabitDefinitionEntity
 {
 public:
@@ -21,16 +20,16 @@ public:
 	void setName(const std::string& name);
 	std::string getName() const;
 
-	void setBeginDate(Dt::Timestamp date);
-	Dt::Timestamp getBeginDate() const;
+	void setBeginDate(Dt::Date date);
+	Dt::Date getBeginDate() const;
 
 private:
 	int id;
 	std::string name;
-	Dt::Timestamp beginDate;
+	Dt::Date beginDate;
 };
 
-bool operator==(const HabitDefinitionEntity &a, const HabitDefinitionEntity &b);
+bool operator==(const HabitDefinitionEntity& a, const HabitDefinitionEntity& b);
 
 using HabitDefinitionEntityPtr = std::unique_ptr<HabitDefinitionEntity>;
 using HabitDefinitions = std::vector<HabitDefinitionEntityPtr>;

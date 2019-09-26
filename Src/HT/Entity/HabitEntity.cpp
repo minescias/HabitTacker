@@ -2,9 +2,7 @@
 
 namespace Entity
 {
-
-HabitEntity::HabitEntity()
-	: habitId(0)
+HabitEntity::HabitEntity() : habitId(0)
 {
 }
 
@@ -18,21 +16,19 @@ void HabitEntity::setHabitId(int id)
 	habitId = id;
 }
 
-Dt::Timestamp HabitEntity::getDate() const
+Dt::Date HabitEntity::getDate() const
 {
 	return date;
 }
 
-void HabitEntity::setDate(const Dt::Timestamp& date)
+void HabitEntity::setDate(const Dt::Date& date)
 {
 	this->date = date;
 }
 
-bool operator==(const HabitEntity &a, const HabitEntity &b)
+bool operator==(const HabitEntity& a, const HabitEntity& b)
 {
-	return a.getHabitId() == b.getHabitId()
-		&& a.getDate() == b.getDate();
+	return a.getHabitId() == b.getHabitId() && a.getDate() == b.getDate();
 }
 
 } // namespace Entity
-

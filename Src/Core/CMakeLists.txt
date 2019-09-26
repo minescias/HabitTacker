@@ -12,10 +12,12 @@ set(Config_src
     Config/Settings.cpp)
 
 set(Datetime_src
-    DateTime/DateLiteral.cpp
-    DateTime/DateTime.cpp
-    DateTime/DateTimeGetter.cpp
-    DateTime/Duration.cpp)
+	DateTime/AddDays.cpp
+	DateTime/DateFormat.cpp
+	DateTime/DateLiteral.cpp
+	DateTime/DateTimeGetter.cpp
+	DateTime/FormatDate.cpp
+	DateTime/ParseDate.cpp)
 
 set(Database_src
 	Database/Database.cpp

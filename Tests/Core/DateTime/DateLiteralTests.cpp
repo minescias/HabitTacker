@@ -1,14 +1,13 @@
 #include <gmock/gmock.h>
 
-#include "Core/DateTime/DateLiteral.h"
-#include "Core/DateTime/DateTime.h"
-#include "Core/DateTime/DateTimeGetter.h"
-#include "Core/Exceptions/RuntimeError.h"
+#include <Core/DateTime/AddDays.h>
+#include <Core/DateTime/DateLiteral.h>
+#include <Core/DateTime/DateTimeGetter.h>
+#include <Core/Exceptions/RuntimeError.h>
 
 namespace Tests
 {
-
-using namespace Dt;
+using namespace date;
 using namespace testing;
 
 class DateLiteralTests : public testing::Test
@@ -18,10 +17,10 @@ public:
 
 	void checkSimpleLiteral(const std::string& literal, int daysFromToday)
 	{
-		auto expected = getCurrentDateShiftByDays(daysFromToday);
-		auto actual = DateLiteral().parse(literal);
+		auto expected = Dt::addDays(Dt::getCurrentDate(), daysFromToday);
+		auto actual = Dt::DateLiteral().parse(literal);
 
-		EXPECT_THAT(actual, Eq(expected)) << "Literal:" << literal;
+		EXPECT_THAT(actual, Eq(expected));
 	}
 };
 
@@ -34,23 +33,24 @@ TEST_F(DateLiteralTests, acceptsDateName)
 
 TEST_F(DateLiteralTests, acceptsDateString)
 {
-	auto expected = Dt::DateTime("10-01-2015").unixTime();
-	auto actual = DateLiteral().parse("10-01-2015");
+	auto expected = 2015_y / January / 10_d;
+	auto actual = Dt::DateLiteral().parse("10.01.2015");
 
-	EXPECT_THAT(actual, Eq(expected)) << "Literal:" << "10-01-2015";
+	EXPECT_THAT(actual, Eq(expected));
 }
 
 TEST_F(DateLiteralTests, throwsRuntimeErrorOnUnknownLiteral)
 {
 	try
 	{
-		DateLiteral().parse("ssssssssssss");
+		Dt::DateLiteral().parse("ssssssssssss");
 		FAIL() << "Runtime error expected";
 	}
-	catch(RuntimeError& err)
+	catch (RuntimeError& err)
 	{
-		auto expected = "Cannot convert 'ssssssssssss' to date. "
-			"Expected date format is DD-MM-YYYY";
+		auto expected =
+			"Cannot read ssssssssssss as date. "
+			"Expected date format is DD.MM.YYYY.";
 
 		ASSERT_STREQ(err.what(), expected);
 	}
