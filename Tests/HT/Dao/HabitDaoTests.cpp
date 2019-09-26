@@ -4,23 +4,21 @@
 #include <iomanip>
 #include <memory>
 
+#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
-#include <Core/DateTime/DateTime.h>
 
 #include "HT/Dao/DatabaseCreator.h"
-#include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
+#include "HT/Dao/HabitDefinitionDao.h"
 
 namespace
 {
-
 auto filename = "test_habitDao.db"; //"test_DgQADg8ICA0.db";
 
 } // namespace
 
 namespace Tests
 {
-
 using namespace testing;
 namespace fs = std::filesystem;
 
@@ -43,7 +41,7 @@ public:
 		definitionDao->saveDefinition(definition);
 	}
 
-	auto addHabit(int habitId, Dt::Timestamp date)
+	auto addHabit(int habitId, Dt::Date date)
 	{
 		auto habit = Entity::HabitEntity();
 		habit.setHabitId(habitId);
@@ -53,8 +51,8 @@ public:
 		return habit;
 	}
 
-	void compareHabits(const Entity::HabitEntity& actual,
-		const Entity::HabitEntity& expected) const
+	void compareHabits(
+		const Entity::HabitEntity& actual, const Entity::HabitEntity& expected) const
 	{
 		EXPECT_THAT(actual.getHabitId(), Eq(expected.getHabitId()));
 		EXPECT_THAT(actual.getDate(), Eq(expected.getDate()));
@@ -102,15 +100,15 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 
 	// included data
 	auto h1 = addHabit(1, today);
-	auto h2 = addHabit(1, Dt::DateTime{today}.addDays(-2).unixTime());
-	auto h3 = addHabit(2, Dt::DateTime{today}.addDays(-1).unixTime());
-	auto h4 = addHabit(2, Dt::DateTime{today}.addDays(-2).unixTime());
-	auto h5 = addHabit(2, Dt::DateTime{today}.addDays(-10).unixTime());
-	auto h6 = addHabit(2, Dt::DateTime{today}.addDays(-13).unixTime());
+	auto h2 = addHabit(1, Dt::addDays(today, -2));
+	auto h3 = addHabit(2, Dt::addDays(today, -1));
+	auto h4 = addHabit(2, Dt::addDays(today, -2));
+	auto h5 = addHabit(2, Dt::addDays(today, -10));
+	auto h6 = addHabit(2, Dt::addDays(today, -13));
 
 	// excluded data over 14 days
-	addHabit(1, Dt::DateTime{today}.addDays(-14).unixTime());
-	addHabit(2, Dt::DateTime{today}.addDays(-15).unixTime());
+	addHabit(1, Dt::addDays(today, -14));
+	addHabit(2, Dt::addDays(today, -15));
 
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 

@@ -2,17 +2,14 @@
 
 #include <Core/Database/Database.h>
 #include <Core/Database/Query.h>
-#include <Core/DateTime/DateTime.h>
-#include <Core/DateTime/Timestamp.h>
+#include <Core/DateTime/AddDays.h>
 
 namespace Dao
 {
-
 using Entity::HabitEntity;
 using Entity::HabitEntityPtr;
 
-HabitDao::HabitDao(Db::Database* db)
-	: db(db)
+HabitDao::HabitDao(Db::Database* db) : db(db)
 {
 }
 
@@ -66,12 +63,12 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", id);
 	auto queryResult = query.execute();
-	
-	for (const auto& row: queryResult)
+
+	for (const auto& row : queryResult)
 	{
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
 		habit->setHabitId(id);
-		habit->setDate(row.get<Dt::Timestamp>("date"));
+		habit->setDate(row.get<Dt::Date>("date"));
 	}
 
 	return result;
@@ -99,8 +96,7 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 		return true;
 }
 
-std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
-	Dt::Timestamp date) const
+std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(Dt::Date date) const
 {
 	auto sql =
 		"\n select"
@@ -112,17 +108,17 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(
 		"\n 	h.date between :date_from and :date_to";
 
 	Db::Query query(db, sql);
-	query.setParam(":date_from", Dt::DateTime{date}.addDays(-13).unixTime());
+	query.setParam(":date_from", Dt::addDays(date, -13));
 	query.setParam(":date_to", date);
 
 	auto queryResult = query.execute();
 	auto result = std::vector<HabitEntityPtr>();
 
-	for (const auto& row: queryResult)
+	for (const auto& row : queryResult)
 	{
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
 		habit->setHabitId(row.get<int>("habit_id"));
-		habit->setDate(row.get<Dt::Timestamp>("date"));
+		habit->setDate(row.get<Dt::Date>("date"));
 	}
 
 	return result;

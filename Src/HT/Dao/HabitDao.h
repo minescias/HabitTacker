@@ -7,7 +7,6 @@
 
 namespace Dao
 {
-
 class HabitDao : public IHabitDao
 {
 public:
@@ -18,7 +17,9 @@ public:
 
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id) const;
 	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) const;
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(Dt::Timestamp date) const;
+
+	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(
+		Dt::Date date) const;
 
 private:
 	Db::Database* db;

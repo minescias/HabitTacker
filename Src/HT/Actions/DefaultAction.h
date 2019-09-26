@@ -3,15 +3,12 @@
 
 #include <map>
 
-#include <Core/DateTime/Timestamp.h>
-
 #include "HT/Actions/BaseAction.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 
 namespace Actions
 {
-
 class DefaultAction : public BaseAction
 {
 	enum class CompletionType
@@ -28,16 +25,16 @@ public:
 
 protected:
 	void initValidator() final;
-	void doExecute(const Cli::Parameters &parameters) final;
+	void doExecute(const Cli::Parameters& parameters) final;
 
 private:
-	void printHeader(Dt::Timestamp date) const;
-	std::string getWeekDaysHeaderEndingWithDate(Dt::Timestamp date) const;
+	void printHeader(Dt::Date date) const;
+	std::string getWeekDaysHeaderEndingWithDate(Dt::Date date) const;
 	std::string getCompletionString(int habitId);
-	void fillCompletionTable(Dt::Timestamp date);
+	void fillCompletionTable(Dt::Date date);
 
-	void prepareCompletionTable(Dt::Timestamp date,
-		const Entity::HabitDefinitions& definitions);
+	void prepareCompletionTable(
+		Dt::Date date, const Entity::HabitDefinitions& definitions);
 
 private:
 	int daysToPrint;
@@ -46,6 +43,6 @@ private:
 	CompletionTable completionTable;
 };
 
-}
+} // namespace Actions
 
 #endif // __DEFAULT_ACTION_H
