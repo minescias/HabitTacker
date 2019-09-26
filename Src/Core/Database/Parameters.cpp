@@ -1,6 +1,5 @@
 #include "Core/Database/Parameters.h"
 
-#include <ctime>
 #include <string_view>
 
 #include <Libraries/SQLite/sqlite3.h>
@@ -33,11 +32,6 @@ template<> int Parameters::setSqliteParam(int index, const char* value)
 }
 
 template<> int Parameters::setSqliteParam(int index, int value)
-{
-	return sqlite3_bind_int(statement, index, value);
-}
-
-template<> int Parameters::setSqliteParam(int index, time_t value)
 {
 	return sqlite3_bind_int(statement, index, value);
 }

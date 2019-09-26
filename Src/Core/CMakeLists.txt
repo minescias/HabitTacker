@@ -15,9 +15,7 @@ set(Datetime_src
 	DateTime/AddDays.cpp
 	DateTime/DateFormat.cpp
 	DateTime/DateLiteral.cpp
-	DateTime/DateTime.cpp
 	DateTime/DateTimeGetter.cpp
-	DateTime/Duration.cpp
 	DateTime/FormatDate.cpp
 	DateTime/ParseDate.cpp)
 

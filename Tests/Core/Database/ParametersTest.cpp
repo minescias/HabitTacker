@@ -4,6 +4,9 @@
 #include <Core/Database/Query.h>
 #include <Core/DateTime/Date.h>
 
+// Podstawowe typy zmiennych są już testowane w ramach QueryTests. W tym pliku
+// powinny się znajdować testy bardziej skomplikowanych typów
+
 namespace Tests
 {
 using namespace date;

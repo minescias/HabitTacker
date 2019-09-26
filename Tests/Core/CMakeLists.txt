@@ -21,8 +21,6 @@ set(CoreTests_src
 	Database/ValueGetterTest.cpp
 	DateTime/AddDaysTests.cpp
 	DateTime/DateLiteralTests.cpp
-	DateTime/DateTimeTests.cpp
-	DateTime/DurationTests.cpp
 	DateTime/FormatDateTests.cpp
 	DateTime/ParseDateTests.cpp
 	Strings/CaseTests.cpp

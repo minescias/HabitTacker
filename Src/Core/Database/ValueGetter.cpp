@@ -67,18 +67,10 @@ double getVal<double>(std::string_view columnName, const std::string& value)
 }
 
 template<>
-time_t getVal<time_t>(std::string_view columnName, const std::string& value)
-{
-	assertValueIsNotEmpty<time_t>(columnName, value);
-	auto castFunc = [](const std::string& value) { return stol(value); };
-	return tryToCast<time_t>(columnName, value, castFunc);
-}
-
-template<>
 Dt::Date getVal<Dt::Date>(std::string_view columnName, const std::string& value)
 {
 	using namespace date;
-	assertValueIsNotEmpty<int>(columnName, value);
+	assertValueIsNotEmpty<Dt::Date>(columnName, value);
 
 	auto castFunc = [](const std::string& value) {
 		return year_month_day{sys_days{days{stoi(value)}}};
