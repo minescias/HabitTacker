@@ -15,6 +15,7 @@ set(CoreTests_src
 	Config/SettingsTests.cpp
 	Dao/DaoFactoryTests.cpp
 	Database/DatasetTests.cpp
+	Database/ParametersTest.cpp
 	Database/QueryTests.cpp
 	Database/RowTests.cpp
 	Database/ValueGetterTest.cpp
