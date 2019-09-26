@@ -1,5 +1,5 @@
-#ifndef __DATE_H
-#define __DATE_H
+#ifndef __DATETIME_DATE_H
+#define __DATETIME_DATE_H
 
 #include <date/date.h>
 
@@ -9,4 +9,4 @@ using Date = date::year_month_day;
 
 } // namespace Dt
 
-#endif // __DATE.H_H
+#endif //__DATETIME_DATE_H
