@@ -3,16 +3,15 @@
 
 #include <string>
 
-#include <Core/DateTime/Timestamp.h>
+#include <Core/DateTime/Date.h>
 
 namespace Dt
 {
-
 class DateLiteral
 {
 public:
-	DateLiteral();
-	Timestamp parse(const std::string& date);
+	DateLiteral() = default;
+	Date parse(const std::string& date);
 };
 
 } // namespace Dt
