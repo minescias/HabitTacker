@@ -32,6 +32,13 @@ nie można utworzyć bazy testowej.
 
 **[B14]** Wprowadzenie clang-formata - przygotowanie formatki pliku
 
+**[B15]** Plik compile_commands.json tworzy sie w katalogu, z którego jest
+budowany projekt. W moim przypadku jest to folder build. Ccls wymaga, żeby plik
+ten był tworzony w katalogu głównym żeby np. poprawnie odczytywać ścieżki
+include. Sprawdzić na ile możliwe jest tworzenie tego pliku w katalogu głównym.
+Ostatecznie będzie potrzebny skrypt, który po kompilacji przeniesie ten plik
+w odpowiednie miejsce
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -47,12 +54,11 @@ Co trzeba dodać/poprawić w Core programu
 **[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
 type_traits.
 
-**[C15]** Wprowadzenie nowego formatu daty i czasu (w tym momencie są używane
- *  Na początek wystarczy jedynie obsługa dat (nie używam czasu, jeszcze)
- *  Zapis/odczyt z bazy danych
- *  Odczyt danych z linii poleceń
- *  Pobieranie aktualnej daty
- *  Strefa czasowa?
+**[C16]** Poprawki po wprowadzeniu nowego formatu daty
+ *  Funkcja do porównywania dat uwzględniająca to, że daty mogą być
+    niezainicjowane/błędne (.ok() == false)
+ *  Pobieranie dnia tygodnia z daty
+ *  Odejmowanie dat
 
 Docs
 *******************************************************************************
@@ -99,6 +105,10 @@ Zadania dotyczące modułu HT
 **[HT33]** Poprawione wyświetlanie nawyków z listy
  *  Wyświetlanie celu w tabeli wyników (nowa kolumna)
  *  Wyświetlanie przybliżonego procentu wykonania (za pomocą znaków unicode)
+
+**[HT34]** Z jakiegoś powodu działa wyświetlanie nagłówka w tabelce (choć nie
+powinno) W trakcie zamiany Timestamp na Date wpisałem tam jakąś wartość na
+sztywno
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje

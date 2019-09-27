@@ -7,6 +7,7 @@ Wszystko co może być przydatne podczas pracy nad projektem
    :maxdepth: 2
    :caption: Spis treści:
 
+   Programming/Requirements
    Programming/Tools
    Programming/Tests
    Programming/UsefulCommands

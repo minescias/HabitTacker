@@ -1,47 +1,57 @@
 Data i czas
 ===============================================================================
-Różne notatki dotyczące przechowywania daty i czasu w bazie danych i kodzie C++
+Opis dotyczy tylko dat. Obsługa czasu nie jest jeszcze zaimplementowana
 
-Dt::Timestamp
-*******************************************************************************
-Jest to nic innego jak alias na std::time_t. Jest używany do przechowywania
-daty w encjach oraz do przekazywania daty/czasu między funkcjmi, do zapytań
-itp.
+Obsługa daty jes realizowana za pomocą biblioteki `date` napisanej przez
+Howarda Hinnanta.
 
-Klasa Dt::DateTime
-*******************************************************************************
-Klasa reprezentująca datę i czas. Nie powinna być używana do przechowywania dat
-(do tego służy Dt::Timestamp). Klasa powinna być używana raczej do operacji na
-datach takich jak tworzenie daty z stringa, konwersja do stringa.
+*   Dokumentacja: https://howardhinnant.github.io/date/date.html
+*   Github: https://github.com/HowardHinnant/date
+*   Wykład: https://www.youtube.com/watch?v=tzyGjOm8AKo
 
-Odejmowanie dwóch klas typu Dt::DateTime skutkuje powstaniem klasy Dt::Duration
+Reprezentacja danych w kodzie C++:
+ *  date::yeam_month_day - służy do przechowywania daty m. in w encjach. Jest
+    postawowym typem używanym do przekazywania dat między funkcjami. Dla wygody
+    wprowadzono alias Dt::Date.
+ *  date::sys_days - reprezentacja daty w formacie inta liczącego liczbę dni od
+    01.01.1970. Używane przy zapisie/odczycie danych z bazy.
 
-Dt::Duration
-*******************************************************************************
-Klasa reprezentuje różnicę w czasie między dwoma datami. Pozwala na pobranie
-liczby dni.
+Preprezentacja daty w bazie danych:
+    Daty w sqlite będą przechowywane jako liczba dni od 1.01.1970. Przykładowo
+    liczba 18144 odpowiada dacie 2019-09-05. Typ zmiennej przechowującej datę
+    to będzie 'DATE' (czyli numeric)
 
-Klasa docelowo będzie używana tam, gdzie będzie potrzebna różnica między dwoma
-czasami.
+Reprezentacja daty w formacie tekstu
+    W tym momencie obsługiwany jest tylko jeden format dat, i jest to
+    DD.MM.YYYY. Format ten jest używany przy odczycie i zapisnie danych
 
-Wszystkie metody klasy będą zwracały wartość całkowitą zaokrągloną w dół. Np.
-przy różnicy 5,5 dnia funkcja getDays zwróci 5
+Biblioteka `date` nie rozwiązuje wszystkich problemów jakie można napotkać w
+pracy z datami. Wg wykładu z linku powyżej część funkcji musi być
+zaimplementowana przez użytkownika. Poniżej znajduje się opis i lista funkcji
+uzupełniających w.w. bibliotekę
 
-Funkcja Dt::getCurrentDate()
+Dt::getCurrentDate()
 *******************************************************************************
 Zwraca aktualną datę (lokalną z komputera na którym jest uruchomiony program)
-a formacie unixowym (Dt::Timestamp) zaokrągloną do jednego dnia.
+a formacie Dt::Date zaokrągloną do jednego dnia.
 
-Funkcja Dt::getCurrentDateShiftByDays(int nrOfDays)
-*******************************************************************************
-Funckja zwraca unixową datę przesuniętą o n dni od dzisiaj
+Dt::parseDate()
+********************************************************************************
+Konwertuje tekst na datę. Tekst musi być w formacie DD.MM.YYYY. Zwraca datę w
+formacie Dt::Date. W przypadku błędnej konwersji rzuca wyjątkiem typu
+RuntimeError.
 
-Reprezentacja daty w bazie danych
-*******************************************************************************
-Data będzie przechowywana w kolumnach o typie **Date** jako czas unixowy
+Dt::formatDate()
+********************************************************************************
+Konwertuje datę na tekst w formacie DD.MM.YYYY.
 
-Z dokumentacji:
-    INTEGER as Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC.
+Dt::addDays()
+********************************************************************************
+Dodaje określoną liczbę dni do daty. Biblioteka `date` nie ma tego
+zaimplementowanego ze względu na wydajność (było o tym w wykładzie albo na
+gicie)
 
-W zapytaniach będzie można wyświetlić datę w ludzkim formacie np. za pomocą
-**SELECT date('now');**
+Dt::DateLiteral
+********************************************************************************
+Klasa konwertująca tekst na datę. W przeciwieństwie do funckji Dt::parseDate()
+obsługuje również określenia dat w forme słownej, np. 'today', 'yesterday'

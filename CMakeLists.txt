@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.11)
 project(HabitTracker)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -18,6 +18,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Src)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/date/include)
 
+# external libraries settings
 # https://github.com/HowardHinnant/date/issues/474
 add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # availiable after 3.12
 

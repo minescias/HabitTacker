@@ -98,7 +98,7 @@
     "editor.trimAutoWhitespace": true,
     "files.trimTrailingWhitespace": false,
     "files.eol": "\n",
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Monokai Dimmed",
     "workbench.iconTheme": "vscode-icons",
     
     // ccls
@@ -133,7 +133,5 @@
     "python.linting.pep8Enabled": true,
     "python.linting.enabled": true,
     "python.pythonPath": "/usr/bin/python3",
-    
-    "restructuredtext.confPath": "${workspaceFolder}/Documentation/source",
-    "restructuredtext.builtDocumentationPath": "${workspaceFolder}/Documentation/build/html",
+    "restructuredtext.builtDocumentationPath": "${workspaceFolder}/Docs/build/html",
 }

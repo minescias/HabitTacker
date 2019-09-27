@@ -99,6 +99,12 @@ innym
  *  Przykłady pobierania parametrów w dokumentacji
  *  Ustawiwanie domyślnych wartości mogłoby być constexpr :)
 
+**[C15]** Wprowadzenie nowego formatu daty i czasu (w tym momencie są używane
+ *  Na początek wystarczy jedynie obsługa dat (nie używam czasu, jeszcze)
+ *  Zapis/odczyt z bazy danych
+ *  Odczyt danych z linii poleceń
+ *  Pobieranie aktualnej daty
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
