@@ -44,6 +44,7 @@ add_subdirectory(Tests/LibTests)
 
 # executables
 add_subdirectory(Src/HtCli_exe)
+add_subdirectory(Src/HtGui)
 
 #other
 add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Docs)
