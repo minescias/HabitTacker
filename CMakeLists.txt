@@ -39,7 +39,7 @@ add_subdirectory(Tests/CppTests)
 add_subdirectory(Tests/LibTests)
 
 # executables
-add_subdirectory(Src/Main)
+add_subdirectory(Src/HT_cli)
 
 #other
 add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Docs)
