@@ -30,16 +30,18 @@ add_subdirectory(Libraries/SQLite)
 # libraries
 add_subdirectory(Src/Core)
 add_subdirectory(Src/HT)
+add_subdirectory(Src/HtCli)
 
 # tests
 add_subdirectory(Tests/Core)
 add_subdirectory(Tests/HT)
+add_subdirectory(Tests/HtCli)
 
 add_subdirectory(Tests/CppTests)
 add_subdirectory(Tests/LibTests)
 
 # executables
-add_subdirectory(Src/HT_cli)
+add_subdirectory(Src/HtCli_exe)
 
 #other
 add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Docs)
