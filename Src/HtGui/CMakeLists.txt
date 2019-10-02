@@ -8,6 +8,22 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+############################# QtCreator
+
+# przydatne, jeśli uruchamiam projekt z qt creatora. Wtedy wynik trafia od
+# razu do odpowiedniego folderu. Zrobiłbym to jakąś zmienną ale QT jest
+# chyba zbyt toporny w tej kwestii
+
+#if (QtCreator)
+#  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../../bin)
+#	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../../bin)
+#	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../../bin)
+#endif()
+
+include_directories(${CMAKE_SOURCE_DIR}/..)
+
+###########################
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -17,15 +33,22 @@ set(Qt5Quick_DIR /home/dawid/Qt/5.13.1/gcc_64/lib/cmake/Qt5Quick/)
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 # find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
+set(HTGui_src
+	main.cpp
+	RecentDatabasesModel.cpp)
+
+set(HTGui_res
+	qml.qrc)
+
 if(ANDROID)
-    add_library(HtGui SHARED main.cpp qml.qrc)
+	add_library(HtGui SHARED ${HTGui_src} ${HTGui_res})
 else()
-    add_executable(HtGui main.cpp qml.qrc)
+	add_executable(HtGui ${HTGui_src} ${HTGui_res})
 endif()
 
-target_compile_definitions(HtGui
+target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(HtGui
+target_link_libraries(${PROJECT_NAME}
   PRIVATE Qt5::Core Qt5::Quick)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
