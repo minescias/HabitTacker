@@ -32,13 +32,13 @@ public:
 	std::unique_ptr<Log::Logger> logger;
 };
 
-TEST_F(LogTests, doNotLogWhenNoLoggerIsSet)
+TEST_F(LogTests, do_not_log_when_no_logger_is_set)
 {
 	auto output = runTests("shfksjldf");
 	ASSERT_TRUE(output.empty());
 }
 
-TEST_F(LogTests, logSimpleStringAsCommon)
+TEST_F(LogTests, log_simple_string_as_common)
 {
 	auto expected = "Jakiś tam tekst do zalogowania\n";
 
@@ -47,7 +47,7 @@ TEST_F(LogTests, logSimpleStringAsCommon)
 	ASSERT_THAT(output, Eq(expected));
 }
 
-TEST_F(LogTests, doesNotLogTextWithDifferentLevel)
+TEST_F(LogTests, does_not_log_text_with_different_level_than_enabled)
 {
 	setLogger({Log::Levels::Common});
 
@@ -58,13 +58,39 @@ TEST_F(LogTests, doesNotLogTextWithDifferentLevel)
 	ASSERT_TRUE(output.empty());
 }
 
-TEST_F(LogTests, logTextWithCorrectLevel)
+TEST_F(LogTests, log_text_with_correct_level)
 {
 	auto expected = "Jakiś tam tekst do zalogowania\n";
 	setLogger({Log::Levels::Error});
 
 	internal::CaptureStdout();
 	log(Log::Levels::Error, "Jakiś tam tekst do zalogowania");
+	auto output = testing::internal::GetCapturedStdout();
+
+	ASSERT_THAT(output, Eq(expected));
+}
+
+TEST_F(LogTests, log_text_with_parametr)
+{
+	auto expected = "Błąd w linii 42\n";
+
+	setLogger({Log::Levels::Common});
+
+	internal::CaptureStdout();
+	log(Log::Levels::Common, "Błąd w linii {}", 42);
+	auto output = testing::internal::GetCapturedStdout();
+
+	ASSERT_THAT(output, Eq(expected));
+}
+
+TEST_F(LogTests, log_text_with_parametr_using_default_level)
+{
+	auto expected = "Błąd w linii 42\n";
+
+	setLogger({Log::Levels::Common});
+
+	internal::CaptureStdout();
+	log("Błąd w linii {}", 42);
 	auto output = testing::internal::GetCapturedStdout();
 
 	ASSERT_THAT(output, Eq(expected));

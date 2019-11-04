@@ -3,17 +3,28 @@
 
 #include <string>
 
+#include <fmt/format.h>
+
 #include "Core/Logger/Logger.h"
 
 namespace Log
 {
-
+extern Log::Logger* logger;
 void setLogger(Log::Logger* newLogger);
 
 } // namespace Log
 
-void log(const std::string& message);
+template<typename... TArgs>
+void log(Log::Levels level, std::string_view message, TArgs... args)
+{
+	if (Log::logger && Log::logger->isLogEnabled(level))
+		Log::logger->log(level, fmt::format(message, args...) + "\n");
+}
 
-void log(Log::Levels level, const std::string& message);
+template<typename... TArgs>
+void log(std::string_view message, TArgs... args)
+{
+	log(Log::Levels::Common, message, args...);
+}
 
 #endif // __LOG_H

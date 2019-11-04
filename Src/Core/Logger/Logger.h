@@ -13,9 +13,7 @@ class Logger
 public:
 	Logger(std::unique_ptr<Config> config);
 
-	void log(Levels level, const std::string& message);
-
-private:
+	void log(Levels level, std::string_view message);
 	bool isLogEnabled(Levels level);
 
 private:

@@ -53,4 +53,4 @@ add_library(${PROJECT_NAME}
     ${Strings_src}
     ${Misc_src})
 
-target_link_libraries(${PROJECT_NAME} SQLite)
+target_link_libraries(${PROJECT_NAME} fmt SQLite)

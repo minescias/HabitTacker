@@ -8,10 +8,9 @@ Logger::Logger(std::unique_ptr<Config> config) : config(std::move(config))
 {
 }
 
-void Logger::log(Levels level, const std::string& message)
+void Logger::log(Levels level, std::string_view message)
 {
-	if (isLogEnabled(level))
-		std::cout << message;
+	std::cout << message;
 }
 
 bool Logger::isLogEnabled(Levels level)
