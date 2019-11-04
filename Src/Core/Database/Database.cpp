@@ -36,7 +36,7 @@ void Database::connect(const std::string& name)
     if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
 
-    log("Connected to dabase '" + name + "'", Log::Levels::Sql);
+    log(Log::Levels::Sql, "Connected to dabase '" + name + "'");
 }
 
 void Database::disconnect()
@@ -48,7 +48,7 @@ void Database::disconnect()
     if (dbStatus != SQLITE_OK)
         throw LogicError(dbError + sqlite3_errstr(dbStatus));
 
-    log("Disconnected from dabase '" + databaseName + "'", Log::Levels::Sql);
+    log(Log::Levels::Sql, "Disconnected from dabase '" + databaseName + "'");
 }
 
 sqlite3* Database::getHandler()

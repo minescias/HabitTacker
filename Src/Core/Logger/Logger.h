@@ -8,19 +8,18 @@
 
 namespace Log
 {
-
 class Logger
 {
 public:
-    Logger(std::unique_ptr<Config> config);
+	Logger(std::unique_ptr<Config> config);
 
-    void log(const std::string& message, Levels level);
-
-private:
-    bool isLogEnabled(Levels level);
+	void log(Levels level, const std::string& message);
 
 private:
-    std::unique_ptr<Config> config;
+	bool isLogEnabled(Levels level);
+
+private:
+	std::unique_ptr<Config> config;
 };
 
 } // namespace Log

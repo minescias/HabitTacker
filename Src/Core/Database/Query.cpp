@@ -19,8 +19,8 @@ Query::Query(Database* database, const std::string& sql)
     checkForDbError(dbStatus);
     parameters = std::make_unique<Parameters>(database, statement);
     
-    log(Strings::format("Query %1% prepared with %2%",
-        std::addressof(*statement), sql), Log::Levels::Sql);
+    log(Log::Levels::Sql, Strings::format("Query %1% prepared with %2%",
+        std::addressof(*statement), sql));
 }
 
 Query::~Query()
@@ -28,8 +28,8 @@ Query::~Query()
     auto dbStatus = sqlite3_finalize(statement);
     checkForDbError(dbStatus);
 
-    log(Strings::format("Query %1% unprepared", std::addressof(*statement)),
-        Log::Levels::Sql);
+	log(Log::Levels::Sql,
+		Strings::format("Query %1% unprepared", std::addressof(*statement)));
 }
 
 void Query::executeCommand()
@@ -81,8 +81,8 @@ int Query::runQuery()
     parameters->ensureAllParamsAreSet();
     return sqlite3_step(statement);
 
-    log(Strings::format("Query %1% executed", 
-        std::addressof(*statement)), Log::Levels::Sql);
+    log(Log::Levels::Sql, Strings::format("Query %1% executed", 
+        std::addressof(*statement)));
 }
 
 void Query::checkForDbError(int dbStatus)

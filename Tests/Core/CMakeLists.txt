@@ -23,6 +23,7 @@ set(CoreTests_src
 	DateTime/DateLiteralTests.cpp
 	DateTime/FormatDateTests.cpp
 	DateTime/ParseDateTests.cpp
+	Logger/LogTests.cpp
 	Strings/CaseTests.cpp
 	Strings/CompareTests.cpp
 	Strings/FormatTests.cpp
@@ -38,4 +39,4 @@ endif()
 add_executable(${PROJECT_NAME} ${CoreTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} Core)
 
-add_test(${PROJECT_NAME} runTest)
+add_test(${PROJECT_NAME} ${PROJECT_NAME})

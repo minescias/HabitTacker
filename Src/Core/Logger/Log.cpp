@@ -18,10 +18,18 @@ void setLogger(Log::Logger* newLogger)
 
 } // namespace Log
 
-void log(const std::string& message, Log::Levels level)
+void log(const std::string& message)
 {
 	if (!logger)
 		return;
 
-	logger->log(message + "\n", level);
+	logger->log(Log::Levels::Common, message + "\n");
+}
+
+void log(Log::Levels level, const std::string& message)
+{
+	if (!logger)
+		return;
+
+	logger->log(level, message + "\n");
 }

@@ -3,7 +3,7 @@
 #include "Core/Logger/Log.h"
 
 RuntimeError::RuntimeError(const std::string& message)
-    : std::runtime_error(message)
+	: std::runtime_error(message)
 {
-    log("RuntimeError: " + message, Log::Levels::Error);
+	log(Log::Levels::Error, "RuntimeError: " + message);
 }

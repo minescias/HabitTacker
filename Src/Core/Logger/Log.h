@@ -12,6 +12,8 @@ void setLogger(Log::Logger* newLogger);
 
 } // namespace Log
 
-void log(const std::string& message, Log::Levels level = Log::Levels::Common);
+void log(const std::string& message);
+
+void log(Log::Levels level, const std::string& message);
 
 #endif // __LOG_H

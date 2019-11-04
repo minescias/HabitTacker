@@ -33,12 +33,12 @@ private:
 	template<typename T>
 	void logParamIsSet(std::string_view name, T value, sqlite3_stmt* statement)
 	{
-		log(Strings::format(
+		log(Log::Levels::Sql,
+			Strings::format(
 				"Query %1%: parameter %2% set to %3%",
 				std::addressof(*statement),
 				name,
-				value),
-			Log::Levels::Sql);
+				value));
 	}
 
 	void createUnsetParametersList();
