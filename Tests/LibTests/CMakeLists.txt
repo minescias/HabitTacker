@@ -13,7 +13,8 @@ add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # availiable after 3.12
 enable_testing()
 
 set(LibTests_src
-	DateTests.cpp)
+	DateTests.cpp
+	FmtTests.cpp)
 
 # system dependent libraries
 if (UNIX)
@@ -21,6 +22,6 @@ if (UNIX)
 endif()
 
 add_executable(${PROJECT_NAME} main.cpp ${LibTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} Core)
+target_link_libraries(${PROJECT_NAME} gtest gmock fmt ${SysDependencies} Core)
 
 add_test(${PROJECT_NAME} runTest)

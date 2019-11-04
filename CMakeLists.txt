@@ -17,6 +17,7 @@ link_directories(${CMAKE_SOURCE_DIR}/bin)
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Src)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/date/include)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/fmt-6.0.0/include)
 
 # external libraries settings
 # https://github.com/HowardHinnant/date/issues/474
@@ -24,6 +25,7 @@ add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # availiable after 3.12
 
 # external libraries
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory(Libraries/fmt-6.0.0)
 add_subdirectory(Libraries/googletest-1.8.1/googlemock)
 add_subdirectory(Libraries/SQLite)
 
