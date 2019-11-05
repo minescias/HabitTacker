@@ -23,6 +23,7 @@ set(CoreTests_src
 	DateTime/DateLiteralTests.cpp
 	DateTime/FormatDateTests.cpp
 	DateTime/ParseDateTests.cpp
+	Format/DateFormatterTests.cpp
 	Logger/LogTests.cpp
 	Strings/CaseTests.cpp
 	Strings/CompareTests.cpp
