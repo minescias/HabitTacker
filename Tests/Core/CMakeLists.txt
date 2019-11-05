@@ -27,7 +27,6 @@ set(CoreTests_src
 	Logger/LogTests.cpp
 	Strings/CaseTests.cpp
 	Strings/CompareTests.cpp
-	Strings/FormatTests.cpp
 	Strings/ReplaceTests.cpp
 	Types/DemangledTypeNameTests.cpp
 	main.cpp)

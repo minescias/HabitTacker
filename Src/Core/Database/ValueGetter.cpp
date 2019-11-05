@@ -2,14 +2,16 @@
 
 #include "string"
 
+#include <fmt/format.h>
+
 #include <Core/DateTime/Date.h>
 #include <Core/Exceptions/LogicError.h>
-#include <Core/Strings/Format.h>
 #include <Core/Types/DemangledTypeName.h>
 
 namespace
 {
-template<typename T> using CastFunction = T(const std::string&);
+template<typename T>
+using CastFunction = T(const std::string&);
 
 template<typename T>
 T tryToCast(std::string_view name, const std::string& value, CastFunction<T>* castFuncion)
@@ -20,8 +22,8 @@ T tryToCast(std::string_view name, const std::string& value, CastFunction<T>* ca
 	}
 	catch (std::logic_error& err)
 	{
-		throw LogicError(Strings::format(
-			"Db: Cannot cast value '%1%' of column '%2%' to type %3%",
+		throw LogicError(fmt::format(
+			"Db: Cannot cast value '{}' of column '{}' to type {}",
 			value,
 			name,
 			Core::getDemangledTypeName<T>()));
@@ -33,8 +35,8 @@ void assertValueIsNotEmpty(std::string_view name, std::string_view value)
 {
 	if (value.empty())
 	{
-		throw LogicError(Strings::format(
-			"Db: Cannot cast null value of column '%1%' to type %2%",
+		throw LogicError(fmt::format(
+			"Db: Cannot cast null value of column '{}' to type {}",
 			name,
 			Core::getDemangledTypeName<T>()));
 	}

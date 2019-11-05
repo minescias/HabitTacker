@@ -6,8 +6,8 @@
 
 #include <Core/Database/Database_fwd.h>
 #include <Core/Database/SQLite_fwd.h>
+#include <Core/Format/DateFormatter.h>
 #include <Core/Logger/Log.h>
-#include <Core/Strings/Format.h>
 
 namespace Db
 {
@@ -17,7 +17,8 @@ public:
 	Parameters(Db::Database* db, sqlite3_stmt* statement);
 	void ensureAllParamsAreSet();
 
-	template<typename T> void setParam(const std::string& name, T value)
+	template<typename T>
+	void setParam(const std::string& name, T value)
 	{
 		auto index = getParamIndex(name);
 		auto dbStatus = setSqliteParam(index, value);
@@ -28,17 +29,17 @@ public:
 	}
 
 private:
-	template<typename T> int setSqliteParam(int index, T value);
+	template<typename T>
+	int setSqliteParam(int index, T value);
 
 	template<typename T>
 	void logParamIsSet(std::string_view name, T value, sqlite3_stmt* statement)
 	{
 		log(Log::Levels::Sql,
-			Strings::format(
-				"Query %1%: parameter %2% set to %3%",
-				std::addressof(*statement),
-				name,
-				value));
+			"Query {}: parameter {} set to {}",
+			fmt::ptr(statement),
+			name,
+			value);
 	}
 
 	void createUnsetParametersList();

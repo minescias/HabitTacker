@@ -8,7 +8,6 @@
 #include <Core/DateTime/Date.h>
 #include <Core/Exceptions/LogicError.h>
 #include <Core/Logger/Log.h>
-#include <Core/Strings/Format.h>
 
 namespace Db
 {
