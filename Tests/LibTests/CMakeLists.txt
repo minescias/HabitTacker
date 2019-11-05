@@ -24,4 +24,6 @@ endif()
 add_executable(${PROJECT_NAME} main.cpp ${LibTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock fmt ${SysDependencies} Core)
 
-add_test(${PROJECT_NAME} runTest)
+add_test(NAME ${PROJECT_NAME}
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../bin
+	COMMAND ${PROJECT_NAME})

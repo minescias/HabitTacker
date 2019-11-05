@@ -27,4 +27,6 @@ endif()
 add_executable(${PROJECT_NAME} ${HtTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} HtCli)
 
-add_test(${PROJECT_NAME} runTest)
+add_test(NAME ${PROJECT_NAME}
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../bin
+	COMMAND ${PROJECT_NAME})
