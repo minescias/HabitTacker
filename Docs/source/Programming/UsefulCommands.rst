@@ -22,3 +22,9 @@ Valgrind
 ********************************************************************************
 ``valgrind --leak-check=yes --track-origins=yes <program>``
     Podstawowe wywołanie valgrinda. Na razie wystarcza :)
+
+CTest
+********************************************************************************
+``GTEST_COLOR=1 ctest --output-on-failure``
+    Uruchomienie wszystkich testów z wypisaniem tych, które nie przeszły.
+    GTEST_COLOR wymagane do tego, żeby poprawnie kolorować output gtesta

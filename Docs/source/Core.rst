@@ -11,5 +11,4 @@ Opis mechanizmów występujących w Core programu
    Core/Database
    Core/DateTime
    Core/Log
-   Core/Strings
    Core/Types

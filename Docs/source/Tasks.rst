@@ -12,7 +12,7 @@ Lista zadań
    tasks/Notes-archive
    tasks/Cpp
 
-Project
+Build system
 *******************************************************************************
 Wszystko co jest związane z zarządzaniem projektem, systemem budowania oraz
 różnymi zeznętrznymi narzędziami, które może warto sprawdzić
@@ -23,14 +23,12 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
 **[B10]** Sprawdzić co to jest profiler i jak można tego użyć
 
-**[B11]** Pobieranie gtest z githuba przez CMake. Podobno jest to możliwe
+**[B11]** Pobieranie bibliotek z githuba przez CMake. Podobno jest to możliwe
 
 **[B12]** Automatycznie tworznie folderu na dane testowe przy uruchomieniu
 testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
 uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
 nie można utworzyć bazy testowej.
-
-**[B14]** Wprowadzenie clang-formata - przygotowanie formatki pliku
 
 **[B15]** Plik compile_commands.json tworzy sie w katalogu, z którego jest
 budowany projekt. W moim przypadku jest to folder build. Ccls wymaga, żeby plik
@@ -38,6 +36,10 @@ ten był tworzony w katalogu głównym żeby np. poprawnie odczytywać ścieżki
 include. Sprawdzić na ile możliwe jest tworzenie tego pliku w katalogu głównym.
 Ostatecznie będzie potrzebny skrypt, który po kompilacji przeniesie ten plik
 w odpowiednie miejsce
+
+**[B17]** Użycie target_include_directory i target_link_directories
+
+**[B18]** Aktualizacja clanga i/lub clang formata do najnowszych wersji
 
 Core
 *******************************************************************************
@@ -59,6 +61,8 @@ type_traits.
     niezainicjowane/błędne (.ok() == false)
  *  Pobieranie dnia tygodnia z daty
  *  Odejmowanie dat
+
+**[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
 
 Docs
 *******************************************************************************
@@ -122,6 +126,8 @@ Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
 
 **[Lib3]** Biblioteka do obsługi formatu JSON lub XML do zapisu/odczytu pliku
     konfiguracyjnego
+
+**[Lib5]**
 
 Tools
 *******************************************************************************

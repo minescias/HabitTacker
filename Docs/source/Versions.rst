@@ -8,9 +8,9 @@ Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (w trakcie)
  *  Poprawienie pliku konfiguracyjnego
  *  Dostęp do programu z każdego miejsca w systemie
  *  Konfiguracja logowania (plik konfiguracyjny i parametry)
- *  Wprowadzenie clang formata
+ *  OK Wprowadzenie clang formata
  *  Poprawiony help message - w tym help do konkretnych akcji
- *  Wprowadzenie nowego formatu daty i czasu
+ *  OK Wprowadzenie nowego formatu daty i czasu
 
 Wersja 0.3 - Nadrobienie długu technologicznego
 *******************************************************************************

@@ -33,7 +33,9 @@ def generateCMake(argv):
 	if testProject:
 		cmakeFile.write("add_executable(${PROJECT_NAME} ${CppTests_src})\n")
 		cmakeFile.write("target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies})\n")
-		cmakeFile.write("add_test(${PROJECT_NAME} runTest)\n")
+		cmakeFile.write("add_test(NAME ${PROJECT_NAME}\n")
+		cmakeFile.write("	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../bin\n")
+		cmakeFile.write("	COMMAND ${PROJECT_NAME})\n")
 	else:
 		cmakeFile.write("add_library(${PROJECT_NAME} ${" + projectName + "_src})\n")
 

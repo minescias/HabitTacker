@@ -41,7 +41,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/CoreTests",
             "args": [
-                "--gtest_filter=DateLiteral*"
+                // "--gtest_filter=Compare"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",

@@ -27,6 +27,8 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 **[B13]** Usunięcie wszystkich warningów kompilacji po włączeniu dodatkowych
 opcji kompilatora (-Wall, -pedantic)
 
+**[B16]** Uruchomienie testów za pomocą CTest
+
 Core
 *******************************************************************************
 Co trzeba dodać/poprawić w Core programu
@@ -323,6 +325,8 @@ Lib
     https://github.com/HowardHinnant/date do zarządzania datami. Docelowo moje
     funkcje obsługujące czas są do wywalenia albo do zamiany na wrapper do ww
     biblioteki
+
+**[Lib4]** Biblioteka do formatowania stringa
 
 Tools
 *******************************************************************************
