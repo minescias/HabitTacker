@@ -12,6 +12,11 @@ class LogTests : public testing::Test
 public:
 	LogTests(){};
 
+	~LogTests()
+	{
+		Log::setLogger(nullptr);
+	};
+
 	void setLogger(std::set<Log::Levels> levels)
 	{
 		auto logConfig = std::make_unique<Log::Config>();
