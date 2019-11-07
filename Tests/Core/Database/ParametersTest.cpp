@@ -133,8 +133,8 @@ TEST_F(ParametersTest, save_null_value_to_database)
 {
 	auto query = Db::Query(db.get(), getInsertOptionalSql());
 	query.setParam(":id", 1);
-	query.setParam(":opt_value", Db::ParamType::Null);
-	query.setParam(":opt_text", Db::ParamType::Null);
+	query.setParam(":opt_value", nullptr);
+	query.setParam(":opt_text", nullptr);
 	query.executeCommand();
 
 	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());

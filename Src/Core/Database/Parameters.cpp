@@ -18,7 +18,7 @@ Parameters::Parameters(Db::Database* db, sqlite3_stmt* statement)
 }
 
 template<>
-int Parameters::setSqliteParam(int index, ParamType)
+int Parameters::setSqliteParam(int index, std::nullptr_t)
 {
 	return sqlite3_bind_null(statement, index);
 }
