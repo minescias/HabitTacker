@@ -17,30 +17,41 @@ Parameters::Parameters(Db::Database* db, sqlite3_stmt* statement)
 	createUnsetParametersList();
 }
 
-template<> int Parameters::setSqliteParam(int index, std::string value)
+template<>
+int Parameters::setSqliteParam(int index, ParamType)
+{
+	return sqlite3_bind_null(statement, index);
+}
+
+template<>
+int Parameters::setSqliteParam(int index, std::string value)
 {
 	return sqlite3_bind_text(
 		statement, index, value.c_str(), value.size(), SQLITE_TRANSIENT);
 }
 
-template<> int Parameters::setSqliteParam(int index, const char* value)
+template<>
+int Parameters::setSqliteParam(int index, const char* value)
 {
 	std::string tmpString = value;
 	return sqlite3_bind_text(
 		statement, index, tmpString.c_str(), tmpString.size(), SQLITE_TRANSIENT);
 }
 
-template<> int Parameters::setSqliteParam(int index, int value)
+template<>
+int Parameters::setSqliteParam(int index, int value)
 {
 	return sqlite3_bind_int(statement, index, value);
 }
 
-template<> int Parameters::setSqliteParam(int index, double value)
+template<>
+int Parameters::setSqliteParam(int index, double value)
 {
 	return sqlite3_bind_double(statement, index, value);
 }
 
-template<> int Parameters::setSqliteParam(int index, Dt::Date value)
+template<>
+int Parameters::setSqliteParam(int index, Dt::Date value)
 {
 	return sqlite3_bind_int(
 		statement, index, date::sys_days{value}.time_since_epoch().count());

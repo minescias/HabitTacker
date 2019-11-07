@@ -63,6 +63,13 @@ type_traits.
  *  Odejmowanie dat
 
 **[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
+ *  OK Możliwość zapisywania nullowej wartości do bazy
+ *  Zapis optionala do bazy (null jeśli niezainicjowany, w przeciwnym wypadku
+    wartość
+ *  Odczyt nulla z bazy - wyjątek jeśli następuje próba przepisania nullowej
+    wartości do nie-optionala
+ *  Odczyt nulla z bazy - nullopt jeśli zapis do optionala
+ *  odczyt wartości do optionala
 
 Docs
 *******************************************************************************
@@ -127,7 +134,11 @@ Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
 **[Lib3]** Biblioteka do obsługi formatu JSON lub XML do zapisu/odczytu pliku
     konfiguracyjnego
 
-**[Lib5]**
+**[Lib5]** Dodatkowe testy biblioteki Sqlite
+ *  Chodzi o sprawdzenie, jak zachowuje się bibliteka w nietypowych sytuacjach
+ *  Odczyt kolumny typu int do stringa,
+ *  Próba zapisanaia wartości wykraczającej poza zakres kolumny (przektoczenie
+    rozmiaru inta i długości tekstu)
 
 Tools
 *******************************************************************************

@@ -2,68 +2,67 @@
 
 namespace Cli
 {
-
 Parameters::Parameters()
 {
 }
 
 void Parameters::setCommandName(const std::string& name)
 {
-    commandName = name;
+	commandName = name;
 }
 
 std::string Parameters::getCommandName() const
 {
-    return commandName;
+	return commandName;
 }
 
 void Parameters::setFilter(const std::string& filter)
 {
-    this->filter = filter;
+	this->filter = filter;
 }
 
 std::string Parameters::getFilter() const
 {
-    return filter;
+	return filter;
 }
 
 void Parameters::setFlag(const std::string& flagName)
 {
-    arguments[flagName] = "";
+	arguments[flagName] = "";
 }
 
 bool Parameters::getFlag(const std::string& flagName) const
 {
-    return arguments.find(flagName) != arguments.end()
-        && arguments.at(flagName).empty();
+	return arguments.find(flagName) != arguments.end()
+		&& arguments.at(flagName).empty();
 }
 
 void Parameters::setDefaultParameter(const std::string& value)
 {
-    defaultParameter = value;
+	defaultParameter = value;
 }
 
 std::string Parameters::getDefaultParameter() const
 {
-    return defaultParameter;
+	return defaultParameter;
 }
 
 void Parameters::setParameter(const std::string& name, const std::string& value)
 {
-    arguments[name] = value;
+	arguments[name] = value;
 }
 
 std::string Parameters::getParameter(const std::string& name) const
 {
-    if (arguments.find(name) == arguments.end())
-        return "";
+	if (arguments.find(name) == arguments.end())
+		return "";
 
-    return arguments.at(name);
+	return arguments.at(name);
 }
 
 std::map<std::string, std::string> Parameters::getAllArguments() const
 {
-    return  arguments;
+	return arguments;
 }
 
 } // namespace Cli

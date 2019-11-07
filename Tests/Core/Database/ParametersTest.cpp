@@ -18,22 +18,39 @@ public:
 	ParametersTest()
 		: db(std::make_unique<Db::Database>("tests/ParametestTests.db"))
 	{
-		dropDateTable();
-		createTestsTable();
+		dropTestTables();
+		createDateTestsTable();
+		createOptionalTestsTable();
 	};
 
-	void dropDateTable()
+	void dropTestTables()
 	{
 		auto sql = "drop table if exists date_tests";
 		Db::Query(db.get(), sql).executeCommand();
+
+		sql = "drop table if exists optional_tests";
+		Db::Query(db.get(), sql).executeCommand();
 	}
 
-	void createTestsTable()
+	void createDateTestsTable()
 	{
 		auto sql =
 			"\n create table date_tests("
 			"\n 	id int primary key not null,"
-			"\n 	value date)";
+			"\n 	value date"
+			"\n )";
+
+		Db::Query(db.get(), sql).executeCommand();
+	}
+
+	void createOptionalTestsTable()
+	{
+		auto sql =
+			"\n create table optional_tests("
+			"\n 	id int primary key not null,"
+			"\n 	opt_value int,"
+			"\n 	opt_text int"
+			"\n )";
 
 		Db::Query(db.get(), sql).executeCommand();
 	}
@@ -52,10 +69,32 @@ public:
 			   "\n )";
 	}
 
+	auto getInsertOptionalSql() const
+	{
+		return "\n insert into optional_tests"
+			   "\n ("
+			   "\n 	id,"
+			   "\n 	opt_value,"
+			   "\n 	opt_text"
+			   "\n )"
+			   "\n values"
+			   "\n ("
+			   "\n 	:id,"
+			   "\n 	:opt_value,"
+			   "\n 	:opt_text"
+			   "\n )";
+	}
+
 	auto getSelectDateSql() const
 	{
 		return "select value from date_tests dt where dt.id = :id";
 	}
+
+	auto getSelectOptionalSql() const
+	{
+		return "select opt_value, opt_text from optional_tests ot where ot.id = :id";
+	}
+
 
 	std::unique_ptr<Db::Database> db;
 };
@@ -88,6 +127,24 @@ TEST_F(ParametersTest, select_date)
 	auto row = result.getFirstRow();
 
 	ASSERT_THAT(row->get<Dt::Date>("value"), Eq(2019_y / September / 21));
+}
+
+TEST_F(ParametersTest, save_null_value_to_database)
+{
+	auto query = Db::Query(db.get(), getInsertOptionalSql());
+	query.setParam(":id", 1);
+	query.setParam(":opt_value", Db::ParamType::Null);
+	query.setParam(":opt_text", Db::ParamType::Null);
+	query.executeCommand();
+
+	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());
+	selectQuery.setParam(":id", 1);
+
+	auto result = selectQuery.execute();
+	auto row = result.getFirstRow();
+
+	EXPECT_THAT(row->get<std::string>("opt_value"), Eq(""));
+	EXPECT_THAT(row->get<std::string>("opt_text"), Eq(""));
 }
 
 } // namespace Tests

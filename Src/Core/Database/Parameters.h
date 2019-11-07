@@ -11,6 +11,12 @@
 
 namespace Db
 {
+
+enum class ParamType
+{
+	Null
+};
+
 class Parameters
 {
 public:
