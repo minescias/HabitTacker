@@ -29,6 +29,7 @@ set(CoreTests_src
 	Strings/CompareTests.cpp
 	Strings/ReplaceTests.cpp
 	Types/DemangledTypeNameTests.cpp
+	Types/IsOptionalTests.cpp
 	main.cpp)
 
 # system dependent libraries
