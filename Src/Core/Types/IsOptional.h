@@ -16,10 +16,10 @@ struct isOptional<std::optional<T>> : std::true_type
 {
 };
 
-template<>
-struct isOptional<std::nullopt_t> : std::true_type
-{
-};
+// template<>
+// struct isOptional<std::nullopt_t> : std::true_type
+// {
+// };
 
 template<class T>
 inline constexpr bool isOptional_v = isOptional<T>::value;

@@ -17,9 +17,15 @@ TEST(IsOptionalTests, returns_true_when_variable_is_optional)
 	EXPECT_TRUE(::Types::isOptional_v<decltype(opt)>);
 }
 
+TEST(IsOptionalTests, returns_true_when_variable_is_unitialized_optional)
+{
+	auto opt = std::make_optional<double>();
+	EXPECT_TRUE(::Types::isOptional_v<decltype(opt)>);
+}
+
 TEST(IsOptionalTests, returns_true_when_variable_is_nullopt)
 {
-	EXPECT_TRUE(::Types::isOptional_v<std::nullopt_t>);
+	EXPECT_FALSE(::Types::isOptional_v<std::nullopt_t>);
 }
 
 } // namespace Tests
