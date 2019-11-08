@@ -48,8 +48,7 @@ public:
 		auto sql =
 			"\n create table optional_tests("
 			"\n 	id int primary key not null,"
-			"\n 	opt_value int,"
-			"\n 	opt_text int"
+			"\n 	opt_value int"
 			"\n )";
 
 		Db::Query(db.get(), sql).executeCommand();
@@ -74,14 +73,12 @@ public:
 		return "\n insert into optional_tests"
 			   "\n ("
 			   "\n 	id,"
-			   "\n 	opt_value,"
-			   "\n 	opt_text"
+			   "\n 	opt_value"
 			   "\n )"
 			   "\n values"
 			   "\n ("
 			   "\n 	:id,"
-			   "\n 	:opt_value,"
-			   "\n 	:opt_text"
+			   "\n 	:opt_value"
 			   "\n )";
 	}
 
@@ -92,7 +89,7 @@ public:
 
 	auto getSelectOptionalSql() const
 	{
-		return "select opt_value, opt_text from optional_tests ot where ot.id = :id";
+		return "select opt_value from optional_tests ot where ot.id = :id";
 	}
 
 
@@ -134,7 +131,6 @@ TEST_F(ParametersTest, save_null_value_to_database)
 	auto query = Db::Query(db.get(), getInsertOptionalSql());
 	query.setParam(":id", 1);
 	query.setParam(":opt_value", nullptr);
-	query.setParam(":opt_text", nullptr);
 	query.executeCommand();
 
 	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());
@@ -144,7 +140,54 @@ TEST_F(ParametersTest, save_null_value_to_database)
 	auto row = result.getFirstRow();
 
 	EXPECT_THAT(row->get<std::string>("opt_value"), Eq(""));
-	EXPECT_THAT(row->get<std::string>("opt_text"), Eq(""));
+}
+
+TEST_F(ParametersTest, save_nullopt_to_database)
+{
+	auto query = Db::Query(db.get(), getInsertOptionalSql());
+	query.setParam(":id", 1);
+	query.setParam(":opt_value", std::nullopt);
+	query.executeCommand();
+
+	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());
+	selectQuery.setParam(":id", 1);
+
+	auto result = selectQuery.execute();
+	auto row = result.getFirstRow();
+
+	EXPECT_THAT(row->get<std::string>("opt_value"), Eq(""));
+}
+
+TEST_F(ParametersTest, save_uninitialized_otpional_to_database)
+{
+	auto query = Db::Query(db.get(), getInsertOptionalSql());
+	query.setParam(":id", 1);
+	query.setParam(":opt_value", std::optional<int>());
+	query.executeCommand();
+
+	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());
+	selectQuery.setParam(":id", 1);
+
+	auto result = selectQuery.execute();
+	auto row = result.getFirstRow();
+
+	EXPECT_THAT(row->get<std::string>("opt_value"), Eq(""));
+}
+
+TEST_F(ParametersTest, save_initialized_otpional_to_database)
+{
+	auto query = Db::Query(db.get(), getInsertOptionalSql());
+	query.setParam(":id", 1);
+	query.setParam(":opt_value", std::optional<int>(42));
+	query.executeCommand();
+
+	auto selectQuery = Db::Query(db.get(), getSelectOptionalSql());
+	selectQuery.setParam(":id", 1);
+
+	auto result = selectQuery.execute();
+	auto row = result.getFirstRow();
+
+	EXPECT_THAT(row->get<std::string>("opt_value"), Eq("42"));
 }
 
 } // namespace Tests

@@ -64,12 +64,12 @@ type_traits.
 
 **[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
  *  OK Możliwość zapisywania nullowej wartości do bazy
- *  Zapis optionala do bazy (null jeśli niezainicjowany, w przeciwnym wypadku
-    wartość
+ *  OK Zapis optionala do bazy (null jeśli niezainicjowany, w przeciwnym
+    wypadku wartość
  *  Odczyt nulla z bazy - wyjątek jeśli następuje próba przepisania nullowej
     wartości do nie-optionala
  *  Odczyt nulla z bazy - nullopt jeśli zapis do optionala
- *  odczyt wartości do optionala
+ *  Odczyt wartości do optionala
 
 Docs
 *******************************************************************************
