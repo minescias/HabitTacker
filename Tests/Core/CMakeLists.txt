@@ -24,6 +24,7 @@ set(CoreTests_src
 	DateTime/FormatDateTests.cpp
 	DateTime/ParseDateTests.cpp
 	Format/DateFormatterTests.cpp
+	Format/OptionalFormatterTests.cpp
 	Logger/LogTests.cpp
 	Strings/CaseTests.cpp
 	Strings/CompareTests.cpp
