@@ -25,6 +25,7 @@ set(Database_src
 	Database/Parameters.cpp
 	Database/Query.cpp
 	Database/Row.cpp
+	Database/SetSqliteParam.cpp
 	Database/ValueGetter.cpp)
 
 set(Dao_src
