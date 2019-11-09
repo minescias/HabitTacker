@@ -46,8 +46,8 @@ nie zwróciło. Przykład:
 
 .. code-block:: cpp
 
-   Db::Query query(database.get(), getInsertDefinitionaSql());
-   query.execute();
+   Db::Query query(database.get(), getInsertDefinitionSql());
+   query.executeCommand();
 
 Pobieranie wyniku zapytania - 1 wiersz
 -------------------------------------------------------------------------------

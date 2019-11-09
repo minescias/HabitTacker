@@ -12,30 +12,30 @@
 
 namespace Db
 {
-
 class Query
 {
 public:
-    Query(Database* database, const std::string& sql);
-    ~Query();
+	Query(Database* database, const std::string& sql);
+	~Query();
 
-    void executeCommand();
-    Dataset execute();
+	// if you don't want to use the dataset, use executeCommand() instead
+	[[nodiscard]] Dataset execute();
+	void executeCommand();
 
-    template<typename T>
-    void setParam(const std::string& name, T value)
-    {
-        parameters->setParam(name, value);
-    }
-
-private:
-    int runQuery();
-    void checkForDbError(int dbStatus);
+	template<typename T>
+	void setParam(const std::string& name, T value)
+	{
+		parameters->setParam(name, value);
+	}
 
 private:
-    std::unique_ptr<Parameters> parameters;
-    sqlite3_stmt* statement;
-    Database* database;
+	int runQuery();
+	void checkForDbError(int dbStatus);
+
+private:
+	std::unique_ptr<Parameters> parameters;
+	sqlite3_stmt* statement;
+	Database* database;
 };
 
 } // namespace Db
