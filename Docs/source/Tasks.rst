@@ -53,16 +53,13 @@ Co trzeba dodać/poprawić w Core programu
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
-**[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
-type_traits.
-
 **[C16]** Poprawki po wprowadzeniu nowego formatu daty
  *  Funkcja do porównywania dat uwzględniająca to, że daty mogą być
     niezainicjowane/błędne (.ok() == false)
  *  Pobieranie dnia tygodnia z daty
  *  Odejmowanie dat
 
-**[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
+**[C17]**
 
 Docs
 *******************************************************************************
@@ -127,7 +124,11 @@ Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
 **[Lib3]** Biblioteka do obsługi formatu JSON lub XML do zapisu/odczytu pliku
     konfiguracyjnego
 
-**[Lib5]**
+**[Lib5]** Dodatkowe testy biblioteki Sqlite
+ *  Chodzi o sprawdzenie, jak zachowuje się bibliteka w nietypowych sytuacjach
+ *  Odczyt kolumny typu int do stringa,
+ *  Próba zapisanaia wartości wykraczającej poza zakres kolumny (przektoczenie
+    rozmiaru inta i długości tekstu)
 
 Tools
 *******************************************************************************

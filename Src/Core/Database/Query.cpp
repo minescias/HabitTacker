@@ -16,7 +16,7 @@ Query::Query(Database* database, const std::string& sql) : database(database)
 	checkForDbError(dbStatus);
 	parameters = std::make_unique<Parameters>(database, statement);
 
-	log(Log::Levels::Sql, "Query {} prepared with {}", fmt::ptr(statement), sql);
+	log(Log::Levels::Sql, "Query {} prepared with \"{}\"", fmt::ptr(statement), sql);
 }
 
 Query::~Query()
@@ -74,9 +74,10 @@ Dataset Query::execute()
 int Query::runQuery()
 {
 	parameters->ensureAllParamsAreSet();
-	return sqlite3_step(statement);
 
-	log(Log::Levels::Sql, "Query %1% executed", fmt::ptr(statement));
+	log(Log::Levels::Sql, "Query {} executed", fmt::ptr(statement));
+
+	return sqlite3_step(statement);
 }
 
 void Query::checkForDbError(int dbStatus)

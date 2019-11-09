@@ -30,6 +30,17 @@ TEST(ValueGetterTest, gets_value_as_date)
 	EXPECT_THAT(Db::getVal<Dt::Date>("", "18160"), Eq(2019_y / September / 21_d));
 }
 
+TEST(ValueGetterTest, gets_null_value_as_nullopt)
+{
+	EXPECT_THAT(Db::getVal<std::optional<int>>("", ""), Eq(std::nullopt));
+}
+
+TEST(ValueGetterTest, gets_null_value_as_optional)
+{
+	using std::optional;
+	EXPECT_THAT(Db::getVal<optional<int>>("", "23"), Eq(optional<int>(23)));
+}
+
 // null value error handling
 TEST(ValueGetterTest, throws_logic_error_when_casting_null_to_int)
 {

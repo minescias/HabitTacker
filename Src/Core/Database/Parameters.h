@@ -3,10 +3,13 @@
 
 #include <set>
 #include <string>
+#include <type_traits>
 
 #include <Core/Database/Database_fwd.h>
 #include <Core/Database/SQLite_fwd.h>
+#include <Core/Database/SetSqliteParam.h>
 #include <Core/Format/DateFormatter.h>
+#include <Core/Format/OptionalFormatter.h>
 #include <Core/Logger/Log.h>
 
 namespace Db
@@ -21,7 +24,7 @@ public:
 	void setParam(const std::string& name, T value)
 	{
 		auto index = getParamIndex(name);
-		auto dbStatus = setSqliteParam(index, value);
+		auto dbStatus = setSqliteParam(statement, index, value);
 
 		checkForDbError(dbStatus);
 		removeFromUnsetParamsList(name);
@@ -29,9 +32,6 @@ public:
 	}
 
 private:
-	template<typename T>
-	int setSqliteParam(int index, T value);
-
 	template<typename T>
 	void logParamIsSet(std::string_view name, T value, sqlite3_stmt* statement)
 	{

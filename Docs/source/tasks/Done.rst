@@ -107,6 +107,16 @@ innym
  *  Odczyt danych z linii poleceń
  *  Pobieranie aktualnej daty
 
+**[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
+ *  OK Możliwość zapisywania nullowej wartości do bazy
+ *  OK Zapis optionala do bazy (null jeśli niezainicjowany, w przeciwnym
+    wypadku wartość
+ *  OK Odczyt nulla z bazy - wyjątek jeśli następuje próba przepisania nullowej
+    wartości do nie-optionala
+ *  OK Odczyt nulla z bazy - nullopt jeśli zapis do optionala
+ *  OK Odczyt wartości do optionala
+
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania

@@ -44,7 +44,7 @@ void assertValueIsNotEmpty(std::string_view name, std::string_view value)
 
 } // namespace
 
-namespace Db
+namespace Db::Detail
 {
 template<>
 std::string getVal<std::string>(std::string_view columnName, const std::string& value)
@@ -81,4 +81,4 @@ Dt::Date getVal<Dt::Date>(std::string_view columnName, const std::string& value)
 	return tryToCast<Dt::Date>(columnName, value, castFunc);
 }
 
-} // namespace Db
+} // namespace Db::Detail

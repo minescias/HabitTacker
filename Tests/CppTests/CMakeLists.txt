@@ -14,6 +14,7 @@ set(CppTests_src
 	RegexTests.cpp
 	SmartPtrTests.cpp
 	StringTests.cpp
+	TypeTraitsTests.cpp
 	VariableParametersTest.cpp
 	main.cpp)
 
