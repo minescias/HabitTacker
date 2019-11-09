@@ -25,6 +25,10 @@ Core
     template, które są w dataset -> stary dataset został usunięty więc to
     zadanie jest już nieaktualne
 
+**[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
+type_traits - chciałem zrobić jakiś super zaawansowany system do rzutowania
+wyników, ale wystarczy to co jest teraz. Używam tt tylko dla optionali
+
 HT
 *******************************************************************************
 Zadania dotyczące modułu HT

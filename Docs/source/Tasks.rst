@@ -53,23 +53,13 @@ Co trzeba dodać/poprawić w Core programu
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
-**[C14]** Castowanie wyników zapytania na odpowiednie typy za pomocą
-type_traits.
-
 **[C16]** Poprawki po wprowadzeniu nowego formatu daty
  *  Funkcja do porównywania dat uwzględniająca to, że daty mogą być
     niezainicjowane/błędne (.ok() == false)
  *  Pobieranie dnia tygodnia z daty
  *  Odejmowanie dat
 
-**[C17]** Obsługa std::optional w zapytaniach sql (powiązane trochę z C14)
- *  OK Możliwość zapisywania nullowej wartości do bazy
- *  OK Zapis optionala do bazy (null jeśli niezainicjowany, w przeciwnym
-    wypadku wartość
- *  Odczyt nulla z bazy - wyjątek jeśli następuje próba przepisania nullowej
-    wartości do nie-optionala
- *  Odczyt nulla z bazy - nullopt jeśli zapis do optionala
- *  Odczyt wartości do optionala
+**[C17]**
 
 Docs
 *******************************************************************************
