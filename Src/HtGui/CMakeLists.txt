@@ -27,11 +27,11 @@ include_directories(${CMAKE_SOURCE_DIR}/..)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(Qt5Quick_DIR /home/dawid/Qt/5.13.1/gcc_64/lib/cmake/Qt5Quick/)
-# link_directories(/home/dawid/Qt/5.13.1/gcc_64/lib)
+# https://blog.kitware.com/cmake-finding-qt5-the-right-way/
+set(Qt5Core_DIR /home/dawid/Qt/5.13.1/gcc_64/lib/cmake/Qt5Core)
+set(Qt5Quick_DIR /home/dawid/Qt/5.13.1/gcc_64/lib/cmake/Qt5Quick)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
-# find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 set(HTGui_src
 	main.cpp
