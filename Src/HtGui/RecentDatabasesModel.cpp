@@ -7,7 +7,7 @@ RecentDatabasesModel::RecentDatabasesModel(QObject* parent)
 {
 	// i'll add some real files once i know how to store
 	// data like recent files in ubuntu
-	m_data = {"/home/example.db", "/home/example_old.db"};
+	m_data = {"/home/example.db", "/home/example_old.db", "asdfdf"};
 }
 
 RecentDatabasesModel::~RecentDatabasesModel()

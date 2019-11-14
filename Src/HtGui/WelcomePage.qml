@@ -22,16 +22,15 @@ Page{
         x: 20
         id: recentDbText
         text: qsTr("Open recent")
-        // anchors.horizontalCenter: parent.horizontalCenter
     }
 
     ListView {
         id: recentDatabases
         anchors.top: recentDbText.bottom
-
         width: parent.width
         model: RecentDatabasesModel {}
-        height: count * 25 + 10
+        spacing: 1
+        height: count * 26 + 10
 
         delegate: RecentDatabasesDelegate{
             dbPath: model.display

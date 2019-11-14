@@ -1,17 +1,31 @@
 import QtQuick 2.0
+import QtQuick.Dialogs 1.2
 
 Item{
     property string dbPath
+    property bool hoover
     id: wrapper
     width: parent.width
     height: 25
 
     MouseArea {
         anchors.fill: parent
+        hoverEnabled: true
         onClicked:
         {
-            console.error("log completed")
             wrapper.ListView.view.currentIndex = index
+        }
+        onEntered:
+        {
+            wrapper.hoover = true
+        }
+        onExited:
+        {
+            wrapper.hoover = false;
+        }
+        onDoubleClicked:
+        {
+            notImplementedDialog.open()
         }
     }
 
@@ -30,9 +44,24 @@ Item{
         }
     }
 
-    states: State {
-        name: "Current"
-        when: wrapper.ListView.isCurrentItem
-         PropertyChanges { target: delegateItem; color: "gray" }
+    states: [
+        State {
+            name: "Hoover"
+            when: wrapper.hoover
+            PropertyChanges { target: delegateItem; color: "lightslategrey" }
+        },
+        State {
+            name: "Selected"
+            when: wrapper.ListView.isCurrentItem
+            PropertyChanges { target: delegateItem; color: "gray" }
+        }
+    ]
+
+    // Dialogs
+    MessageDialog { 
+        id: notImplementedDialog
+        title: "Warning"
+        text: "Not implemented yet."
+        icon: StandardIcon.Warning
     }
 }
