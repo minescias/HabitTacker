@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item{
     property string dbPath
     id: wrapper
-    width: 400;
+    width: parent.width
     height: 25
 
     MouseArea {

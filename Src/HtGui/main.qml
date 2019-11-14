@@ -4,8 +4,8 @@ import QtQuick.Controls 2.12
 
 Window {
     visible: true
-    width: 641
-    height: 480
+    width: 600
+    height: 400
     title: qsTr("Hello World")
 
     StackView {
@@ -14,5 +14,4 @@ Window {
 
         initialItem: WelcomePage{}
     }
-
 }
