@@ -4,4 +4,7 @@
         <file>WelcomePage.qml</file>
         <file>RecentDatabasesDelegate.qml</file>
     </qresource>
+    <qresource prefix="/Components">
+        <file alias="HtButton.qml">Qml/Components/HtButton.qml</file>
+    </qresource>
 </RCC>

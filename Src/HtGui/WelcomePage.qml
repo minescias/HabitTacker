@@ -2,8 +2,10 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.13
+import QtQuick.Controls.Styles 1.4
 
 import Ht.RecentDatabasesModel 1.0
+import "./Components"
 
 Page{
     horizontalPadding: 10
@@ -11,7 +13,7 @@ Page{
     padding: 20
 
     header: Text {
-        text: qsTr("Welcome to HT")
+        text: qsTr("Welcome to HT :)")
         font.pointSize: 20
         height: 20
         x: 10
@@ -31,6 +33,7 @@ Page{
         model: RecentDatabasesModel {}
         spacing: 1
         height: count * 26 + 10
+        interactive: false
 
         delegate: RecentDatabasesDelegate{
             dbPath: model.display
@@ -43,27 +46,32 @@ Page{
         anchors.top: recentDatabases.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 6
-        
-        Button {
+
+        HtButton{
             id: createButton
             text: "Create"
-            Layout.preferredHeight: 25
+            Layout.preferredHeight: height
+            Layout.preferredWidth: width
             onClicked: {
                 notImplementedDialog.open()
             }
         }
-        Button {
+
+        HtButton{
             id: browseButton
             text: "Browse"
-            Layout.preferredHeight: 25
+            Layout.preferredHeight: height
+            Layout.preferredWidth: width
             onClicked: {
                 notImplementedDialog.open()
             }
         }
-        Button {
+
+        HtButton{
             id: openButton
             text: "Open"
-            Layout.preferredHeight: 25
+            Layout.preferredHeight: height
+            Layout.preferredWidth: width
             onClicked: {
                 notImplementedDialog.open()
             }
@@ -88,5 +96,11 @@ Page{
             selectDbField.text = this.fileUrl
         }
     }
+
+    // might be useful for debugging
+    // Timer {
+    //     interval: 500; running: true; repeat: true
+    //     onTriggered: console.log(browseButton.hovered)
+    // }
 }
 
