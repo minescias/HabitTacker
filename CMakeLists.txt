@@ -16,8 +16,10 @@ link_directories(${CMAKE_SOURCE_DIR}/bin)
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Src)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/date/include)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/date-2.4.1/include)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/fmt-6.0.0/include)
+
+enable_testing()
 
 # external libraries settings
 # https://github.com/HowardHinnant/date/issues/474
