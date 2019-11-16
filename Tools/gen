@@ -4,16 +4,20 @@ import sys
 
 from detail.genCpp import generateClass
 from detail.genCpp import generateFile
+from detail.genCpp import generateHeader
 from detail.genCpp import generateTest
 from detail.genCmake import generateCMake
+from detail.questionsAfterGenerateFile import aksToAddFileToCmake
+from detail.questionsAfterGenerateFile import askToAddTests
 
 if len(sys.argv) < 2:
     sys.exit("Missing arguments")
 
 if sys.argv[1] == "help":
-    print("Generator od project files. Availiable options:"
+    print("Generator of project files. Availiable options:"
           "\n - help - prints this message"
           "\n - file <name> - generates c++ files (.h and .cpp)"
+          "\n - header <name> - generates c++ header file (.h only)"
           "\n - class <name> - generates c++ (.h and .cpp)"
           "\n - test <name> - generates c++ test (.cpp only)"
           "\n - cmake - generates emty cmake file"
@@ -22,20 +26,25 @@ if sys.argv[1] == "help":
 if len(sys.argv) < 3:
     sys.exit("Missing arguments")
 
-if sys.argv[1] == "class":
-    generateClass(sys.argv[2])
-    sys.exit()
+fileType = sys.argv[1]
+fileName = sys.argv[2]
 
-if sys.argv[1] == "file":
-    generateFile(sys.argv[2])
+if fileType == "class":
+    generateClass(fileName)
+elif fileType == "file":
+    generateFile(fileName)
+elif fileType == "header":
+    generateHeader(fileName)
+elif fileType == "test":
+    generateTest(fileName)
+elif fileType == "cmake":
+    generateCMake(fileName)
     sys.exit()
+else:
+    sys.exit("Unknown file type")
 
-if sys.argv[1] == "test":
-    generateTest(sys.argv[2])
-    sys.exit()
+if (fileType != "header"):
+    aksToAddFileToCmake(fileName)
 
-if sys.argv[1] == "cmake":
-    generateCMake(sys.argv)
-    sys.exit()
-
-sys.exit("Unknown command")
+if (fileType != "test"):
+    askToAddTests(fileName)

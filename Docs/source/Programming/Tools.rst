@@ -18,6 +18,7 @@ gen
 Skrypt, który pozwala na dodawanie plików c++ do projektu. Dostępne są 3 opcje:
  *  file <name> - zwykły plik .h i .cpp
  *  class <name> - plik .h i .cpp z pustą klasą
+ *  HEADER <name> - zwykły plik .h
  *  test <name> - plik z testami .cpp zawierający pusty fixture zawierający
     wymagane includy, usingi i namespace.
  *  cmake <name> test - tworzy plik projektowy. Opcjonalny parametr <test>
@@ -26,7 +27,10 @@ Skrypt, który pozwala na dodawanie plików c++ do projektu. Dostępne są 3 opc
 Podczas tworzenia pliku .cpp automatycznie jest dodawany include do pliku
 nagłówkowego od katalogu Src\
 
-W przypadku, gdy plik już istnieje nie zostanie nadpidany
+W przypadku, gdy plik już istnieje nie zostanie nadpisany.
+
+Po dodaniu pliku skrypt zapyta czy dodać plik do CMakeLists oraz czy utworzyć
+testy do tego pliku.
 
 addToCmake
 ********************************************************************************

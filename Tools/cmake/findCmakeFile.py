@@ -13,7 +13,7 @@ def findCmakeFile(fullPath):
             return tmpPath
         tmpPath = goUpOneLevel(tmpPath)
 
-    sys.exit("No CMakeLists found")
+    return None
 
 
 def goUpOneLevel(path):

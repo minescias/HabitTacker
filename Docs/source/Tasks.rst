@@ -142,33 +142,14 @@ które sam napisałem lub napiszę w przyszłości
 
 **[T05]** Konwerter sql/cppsql
 
-**[T06]** W trakcie testów wyświetla się wszystko z cout na konsoli. Sprawdzić
-    czy można to jakoś wyłączyć na czas testów. Przekierowanie couta?
-
-**[T07]** Polecenie hmk do zarządzania budowaniem projektu. Opcje
- *  <default> - budowanie całego projektu
- *  clean - usunięcie wszystkich plików powstałych podczas budowania projektu
- *  prepare - uruchomienie "cmake .." w folderze builds
- *  docs - budowanie dokumentacji
- *  <module name> - budowanie tylko tego modułu
-
-**[T08]** Polecenie tests do uruchamiania testów
- *  <default> uruchamianie wszystkich testów
- *  <module name> uruchamianie testów z jednego modułu
-
 **[T09]** Narzędź, który zmieni camesCase na podkreślniki
 
 **[T10]** Zarządzanie plikami CMake
  *  OK Dodawanie plików do CMake
- *  Pytanie o dodanie pliku do CMake po utworzeniu za pomocą gen
- *  Walidacja, czy dany plik jest już dodany
+ *  OK Pytanie o dodanie pliku do CMake po utworzeniu za pomocą gen
+ *  OK Walidacja, czy dany plik jest już dodany
  *  Walidacja rozszerzenia, podpowiadanie tylko plików .cpp po wciśnięciu Tab
  *  Tworzenie nowych grup
  *  Usuwanie plików z kompilacji
 
-**[T11]** Uruchamianie testów skrótem klawiszowym z poziomu visual studio code
- *  Kompilacja modułu z testami przed uruchomieniem + ew. zależności
- *  Uruchamianie wszystkich testów z modułu
- *  Wszystkie testy z pliku
- *  Jeden konkretny test
- *  Możliwość debugowania
+**[T12]**

@@ -42,3 +42,27 @@ Zadania dotyczące modułu HT
 **[HT17]** Rejestrowanie mocków dao za pomocą unique_ptr zamiast raw pointerów.
     Opis błędu oraz próby jego rozwiązania są w plikach DaoFacoryTest.cpp
     i DaoMockCreator.h
+
+Tools
+********************************************************************************
+**[T06]** W trakcie testów wyświetla się wszystko z cout na konsoli. Sprawdzić
+    czy można to jakoś wyłączyć na czas testów. Przekierowanie couta?
+
+**[T07]** Polecenie hmk do zarządzania budowaniem projektu. Opcje
+ *  <default> - budowanie całego projektu
+ *  clean - usunięcie wszystkich plików powstałych podczas budowania projektu
+ *  prepare - uruchomienie "cmake .." w folderze builds
+ *  docs - budowanie dokumentacji
+ *  <module name> - budowanie tylko tego modułu
+
+**[T08]** Polecenie tests do uruchamiania testów - załatwione przez CTest
+ *  <default> uruchamianie wszystkich testów
+ *  <module name> uruchamianie testów z jednego modułu
+
+**[T11]** Uruchamianie testów skrótem klawiszowym z poziomu visual studio code
+ *  !! Monżna to zrobić z poziomu VS Code za pomocą pliku tasks.json !!
+ *  Kompilacja modułu z testami przed uruchomieniem + ew. zależności
+ *  Uruchamianie wszystkich testów z modułu
+ *  Wszystkie testy z pliku
+ *  Jeden konkretny test
+ *  Możliwość debugowania

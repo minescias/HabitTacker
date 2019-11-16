@@ -11,6 +11,7 @@ def printHelpMessage():
     print("Blah, blah, blah")
     sys.exit()
 
+
 if len(sys.argv) == 1:
     print("Mising file name")
     printHelpMessage()
@@ -29,6 +30,9 @@ if os.path.exists(fileName) is False:
 
 cwd = os.getcwd()
 pathToCmake = findCmakeFile(cwd)
+if pathToCmake is None:
+    sys.exit("No CMakeList.txt file found")
+
 print("CMake file found in:" + pathToCmake)
 
 addFileToCmake(pathToCmake, fileName)
