@@ -21,10 +21,7 @@ Query::Query(Database* database, const std::string& sql) : database(database)
 
 Query::~Query()
 {
-	auto dbStatus = sqlite3_finalize(statement);
-	checkForDbError(dbStatus);
-
-	log(Log::Levels::Sql, "Query {} unprepared", fmt::ptr(statement));
+	finalizeStatement();
 }
 
 void Query::executeCommand()
@@ -85,7 +82,22 @@ void Query::checkForDbError(int dbStatus)
 	using namespace std::string_literals;
 
 	if (dbStatus != SQLITE_OK)
+	{
+		finalizeStatement();
 		throw LogicError("Db: "s + sqlite3_errmsg(database->getHandler()));
+	}
+}
+
+void Query::finalizeStatement()
+{
+	if (statement)
+	{
+		auto dbStatus = sqlite3_finalize(statement);
+		statement = nullptr;
+		checkForDbError(dbStatus);
+
+		log(Log::Levels::Sql, "Query {} unprepared", fmt::ptr(statement));
+	}
 }
 
 } // namespace Db

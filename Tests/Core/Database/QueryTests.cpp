@@ -17,7 +17,9 @@ using namespace testing;
 class QueryTests : public testing::Test
 {
 public:
-	QueryTests() : db(std::make_unique<Db::Database>("Tests.db"))
+	QueryTests()
+		: databaseName("test_databases/Core_QueryTests.db"),
+		  db(std::make_unique<Db::Database>(databaseName))
 	{
 		dropMainTable();
 		createMainTable();
@@ -84,15 +86,6 @@ public:
 	}
 
 	void validateRow(
-		Db::Row* row, int id, int first, const std::string& second, double third)
-	{
-		ASSERT_THAT(row->get<int>("id"), Eq(id));
-		ASSERT_THAT(row->get<int>("first"), Eq(first));
-		ASSERT_THAT(row->get<std::string>("second"), Eq(second));
-		ASSERT_THAT(row->get<double>("third"), Eq(third));
-	}
-
-	void validateRow2(
 		const Db::Row* r, int id, int first, const std::string& second, double third)
 	{
 		EXPECT_THAT(r->get<int>("id"), Eq(id));
@@ -119,6 +112,7 @@ public:
 			   "\n )";
 	}
 
+	std::string databaseName;
 	std::unique_ptr<Db::Database> db;
 };
 
@@ -214,7 +208,7 @@ TEST_F(QueryTests, thros_logic_error_when_query_in_command_rerurns_value)
 	}
 }
 
-TEST_F(QueryTests, throws_error_on_incorrect_command)
+TEST_F(QueryTests, throws_error_on_incorrect_command_during_preparation)
 {
 	try
 	{
@@ -232,6 +226,20 @@ TEST_F(QueryTests, throws_error_on_incorrect_command)
 	}
 }
 
+TEST_F(QueryTests, throws_error_during_execution)
+{
+	try
+	{
+		// row with id = 1 already exists in database
+		insertRow(1, 1, "aaaa", 1.5);
+	}
+	catch (const LogicError& err)
+	{
+		auto expected = "Db: UNIQUE constraint failed: main.id";
+		ASSERT_STREQ(err.what(), expected);
+	}
+}
+
 // execute
 TEST_F(QueryTests, select_using_parameters)
 {
@@ -241,7 +249,7 @@ TEST_F(QueryTests, select_using_parameters)
 	auto dataset = query.execute();
 
 	ASSERT_FALSE(dataset.empty());
-	validateRow2(dataset.getFirstRow(), 2, 1000, "Tysiąc", 1.2);
+	validateRow(dataset.getFirstRow(), 2, 1000, "Tysiąc", 1.2);
 }
 
 TEST_F(QueryTests, select_that_returns_empty_dataset)
@@ -266,10 +274,10 @@ TEST_F(QueryTests, select_multiple_rows)
 	for (const auto& r : dataset)
 	{
 		if (index == 0)
-			validateRow2(&r, 1, 100, "Sto", 1.1);
+			validateRow(&r, 1, 100, "Sto", 1.1);
 
 		else if (index == 1)
-			validateRow2(&r, 2, 1000, "Tysiąc", 1.2);
+			validateRow(&r, 2, 1000, "Tysiąc", 1.2);
 
 		index++;
 	}
