@@ -9,9 +9,10 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(HtTests_src
-    main.cpp
-    Dao/HabitDefinitionDaoTests.cpp
-    Dao/HabitDaoTests.cpp)
+	Dao/HabitDaoTests.cpp
+	Dao/HabitDefinitionDaoTests.cpp
+	Dao/RequirementDaoTests.cpp
+	main.cpp)
 
 # system dependent libraries
 if (UNIX)

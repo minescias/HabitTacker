@@ -6,9 +6,18 @@ Requirement::Requirement()
 {
 }
 
-void Requirement::setHabitId(int id)
+void Requirement::setId(int id)
 {
-	habitId = id;
+	this->id = id;
+}
+int Requirement::getId() const
+{
+	return id;
+}
+
+void Requirement::setHabitId(int habitId)
+{
+	this->habitId = habitId;
 }
 
 int Requirement::getHabitId() const
@@ -26,7 +35,7 @@ Dt::Date Requirement::getBeginDate() const
 	return beginDate;
 }
 
-void Requirement::setEndDate(Dt::Date beginDate)
+void Requirement::setEndDate(Dt::Date endDate)
 {
 	this->endDate = endDate;
 }

@@ -10,7 +10,10 @@ class Requirement
 public:
 	Requirement();
 
-	void setHabitId(int id);
+	void setId(int id);
+	int getId() const;
+
+	void setHabitId(int habitId);
 	int getHabitId() const;
 
 	void setBeginDate(Dt::Date beginDate);
@@ -23,6 +26,7 @@ public:
 	int getTarget() const;
 
 private:
+	int id;
 	int habitId;
 	Dt::Date beginDate;
 	Dt::Date endDate;
