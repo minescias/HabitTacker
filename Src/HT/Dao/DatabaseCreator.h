@@ -19,6 +19,7 @@ public:
 private:
 	void createHabitDefinitionTable(Db::Database* db) const;
 	void createHabitTable(Db::Database* db) const;
+	void createRequirementTable(Db::Database* db) const;
 
 private:
 	std::string filename;
