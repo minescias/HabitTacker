@@ -53,11 +53,19 @@ std::unique_ptr<Db::Database> DatabaseCreator::createEmptyDatabase() const
 {
 	auto database = std::make_unique<Db::Database>(filename);
 
+	enableForeignKey(database.get());
+
 	createHabitDefinitionTable(database.get());
 	createHabitTable(database.get());
 	createRequirementTable(database.get());
 
 	return database;
+}
+
+void DatabaseCreator::enableForeignKey(Db::Database* db) const
+{
+	Db::Query query(db, "PRAGMA foreign_keys = ON");
+	query.executeCommand();
 }
 
 void DatabaseCreator::createHabitDefinitionTable(Db::Database* db) const
