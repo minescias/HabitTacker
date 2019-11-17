@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.0.2)
 project(HT)
 
 set(HT_src
-    Dao/DatabaseCreator.cpp
-    Dao/HabitDao.cpp
-    Dao/HabitDefinitionDao.cpp
-    Entity/HabitDefinitionEntity.cpp
-    Entity/HabitEntity.cpp)
+	Dao/DatabaseCreator.cpp
+	Dao/HabitDao.cpp
+	Dao/HabitDefinitionDao.cpp
+	Entity/HabitDefinitionEntity.cpp
+	Entity/HabitEntity.cpp
+	Entity/Requirement.cpp)
 
 # system dependent libraries
 if (UNIX)
