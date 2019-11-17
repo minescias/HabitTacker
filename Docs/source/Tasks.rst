@@ -49,7 +49,7 @@ Co trzeba dodać/poprawić w Core programu
  *  wybrać format pliku (xml,json, yaml lub coś innego)
  *  klasa do odczytu zawartości pliku konfiguracyjnego
  *  zapis pliku konfiguracyjnego w katalogu domowym użytkownika - tak, żeby był
-    dostępny z każdej lokalizacji
+    dostępny z każdej lokalizacji (~/config/ht)
  *  ustawienie dot. bazy danych
  *  ustawienie dot. konfiguracji logowania
 
@@ -59,7 +59,7 @@ Co trzeba dodać/poprawić w Core programu
  *  Pobieranie dnia tygodnia z daty
  *  Odejmowanie dat
 
-**[C17]**
+**[C17]** Dodać obsługę string_view w mechaniźmie zapytań do bazy danych
 
 Docs
 *******************************************************************************
@@ -92,24 +92,40 @@ Zadania dotyczące modułu HT
  *  Każda akcja powinna obsługiwać polecenie --help (funkcja w klasie bazowej)
 
 **[HT31]** Możliwość dodawania nawyków liczbowych
- *  Nowa kolumna w tabeli habit_definition określająca cel na dany dzień
- *  Rozszerzenie dao i encji o nową kolumnę
- *  Możliwość dodawania celu w trakcie dodawania nawyku
+ *  Nowa tabela *Requirements*, w której będą znajdowały się wszystkie
+    wymagania dotyczące nawyku. Wymagania mogą się zmieniać w czasie, dlatego
+    nie można ich zapisać w tabeli habitDefinition
+ *  Encja i dao do nowej kolumny
+ *  Możliwość dodawania celu w trakcie dodawania nawyku - domyślnie 1, ale
+    można nadpisać dowolną wartością
 
 **[HT32]** Wypełnianie nawyków liczbowych
  *  Nowa kolumna w tabeli habit do wpisywania celu za dany dzień
  *  Rozszerzenie dao i encji o nową kolumnę
- *  Nowy parametr do akcji done
- *  Określanie wykonania na podstawie porównania z definicją i wyświetlanie
-    w tabeli
+ *  Nowy parametr do akcji done określający stopień wypełnienia nawyku
+ *  Domyślnie jeśli nie podano ilości jest wpisywana wartość celu
 
-**[HT33]** Poprawione wyświetlanie nawyków z listy
+**[HT33]** Wyświetlanie wypełnienia nawyków w tabeli
  *  Wyświetlanie celu w tabeli wyników (nowa kolumna)
  *  Wyświetlanie przybliżonego procentu wykonania (za pomocą znaków unicode)
 
 **[HT34]** Z jakiegoś powodu działa wyświetlanie nagłówka w tabelce (choć nie
-powinno) W trakcie zamiany Timestamp na Date wpisałem tam jakąś wartość na
-sztywno
+    powinno) W trakcie zamiany Timestamp na Date wpisałem tam jakąś wartość na
+    sztywno
+
+**[HT35]** Gui: Odczyt listy ostatnich baz danych z pliku konfiguracyjnego
+    Niemożliwe do zrealizowania do czasu zakończenia prac nad nowym plikiem
+    konfiguracyjnym
+
+**[HT36]** Gui: Otwieranie istniejącej bazy danych z listy ostatnio otwieranych
+    baz. Do obsłużenia opcje dwukliku na liście i przycisk "Open". Ostatnio
+    otwarta baza danych powinna zostać przeniesiona na początek listy
+
+**[HT37]** Gui: Otwieranie istniejącej bazy za pomocą przyciku "Browse" +
+    dopisanie do ostatnio otwartych baz danych
+
+**[HT38]** Gui: Tworzenie nowej bazy za pomocą przycisku "Create". Nowo postała
+    baza danych jest dopisywna do listy ostatnio otwarych baz
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
@@ -127,7 +143,7 @@ Wszystko co dotyczy zewnętrznych bibliotek używanych w moim projekcie
 **[Lib5]** Dodatkowe testy biblioteki Sqlite
  *  Chodzi o sprawdzenie, jak zachowuje się bibliteka w nietypowych sytuacjach
  *  Odczyt kolumny typu int do stringa,
- *  Próba zapisanaia wartości wykraczającej poza zakres kolumny (przektoczenie
+ *  Próba zapisanaia wartości wykraczającej poza zakres kolumny (przekroczenie
     rozmiaru inta i długości tekstu)
 
 Tools

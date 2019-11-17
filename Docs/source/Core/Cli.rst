@@ -41,7 +41,7 @@ Przykład:
      *  -par, -par2 - parametry (one, two - wartości tych parametów)
 
 Współpraca między klasami Cli
-================================================================================
+********************************************************************************
 #.  Parametry przekazane przez użytkownika są przekazyne do klasy
     ``CommandLineParser``, gdzie jest sprawdzana poprawność składni.
 #.  Wynik parsowania jest zapisywany do klasy Parameters. Klasa ta jest

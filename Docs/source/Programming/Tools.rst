@@ -18,7 +18,7 @@ gen
 Skrypt, który pozwala na dodawanie plików c++ do projektu. Dostępne są 3 opcje:
  *  file <name> - zwykły plik .h i .cpp
  *  class <name> - plik .h i .cpp z pustą klasą
- *  HEADER <name> - zwykły plik .h
+ *  header <name> - zwykły plik .h
  *  test <name> - plik z testami .cpp zawierający pusty fixture zawierający
     wymagane includy, usingi i namespace.
  *  cmake <name> test - tworzy plik projektowy. Opcjonalny parametr <test>
@@ -42,7 +42,7 @@ możliwości utworzenia nowej grupy, będzie to dodane później.
 
 cart - compile and run tests
 ********************************************************************************
-Składnia cart <nazwa projektu z testami> <filtr>
+Składnia: ``cart <nazwa projektu z testami> <filtr>``
 
 Kompiluje moduł z testami oraz wszystkie jego zależności, a następnie uruchamia
 testy. Możliwe jest przekazanie filtra, którego składnia jest identyczna jak

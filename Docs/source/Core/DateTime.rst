@@ -9,21 +9,22 @@ Howarda Hinnanta.
 *   Github: https://github.com/HowardHinnant/date
 *   Wykład: https://www.youtube.com/watch?v=tzyGjOm8AKo
 
-Reprezentacja danych w kodzie C++:
- *  date::yeam_month_day - służy do przechowywania daty m. in w encjach. Jest
+**Reprezentacja danych w kodzie C++:**
+ *  date::year_month_day - służy do przechowywania daty m. in w encjach. Jest
     postawowym typem używanym do przekazywania dat między funkcjami. Dla wygody
     wprowadzono alias Dt::Date.
  *  date::sys_days - reprezentacja daty w formacie inta liczącego liczbę dni od
     01.01.1970. Używane przy zapisie/odczycie danych z bazy.
 
-Preprezentacja daty w bazie danych:
+**Preprezentacja daty w bazie danych:**
     Daty w sqlite będą przechowywane jako liczba dni od 1.01.1970. Przykładowo
     liczba 18144 odpowiada dacie 2019-09-05. Typ zmiennej przechowującej datę
-    to będzie 'DATE' (czyli numeric)
+    to 'DATE' (czyli numeric)
 
-Reprezentacja daty w formacie tekstu
+**Reprezentacja daty w formacie tekstu**
     W tym momencie obsługiwany jest tylko jeden format dat, i jest to
-    DD.MM.YYYY. Format ten jest używany przy odczycie i zapisnie danych
+    DD.MM.YYYY. Format ten jest używany przy konwersji daty na tekst i
+    odwrotnie
 
 Biblioteka `date` nie rozwiązuje wszystkich problemów jakie można napotkać w
 pracy z datami. Wg wykładu z linku powyżej część funkcji musi być
@@ -33,7 +34,7 @@ uzupełniających w.w. bibliotekę
 Dt::getCurrentDate()
 *******************************************************************************
 Zwraca aktualną datę (lokalną z komputera na którym jest uruchomiony program)
-a formacie Dt::Date zaokrągloną do jednego dnia.
+a formacie Dt::Date.
 
 Dt::parseDate()
 ********************************************************************************

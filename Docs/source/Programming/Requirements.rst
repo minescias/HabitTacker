@@ -11,6 +11,8 @@ Wymagane
 
 Opcjonalnle
  *  **clang-format**
+ *  **sphinx** - budowanie dokumentacji
+ *  **python** - uruchomienie wewnętrznych narzędzi
 
 
 Biblioteki

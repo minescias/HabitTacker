@@ -3,14 +3,15 @@ Wersje programu - pseudo changelog
 
 Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (w trakcie)
 *******************************************************************************
- *  Nawyki liczbowe - możliwość określenia celu liczbowego dla dni (ile razy na
-    dzień coś ma być zrobione
- *  Poprawienie pliku konfiguracyjnego
- *  Dostęp do programu z każdego miejsca w systemie
- *  Konfiguracja logowania (plik konfiguracyjny i parametry)
- *  OK Wprowadzenie clang formata
- *  Poprawiony help message - w tym help do konkretnych akcji
- *  OK Wprowadzenie nowego formatu daty i czasu
+
+Zmiany w logice biznesowej
+
+Zmiany w działaniu programu
+ *  Formatowanie plików źródłowych za pomocą clang-format
+ *  Obsługa daty i czasu za pomocą biblioteki Date
+
+Poprawki błędów
+
 
 Wersja 0.3 - Nadrobienie długu technologicznego
 *******************************************************************************
