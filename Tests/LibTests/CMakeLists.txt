@@ -14,7 +14,8 @@ enable_testing()
 
 set(LibTests_src
 	DateTests.cpp
-	FmtTests.cpp)
+	FmtTests.cpp
+	SqliteUniqieTests.cpp)
 
 # system dependent libraries
 if (UNIX)
