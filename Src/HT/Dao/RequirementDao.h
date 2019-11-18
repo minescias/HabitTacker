@@ -14,6 +14,7 @@ public:
 
 	virtual void save(const Entity::Requirement& requirement) const;
 	virtual std::unique_ptr<Entity::Requirement> read(int id) const;
+	virtual int getCurrentTarget(int habitId) const;
 
 private:
 	Db::Database* db;

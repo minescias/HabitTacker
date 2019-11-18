@@ -35,7 +35,8 @@ auto getCreateRequirementTable()
 			habit_id integer not null,
 			begin_date date not null,
 			end_date date,
-			daily_target integer not null
+			daily_target integer not null,
+			foreign key(habit_id) references habit_definition(id)
 		)
 		)sql";
 }

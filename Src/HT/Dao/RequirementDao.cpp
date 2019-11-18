@@ -52,6 +52,10 @@ std::unique_ptr<Entity::Requirement> RequirementDao::read(int id) const
 	Db::Query query(db, sql);
 	query.setParam(":id", id);
 	auto dataset = query.execute();
+
+	if (dataset.empty())
+		return nullptr;
+
 	auto row = dataset.getFirstRow();
 	auto result = std::make_unique<Entity::Requirement>();
 
@@ -61,6 +65,25 @@ std::unique_ptr<Entity::Requirement> RequirementDao::read(int id) const
 	result->setEndDate(row->get<Dt::Date>("end_date"));
 	result->setTarget(row->get<int>("daily_target"));
 	return result;
+}
+
+int RequirementDao::getCurrentTarget(int habitId) const
+{
+	auto sql = R"sql(
+		select
+			daily_target
+		from
+			requirement r
+		where
+			r.habit_id = :habit_id
+		)sql";
+
+	Db::Query query(db, sql);
+	query.setParam(":habit_id", habitId);
+	auto dataset = query.execute();
+
+	auto row = dataset.getFirstRow();
+	return row->get<int>("daily_target");
 }
 
 } // namespace Dao

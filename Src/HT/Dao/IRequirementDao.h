@@ -12,6 +12,7 @@ class IRequirementDao : UnknownDao
 public:
 	virtual void save(const Entity::Requirement& requirement) const = 0;
 	virtual std::unique_ptr<Entity::Requirement> read(int id) const = 0;
+	virtual int getCurrentTarget(int habitId) const = 0;
 
 	virtual ~IRequirementDao()
 	{
