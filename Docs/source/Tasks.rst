@@ -9,7 +9,6 @@ Lista zadań
    tasks/Cancelled
    tasks/Planned
    tasks/Notes
-   tasks/Notes-archive
    tasks/Cpp
 
 Build system
@@ -61,6 +60,18 @@ Co trzeba dodać/poprawić w Core programu
 
 **[C17]** Dodać obsługę string_view w mechaniźmie zapytań do bazy danych
 
+**[C18]** Rozszerzyć interfejs bazy danych o zwracanie ID ostatnio dodanego
+    wiersza https://www.sqlite.org/c3ref/last_insert_rowid.html
+
+**[C19]** Rozszerzyć interfejs baz danych o zapytania zwracające jeden wiersza
+ *  dodać metodę selectSingleRow() do klasy Query, któa będzie wykonywała
+    zapytanie i zwracała pierwszy wiersz
+ *  W przypadku, gdy zapytanie zwróci więcej niż jeden wiersz powinien polecieć
+    odpowiedni wyjątek
+ *  Klasa Row nie może istnieć bez klasy dataset, należy dodać nową klasę
+    (dziedziczącą z Row lub mającą ten sam interfejs) która będzie niezależna
+    od datasetu (kopiuje wszystkie istotne informacje do wewnątrz siebie).
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -91,14 +102,6 @@ Zadania dotyczące modułu HT
  *  Poprawić czytelność i błędy w ogólnym help message
  *  Każda akcja powinna obsługiwać polecenie --help (funkcja w klasie bazowej)
 
-**[HT31]** Możliwość dodawania nawyków liczbowych
- *  Nowa tabela *Requirements*, w której będą znajdowały się wszystkie
-    wymagania dotyczące nawyku. Wymagania mogą się zmieniać w czasie, dlatego
-    nie można ich zapisać w tabeli habitDefinition
- *  Encja i dao do nowej kolumny
- *  Możliwość dodawania celu w trakcie dodawania nawyku - domyślnie 1, ale
-    można nadpisać dowolną wartością
-
 **[HT32]** Wypełnianie nawyków liczbowych
  *  Nowa kolumna w tabeli habit do wpisywania celu za dany dzień
  *  Rozszerzenie dao i encji o nową kolumnę
@@ -126,6 +129,14 @@ Zadania dotyczące modułu HT
 
 **[HT38]** Gui: Tworzenie nowej bazy za pomocą przycisku "Create". Nowo postała
     baza danych jest dopisywna do listy ostatnio otwarych baz
+
+**[HT39]** Inserty do bazy danych muszą zwracać id dodanej encji. Bez tego
+    testy działają na założeniu, że dodana encja będzie miała zawsze ten sam id
+
+**[HT40]** Edycja nawyku: możliwość zmniany celu
+ *  funkcja/klasa do zarządzania celami - w module HT.
+    Powinna obsługiwać wyłączenie aktualnego celu i dodanie nowego
+ *  Dodanie nowej opcji w poleceniu edit
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
@@ -168,4 +179,5 @@ które sam napisałem lub napiszę w przyszłości
  *  Tworzenie nowych grup
  *  Usuwanie plików z kompilacji
 
-**[T12]**
+**[T12]** Automatyczne dodanie testu do podczas tworzenia nowego pliku wklei
+    całą ścieżkę do pliku w nazwie klasy :D

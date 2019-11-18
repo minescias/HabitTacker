@@ -17,6 +17,9 @@ Command Line Interface
 **htr add <name>**
     Adds new habit to the database
 
+    Availiable options:
+     *  -target=<target> - set daily target for this habit
+
 **htr <habit_id> edit <options>**
     Edits habit with given ID
 
@@ -25,11 +28,11 @@ Command Line Interface
 
 **htr <habit_id> done <options>**
     Sets habit selected by filter as done for today. The only possible value in
-    filter is habit id (at least for now :))
+    filter is habit id
 
     Availiable options:
-     *  -reset - deletes habit if set
-     *  -date=<date> - sets habit for given date
+     *  -reset - delete habit if set
+     *  -date=<date> - set habit for given date
 
 **htr list**
     Print all habits in terminal

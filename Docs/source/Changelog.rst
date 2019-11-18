@@ -5,13 +5,19 @@ Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (w trakcie)
 *******************************************************************************
 
 Zmiany w logice biznesowej
+ *  Dodano możliwość ustawienia celu podczas dodawania nawyku
 
 Zmiany w działaniu programu
- *  Formatowanie plików źródłowych za pomocą clang-format
- *  Obsługa daty i czasu za pomocą biblioteki Date
+ *  Lib.fmt - Formatowanie tekstu za popocą biblioteki fmt
+ *  Lib.date - Obsługa daty i czasu za pomocą biblioteki Date
+ *  Core.Query - Obsługa błędów rzuconych w trakcie wykonywania zapytania
+ *  Core.Log - Wywoływanie flush po każdym logowaniu
+ *  Ht.Db - Włączenie foreign key po utworzeniu bazy danych
 
 Poprawki błędów
 
+Inne
+ *  Formatowanie plików źródłowych za pomocą clang-format
 
 Wersja 0.3 - Nadrobienie długu technologicznego
 *******************************************************************************

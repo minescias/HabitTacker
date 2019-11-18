@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/Src/**",
-                "${workspaceFolder}/Libraries/date-2.4.1/include/**",
+                "${workspaceFolder}/Libraries/date-2.4.1/include/",
                 "${workspaceFolder}/Libraries/googletest-1.8.1/googlemock/include",
                 "${workspaceFolder}/Libraries/googletest-1.8.1/googletest/include",
                 "${workspaceFolder}/Libraries/fmt-6.0.0/include"

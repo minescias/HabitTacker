@@ -320,6 +320,14 @@ Zadania dotyczące modułu HT
  *  OK Enum do okreslenia poziomnu wymagalności
  *  OK Refaktor, przeniesienie całości do odpowiednich folderów
 
+**[HT31]** Możliwość dodawania nawyków liczbowych
+ *  OK Nowa tabela *Requirements*, w której będą znajdowały się wszystkie
+    wymagania dotyczące nawyku. Wymagania mogą się zmieniać w czasie, dlatego
+    nie można ich zapisać w tabeli habitDefinition
+ *  OK Encja i dao do nowej kolumny
+ *  OK Możliwość dodawania celu w trakcie dodawania nawyku - domyślnie 1, ale
+    można nadpisać dowolną wartością
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych

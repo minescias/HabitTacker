@@ -10,3 +10,9 @@ Select, który nie zwraca danych
 
 Brak polecenia Merge
     W przeciwieństwie do takiego np. Oracle, SQLite nie obsługuje merge
+
+Foreign key
+    Żeby foreign key działał poprawinie trzeba go najpierw włączyć w bazie
+    danych. Trzeba to zrobić za pomocą polecenia "PRAGMA foreign_keys = ON".
+    Żeby było śmieszniej jak testowałem działanie w SQLiteStudio to tam
+    foreign key jest domyślnie włączony

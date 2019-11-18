@@ -26,8 +26,11 @@
         {
             "label": "run test",
             "type": "shell",
-            "command": "cart CoreTests Value",
-            // "command": "cart LibTests Fmt",
+            // "command": "cart CoreTests Query",
+            // "command": "cart HtTests Requirement",
+            // "command": "cart LibTests Sqli",
+            // "command": "./HtGui",
+            "command": "cart HtCliTests AddAction",
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
