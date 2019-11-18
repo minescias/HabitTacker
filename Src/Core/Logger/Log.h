@@ -18,7 +18,7 @@ template<typename... TArgs>
 void log(Log::Levels level, std::string_view message, TArgs... args)
 {
 	if (Log::logger && Log::logger->isLogEnabled(level))
-		Log::logger->log(level, fmt::format(message, args...) + "\n");
+		Log::logger->log(level, fmt::format(message, args...));
 }
 
 template<typename... TArgs>

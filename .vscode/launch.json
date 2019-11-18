@@ -19,7 +19,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/HtTests",
             "args": [
-                "--gtest_filter=EditAction*"
+                "--gtest_filter=Requirement*"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
@@ -41,7 +41,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/CoreTests",
             "args": [
-                // "--gtest_filter=Compare"
+                "--gtest_filter=QueryTests.throws_error_during_execution"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
@@ -59,14 +59,12 @@
         }
 
         {
-            "name": "htr tests",
+            "name": "Lib tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/htr",
+            "program": "${workspaceFolder}/bin/LibTests",
             "args": [
-                "3",
-                "edit",
-                "name=Trzeci"
+                "--gtest_filter=Sqlite*"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",

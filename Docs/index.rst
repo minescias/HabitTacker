@@ -11,7 +11,7 @@ HTR Docs's
    :caption: Spis treści:
 
    source/CommandLineInterface
-   source/Versions
+   source/Changelog
    source/Tables
    source/SQLite
    source/ConfigFile

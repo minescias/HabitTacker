@@ -31,6 +31,7 @@ public:
 private:
 	int runQuery();
 	void checkForDbError(int dbStatus);
+	void finalizeStatement();
 
 private:
 	std::unique_ptr<Parameters> parameters;

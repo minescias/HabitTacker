@@ -9,9 +9,10 @@ include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/in
 enable_testing()
 
 set(HtTests_src
-    main.cpp
-    Dao/HabitDefinitionDaoTests.cpp
-    Dao/HabitDaoTests.cpp)
+	Dao/HabitDaoTests.cpp
+	Dao/HabitDefinitionDaoTests.cpp
+	Dao/RequirementDaoTests.cpp
+	main.cpp)
 
 # system dependent libraries
 if (UNIX)
@@ -22,5 +23,5 @@ add_executable(${PROJECT_NAME} ${HtTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} HT)
 
 add_test(NAME ${PROJECT_NAME}
-	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../bin
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
 	COMMAND ${PROJECT_NAME})

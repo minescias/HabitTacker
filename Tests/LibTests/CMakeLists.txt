@@ -14,7 +14,8 @@ enable_testing()
 
 set(LibTests_src
 	DateTests.cpp
-	FmtTests.cpp)
+	FmtTests.cpp
+	SqliteUniqieTests.cpp)
 
 # system dependent libraries
 if (UNIX)
@@ -25,5 +26,5 @@ add_executable(${PROJECT_NAME} main.cpp ${LibTests_src})
 target_link_libraries(${PROJECT_NAME} gtest gmock fmt ${SysDependencies} Core)
 
 add_test(NAME ${PROJECT_NAME}
-	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../bin
+	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
 	COMMAND ${PROJECT_NAME})

@@ -17,8 +17,11 @@ public:
 	std::unique_ptr<Db::Database> createEmptyDatabase() const;
 
 private:
+	void enableForeignKey(Db::Database* db) const;
+
 	void createHabitDefinitionTable(Db::Database* db) const;
 	void createHabitTable(Db::Database* db) const;
+	void createRequirementTable(Db::Database* db) const;
 
 private:
 	std::string filename;
