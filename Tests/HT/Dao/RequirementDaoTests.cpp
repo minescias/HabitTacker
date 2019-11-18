@@ -68,7 +68,7 @@ TEST_F(RequirementDaoTests, save_and_read_tests)
 	req.setHabitId(1);
 	req.setTarget(10);
 	req.setBeginDate(2019_y / November / 20);
-	req.setEndDate(2019_y / December / 30);
+	req.setEndDate(std::nullopt);
 
 	dao->save(req);
 
@@ -109,16 +109,25 @@ TEST_F(RequirementDaoTests, gets_current_tasrget)
 	createHabitDefinition();
 
 	Entity::Requirement req;
-	req.setId(1); // ponownie opieram się na założeniu, że baza jest pusta
 	req.setHabitId(1);
+	
 	req.setTarget(10);
-	req.setBeginDate(2018_y / November / 20);
-	req.setEndDate(Dt::addDays(Dt::getCurrentDate(), 10));
+	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), -20));
+	req.setEndDate(Dt::addDays(Dt::getCurrentDate(), -11));
+	dao->save(req);
 
+	req.setTarget(20);
+	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), -10));
+	req.setEndDate(Dt::addDays(Dt::getCurrentDate(), 10));
+	dao->save(req);
+
+	req.setTarget(30);
+	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), 11));
+	req.setEndDate(std::nullopt);
 	dao->save(req);
 
 	auto currentTarget = dao->getCurrentTarget(1);
-	auto expectedTarget = 10;
+	auto expectedTarget = 30;
 
 	ASSERT_THAT(currentTarget, Eq(expectedTarget));
 }

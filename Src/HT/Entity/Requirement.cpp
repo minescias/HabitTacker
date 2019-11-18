@@ -35,12 +35,12 @@ Dt::Date Requirement::getBeginDate() const
 	return beginDate;
 }
 
-void Requirement::setEndDate(Dt::Date endDate)
+void Requirement::setEndDate(std::optional<Dt::Date> endDate)
 {
 	this->endDate = endDate;
 }
 
-Dt::Date Requirement::getEndDate() const
+std::optional<Dt::Date> Requirement::getEndDate() const
 {
 	return endDate;
 }

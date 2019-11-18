@@ -62,7 +62,7 @@ std::unique_ptr<Entity::Requirement> RequirementDao::read(int id) const
 	result->setId(id);
 	result->setHabitId(row->get<int>("habit_id"));
 	result->setBeginDate(row->get<Dt::Date>("begin_date"));
-	result->setEndDate(row->get<Dt::Date>("end_date"));
+	result->setEndDate(row->get<std::optional<Dt::Date>>("end_date"));
 	result->setTarget(row->get<int>("daily_target"));
 	return result;
 }
@@ -76,6 +76,7 @@ int RequirementDao::getCurrentTarget(int habitId) const
 			requirement r
 		where
 			r.habit_id = :habit_id
+			and r.end_date is null
 		)sql";
 
 	Db::Query query(db, sql);

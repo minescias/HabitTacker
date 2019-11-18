@@ -1,6 +1,8 @@
 #ifndef __REQUIREMENT_H
 #define __REQUIREMENT_H
 
+#include <optional>
+
 #include <Core/DateTime/Date.h>
 
 namespace Entity
@@ -19,8 +21,8 @@ public:
 	void setBeginDate(Dt::Date beginDate);
 	Dt::Date getBeginDate() const;
 
-	void setEndDate(Dt::Date beginDate);
-	Dt::Date getEndDate() const;
+	void setEndDate(std::optional<Dt::Date> beginDate);
+	std::optional<Dt::Date> getEndDate() const;
 
 	void setTarget(int target);
 	int getTarget() const;
@@ -29,7 +31,7 @@ private:
 	int id;
 	int habitId;
 	Dt::Date beginDate;
-	Dt::Date endDate;
+	std::optional<Dt::Date> endDate;
 	int target;
 };
 
