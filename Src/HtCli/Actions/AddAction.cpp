@@ -16,6 +16,8 @@ void AddAction::initValidator()
 	validator.addDefaultParameter()
 		.requirement(Cli::RequirementLevel::Required)
 		.errorMessage("No habit name specified");
+
+	validator.addParam("target").type(Cli::ParamType::Integer);
 }
 
 void AddAction::doExecute(const Cli::Parameters& parameters)
@@ -25,7 +27,6 @@ void AddAction::doExecute(const Cli::Parameters& parameters)
 
 	auto name = parameters.getDefaultParameter();
 	auto existingDefinition = dao->getDefinition(name);
-
 	if (existingDefinition)
 		throw ActionError("Habit with name '" + name + "' already exists");
 
@@ -37,8 +38,18 @@ void AddAction::doExecute(const Cli::Parameters& parameters)
 	requirement.setHabitId(1);
 	requirement.setBeginDate(Dt::getCurrentDate());
 	requirement.setEndDate(std::nullopt);
-	requirement.setTarget(1);
+	requirement.setTarget(getTarget(parameters));
 	requirementDao->save(requirement);
+}
+
+int AddAction::getTarget(const Cli::Parameters& parameters)
+{
+	auto target = parameters.getParameter("target");
+
+	if (target.empty())
+		return 1;
+	else
+		return stoi(target);
 }
 
 } // namespace Actions

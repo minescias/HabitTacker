@@ -16,6 +16,9 @@ public:
 protected:
 	void initValidator() final;
 	void doExecute(const Cli::Parameters& parameters) final;
+
+private:
+	int getTarget(const Cli::Parameters& parameters);
 };
 
 } // namespace Actions
