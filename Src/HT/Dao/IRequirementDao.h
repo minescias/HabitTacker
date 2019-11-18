@@ -7,7 +7,7 @@
 
 namespace Dao
 {
-class IRequirementDao : UnknownDao
+class IRequirementDao : public UnknownDao
 {
 public:
 	virtual void save(const Entity::Requirement& requirement) const = 0;

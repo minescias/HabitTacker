@@ -27,6 +27,8 @@ public:
 	void setTarget(int target);
 	int getTarget() const;
 
+	bool operator==(const Requirement& rhs) const;
+
 private:
 	int id;
 	int habitId;

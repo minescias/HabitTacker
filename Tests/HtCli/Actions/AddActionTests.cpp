@@ -1,14 +1,16 @@
 #include <gmock/gmock.h>
 
+#include <Core/DateTime/DateTimeGetter.h>
+
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/AddAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Mocks/HT/Dao/RequirementDaoMock.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
-
 using namespace testing;
 
 class AddActionTests : public testing::Test
@@ -19,26 +21,39 @@ public:
 		daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&factory, "habitDefinition");
 
+		requirementDaoMock = registerAndGetDaoMock<Mocks::RequirementDaoMock>(
+			&factory, "requirement");
+
 		addAction.setDaoFactory(&factory);
 		pr.setCommandName("add");
 	}
 
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
+	std::shared_ptr<Mocks::RequirementDaoMock> requirementDaoMock;
 	Dao::DaoFactory factory;
 	Actions::AddAction addAction;
 	Cli::Parameters pr;
 };
 
-TEST_F(AddActionTests, savesHabitToDatabase)
+TEST_F(AddActionTests, saves_habit_to_database)
 {
-	Entity::HabitDefinitionEntity entity;
-	entity.setName("new habit name");
+	Entity::HabitDefinitionEntity definition;
+	definition.setName("new habit name");
 
-	EXPECT_CALL(*daoMock, getDefinition("new habit name")).WillOnce(
-		Return(ByMove(Entity::HabitDefinitionEntityPtr())));
+	Entity::Requirement req;
+	req.setBeginDate(Dt::getCurrentDate());
+	req.setEndDate(std::nullopt);
+	req.setTarget(1); // default target value
+	req.setHabitId(1);
 
-	EXPECT_CALL(*daoMock, saveDefinition(entity));
+	EXPECT_CALL(*daoMock, getDefinition("new habit name"))
+		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
 
+	EXPECT_CALL(*daoMock, saveDefinition(definition));
+
+	EXPECT_CALL(*requirementDaoMock, save(req));
+
+	// minimum configuration that is required to add habit
 	pr.setDefaultParameter("new habit name");
 	addAction.execute(pr);
 }
@@ -50,7 +65,7 @@ TEST_F(AddActionTests, ensures_that_name_is_not_empty)
 		addAction.execute(pr);
 		FAIL() << "Expected runtime error";
 	}
-	catch(RuntimeError& err)
+	catch (RuntimeError& err)
 	{
 		auto expected{"No habit name specified"};
 		ASSERT_STREQ(err.what(), expected);
@@ -59,8 +74,9 @@ TEST_F(AddActionTests, ensures_that_name_is_not_empty)
 
 TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
 {
-	EXPECT_CALL(*daoMock, getDefinition("new habit name")).WillOnce(
-		Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
+	EXPECT_CALL(*daoMock, getDefinition("new habit name"))
+		.WillOnce(
+			Return(ByMove(std::make_unique<Entity::HabitDefinitionEntity>())));
 
 	try
 	{
@@ -68,7 +84,7 @@ TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
 		addAction.execute(pr);
 		FAIL() << "Action error expected";
 	}
-	catch(Actions::ActionError& err)
+	catch (Actions::ActionError& err)
 	{
 		auto expected{"Habit with name 'new habit name' already exists"};
 		ASSERT_STREQ(err.what(), expected);

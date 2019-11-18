@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-Requirement::Requirement()
+Requirement::Requirement() : id(0), habitId(0), target(0)
 {
 }
 
@@ -53,6 +53,18 @@ void Requirement::setTarget(int target)
 int Requirement::getTarget() const
 {
 	return target;
+}
+
+bool Requirement::operator==(const Requirement& rhs) const
+{
+	// clang-format off
+	return 
+		id == rhs.id
+		&& habitId == rhs.habitId
+		&& beginDate == rhs.beginDate
+		&& endDate == rhs.endDate
+		&& target == rhs.target;
+	// clang-format on
 }
 
 } // namespace Entity
