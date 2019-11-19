@@ -38,7 +38,8 @@ void HabitEntity::setResult(int result)
 
 bool HabitEntity::operator==(const HabitEntity& rhs) const
 {
-	return getHabitId() == rhs.getHabitId() && getDate() == rhs.getDate();
+	return getHabitId() == rhs.getHabitId() && getDate() == rhs.getDate()
+		&& getResult() == rhs.getResult();
 }
 
 } // namespace Entity

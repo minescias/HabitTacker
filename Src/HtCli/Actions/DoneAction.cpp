@@ -4,21 +4,31 @@
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/FormatDate.h>
 
+#include "HT/Dao/IRequirementDao.h"
+
 #include "HtCli/Actions/ActionError.h"
 
 namespace Actions
 {
+void DoneAction::initValidator()
+{
+	validator.addFilter().requirement(Cli::RequirementLevel::Required);
+	validator.addParam("date").type(Cli::ParamType::Date);
+	validator.addParam("reset");
+}
+
 void DoneAction::doExecute(const Cli::Parameters& parserResult)
 {
 	definitionDao =
 		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 
-	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
-
 	validateParameters(parserResult);
 
-	auto reset = parserResult.getFlag("reset");
+	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
+	auto requirementDao =
+		daoFactory->createDao<Dao::IRequirementDao>("requirement");
 
+	auto reset = parserResult.getFlag("reset");
 	auto definitionId = stoi(parserResult.getFilter());
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(definitionId);
@@ -33,20 +43,13 @@ void DoneAction::doExecute(const Cli::Parameters& parserResult)
 				+ " was already set for this day");
 		}
 
+		habit.setResult(requirementDao->getCurrentTarget(definitionId));
 		habitDao->saveHabit(habit);
 	}
 	else
 	{
 		habitDao->deleteHabit(habit);
 	}
-}
-
-void DoneAction::initValidator()
-{
-	validator.addFilter().requirement(Cli::RequirementLevel::Required);
-	validator.addParam("date").type(Cli::ParamType::Date);
-	validator.addParam("reset");
-	validator.addFilter().requirement(Cli::RequirementLevel::Required);
 }
 
 void DoneAction::validateParameters(const Cli::Parameters& parameters) const
