@@ -18,7 +18,7 @@ Command Line Interface
     Adds new habit to the database
 
     Availiable options:
-     *  -target=<target> - set daily target for this habit
+     *  -target=<target> - set daily target for this habit (dafault 1)
 
 **htr <habit_id> edit <options>**
     Edits habit with given ID
@@ -32,7 +32,8 @@ Command Line Interface
 
     Availiable options:
      *  -reset - delete habit if set
-     *  -date=<date> - set habit for given date
+     *  -date=<date> - set habit for given date (default today)
+     *  -result=<result> - set result for given day (default current target)
 
 **htr list**
     Print all habits in terminal

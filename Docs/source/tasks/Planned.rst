@@ -42,3 +42,9 @@ przyszłości ale na razie jest za wcześnie, żeby pisać o tym w Task.rst
 **Podpowiadanie składni**
     Dobrze byłoby, gdyby program podpowiadał składnię - autouzupełnianie
     komendy i parametrów
+
+**Skrótowe nazwy jako filtr**
+    Wpisywanie ID jako nazwy nie jest za przyjemne dobrze byłoby, gdyby była
+    możliwość podania 3-4 literowego skrótowca, który pozwoliłby na łatwiejsze
+    filtrowanie. Problematyczne może być przerobienie parsera command line tak,
+    żeby działał zarówno z cyframi jak i nazwami w formie tekstu.

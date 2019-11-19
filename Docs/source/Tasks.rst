@@ -102,12 +102,6 @@ Zadania dotyczące modułu HT
  *  Poprawić czytelność i błędy w ogólnym help message
  *  Każda akcja powinna obsługiwać polecenie --help (funkcja w klasie bazowej)
 
-**[HT32]** Wypełnianie nawyków liczbowych
- *  Nowa kolumna w tabeli habit do wpisywania celu za dany dzień
- *  Rozszerzenie dao i encji o nową kolumnę
- *  Nowy parametr do akcji done określający stopień wypełnienia nawyku
- *  Domyślnie jeśli nie podano ilości jest wpisywana wartość celu
-
 **[HT33]** Wyświetlanie wypełnienia nawyków w tabeli
  *  Wyświetlanie celu w tabeli wyników (nowa kolumna)
  *  Wyświetlanie przybliżonego procentu wykonania (za pomocą znaków unicode)
@@ -137,6 +131,10 @@ Zadania dotyczące modułu HT
  *  funkcja/klasa do zarządzania celami - w module HT.
     Powinna obsługiwać wyłączenie aktualnego celu i dodanie nowego
  *  Dodanie nowej opcji w poleceniu edit
+
+**[HT41]** Dopracować mechanizm matcherów dla encji w projekcie HT. Do
+    sprawdzenia działanie MATCHER_Px oraz metody PrintTo w kontekście
+    wyświetlania wyniku porównania dwóch encji w EXPECT_CALL
 
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje

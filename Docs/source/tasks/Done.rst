@@ -328,6 +328,12 @@ Zadania dotyczące modułu HT
  *  OK Możliwość dodawania celu w trakcie dodawania nawyku - domyślnie 1, ale
     można nadpisać dowolną wartością
 
+**[HT32]** Wypełnianie nawyków liczbowych
+ *  OK Nowa kolumna w tabeli habit do wpisywania celu za dany dzień
+ *  OK Rozszerzenie dao i encji o nową kolumnę
+ *  OK Nowy parametr do akcji done określający stopień wypełnienia nawyku
+ *  OK Domyślnie jeśli nie podano ilości jest wpisywana wartość celu
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Przerobić database creatora na buildera, który będzie zwracał połączenie
     handlera do nowo utworzonej bazy danych
