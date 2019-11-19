@@ -17,13 +17,16 @@ auto getCreateHabitDefinitionSql()
 
 auto getCreateHabitTable()
 {
-	return "\n create table habit"
-		   "\n ("
-		   "\n 	habit_id integer,"
-		   "\n 	date date,"
-		   "\n 	primary key(habit_id, date)"
-		   "\n 	foreign key(habit_id) references habit_definition(id)"
-		   "\n )";
+	return R"sql(
+		create table habit
+		(
+			habit_id integer,
+			date date,
+			result integer,
+			primary key(habit_id, date)
+			foreign key(habit_id) references habit_definition(id)
+		)
+		)sql";
 }
 
 auto getCreateRequirementTable()

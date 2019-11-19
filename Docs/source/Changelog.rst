@@ -6,6 +6,8 @@ Wersja 0.4 - Nawyki liczbowe, raporty i podsumowania (w trakcie)
 
 Zmiany w logice biznesowej
  *  Dodano możliwość ustawienia celu podczas dodawania nawyku
+ *  Dodano możliwość ustawienia wyniku podczas oznaczania nawyku jako
+    wykonanego
 
 Zmiany w działaniu programu
  *  Lib.fmt - Formatowanie tekstu za popocą biblioteki fmt

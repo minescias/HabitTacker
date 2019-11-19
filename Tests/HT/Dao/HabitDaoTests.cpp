@@ -46,6 +46,7 @@ public:
 		auto habit = Entity::HabitEntity();
 		habit.setHabitId(habitId);
 		habit.setDate(date);
+		habit.setResult(1);
 
 		habitDao->saveHabit(habit);
 		return habit;
@@ -56,6 +57,7 @@ public:
 	{
 		EXPECT_THAT(actual.getHabitId(), Eq(expected.getHabitId()));
 		EXPECT_THAT(actual.getDate(), Eq(expected.getDate()));
+		EXPECT_THAT(actual.getResult(), Eq(expected.getResult()));
 	}
 
 	std::unique_ptr<Db::Database> db;
@@ -63,13 +65,14 @@ public:
 	std::unique_ptr<Dao::IHabitDao> habitDao;
 };
 
-TEST_F(HabitDaoTests, readAndWriteTest)
+TEST_F(HabitDaoTests, save_and_read_test)
 {
 	addDefinition("Some definition");
 
 	auto writtenHabit = Entity::HabitEntity();
 	writtenHabit.setHabitId(1);
 	writtenHabit.setDate(Dt::getCurrentDate());
+	writtenHabit.setResult(12);
 
 	habitDao->saveHabit(writtenHabit);
 	auto readHabits = habitDao->getHabitsById(1);

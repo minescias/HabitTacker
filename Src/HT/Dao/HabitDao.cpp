@@ -15,21 +15,25 @@ HabitDao::HabitDao(Db::Database* db) : db(db)
 
 void HabitDao::saveHabit(const HabitEntity& habit) const
 {
-	std::string sql =
-		"\n insert into habit"
-		"\n ("
-		"\n 	habit_id,"
-		"\n 	date"
-		"\n )"
-		"\n values "
-		"\n ("
-		"\n 	:habit_id,"
-		"\n 	:date"
-		"\n )";
+	auto sql = R"sql(
+		insert into habit
+		(
+			habit_id,
+			date,
+			result
+		)
+		values 
+		(
+			:habit_id,
+			:date,
+			:result
+		)
+		)sql";
 
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", habit.getHabitId());
 	query.setParam(":date", habit.getDate());
+	query.setParam(":result", habit.getResult());
 	query.executeCommand();
 }
 
@@ -52,13 +56,15 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 {
 	auto result = std::vector<HabitEntityPtr>();
 
-	std::string sql =
-		"\n select"
-		"\n 	h.date"
-		"\n from"
-		"\n 	habit h"
-		"\n where"
-		"\n 	h.habit_id = :habit_id";
+	auto sql = R"sql(
+		select
+			h.date,
+			h.result
+		from
+			habit h
+		where
+			h.habit_id = :habit_id
+		)sql";
 
 	Db::Query query(db, sql);
 	query.setParam(":habit_id", id);
@@ -69,6 +75,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsById(int id) const
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
 		habit->setHabitId(id);
 		habit->setDate(row.get<Dt::Date>("date"));
+		habit->setResult(row.get<int>("result"));
 	}
 
 	return result;
@@ -92,20 +99,23 @@ bool HabitDao::checkIfHabitIsSetForDay(const HabitEntity& habit) const
 
 	if (queryResult.empty())
 		return false;
+
 	else
 		return true;
 }
 
 std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(Dt::Date date) const
 {
-	auto sql =
-		"\n select"
-		"\n 	h.habit_id, "
-		"\n 	h.date"
-		"\n from"
-		"\n 	habit h"
-		"\n where"
-		"\n 	h.date between :date_from and :date_to";
+	auto sql = R"sql(
+		select
+			h.habit_id, 
+			h.date,
+			h.result
+		from
+			habit h
+		where
+			h.date between :date_from and :date_to
+		)sql";
 
 	Db::Query query(db, sql);
 	query.setParam(":date_from", Dt::addDays(date, -13));
@@ -119,6 +129,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(Dt::Date date) c
 		auto& habit = result.emplace_back(std::make_unique<HabitEntity>());
 		habit->setHabitId(row.get<int>("habit_id"));
 		habit->setDate(row.get<Dt::Date>("date"));
+		habit->setResult(row.get<int>("result"));
 	}
 
 	return result;

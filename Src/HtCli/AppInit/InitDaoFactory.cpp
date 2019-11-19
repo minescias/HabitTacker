@@ -2,6 +2,7 @@
 
 #include "HT/Dao/HabitDefinitionDao.h"
 #include "HT/Dao/HabitDao.h"
+#include "HT/Dao/RequirementDao.h"
 
 namespace AppInit
 {
@@ -20,6 +21,7 @@ std::unique_ptr<Dao::DaoFactory> initDaoFactory(Db::Database* db)
 
 	registerDao<Dao::HabitDefinitionDao>(daoFactory.get(), "habitDefinition");
 	registerDao<Dao::HabitDao>(daoFactory.get(), "habit");
+	registerDao<Dao::RequirementDao>(daoFactory.get(), "requirement");
 
 	return daoFactory;
 }
