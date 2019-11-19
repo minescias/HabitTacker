@@ -2,7 +2,7 @@
 
 namespace Entity
 {
-HabitEntity::HabitEntity() : habitId(0)
+HabitEntity::HabitEntity() : habitId(0), result(0)
 {
 }
 
@@ -26,9 +26,19 @@ void HabitEntity::setDate(const Dt::Date& date)
 	this->date = date;
 }
 
-bool operator==(const HabitEntity& a, const HabitEntity& b)
+int HabitEntity::getResult() const
 {
-	return a.getHabitId() == b.getHabitId() && a.getDate() == b.getDate();
+	return result;
+}
+
+void HabitEntity::setResult(int result)
+{
+	this->result = result;
+}
+
+bool HabitEntity::operator==(const HabitEntity& rhs) const
+{
+	return getHabitId() == rhs.getHabitId() && getDate() == rhs.getDate();
 }
 
 } // namespace Entity

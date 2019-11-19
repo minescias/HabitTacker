@@ -18,12 +18,16 @@ public:
 	Dt::Date getDate() const;
 	void setDate(const Dt::Date& date);
 
+	int getResult() const;
+	void setResult(int result);
+
+	bool operator==(const HabitEntity& rhs) const;
+
 private:
 	int habitId;
 	Dt::Date date;
+	int result;
 };
-
-bool operator==(const HabitEntity& a, const HabitEntity& b);
 
 using HabitEntityPtr = std::unique_ptr<HabitEntity>;
 
