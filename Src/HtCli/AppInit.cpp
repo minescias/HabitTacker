@@ -24,7 +24,7 @@ int appInit(int argc, char* argv[])
     auto commandName = parserResult.getCommandName();
 
     auto logConfig = std::make_unique<Log::Config>();
-    logConfig->enabled = true;
+    logConfig->enabled = false;
     logConfig->levels = {Log::Levels::Error, Log::Levels::Sql};
     auto logger = std::make_unique<Log::Logger>(std::move(logConfig));
     Log::setLogger(logger.get());
