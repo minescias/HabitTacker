@@ -5,6 +5,7 @@
 
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
+#include "HT/Dao/IRequirementDao.h"
 #include "HtCli/Actions/BaseAction.h"
 
 namespace Actions
@@ -20,11 +21,13 @@ protected:
 
 private:
 	void validateParameters(const Cli::Parameters& parameters) const;
-	Dt::Date getDate(const Cli::Parameters& parserResult) const;
+	Dt::Date getDate(const Cli::Parameters& parameters) const;
+	int getResult(const Cli::Parameters& parameters, int definitionId) const;
 
 private:
 	std::shared_ptr<Dao::IHabitDao> habitDao;
 	std::shared_ptr<Dao::IHabitDefinitionDao> definitionDao;
+	std::shared_ptr<Dao::IRequirementDao> requirementDao;
 };
 
 } // namespace Actions

@@ -44,7 +44,7 @@ public:
 		doneAction.setDaoFactory(&daoFactory);
 	}
 
-	Entity::HabitDefinitionEntityPtr getDefinition()
+	Entity::HabitDefinitionEntityPtr getDefinition() const
 	{
 		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
 		entity->setId(1);
@@ -54,12 +54,12 @@ public:
 		return entity;
 	}
 
+	Actions::DoneAction doneAction;
+	Cli::Parameters pr;
 	Dao::DaoFactory daoFactory;
 	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 	std::shared_ptr<Mocks::RequirementDaoMock> requirementDaoMock;
-	Actions::DoneAction doneAction;
-	Cli::Parameters pr;
 };
 
 TEST_F(DoneActionTest, setsHabitAsDoneForToday)
@@ -111,6 +111,24 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
 
 	pr.setParameter("date", "yesterday");
+	doneAction.execute(pr);
+}
+
+TEST_F(DoneActionTest, saves_habit_using_default_parameter)
+{
+	auto resultSetByUser = 8;
+	auto habit = Entity::HabitEntity();
+	habit.setHabitId(1);
+	habit.setDate(Dt::getCurrentDate());
+	habit.setResult(resultSetByUser);
+
+	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
+	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
+		.WillOnce(Return(ByMove(getDefinition())));
+	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habitPkEqual(habit)))
+		.WillOnce(Return(false));
+
+	pr.setDefaultParameter("8");
 	doneAction.execute(pr);
 }
 

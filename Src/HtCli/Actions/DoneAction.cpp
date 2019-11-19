@@ -4,8 +4,6 @@
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/FormatDate.h>
 
-#include "HT/Dao/IRequirementDao.h"
-
 #include "HtCli/Actions/ActionError.h"
 
 namespace Actions
@@ -13,37 +11,37 @@ namespace Actions
 void DoneAction::initValidator()
 {
 	validator.addFilter().requirement(Cli::RequirementLevel::Required);
+	validator.addDefaultParameter().type(Cli::ParamType::Integer);
 	validator.addParam("date").type(Cli::ParamType::Date);
 	validator.addParam("reset");
 }
 
-void DoneAction::doExecute(const Cli::Parameters& parserResult)
+void DoneAction::doExecute(const Cli::Parameters& parameters)
 {
 	definitionDao =
 		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 
-	validateParameters(parserResult);
+	validateParameters(parameters);
 
+	requirementDao = daoFactory->createDao<Dao::IRequirementDao>("requirement");
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
-	auto requirementDao =
-		daoFactory->createDao<Dao::IRequirementDao>("requirement");
 
-	auto reset = parserResult.getFlag("reset");
-	auto definitionId = stoi(parserResult.getFilter());
+	auto reset = parameters.getFlag("reset");
+	auto definitionId = stoi(parameters.getFilter());
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(definitionId);
-	habit.setDate(getDate(parserResult));
+	habit.setDate(getDate(parameters));
 
 	if (!reset)
 	{
 		if (habitDao->checkIfHabitIsSetForDay(habit))
 		{
 			throw ActionError(
-				"Habit " + parserResult.getFilter()
+				"Habit " + parameters.getFilter()
 				+ " was already set for this day");
 		}
 
-		habit.setResult(requirementDao->getCurrentTarget(definitionId));
+		habit.setResult(getResult(parameters, definitionId));
 		habitDao->saveHabit(habit);
 	}
 	else
@@ -72,12 +70,21 @@ void DoneAction::validateParameters(const Cli::Parameters& parameters) const
 		throw ActionError("Cannot set habit in the future");
 }
 
-Dt::Date DoneAction::getDate(const Cli::Parameters& parserResult) const
+Dt::Date DoneAction::getDate(const Cli::Parameters& parameters) const
 {
-	if (!parserResult.getParameter("date").empty())
-		return Dt::DateLiteral().parse(parserResult.getParameter("date"));
+	if (!parameters.getParameter("date").empty())
+		return Dt::DateLiteral().parse(parameters.getParameter("date"));
 
 	return Dt::getCurrentDate();
+}
+
+int DoneAction::getResult(const Cli::Parameters& parameters, int definitionId) const
+{
+	auto result = parameters.getDefaultParameter();
+	if (result.empty())
+		return requirementDao->getCurrentTarget(definitionId);
+	else
+		return stoi(result);
 }
 
 } // namespace Actions
