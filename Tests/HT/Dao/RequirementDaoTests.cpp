@@ -13,7 +13,7 @@
 
 namespace
 {
-auto testDatabaseName = "test_databases/HT_RequirementDaoTests.db";
+auto testDatabaseName = "test_files/HT_RequirementDaoTests.db";
 }
 
 namespace Tests

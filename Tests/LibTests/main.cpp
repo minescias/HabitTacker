@@ -1,8 +1,11 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-int main (int argc, char* argv[])
+#include "Tests/Tools/CreateTestDirectory.h"
+
+int main(int argc, char* argv[])
 {
-    testing::InitGoogleMock(&argc, argv);
-    return RUN_ALL_TESTS();
+	Tests::createTestDirectory();
+	testing::InitGoogleMock(&argc, argv);
+	return RUN_ALL_TESTS();
 }

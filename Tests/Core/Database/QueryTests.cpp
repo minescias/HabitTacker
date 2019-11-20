@@ -18,7 +18,7 @@ class QueryTests : public testing::Test
 {
 public:
 	QueryTests()
-		: databaseName("test_databases/Core_QueryTests.db"),
+		: databaseName("test_files/Core_QueryTests.db"),
 		  db(std::make_unique<Db::Database>(databaseName))
 	{
 		dropMainTable();

@@ -11,12 +11,6 @@
 #include "HT/Dao/HabitDao.h"
 #include "HT/Dao/HabitDefinitionDao.h"
 
-namespace
-{
-auto filename = "test_habitDao.db"; //"test_DgQADg8ICA0.db";
-
-} // namespace
-
 namespace Tests
 {
 using namespace testing;
@@ -25,7 +19,7 @@ namespace fs = std::filesystem;
 class HabitDaoTests : public testing::Test
 {
 public:
-	HabitDaoTests()
+	HabitDaoTests() : filename("test_files/Ht_HabitDao.db")
 	{
 		fs::remove(filename);
 		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
@@ -60,6 +54,7 @@ public:
 		EXPECT_THAT(actual.getResult(), Eq(expected.getResult()));
 	}
 
+	std::string filename;
 	std::unique_ptr<Db::Database> db;
 	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
 	std::unique_ptr<Dao::IHabitDao> habitDao;

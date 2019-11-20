@@ -11,12 +11,13 @@ using namespace testing;
 
 namespace fs = std::filesystem;
 
-class SqliteUniqieTests : public testing::Test
+class SqliteForeignKeyTests : public testing::Test
 {
 public:
-	SqliteUniqieTests() : databaseName("test_databases/SqliteUniqueTests.db"){};
+	SqliteForeignKeyTests()
+		: databaseName("test_files/Lib_SqliteUniqueTests.db"){};
 
-	~SqliteUniqieTests()
+	~SqliteForeignKeyTests()
 	{
 		closeDatabse();
 	}
@@ -113,7 +114,7 @@ public:
 	sqlite3* dbHandler;
 };
 
-TEST_F(SqliteUniqieTests, unique_constraint_test)
+TEST_F(SqliteForeignKeyTests, unique_constraint_test)
 {
 	fs::remove(databaseName);
 	openDatabase();

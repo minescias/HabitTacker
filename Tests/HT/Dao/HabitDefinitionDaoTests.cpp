@@ -10,15 +10,14 @@
 
 namespace Tests
 {
-
 using namespace testing;
 namespace fs = std::filesystem;
-const char* filename = "test_DgQADg8ICA0.db";
 
 class HabitDefinitionDaoTests : public testing::Test
 {
 public:
 	HabitDefinitionDaoTests()
+		:filename("test_files/Ht_HabitDefinitionDao.db")
 	{
 		fs::remove(filename);
 		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
@@ -32,7 +31,7 @@ public:
 		definition->setName(name);
 		definition->setBeginDate(Dt::getCurrentDate());
 
-		return  definition;
+		return definition;
 	}
 
 	void addDefinition(const std::string& name)
@@ -43,7 +42,8 @@ public:
 		dao->saveDefinition(definition);
 	}
 
-	void compareDefinitions(const Entity::HabitDefinitionEntity& actual, 
+	void compareDefinitions(
+		const Entity::HabitDefinitionEntity& actual,
 		const Entity::HabitDefinitionEntity& expected) const
 	{
 		EXPECT_THAT(actual.getId(), Eq(expected.getId()));
@@ -51,6 +51,7 @@ public:
 		EXPECT_THAT(actual.getBeginDate(), Eq(expected.getBeginDate()));
 	}
 
+	std::string filename;
 	std::unique_ptr<Db::Database> db;
 	std::unique_ptr<Dao::IHabitDefinitionDao> dao;
 };
@@ -106,9 +107,11 @@ TEST_F(HabitDefinitionDaoTests, reads_all_definitions)
 	auto definitions = dao->getDefinitions();
 
 	ASSERT_THAT(definitions.size(), Eq(3));
-	compareDefinitions(*definitions[0], *getDefinition(1, "Example definition")); 
-	compareDefinitions(*definitions[1], *getDefinition(2, "Example definition2")); 
-	compareDefinitions(*definitions[2], *getDefinition(3, "Example definition3")); 
+	compareDefinitions(*definitions[0], *getDefinition(1, "Example definition"));
+	compareDefinitions(
+		*definitions[1], *getDefinition(2, "Example definition2"));
+	compareDefinitions(
+		*definitions[2], *getDefinition(3, "Example definition3"));
 }
 
 } // namespace Tests

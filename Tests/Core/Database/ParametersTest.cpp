@@ -16,7 +16,8 @@ class ParametersTest : public testing::Test
 {
 public:
 	ParametersTest()
-		: db(std::make_unique<Db::Database>("tests/ParametestTests.db"))
+		: databaseName("test_files/Core_ParametestTests.db"),
+		  db(std::make_unique<Db::Database>(databaseName))
 	{
 		dropTestTables();
 		createDateTestsTable();
@@ -92,7 +93,7 @@ public:
 		return "select opt_value from optional_tests ot where ot.id = :id";
 	}
 
-
+	std::string databaseName;
 	std::unique_ptr<Db::Database> db;
 };
 

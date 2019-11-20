@@ -11,9 +11,6 @@ namespace
 using namespace testing;
 namespace fs = std::filesystem;
 
-const auto dbFilePath = "tests/test_initAction.db";
-const auto configFilePath = "tests/test_initActionConfig.txt";
-
 } // namespace
 
 namespace Tests
@@ -22,6 +19,8 @@ class InitActionTest : public testing::Test
 {
 public:
 	InitActionTest()
+		: dbFilePath("test_files/HtCli_InitAction.db"),
+		  configFilePath("test_files/HtCli_InitActionConfig.txt")
 	{
 		fs::remove(dbFilePath);
 	}
@@ -45,6 +44,8 @@ public:
 		ASSERT_STREQ(fileContent.c_str(), expectedContent.c_str());
 	}
 
+	std::string dbFilePath;
+	std::string configFilePath;
 	Actions::InitAction initAction;
 };
 
@@ -98,10 +99,8 @@ TEST_F(InitActionTest, validateConfigFileNameIsSet)
 
 TEST_F(InitActionTest, createsConfgigFile)
 {
-	auto fileContent = std::string(
-						   "# defaultDatabase\n"
-						   "database=")
-		+ dbFilePath + "\n";
+	auto fileContent =
+		std::string("# defaultDatabase\ndatabase=") + dbFilePath + "\n";
 
 	initAction.execute(dbFilePath, configFilePath);
 

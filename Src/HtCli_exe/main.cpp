@@ -1,6 +1,9 @@
 #include "HtCli/AppInit.h"
 
-int main (int argc, char* argv[])
+#include "Tests/Tools/CreateTestDirectory.h"
+
+int main(int argc, char* argv[])
 {
-    return appInit(argc, argv);
+	Tests::createTestDirectory();
+	return appInit(argc, argv);
 }

@@ -24,6 +24,11 @@ Wszystko co jest związane z zarządzaniem projektem, systemem budowania itp
 
 **[B09]** Uruchomić Valgrinda albo inny program do sprawdzania wycieków pamięci
 
+**[B12]** Automatycznie tworznie folderu na dane testowe przy uruchomieniu
+testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
+uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
+nie można utworzyć bazy testowej.
+
 **[B13]** Usunięcie wszystkich warningów kompilacji po włączeniu dodatkowych
 opcji kompilatora (-Wall, -pedantic)
 

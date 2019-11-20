@@ -24,11 +24,6 @@ różnymi zeznętrznymi narzędziami, które może warto sprawdzić
 
 **[B11]** Pobieranie bibliotek z githuba przez CMake. Podobno jest to możliwe
 
-**[B12]** Automatycznie tworznie folderu na dane testowe przy uruchomieniu
-testów. Narazie działa to tak, że jeśli jest tworzone nowe repo albo testy są
-uruchamiane z nowego folderu to cała operacja zakończy się błędem mówiącym, że
-nie można utworzyć bazy testowej.
-
 **[B15]** Plik compile_commands.json tworzy sie w katalogu, z którego jest
 budowany projekt. W moim przypadku jest to folder build. Ccls wymaga, żeby plik
 ten był tworzony w katalogu głównym żeby np. poprawnie odczytywać ścieżki
