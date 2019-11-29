@@ -22,6 +22,7 @@ set(CoreTests_src
 	DateTime/AddDaysTests.cpp
 	DateTime/DateLiteralTests.cpp
 	DateTime/FormatDateTests.cpp
+	DateTime/OperatorsTests.cpp
 	DateTime/ParseDateTests.cpp
 	Format/DateFormatterTests.cpp
 	Format/OptionalFormatterTests.cpp

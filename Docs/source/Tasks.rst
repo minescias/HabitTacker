@@ -67,6 +67,11 @@ Co trzeba dodać/poprawić w Core programu
     (dziedziczącą z Row lub mającą ten sam interfejs) która będzie niezależna
     od datasetu (kopiuje wszystkie istotne informacje do wewnątrz siebie).
 
+**[C21]** DaoFactory - sprawdzić możliwość tworzenia dao za pomocą samego typu
+    dao bez konieczności przekazywania nazwy
+
+**[C22]** Date: znaleźć sposób na iterowanie po wszystkich datach z zakresu
+
 Docs
 *******************************************************************************
 Lista rzeczy do opisania
@@ -98,6 +103,8 @@ Zadania dotyczące modułu HT
  *  Każda akcja powinna obsługiwać polecenie --help (funkcja w klasie bazowej)
 
 **[HT33]** Wyświetlanie wypełnienia nawyków w tabeli
+ *  Podział akcji na dwie klasy - każda z swoimi testami - pobieranie tabeli
+    wyników z bazy danych i wyświetlanie tej tabeli w konsoli
  *  Wyświetlanie celu w tabeli wyników (nowa kolumna)
  *  Wyświetlanie przybliżonego procentu wykonania (za pomocą znaków unicode)
 
@@ -131,8 +138,13 @@ Zadania dotyczące modułu HT
     sprawdzenia działanie MATCHER_Px oraz metody PrintTo w kontekście
     wyświetlania wyniku porównania dwóch encji w EXPECT_CALL
 
+**[HT42]** Tworzenie tabel po nazwie - database creator powinien udostępnić
+    metodę która pozwala na utworzenie jednej, dowolnej tabeli. Testy powinny
+    tworzyć tylko te tabele, które są potrzebne.
+
 **[HT99]** Refaktor i drobne poprawki - zadanie zbiorcze
  *  Pozbyć się słowa Entity w nazwie klasy encji - sam namespace na to wskazuje
+ *  Zamiana nazwy modułu (a i pewnie samej biblioteki) z "HT" na "Ht"
 
 Lib
 ********************************************************************************
@@ -173,4 +185,5 @@ które sam napisałem lub napiszę w przyszłości
  *  Usuwanie plików z kompilacji
 
 **[T12]** Automatyczne dodanie testu do podczas tworzenia nowego pliku wklei
-    całą ścieżkę do pliku w nazwie klasy :D
+    całą ścieżkę do pliku w nazwie klasy :D. Nie działa też jeśli folder
+    docelowy nie istnieje... I ogólnie cały ten skrypt jest jakiś niedorobiony

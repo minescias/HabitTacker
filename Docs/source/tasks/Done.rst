@@ -121,6 +121,7 @@ innym
  *  OK Odczyt nulla z bazy - nullopt jeśli zapis do optionala
  *  OK Odczyt wartości do optionala
 
+**[C20]** Operator + dla dat zamiaast Dt::AddDays
 
 Docs
 *******************************************************************************

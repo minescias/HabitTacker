@@ -17,6 +17,7 @@ set(Datetime_src
 	DateTime/DateLiteral.cpp
 	DateTime/DateTimeGetter.cpp
 	DateTime/FormatDate.cpp
+	DateTime/Operators.cpp
 	DateTime/ParseDate.cpp)
 
 set(Database_src
