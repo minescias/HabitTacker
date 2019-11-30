@@ -12,7 +12,6 @@ set(Config_src
     Config/Settings.cpp)
 
 set(Datetime_src
-	DateTime/AddDays.cpp
 	DateTime/DateFormat.cpp
 	DateTime/DateLiteral.cpp
 	DateTime/DateTimeGetter.cpp

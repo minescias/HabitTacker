@@ -2,8 +2,8 @@
 
 #include <filesystem>
 
-#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/Operators.h>
 #include <Core/Exceptions/LogicError.h>
 
 #include "HT/Dao/DatabaseCreator.h"
@@ -107,22 +107,23 @@ TEST_F(RequirementDaoTests, read_returns_empty_pointer_when_no_requirements_foun
 TEST_F(RequirementDaoTests, gets_current_tasrget)
 {
 	createHabitDefinition();
+	auto today = Dt::getCurrentDate();
 
 	Entity::Requirement req;
 	req.setHabitId(1);
-	
+
 	req.setTarget(10);
-	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), -20));
-	req.setEndDate(Dt::addDays(Dt::getCurrentDate(), -11));
+	req.setBeginDate(today - days{20});
+	req.setEndDate(today - days{11});
 	dao->save(req);
 
 	req.setTarget(20);
-	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), -10));
-	req.setEndDate(Dt::addDays(Dt::getCurrentDate(), 10));
+	req.setBeginDate(today - days{10});
+	req.setEndDate(today + days{10});
 	dao->save(req);
 
 	req.setTarget(30);
-	req.setBeginDate(Dt::addDays(Dt::getCurrentDate(), 11));
+	req.setBeginDate(today + days{11});
 	req.setEndDate(std::nullopt);
 	dao->save(req);
 

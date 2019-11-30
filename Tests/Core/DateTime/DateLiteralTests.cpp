@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
-#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateLiteral.h>
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/Operators.h>
 #include <Core/Exceptions/RuntimeError.h>
 
 namespace Tests
@@ -17,7 +17,7 @@ public:
 
 	void checkSimpleLiteral(const std::string& literal, int daysFromToday)
 	{
-		auto expected = Dt::addDays(Dt::getCurrentDate(), daysFromToday);
+		auto expected = Dt::getCurrentDate() + days(daysFromToday);
 		auto actual = Dt::DateLiteral().parse(literal);
 
 		EXPECT_THAT(actual, Eq(expected));

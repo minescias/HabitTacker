@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
-#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/FormatDate.h>
+#include <Core/DateTime/Operators.h>
 
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/DoneAction.h"
@@ -12,10 +12,11 @@
 #include "Mocks/HT/Dao/RequirementDaoMock.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
-using namespace testing;
-
 namespace
 {
+using date::days;
+using namespace testing;
+
 MATCHER_P(habitPkEqual, expected, "")
 {
 	return arg.getHabitId() == expected.getHabitId()
@@ -29,7 +30,8 @@ namespace Tests
 class DoneActionTest : public testing::Test
 {
 public:
-	DoneActionTest() : doneAction()
+	DoneActionTest()
+		: doneAction()
 	{
 		habitDaoMock =
 			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
@@ -49,7 +51,7 @@ public:
 		auto entity = std::make_unique<Entity::HabitDefinitionEntity>();
 		entity->setId(1);
 		entity->setName("name");
-		entity->setBeginDate(Dt::addDays(Dt::getCurrentDate(), -10));
+		entity->setBeginDate(Dt::getCurrentDate() - days{10});
 
 		return entity;
 	}
@@ -100,7 +102,7 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 	auto currentTarget = 10;
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
-	habit.setDate(Dt::addDays(Dt::getCurrentDate(), -1));
+	habit.setDate(Dt::getCurrentDate() - days{1});
 	habit.setResult(currentTarget);
 
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
@@ -192,7 +194,7 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(getDefinition())));
 
-	auto dateStr = Dt::formatDate(Dt::addDays(Dt::getCurrentDate(), -11));
+	auto dateStr = Dt::formatDate(Dt::getCurrentDate() - days{11});
 
 	try
 	{
@@ -203,7 +205,7 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 	catch (const Actions::ActionError& err)
 	{
 		auto expected = "Cannot set habit before it's begin date which is "
-			+ Dt::formatDate(Dt::addDays(Dt::getCurrentDate(), -10));
+			+ Dt::formatDate(Dt::getCurrentDate() - days{10});
 
 		ASSERT_THAT(expected, Eq(err.what()));
 	}

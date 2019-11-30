@@ -4,8 +4,8 @@
 #include <iomanip>
 #include <memory>
 
-#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/Operators.h>
 
 #include "HT/Dao/DatabaseCreator.h"
 #include "HT/Dao/HabitDao.h"
@@ -13,13 +13,15 @@
 
 namespace Tests
 {
+using date::days;
 using namespace testing;
 namespace fs = std::filesystem;
 
 class HabitDaoTests : public testing::Test
 {
 public:
-	HabitDaoTests() : filename("test_files/Ht_HabitDao.db")
+	HabitDaoTests()
+		: filename("test_files/Ht_HabitDao.db")
 	{
 		fs::remove(filename);
 		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
@@ -98,15 +100,15 @@ TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
 
 	// included data
 	auto h1 = addHabit(1, today);
-	auto h2 = addHabit(1, Dt::addDays(today, -2));
-	auto h3 = addHabit(2, Dt::addDays(today, -1));
-	auto h4 = addHabit(2, Dt::addDays(today, -2));
-	auto h5 = addHabit(2, Dt::addDays(today, -10));
-	auto h6 = addHabit(2, Dt::addDays(today, -13));
+	auto h2 = addHabit(1, today - days{2});
+	auto h3 = addHabit(2, today - days{1});
+	auto h4 = addHabit(2, today - days{2});
+	auto h5 = addHabit(2, today - days{10});
+	auto h6 = addHabit(2, today - days{13});
 
 	// excluded data over 14 days
-	addHabit(1, Dt::addDays(today, -14));
-	addHabit(2, Dt::addDays(today, -15));
+	addHabit(1, today - days{14});
+	addHabit(2, today - days{15});
 
 	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
 

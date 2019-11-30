@@ -2,7 +2,7 @@
 
 #include <Core/Database/Database.h>
 #include <Core/Database/Query.h>
-#include <Core/DateTime/AddDays.h>
+#include <Core/DateTime/Operators.h>
 
 namespace Dao
 {
@@ -118,7 +118,7 @@ std::vector<HabitEntityPtr> HabitDao::getHabitsFromLastTwoWeeks(Dt::Date date) c
 		)sql";
 
 	Db::Query query(db, sql);
-	query.setParam(":date_from", Dt::addDays(date, -13));
+	query.setParam(":date_from", date - date::days{13});
 	query.setParam(":date_to", date);
 
 	auto queryResult = query.execute();

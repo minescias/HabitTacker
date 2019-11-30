@@ -19,7 +19,6 @@ set(CoreTests_src
 	Database/QueryTests.cpp
 	Database/RowTests.cpp
 	Database/ValueGetterTest.cpp
-	DateTime/AddDaysTests.cpp
 	DateTime/DateLiteralTests.cpp
 	DateTime/FormatDateTests.cpp
 	DateTime/OperatorsTests.cpp

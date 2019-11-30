@@ -1,8 +1,8 @@
 #include <gmock/gmock.h>
 
 #include "Core/Dao/DaoFactory.h"
-#include <Core/DateTime/AddDays.h>
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/Operators.h>
 
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/DefaultAction.h"
@@ -19,7 +19,8 @@ using namespace testing;
 class DefaultActionTest : public testing::Test
 {
 public:
-	DefaultActionTest() : defaultAction()
+	DefaultActionTest()
+		: defaultAction()
 	{
 		habitDaoMock =
 			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
@@ -37,7 +38,7 @@ public:
 
 		entity->setId(id);
 		entity->setName(name);
-		entity->setBeginDate(Dt::addDays(date, beginDateShift));
+		entity->setBeginDate(date + days{beginDateShift});
 
 		return entity;
 	}
@@ -66,11 +67,11 @@ public:
 
 		std::vector<Entity::HabitEntityPtr> habits;
 		habits.emplace_back(getHabit(1, date));
-		habits.emplace_back(getHabit(1, Dt::addDays(date, -2)));
-		habits.emplace_back(getHabit(2, Dt::addDays(date, -1)));
-		habits.emplace_back(getHabit(2, Dt::addDays(date, -2)));
-		habits.emplace_back(getHabit(2, Dt::addDays(date, -10)));
-		habits.emplace_back(getHabit(2, Dt::addDays(date, -12)));
+		habits.emplace_back(getHabit(1, date - days{2}));
+		habits.emplace_back(getHabit(2, date - days{1}));
+		habits.emplace_back(getHabit(2, date - days{2}));
+		habits.emplace_back(getHabit(2, date - days{10}));
+		habits.emplace_back(getHabit(2, date - days{12}));
 
 		return habits;
 	}
