@@ -16,4 +16,4 @@ if (UNIX)
 endif()
 
 add_library(${PROJECT_NAME} ${HT_src})
-target_link_libraries(${PROJECT_NAME} ${SysDependencies} Core)
+target_link_libraries(${PROJECT_NAME} ${SysDependencies} Core fmt date_interface)

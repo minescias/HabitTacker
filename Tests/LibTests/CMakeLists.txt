@@ -23,7 +23,7 @@ if (UNIX)
 endif()
 
 add_executable(${PROJECT_NAME} main.cpp ${LibTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock fmt ${SysDependencies} Core)
+target_link_libraries(${PROJECT_NAME} gtest gmock fmt date_interface ${SysDependencies} Core)
 
 add_test(NAME ${PROJECT_NAME}
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
