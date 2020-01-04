@@ -2,6 +2,7 @@
 
 #include "Core/Cli/Parameters.h"
 #include "Core/Dao/DaoFactory.h"
+#include "Core/DateTime/ParseDate.h"
 
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/EditAction.h"
@@ -12,6 +13,14 @@
 namespace Tests
 {
 using namespace testing;
+
+MATCHER_P(DefinitionsAreEqual, expected, "Nie wiem co to za tekst")
+{
+	EXPECT_THAT(arg.getId(), Eq(expected.getId()));
+	EXPECT_THAT(arg.getName(), Eq(expected.getName()));
+	EXPECT_THAT(arg.getBeginDate(), Eq(expected.getBeginDate()));
+	return true;
+}
 
 class EditActionTests : public testing::Test
 {
@@ -29,6 +38,7 @@ public:
 		auto habitDefinition = std::make_unique<Entity::HabitDefinitionEntity>();
 		habitDefinition->setId(1);
 		habitDefinition->setName("definition name");
+		habitDefinition->setBeginDate(Dt::parseDate("03.01.2019"));
 
 		return habitDefinition;
 	}
@@ -95,7 +105,8 @@ TEST_F(EditActionTests, overrides_habit_name)
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(getDefinition())));
 
-	EXPECT_CALL(*definitionDaoMock, updateDefinition(*expected));
+	EXPECT_CALL(
+		*definitionDaoMock, updateDefinition(DefinitionsAreEqual(*expected)));
 
 	pr.setFilter("1");
 	pr.setParameter("name", "New definition name");

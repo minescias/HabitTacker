@@ -16,7 +16,7 @@ def downloadFromGithub(name, version, tag, githubLink):
 downloadFromGithub(
     "fmt", "6.0.0", "6.0.0", "https://github.com/fmtlib/fmt.git")
 downloadFromGithub(
-    "googletest", "1.8.1", "release-1.8.1",
+    "googletest", "1.10.0", "release-1.10.0",
     "https://github.com/google/googletest.git")
 downloadFromGithub(
     "date", "2.4.1", "v2.4.1",

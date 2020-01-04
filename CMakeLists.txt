@@ -22,16 +22,15 @@ include_directories(${CMAKE_SOURCE_DIR}/Src)
 enable_testing()
 
 # external libraries settings
-# https://github.com/HowardHinnant/date/issues/474
-add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # availiable after 3.12
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # https://github.com/HowardHinnant/date/issues/474
 set(USE_SYSTEM_TZ_DB ON CACHE BOOL "Use the operating system's timezone database")
 set(ENABLE_DATE_TESTING OFF CACHE BOOL "Enable unit tests")
+set(INSTALL_GTEST ON CACHE BOOL false)
 
 # external libraries
 add_subdirectory(Libraries/date-2.4.1)
 add_subdirectory(Libraries/fmt-6.0.0)
-add_subdirectory(Libraries/googletest-1.8.1/googlemock)
+add_subdirectory(Libraries/googletest-1.10.0)
 add_subdirectory(Libraries/SQLite)
 
 # libraries
@@ -50,13 +49,13 @@ add_subdirectory(Tests/LibTests)
 # executables
 add_subdirectory(Src/HtCli_exe)
 
-#other
+# other
 add_custom_target(Doc ALL 
     make html
     WORKING_DIRECTORY ../Docs)
 
-add_custom_target(graphviz ALL
-    COMMAND ${CMAKE_COMMAND} "--graphviz=DepsGraph.dot" ..
-    COMMAND dot -Tpng foo.dot -o ${CMAKE_SOURCE_DIR}/bin/DepGraph.png
+add_custom_target(graphviz ALL 
+    COMMAND ${CMAKE_COMMAND} "--graphviz=DepsGraph.dot" .
+    COMMAND dot -Tpng DepsGraph.dot -o ${CMAKE_SOURCE_DIR}/bin/DepsGraph.png
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
 )

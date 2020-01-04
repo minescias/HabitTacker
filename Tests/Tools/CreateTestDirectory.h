@@ -9,19 +9,20 @@ namespace Tests
 void createTestDirectory()
 {
 	auto directoryName = "test_files";
+
+	if (std::filesystem::exists(directoryName))
+		return;
+
 	auto readmeFileName = "README.txt";
 	auto readmeContent =
 		"This folder contains temporary files created during tests.\n"
 		"It can be safely removed";
 
-	if (!std::filesystem::exists(directoryName))
-	{
-		auto path = std::filesystem::path(directoryName);
-		std::filesystem::create_directory(path);
-		std::ofstream ofs(path / readmeFileName);
-		ofs << readmeContent;
-		ofs.close();
-	}
+	auto path = std::filesystem::path(directoryName);
+	std::filesystem::create_directory(path);
+	std::ofstream ofs(path / readmeFileName);
+	ofs << readmeContent;
+	ofs.close();
 }
 
 } // namespace Tests
