@@ -1,8 +1,2 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(SQLite)
-
-set(SQLite_src
-    sqlite3.c)
-
-add_library(${PROJECT_NAME} SHARED ${SQLite_src})
-target_link_libraries(${PROJECT_NAME} pthread dl)
+add_library(SQLite sqlite3.c)
+target_link_libraries(SQLite pthread dl)

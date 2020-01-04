@@ -1,14 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(CoreTests)
-
-link_directories(${CMAKE_SOURCE_DIR}/bin)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googlemock/include)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/include)
-
-#set(BUILD_GMOCK_ON)
-enable_testing()
-
-set(CoreTests_src
+add_executable(CoreTests 
 	CLI/ParametersTests.cpp
 	CLI/ValidatorTests.cpp
 	Config/ConfigFileTests.cpp
@@ -26,21 +16,24 @@ set(CoreTests_src
 	Format/DateFormatterTests.cpp
 	Format/OptionalFormatterTests.cpp
 	Logger/LogTests.cpp
+	main.cpp
 	Strings/CaseTests.cpp
 	Strings/CompareTests.cpp
 	Strings/ReplaceTests.cpp
 	Types/DemangledTypeNameTests.cpp
 	Types/IsOptionalTests.cpp
-	main.cpp)
+)
 
-# system dependent libraries
-if (UNIX)
-    set(SysDependencies pthread stdc++fs)
-endif()
+target_link_libraries(CoreTests 
+	Core
+	date_interface 
+	fmt 
+	gmock
+	gtest
+	pthread
+	stdc++fs
+)
 
-add_executable(${PROJECT_NAME} ${CoreTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock date_interface fmt ${SysDependencies} Core)
-
-add_test(NAME ${PROJECT_NAME}
+add_test(NAME CoreTests
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
-	COMMAND ${PROJECT_NAME})
+	COMMAND CoreTests)

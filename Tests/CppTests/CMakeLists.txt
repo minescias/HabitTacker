@@ -1,31 +1,22 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(CppTests)
-
-link_directories(${CMAKE_SOURCE_DIR}/bin)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googlemock/include)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/include)
-
-#set(BUILD_GMOCK_ON)
-enable_testing()
-
-set(CppTests_src
+add_executable(CppTests 
 	ForLoopTests.cpp
 	LambdaTests.cpp
+	main.cpp
 	RegexTests.cpp
 	SmartPtrTests.cpp
 	StringTests.cpp
 	TypeTraitsTests.cpp
 	VariableParametersTest.cpp
-	main.cpp)
+)
 
-# system dependent libraries
-if (UNIX)
-    set(SysDependencies pthread stdc++fs)
-endif()
+target_link_libraries(CppTests 
+	pthread
+	stdc++fs
+	gtest
+	gmock
+	date_interface
+)
 
-add_executable(${PROJECT_NAME} ${CppTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock date_interface ${SysDependencies})
-
-add_test(NAME ${PROJECT_NAME}
+add_test(NAME CppTests
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
-	COMMAND ${PROJECT_NAME})
+	COMMAND CppTests)

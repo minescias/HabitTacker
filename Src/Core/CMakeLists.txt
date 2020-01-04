@@ -1,60 +1,34 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(Core)
-
-set(Cli_src
+add_library(Core
 	Cli/CommandLineParser.cpp
-	Cli/ParamProperties.cpp
 	Cli/Parameters.cpp
-	Cli/Validator.cpp)
-
-set(Config_src
-    Config/ConfigFile.cpp
-    Config/Settings.cpp)
-
-set(Datetime_src
-	DateTime/DateFormat.cpp
-	DateTime/DateLiteral.cpp
-	DateTime/DateTimeGetter.cpp
-	DateTime/FormatDate.cpp
-	DateTime/Operators.cpp
-	DateTime/ParseDate.cpp)
-
-set(Database_src
+	Cli/ParamProperties.cpp
+	Cli/Validator.cpp
+	Config/ConfigFile.cpp
+	Config/Settings.cpp
+	Dao/DaoFactory.cpp
 	Database/Database.cpp
 	Database/Dataset.cpp
 	Database/Parameters.cpp
 	Database/Query.cpp
 	Database/Row.cpp
 	Database/SetSqliteParam.cpp
-	Database/ValueGetter.cpp)
-
-set(Dao_src
-	Dao/DaoFactory.cpp)
-
-set(Logger_src
+	Database/ValueGetter.cpp
+	DateTime/DateFormat.cpp
+	DateTime/DateLiteral.cpp
+	DateTime/DateTimeGetter.cpp
+	DateTime/FormatDate.cpp
+	DateTime/Operators.cpp
+	DateTime/ParseDate.cpp
+	Exceptions/LogicError.cpp
+	Exceptions/RuntimeError.cpp
 	Logger/Log.cpp
-	Logger/Logger.cpp)
-
-set(Strings_src
+	Logger/Logger.cpp
 	Strings/Case.cpp
 	Strings/Compare.cpp
-	Strings/Replace.cpp)
+	Strings/Replace.cpp
+)
 
-set(Misc_src
-    Exceptions/LogicError.cpp
-    Exceptions/RuntimeError.cpp)
-
-add_library(${PROJECT_NAME}
-    ${Cli_src}
-    ${Config_src}
-    ${Dao_src}
-    ${Datetime_src}
-    ${Database_src}
-    ${Logger_src}
-    ${Strings_src}
-    ${Misc_src})
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(Core PRIVATE
 	date_interface
 	fmt
 	SQLite

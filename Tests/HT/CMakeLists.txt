@@ -1,27 +1,21 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(HtTests)
-
-link_directories(${CMAKE_SOURCE_DIR}/bin)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googlemock/include)
-include_directories(${CMAKE_SOURCE_DIR}/Libraries/googletest-1.8.1/googletest/include)
-
-#set(BUILD_GMOCK_ON)
-enable_testing()
-
-set(HtTests_src
+add_executable(HtTests 
 	Dao/HabitDaoTests.cpp
 	Dao/HabitDefinitionDaoTests.cpp
 	Dao/RequirementDaoTests.cpp
-	main.cpp)
+	main.cpp
+)
 
-# system dependent libraries
-if (UNIX)
-    set(SysDependencies pthread stdc++fs)
-endif()
+target_link_libraries(HtTests
+	Core
+	date_interface
+	fmt
+	gmock
+	gtest
+	Ht
+	pthread
+	stdc++fs
+)
 
-add_executable(${PROJECT_NAME} ${HtTests_src})
-target_link_libraries(${PROJECT_NAME} gtest gmock ${SysDependencies} HT)
-
-add_test(NAME ${PROJECT_NAME}
+add_test(NAME HtTests
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
-	COMMAND ${PROJECT_NAME})
+	COMMAND HtTests)
