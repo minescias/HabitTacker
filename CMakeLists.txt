@@ -4,9 +4,9 @@ project(HT)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(BUILD_SHARED_LIBS YES)
@@ -51,4 +51,12 @@ add_subdirectory(Tests/LibTests)
 add_subdirectory(Src/HtCli_exe)
 
 #other
-add_custom_target(Doc ALL make html WORKING_DIRECTORY ../Docs)
+add_custom_target(Doc ALL 
+    make html
+    WORKING_DIRECTORY ../Docs)
+
+add_custom_target(graphviz ALL
+    COMMAND ${CMAKE_COMMAND} "--graphviz=DepsGraph.dot" ..
+    COMMAND dot -Tpng foo.dot -o ${CMAKE_SOURCE_DIR}/bin/DepGraph.png
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+)

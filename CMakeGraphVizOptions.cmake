@@ -1,0 +1,3 @@
+set(GRAPHVIZ_GENERATE_PER_TARGET false)
+set(GRAPHVIZ_GENERATE_DEPENDERS false)
+set(GRAPHVIZ_IGNORE_TARGETS Tests gtest gmock tz fmt-header)
