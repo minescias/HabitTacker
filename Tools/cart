@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# compile and run test
+# cart - compile and run test :)
 
 import subprocess
 import sys

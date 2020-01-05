@@ -3,12 +3,11 @@
 import os
 import sys
 
-from cmake.findCmakeFile import findCmakeFile
-from cmake.cmakeFileManager import addFileToCmake
+from detail.addTestImpl import addTestsImpl
 
 
 def printHelpMessage():
-    print("Usage: addToCMake <filename>")
+    print("Usage: addTest <filename>")
     sys.exit()
 
 
@@ -28,11 +27,4 @@ fileName = sys.argv[1]
 if os.path.exists(fileName) is False:
     sys.exit("File '" + fileName + "' does not exist")
 
-cwd = os.getcwd()
-pathToCmake = findCmakeFile(cwd)
-if pathToCmake is None:
-    sys.exit("No CMakeList.txt file found")
-
-print("CMake file found in:" + pathToCmake)
-
-addFileToCmake(pathToCmake, fileName)
+addTestsImpl(fileName)

@@ -6,9 +6,8 @@ from detail.genCpp import generateClass
 from detail.genCpp import generateFile
 from detail.genCpp import generateHeader
 from detail.genCpp import generateTest
-from detail.genCmake import generateCMake
+from detail.addTestImpl import addTestsImpl
 from detail.questionsAfterGenerateFile import aksToAddFileToCmake
-from detail.questionsAfterGenerateFile import askToAddTests
 
 if len(sys.argv) < 2:
     sys.exit("Missing arguments")
@@ -20,7 +19,6 @@ if sys.argv[1] == "help":
           "\n - header <name> - generates c++ header file (.h only)"
           "\n - class <name> - generates c++ (.h and .cpp)"
           "\n - test <name> - generates c++ test (.cpp only)"
-          "\n - cmake - generates emty cmake file"
           "\n")
 
 if len(sys.argv) < 3:
@@ -37,9 +35,6 @@ elif fileType == "header":
     generateHeader(fileName)
 elif fileType == "test":
     generateTest(fileName)
-elif fileType == "cmake":
-    generateCMake(fileName)
-    sys.exit()
 else:
     sys.exit("Unknown file type")
 
@@ -47,4 +42,4 @@ if (fileType != "header"):
     aksToAddFileToCmake(fileName)
 
 if (fileType != "test"):
-    askToAddTests(fileName)
+    addTestsImpl(fileName)

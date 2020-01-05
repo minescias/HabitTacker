@@ -24,8 +24,8 @@ def generateHeader(filename):
     generateHeaderFile(filename, "", namespace)
 
 
-def generateTest(testName):
-    generateTestFile(testName)
+def generateTest(testName, path=os.getcwd()):
+    generateTestFile(testName, path)
 
 
 def generateHeaderFile(filename, className, namespace):
@@ -82,9 +82,11 @@ def generateSourceFile(filename, className, namespace):
     srcFile.close()
 
 
-def generateTestFile(testName):
-    ensureFileDoesNotExitsts(testName + ".cpp")
-    srcFile = open(testName + ".cpp", "w")
+def generateTestFile(testName, path):
+    testFile = os.path.join(path, testName + ".cpp")
+    ensureFileDoesNotExitsts(testFile)
+    srcFile = open(testFile, "w")
+
     srcFile.write("#include <gmock/gmock.h>\n")
     srcFile.write("\n")
 

@@ -1,93 +1,47 @@
 import os
 import sys
-from collections import namedtuple
 
-GroupInfo = namedtuple("Groupinfo", "fileList startIndex endIndex")
+logEnabled = False
 
 
-def addFileToCmake(pathToCmake, filename):
+def log(line):
+    if logEnabled is True:
+        print('[INFO]: ' + line)
+
+
+def addFileToCmake(pathToCmake, filename, filePath=os.getcwd()):
+    relFilePath = os.path.relpath(
+        filePath, pathToCmake) + '/' + filename
+
+    log('Relative file path: ' + relFilePath)
+
     cmakeFile = open(os.path.join(pathToCmake, "CMakeLists.txt"))
     cmakeLines = cmakeFile.readlines()
     cmakeFile.close()
 
-    sourceFileGropus = getSourceFileGroups(cmakeLines)
+    targetFound = False
 
-    print("Select group to add file '" + filename +
-          "' or type name to create new. Type q to exit.")
-
-    for i in range(len(sourceFileGropus)):
-        print(str(i) + ": " + sourceFileGropus[i])
-
-    userInput = input()
-    if userInput.isnumeric():
-        groupId = int(userInput)
-        if groupId < 0 or len(sourceFileGropus)-1 < groupId:
-            sys.exit("Incorrect group number")
-
-        addFileToGroup(pathToCmake, cmakeLines,
-                       filename, sourceFileGropus[groupId])
-    elif userInput == "q":
-        sys.exit()
-    else:
-        sys.exit("Not implemented yet")
-
-
-def getSourceFileGroups(cmakeLines):
-    groups = []
-    for line in cmakeLines:
-        if isGroupDeclaration(line.rstrip()) is True:
-            groups.append(line.rstrip()[4:])
-
-    return list(filter(None, groups))
-
-
-def isGroupDeclaration(line):
-    return line.startswith("set(") is True and line.endswith("_src") is True
-
-
-def addFileToGroup(pathToCmake, cmakeLines, filename, groupName):
-    groupInfo = getGroupInfo(cmakeLines, groupName)
-
-    pathToAddedFile = os.path.join(os.getcwd(), filename)
-    commonPath = os.path.commonpath([pathToCmake, pathToAddedFile])
-
-    groupInfo.fileList.append(os.path.relpath(pathToAddedFile, commonPath))
-    groupInfo.fileList.sort()
-
-    writreGroupToFile(cmakeLines, pathToCmake, groupName, groupInfo)
-
-
-def getGroupInfo(cmakeLines, groupName):
-    startIndex = None
-    endIndex = None
-    files = []
-
-    for i in range(len(cmakeLines)):
-        trimedLine = cmakeLines[i].lstrip().rstrip()
-        if startIndex is not None:
-            if trimedLine.endswith(")"):
-                files.append(trimedLine[:-1])
-                endIndex = i
+    for index, line in enumerate(cmakeLines):
+        if targetFound is False:
+            if (line.startswith("add_library(") or
+                    line.startswith("add_executable(")):
+                targetFound = True
+        else:
+            trimmedLine = line.lstrip().rstrip()
+            if relFilePath < trimmedLine:
+                log("Adding file {0} before {1}".format(filename, trimmedLine))
+                cmakeLines[index] = "\t{0}\n\t{1}\n".format(
+                    relFilePath, trimmedLine)
+                break
+            elif trimmedLine == ")":
+                log("Adding file {0} at the end of list".format(relFilePath))
+                cmakeLines[index] = "\t{0}\n)\n".format(relFilePath)
                 break
 
-            files.append(trimedLine)
-
-        if trimedLine.startswith("set(" + groupName):
-            startIndex = i
-
-    return GroupInfo(files, startIndex, endIndex)
-
-
-def writreGroupToFile(cmakeLines, pathToCmake, groupName, groupInfo):
-    groupStr = "set(" + groupName
-
-    for file in groupInfo.fileList:
-        groupStr = groupStr + "\n\t" + file
-
-    groupStr = groupStr + ")\n"
+    if targetFound is False:
+        print('[ERROR]: no target found in CMakeLists')
+        return
 
     cmakeFile = open(os.path.join(pathToCmake, "CMakeLists.txt"), "w")
-    cmakeFile.writelines(cmakeLines[:groupInfo.startIndex])
-    cmakeFile.write(groupStr)
-    cmakeFile.writelines(cmakeLines[groupInfo.endIndex+1:])
+    cmakeFile.writelines(cmakeLines)
     cmakeFile.close()

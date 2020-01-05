@@ -11,6 +11,7 @@ def findCmakeFile(fullPath):
     while os.path.dirname(tmpPath) != '':
         if cmakeFileExist(tmpPath):
             return tmpPath
+
         tmpPath = goUpOneLevel(tmpPath)
 
     return None
