@@ -18,8 +18,8 @@ public:
 	virtual std::vector<Entity::HabitEntityPtr> getHabitsById(int id) const = 0;
 	virtual bool checkIfHabitIsSetForDay(const Entity::HabitEntity& habit) const = 0;
 
-	virtual std::vector<Entity::HabitEntityPtr> getHabitsFromLastTwoWeeks(
-		Dt::Date date) const = 0;
+	virtual std::vector<Entity::HabitEntityPtr> getHabits(int definitionId, 
+		Dt::Date beginDate, Dt::Date endDate) const = 0;
 
 	virtual ~IHabitDao(){};
 };

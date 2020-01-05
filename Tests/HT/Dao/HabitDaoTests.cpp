@@ -17,11 +17,18 @@ using date::days;
 using namespace testing;
 namespace fs = std::filesystem;
 
+MATCHER_P(HabitEq, expected, "Compared two habits")
+{
+	EXPECT_THAT(arg.getHabitId(), Eq(expected.getHabitId()));
+	EXPECT_THAT(arg.getDate(), Eq(expected.getDate()));
+	EXPECT_THAT(arg.getResult(), Eq(expected.getResult()));
+	return true;
+}
+
 class HabitDaoTests : public testing::Test
 {
 public:
-	HabitDaoTests()
-		: filename("test_files/Ht_HabitDao.db")
+	HabitDaoTests() : filename("test_files/Ht_HabitDao.db")
 	{
 		fs::remove(filename);
 		db = Dao::DatabaseCreator{filename}.createEmptyDatabase();
@@ -48,14 +55,6 @@ public:
 		return habit;
 	}
 
-	void compareHabits(
-		const Entity::HabitEntity& actual, const Entity::HabitEntity& expected) const
-	{
-		EXPECT_THAT(actual.getHabitId(), Eq(expected.getHabitId()));
-		EXPECT_THAT(actual.getDate(), Eq(expected.getDate()));
-		EXPECT_THAT(actual.getResult(), Eq(expected.getResult()));
-	}
-
 	std::string filename;
 	std::unique_ptr<Db::Database> db;
 	std::unique_ptr<Dao::IHabitDefinitionDao> definitionDao;
@@ -75,7 +74,7 @@ TEST_F(HabitDaoTests, save_and_read_test)
 	auto readHabits = habitDao->getHabitsById(1);
 
 	ASSERT_THAT(readHabits.size(), Eq(1));
-	compareHabits(*readHabits[0], writtenHabit);
+	EXPECT_THAT(*readHabits[0], HabitEq(writtenHabit));
 }
 
 TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
@@ -91,34 +90,31 @@ TEST_F(HabitDaoTests, checksIfHabitIsSetForDay)
 	ASSERT_TRUE(habitDao->checkIfHabitIsSetForDay(habit));
 }
 
-TEST_F(HabitDaoTests, getsHabitsFromLastTwoWeeks)
+TEST_F(HabitDaoTests, gets_habits_from_given_period)
 {
 	auto today = Dt::getCurrentDate();
 
 	addDefinition("Some definition");
-	addDefinition("Some definition2");
+	addDefinition("Excluded definition");
 
 	// included data
-	auto h1 = addHabit(1, today);
-	auto h2 = addHabit(1, today - days{2});
-	auto h3 = addHabit(2, today - days{1});
-	auto h4 = addHabit(2, today - days{2});
-	auto h5 = addHabit(2, today - days{10});
-	auto h6 = addHabit(2, today - days{13});
+	auto expected =
+		std::vector<Entity::HabitEntity>{{addHabit(1, today - days{13})},
+										 {addHabit(1, today - days{10})},
+										 {addHabit(1, today - days{2})},
+										 {addHabit(1, today - days{1})},
+										 {addHabit(1, today)}};
 
-	// excluded data over 14 days
+	// excluded data: over 14 days and other habit
 	addHabit(1, today - days{14});
-	addHabit(2, today - days{15});
+	addHabit(1, today - days{15});
+	addHabit(2, today - days{2});
 
-	auto habits = habitDao->getHabitsFromLastTwoWeeks(today);
+	auto habits = habitDao->getHabits(1, today - days{13}, today);
 
-	ASSERT_THAT(habits.size(), Eq(6));
-	compareHabits(*habits[0], h1);
-	compareHabits(*habits[1], h2);
-	compareHabits(*habits[2], h3);
-	compareHabits(*habits[3], h4);
-	compareHabits(*habits[4], h5);
-	compareHabits(*habits[5], h6);
+	ASSERT_THAT(habits.size(), Eq(5));
+	for (unsigned i = 0; i < habits.size(); i++)
+		EXPECT_THAT(*habits[i], HabitEq(expected[i]));
 }
 
 TEST_F(HabitDaoTests, deleteHabitTests)
