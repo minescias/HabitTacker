@@ -18,7 +18,7 @@ int getUtf8StringLength(const std::string& str)
 
 std::string rPad(std::string str, int width, char paddigChar)
 {
-	return str.append(width - str.length(), paddigChar);
+	return str.append(width - getUtf8StringLength(str), paddigChar);
 }
 
 } // namespace
@@ -35,44 +35,9 @@ void Table::addColumn(const std::string& name)
 	nameToIndexMap.insert(std::make_pair(name, nameToIndexMap.size()));
 }
 
-void Table::print() const
+void Table::addLine()
 {
-	auto headerStr = std::string();
-
-	auto columnsWidth = std::vector<int>();
-
-	std::cout << "\n";
-	auto separator = "";
-	for (auto name : columnNames)
-	{
-		std::cout << separator + name;
-		columnsWidth.emplace_back(getUtf8StringLength(name));
-		separator = " ";
-	}
-	std::cout << "\n";
-
-	separator = "";
-	for (auto width : columnsWidth)
-	{
-		std::cout << separator << std::string(width, '-');
-		separator = " ";
-	}
-	separator = "";
-	std::cout << "\n";
-
-	if (data.empty())
-		return;
-
-	for (auto line : data)
-	{
-		separator = "";
-		for (unsigned i = 0; i < line.size(); i++)
-		{
-			std::cout << separator << rPad(line[i], columnsWidth[i], ' ');
-			separator = " ";
-		}
-		std::cout << "\n";
-	}
+	data.emplace_back(std::vector<std::string>(columnNames.size(), ""));
 }
 
 void Table::setValue(const std::string& columnName, const std::string& value)
@@ -81,9 +46,70 @@ void Table::setValue(const std::string& columnName, const std::string& value)
 	data.back()[index] = value;
 }
 
-void Table::addLine()
+void Table::print()
 {
-	data.emplace_back(std::vector<std::string>(columnNames.size(), ""));
+	calculateColumnLengts();
+
+	std::cout << "\n";
+	printHeader();
+	printHeaderSeparator();
+	printData();
+}
+
+void Table::calculateColumnLengts()
+{
+	columnWidths.clear();
+	for (auto name : columnNames)
+		columnWidths.emplace_back(getUtf8StringLength(name));
+
+	for (auto row : data)
+	{
+		for (unsigned i = 0; i < row.size(); i++)
+		{
+			auto valueLength = getUtf8StringLength(row[i]);
+			if (valueLength > columnWidths[i])
+				columnWidths[i] = valueLength;
+		}
+	}
+}
+
+void Table::printHeader() const
+{
+	auto separator = "";
+	for (unsigned i = 0; i < columnNames.size(); i++)
+	{
+		std::cout << separator << rPad(columnNames[i], columnWidths[i], ' ');
+		separator = " ";
+	}
+	std::cout << "\n";
+}
+
+void Table::printHeaderSeparator() const
+{
+	auto separator = "";
+	for (auto width : columnWidths)
+	{
+		std::cout << separator << std::string(width, '-');
+		separator = " ";
+	}
+	std::cout << "\n";
+}
+
+void Table::printData() const
+{
+	if (data.empty())
+		return;
+
+	for (auto line : data)
+	{
+		auto separator = "";
+		for (unsigned i = 0; i < line.size(); i++)
+		{
+			std::cout << separator << rPad(line[i], columnWidths[i], ' ');
+			separator = " ";
+		}
+		std::cout << "\n";
+	}
 }
 
 } // namespace Cli

@@ -76,4 +76,48 @@ aa  bb  cc
 	checkPrintOutput(expected);
 }
 
+TEST_F(TableTests, print_unicode_chaaracter_in_data)
+{
+	auto expected = R"(
+One Two
+--- ---
+aą  ęe 
+)";
+
+	table.addColumn("One");
+	table.addColumn("Two");
+
+	table.addLine();
+	table.setValue("One", "aą");
+	table.setValue("Two", "ęe");
+
+	checkPrintOutput(expected);
+}
+
+TEST_F(TableTests, get_column_width_from_longest_value)
+{
+	auto expected = R"(
+One      Two         Three
+-------- ----------- -----
+raz      dwadzieścia trzy 
+pierwszy drugi       :)   
+)";
+
+	table.addColumn("One");
+	table.addColumn("Two");
+	table.addColumn("Three");
+
+	table.addLine();
+	table.setValue("One", "raz");
+	table.setValue("Two", "dwadzieścia");
+	table.setValue("Three", "trzy");
+
+	table.addLine();
+	table.setValue("One", "pierwszy");
+	table.setValue("Two", "drugi");
+	table.setValue("Three", ":)");
+
+	checkPrintOutput(expected);
+}
+
 } // namespace Tests
