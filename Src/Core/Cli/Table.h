@@ -11,9 +11,12 @@ class Table
 {
 public:
 	Table();
-	void addColumn(const std::string& name);
+	void addColumn(const std::string& id, const std::string& alias = "");
 	void addLine();
-	void setValue(const std::string& columnName, const std::string& value);
+	void setValue(const std::string& columnId, const std::string& value);
+	void setValue(int columnIndex, const std::string& value);
+
+	int getColumnIndex(const std::string& id) const;
 	void print();
 
 private:
@@ -24,8 +27,9 @@ private:
 
 private:
 	std::vector<int> columnWidths;
+	std::vector<std::string> columnIds;
 	std::vector<std::string> columnNames;
-	std::map<std::string, int> nameToIndexMap;
+	std::map<std::string, int> idToIndexMap;
 	std::vector<std::vector<std::string>> data;
 };
 

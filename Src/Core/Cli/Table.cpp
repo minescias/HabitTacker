@@ -29,21 +29,36 @@ Table::Table()
 {
 }
 
-void Table::addColumn(const std::string& name)
+void Table::addColumn(const std::string& id, const std::string& alias)
 {
-	columnNames.push_back(name);
-	nameToIndexMap.insert(std::make_pair(name, nameToIndexMap.size()));
+	columnIds.push_back(id);
+	idToIndexMap.insert(std::make_pair(id, idToIndexMap.size()));
+
+	if (alias.empty())
+		columnNames.emplace_back(id);
+	else
+		columnNames.emplace_back(alias);
 }
 
 void Table::addLine()
 {
-	data.emplace_back(std::vector<std::string>(columnNames.size(), ""));
+	data.emplace_back(std::vector<std::string>(columnIds.size(), ""));
 }
 
-void Table::setValue(const std::string& columnName, const std::string& value)
+void Table::setValue(const std::string& columnId, const std::string& value)
 {
-	auto index = nameToIndexMap.at(columnName);
-	data.back()[index] = value;
+	auto index = getColumnIndex(columnId);
+	setValue(index, value);
+}
+
+void Table::setValue(int columnIndex, const std::string& value)
+{
+	data.back()[columnIndex] = value;
+}
+
+int Table::getColumnIndex(const std::string& id) const
+{
+	return idToIndexMap.at(id);
 }
 
 void Table::print()
@@ -76,7 +91,7 @@ void Table::calculateColumnLengts()
 void Table::printHeader() const
 {
 	auto separator = "";
-	for (unsigned i = 0; i < columnNames.size(); i++)
+	for (unsigned i = 0; i < columnIds.size(); i++)
 	{
 		std::cout << separator << rPad(columnNames[i], columnWidths[i], ' ');
 		separator = " ";

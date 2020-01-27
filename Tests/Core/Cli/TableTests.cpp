@@ -120,4 +120,43 @@ pierwszy drugi       :)
 	checkPrintOutput(expected);
 }
 
+TEST_F(TableTests, use_column_alias)
+{
+	auto expected = R"(
+One Two Two       
+--- --- ----------
+raz dwa drugie dwa
+)";
+
+	table.addColumn("One");
+	table.addColumn("Two_1", "Two");
+	table.addColumn("Two_2", "Two");
+
+	table.addLine();
+	table.setValue("One", "raz");
+	table.setValue("Two_1", "dwa");
+	table.setValue("Two_2", "drugie dwa");
+
+	checkPrintOutput(expected);
+}
+
+TEST_F(TableTests, use_index_when_setting_values)
+{
+	auto expected = R"(
+One Two   Three
+--- ----- -----
+    aaaaa      
+)";
+
+	table.addColumn("One");
+	table.addColumn("Two");
+	table.addColumn("Three");
+
+	table.addLine();
+	auto columnIndex = table.getColumnIndex("Two");
+	table.setValue(columnIndex, "aaaaa");
+	
+	checkPrintOutput(expected);
+}
+
 } // namespace Tests
