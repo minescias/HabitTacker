@@ -61,13 +61,22 @@ public:
 		return entity;
 	}
 
-	std::vector<Entity::HabitEntityPtr> getHabits()
+	std::vector<Entity::HabitEntityPtr> getHabits1()
 	{
 		auto date = 2019_y / May / 05_d;
 
 		std::vector<Entity::HabitEntityPtr> habits;
 		habits.emplace_back(getHabit(1, date));
 		habits.emplace_back(getHabit(1, date - days{2}));
+
+		return habits;
+	}
+
+	std::vector<Entity::HabitEntityPtr> getHabits2()
+	{
+		auto date = 2019_y / May / 05_d;
+		
+		std::vector<Entity::HabitEntityPtr> habits;
 		habits.emplace_back(getHabit(2, date - days{1}));
 		habits.emplace_back(getHabit(2, date - days{2}));
 		habits.emplace_back(getHabit(2, date - days{10}));
@@ -90,14 +99,17 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
 
-	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(date))
-		.WillOnce(Return(ByMove(getHabits())));
+	EXPECT_CALL(*habitDaoMock, getHabits(1, date - days{14}, date))
+		.WillOnce(Return(ByMove(getHabits1())));
+
+	EXPECT_CALL(*habitDaoMock, getHabits(2, date - days{14}, date))
+		.WillOnce(Return(ByMove(getHabits2())));
 
 	auto expectedOutput =
-		"\n  id name                                     Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su"
-		"\n---- ---------------------------------------- -----------------------------------------"
-		"\n   1 Pierwszy                                          __ __ __ __ __ __ __ __ XX __ XX"
-		"\n   2 Drugi zżź                                __ XX __ XX __ __ __ __ __ __ __ XX XX __"
+		"\nId Name      Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su"
+		"\n-- --------- -- -- -- -- -- -- -- -- -- -- -- -- -- --"
+		"\n1  Pierwszy           __ __ __ __ __ __ __ __ XX __ XX"
+		"\n2  Drugi zżź __ XX __ XX __ __ __ __ __ __ __ XX XX __"
 		"\n";
 
 	internal::CaptureStdout();
@@ -136,7 +148,10 @@ TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
 	EXPECT_CALL(*definitionDaoMock, getDefinitions())
 		.WillOnce(Return(ByMove(getHabitDefinitions())));
 
-	EXPECT_CALL(*habitDaoMock, getHabitsFromLastTwoWeeks(Dt::getCurrentDate()));
+	auto today = Dt::getCurrentDate();
+
+	EXPECT_CALL(*habitDaoMock, getHabits(1, today - days{14}, today));
+	EXPECT_CALL(*habitDaoMock, getHabits(2, today - days{14}, today));
 
 	defaultAction.execute(Cli::Parameters());
 }

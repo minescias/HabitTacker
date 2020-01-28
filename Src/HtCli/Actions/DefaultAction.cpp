@@ -4,9 +4,16 @@
 #include <iostream>
 
 #include <Core/DateTime/DateTimeGetter.h>
+#include <Core/DateTime/Operators.h>
 #include <Core/DateTime/ParseDate.h>
 
 #include "HtCli/Actions/ActionError.h"
+
+namespace
+{
+using date::days;
+using date::sys_days;
+} // namespace
 
 namespace Actions
 {
@@ -42,21 +49,20 @@ void DefaultAction::doExecute(const Cli::Parameters& parameters)
 	if (habitDefinitions.empty())
 		throw ActionError("No habits found, try to add some using 'htr add'\n");
 
-	prepareCompletionTable(date, habitDefinitions);
-	fillCompletionTable(date);
-	printHeader(date);
+	table.addColumn("Id");
+	table.addColumn("Name");
+	addWeekdayColumns(date);
 
 	for (auto const& definition : habitDefinitions)
 	{
-		// to formatowanie tutaj jest tak straszne... Ale działa :)
-		std::cout << "\n"
-				  << std::setw(4) << definition->getId() << " "
-				  << definition->getName()
-				  << std::setw(40 - getUtf8StringLength(definition->getName()))
-				  << " " << getCompletionString(definition->getId());
+		table.addLine();
+		table.setValue("Id", std::to_string(definition->getId()));
+		table.setValue("Name", definition->getName());
+		initWeekdayValues(*definition, date);
+		fillWeekdayValues(*definition, date);
 	}
 
-	std::cout << "\n";
+	table.print();
 }
 
 void DefaultAction::initValidator()
@@ -66,15 +72,7 @@ void DefaultAction::initValidator()
 		.requirement(Cli::RequirementLevel::Optional);
 }
 
-void DefaultAction::printHeader(Dt::Date date) const
-{
-	std::cout << "\n  id name                                    "
-			+ getWeekDaysHeaderEndingWithDate(date)
-			+ "\n---- ----------------------------------------"
-			+ " -----------------------------------------";
-}
-
-std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Date date) const
+void DefaultAction::addWeekdayColumns(Dt::Date date)
 {
 	std::string result;
 	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
@@ -83,62 +81,37 @@ std::string DefaultAction::getWeekDaysHeaderEndingWithDate(Dt::Date date) const
 	// TODO: pobrać dzień tygodnia z Dt::Date
 
 	for (int i = firstDay; i < firstDay + daysToPrint; i++)
-		result += " " + weekDays[i % 7];
-
-	return result;
+		table.addColumn("wd_" + std::to_string(i), weekDays[i % 7]);
 }
 
-void DefaultAction::prepareCompletionTable(
-	Dt::Date date, const std::vector<Entity::HabitDefinitionEntityPtr>& definitions)
+void DefaultAction::initWeekdayValues(
+	Entity::HabitDefinitionEntity& definition, Dt::Date date)
 {
-	for (auto const& definition : definitions)
+	auto firstColumnId = table.getColumnIndex("wd_1");
+	auto beginDateId = sys_days{date} - sys_days{definition.getBeginDate()};
+
+	for (int i = 0; i < daysToPrint; i++)
 	{
-		auto id = definition->getId();
-		completionTable.emplace(
-			id, std::vector<CompletionType>(14, CompletionType::No));
-
-		// TODO: Wygodna metoda do odejmowania dat
-
-		auto daysBack =
-			date::sys_days{date} - date::sys_days{definition->getBeginDate()};
-		auto dayId = daysToPrint - daysBack.count() - 1;
-
-		if (dayId >= 0)
-		{
-			for (int i = 0; i < dayId; i++)
-				completionTable.at(id)[i] = CompletionType::None;
-		}
-	}
-}
-void DefaultAction::fillCompletionTable(Dt::Date date)
-{
-	auto habits = habitDao->getHabitsFromLastTwoWeeks(date);
-
-	for (auto const& habit : habits)
-	{
-		auto daysBack = date::sys_days{date} - date::sys_days{habit->getDate()};
-		auto dayId = daysToPrint - daysBack.count() - 1;
-		completionTable.at(habit->getHabitId())[dayId] = CompletionType::Yes;
+		if ((beginDateId.count() - daysToPrint + i + 2) > 0)
+			table.setValue(firstColumnId + i, "__");
 	}
 }
 
-std::string DefaultAction::getCompletionString(int habitId)
+void DefaultAction::fillWeekdayValues(
+	Entity::HabitDefinitionEntity& definition, Dt::Date date)
 {
-	std::string result;
+	auto firstColumnId = table.getColumnIndex("wd_1");
 
-	auto completion = completionTable.at(habitId);
+	auto habits =
+		habitDao->getHabits(definition.getId(), date - days{daysToPrint}, date);
 
-	for (auto resultForDay : completion)
+	for (const auto& habit : habits)
 	{
-		if (resultForDay == CompletionType::No)
-			result += " __";
-		else if (resultForDay == CompletionType::Yes)
-			result += " XX";
-		else
-			result += "   ";
-	}
+		auto columnId = firstColumnId - 1
+			+ (sys_days{habit->getDate()} - sys_days{date}).count() + daysToPrint;
 
-	return result;
+		table.setValue(columnId, "XX");
+	}
 }
 
 } // namespace Actions
