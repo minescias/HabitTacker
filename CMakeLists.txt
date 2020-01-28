@@ -26,12 +26,15 @@ add_compile_definitions(HAS_UNCAUGHT_EXCEPTIONS=1) # https://github.com/HowardHi
 set(USE_SYSTEM_TZ_DB ON CACHE BOOL "Use the operating system's timezone database")
 set(ENABLE_DATE_TESTING OFF CACHE BOOL "Enable unit tests")
 set(INSTALL_GTEST ON CACHE BOOL false)
+set(JSON_BuildTests OFF CACHE BOOL "Build the unit tests when BUILD_TESTING is enabled.")
+set(JSON_Install OFF CACHE BOOL "Install CMake targets during install step.")
 
 # external libraries
 add_subdirectory(Libraries/date-2.4.1)
 add_subdirectory(Libraries/fmt-6.0.0)
 add_subdirectory(Libraries/googletest-1.10.0)
 add_subdirectory(Libraries/SQLite)
+add_subdirectory(Libraries/nlohmann_json-3.7.3)
 
 # libraries
 add_subdirectory(Src/Core)

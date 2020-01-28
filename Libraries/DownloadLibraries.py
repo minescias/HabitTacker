@@ -21,3 +21,6 @@ downloadFromGithub(
 downloadFromGithub(
     "date", "2.4.1", "v2.4.1",
     "https://github.com/HowardHinnant/date.git")
+downloadFromGithub(
+    "hlohmann_json", "3.7.3", "v3.7.3",
+    "https://github.com/nlohmann/json.git")
