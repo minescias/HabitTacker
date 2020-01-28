@@ -2,6 +2,7 @@ add_executable(LibTests
 	DateTests.cpp
 	FmtTests.cpp
 	main.cpp 
+	Sqlite_returnIdOfInsertedObject.cpp
 	SqliteForeignKeyTests.cpp
 )
 
