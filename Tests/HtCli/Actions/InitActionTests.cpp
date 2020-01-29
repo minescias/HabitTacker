@@ -20,9 +20,10 @@ class InitActionTest : public testing::Test
 public:
 	InitActionTest()
 		: dbFilePath("test_files/HtCli_InitAction.db"),
-		  configFilePath("test_files/HtCli_InitActionConfig.txt")
+		  configFilePath("test_files/htr_settings.json")
 	{
 		fs::remove(dbFilePath);
+		fs::remove(configFilePath);
 	}
 
 	void validateFileContent(const std::string& filename, const std::string& expectedContent)
@@ -53,7 +54,7 @@ TEST_F(InitActionTest, validFilenameIsSet)
 {
 	try
 	{
-		initAction.execute("", "");
+		initAction.execute("");
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -64,17 +65,17 @@ TEST_F(InitActionTest, validFilenameIsSet)
 
 TEST_F(InitActionTest, createsNewFileWhenDoesntExist)
 {
-	initAction.execute(dbFilePath, configFilePath);
+	initAction.execute(dbFilePath);
 	ASSERT_TRUE(fs::exists(dbFilePath));
 }
 
 TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 {
-	initAction.execute(dbFilePath, configFilePath);
 	try
 	{
-		// previous test should ensure that required file exists
-		initAction.execute(dbFilePath, configFilePath);
+		initAction.execute(dbFilePath);
+		// files already created in prevoius command
+		initAction.execute(dbFilePath);
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -84,26 +85,14 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 	}
 }
 
-TEST_F(InitActionTest, validateConfigFileNameIsSet)
-{
-	try
-	{
-		initAction.execute(dbFilePath, "");
-		FAIL() << "Expected ActionError";
-	}
-	catch (const Actions::ActionError& err)
-	{
-		ASSERT_STREQ("Config file path is empty", err.what());
-	}
-}
-
 TEST_F(InitActionTest, createsConfgigFile)
 {
-	auto fileContent =
-		std::string("# defaultDatabase\ndatabase=") + dbFilePath + "\n";
+	auto fileContent = R"json({
+    "database": "test_files/HtCli_InitAction.db"
+}
+)json";
 
-	initAction.execute(dbFilePath, configFilePath);
-
+	initAction.execute(dbFilePath);
 	validateFileContent(configFilePath, fileContent);
 }
 

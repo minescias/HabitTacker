@@ -41,8 +41,7 @@ int appInit(int argc, char* argv[])
 		}
 		else if (commandName == "init")
 		{
-			Actions::InitAction().execute(
-				parserResult.getDefaultParameter(), "htr.ini");
+			Actions::InitAction().execute(parserResult.getDefaultParameter());
 		}
 		else
 		{

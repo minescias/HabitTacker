@@ -5,12 +5,11 @@
 
 namespace Actions
 {
-
 class InitAction
 {
 public:
 	InitAction();
-	void execute(const std::string& dbFilePath, const std::string& configFilePath);
+	void execute(const std::string& dbFilePath);
 
 private:
 	void createDatabaseFile() const;
