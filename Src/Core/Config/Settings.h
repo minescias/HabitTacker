@@ -19,8 +19,7 @@ public:
 	std::string get(const std::string& name) const;
 	void set(const std::string& name, const std::string& value);
 
-private:
-	void setDefaultValues();
+	SettingsMap getAllSettings() const;
 
 private:
 	SettingsMap settingsMap;

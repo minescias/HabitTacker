@@ -32,5 +32,6 @@ add_library(Core
 target_link_libraries(Core PRIVATE
 	date_interface
 	fmt
+	nlohmann_json
 	SQLite
 )

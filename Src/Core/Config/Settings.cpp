@@ -4,7 +4,6 @@
 
 namespace Config
 {
-
 Settings::Settings()
 {
 }
@@ -28,6 +27,11 @@ void Settings::set(const std::string& name, const std::string& value)
 		throw RuntimeError("Trying to set unknown setting " + name);
 
 	settingsMap.at(name) = value;
+}
+
+SettingsMap Settings::getAllSettings() const
+{
+	return settingsMap;
 }
 
 } // namespace Config

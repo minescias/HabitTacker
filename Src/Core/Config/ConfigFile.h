@@ -8,16 +8,12 @@
 
 namespace Config
 {
-
 class ConfigFile
 {
 public:
 	ConfigFile(const std::string& filename, Settings* settings);
 
 	void read();
-
-private:
-	void parseLine(const std::string& line);
 
 private:
 	std::string filename;

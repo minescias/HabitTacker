@@ -33,6 +33,7 @@ target_link_libraries(CoreTests
 	gmock
 	gtest
 	pthread
+	nlohmann_json
 	stdc++fs
 )
 

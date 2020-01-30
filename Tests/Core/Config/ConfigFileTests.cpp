@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <fstream>
 
+#include "nlohmann/json.hpp"
+
 #include "Core/Config/ConfigFile.h"
 #include "Core/Config/Settings.h"
 #include "Core/Exceptions/RuntimeError.h"
@@ -10,6 +12,7 @@
 namespace Tests
 {
 using namespace testing;
+using json = nlohmann::json;
 
 class ConfigFileTests : public testing::Test
 {
@@ -31,11 +34,7 @@ public:
 TEST_F(ConfigFileTests, readsSettingsFromFile)
 {
 	auto name = "database";
-
-	auto configFileContent =
-		"# default database file\n"
-		"database=myDatabase.db\n";
-
+	auto configFileContent = json{{name, "myDatabase.db"}}.dump(4);
 	createConfigFile(configFileContent);
 
 	auto expectedSettings = std::make_unique<Config::Settings>();
@@ -46,26 +45,7 @@ TEST_F(ConfigFileTests, readsSettingsFromFile)
 
 	Config::ConfigFile(filename, settings.get()).read();
 
-	ASSERT_STREQ(expectedSettings->get(name).c_str(), settings->get(name).c_str());
-}
-
-TEST_F(ConfigFileTests, throwsRuntimeErrorWhenNoEqFund)
-{
-	auto configFileContent = "slskjjhsfkjhskjf\n";
-	createConfigFile(configFileContent);
-
-	auto settings = std::make_unique<Config::Settings>();
-
-	try
-	{
-		Config::ConfigFile(filename, settings.get()).read();
-		FAIL() << "RuntimeError expected";
-	}
-	catch (RuntimeError& err)
-	{
-		auto expected = "Error in config file in line 'slskjjhsfkjhskjf'";
-		ASSERT_STREQ(err.what(), expected);
-	}
+	ASSERT_THAT(settings->get(name), Eq(expectedSettings->get(name)));
 }
 
 } // namespace Tests
