@@ -3,8 +3,13 @@
 #include <filesystem>
 #include <fstream>
 
+#include <pwd.h>
 #include <nlohmann/json.hpp>
+#include <unistd.h>
 
+#include "fmt/format.h"
+
+#include "Core/Cli/ValidatorEnums.h"
 #include "HT/Dao/DatabaseCreator.h"
 #include "HtCli/Actions/ActionError.h"
 
@@ -13,38 +18,63 @@ namespace Actions
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-InitAction::InitAction() : configFilename("htr_settings.json")
+InitAction::InitAction() : configFileName("htr_settings.json")
 {
+	initValidator();
 }
 
-void InitAction::execute(const std::string& dbFilePath)
+void InitAction::execute(const Cli::Parameters& parameters)
 {
-	dbFilename = dbFilePath;
+	dbFilename = parameters.getDefaultParameter();
 
+	validator.validate(parameters);
 	createDatabaseFile();
-	createConfigFile();
+	createConfigFile(parameters.getFlag("global"));
+}
+
+void InitAction::initValidator()
+{
+	validator.addDefaultParameter()
+		.requirement(Cli::RequirementLevel::Required)
+		.errorMessage("No filename specified");
+
+	validator.addParam("global"); // no unit test for this
 }
 
 void InitAction::createDatabaseFile() const
 {
-	if (dbFilename.empty())
-		throw ActionError("No filename specified");
-
 	if (fs::exists(dbFilename))
-		throw ActionError(std::string("File ") + dbFilename + " already exists");
+		throw ActionError(fmt::format("File {} already exists", dbFilename));
 
 	Dao::DatabaseCreator(dbFilename).createEmptyDatabase();
 }
 
-void InitAction::createConfigFile() const
+void InitAction::createConfigFile(bool globallyAccesible) const
 {
-	if (configFilename.empty())
-		throw ActionError("Config file path is empty");
+	auto configFilePath = fs::path();
 
-	auto configFilePath =
-		fs::path(dbFilename).parent_path().append(configFilename);
+	if (globallyAccesible)
+	{
+		// https://stackoverflow.com/questions/2910377/get-home-directory-in-linux
+		auto homeDir = getenv("HOME");
+		if (!homeDir)
+			homeDir = getpwuid(getuid())->pw_dir;
+		
+		configFilePath = fs::path(homeDir).append(".config/htr/");
+	}
+	else
+	{
+		configFilePath = fs::path(dbFilename).parent_path();
+	}
+
+	fs::create_directory(configFilePath);
+	configFilePath.append(configFileName);
 
 	std::ofstream file{configFilePath};
+
+	if (!file.is_open())
+		throw ActionError(std::string("Cannot create config file in ") + configFilePath.c_str());
+
 	file << json{{"database", dbFilename}}.dump(4);
 	file.close();
 }

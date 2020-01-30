@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <fstream>
 
+#include "Core/Cli/Parameters.h"
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/InitAction.h"
 
@@ -24,6 +25,8 @@ public:
 	{
 		fs::remove(dbFilePath);
 		fs::remove(configFilePath);
+
+		parameters.setDefaultParameter(dbFilePath);
 	}
 
 	void validateFileContent(const std::string& filename, const std::string& expectedContent)
@@ -48,16 +51,17 @@ public:
 	std::string dbFilePath;
 	std::string configFilePath;
 	Actions::InitAction initAction;
+	Cli::Parameters parameters;
 };
 
 TEST_F(InitActionTest, validFilenameIsSet)
 {
 	try
 	{
-		initAction.execute("");
-		FAIL() << "Expected ActionError";
+		initAction.execute(Cli::Parameters());
+		FAIL() << "Expected RuntimeError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const RuntimeError& err)
 	{
 		ASSERT_STREQ("No filename specified", err.what());
 	}
@@ -65,7 +69,7 @@ TEST_F(InitActionTest, validFilenameIsSet)
 
 TEST_F(InitActionTest, createsNewFileWhenDoesntExist)
 {
-	initAction.execute(dbFilePath);
+	initAction.execute(parameters);
 	ASSERT_TRUE(fs::exists(dbFilePath));
 }
 
@@ -73,9 +77,9 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 {
 	try
 	{
-		initAction.execute(dbFilePath);
+		initAction.execute(parameters);
 		// files already created in prevoius command
-		initAction.execute(dbFilePath);
+		initAction.execute(parameters);
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -92,7 +96,7 @@ TEST_F(InitActionTest, createsConfgigFile)
 }
 )json";
 
-	initAction.execute(dbFilePath);
+	initAction.execute(parameters);
 	validateFileContent(configFilePath, fileContent);
 }
 
