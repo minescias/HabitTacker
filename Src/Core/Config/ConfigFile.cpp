@@ -4,6 +4,7 @@
 
 #include "nlohmann/json.hpp"
 
+#include "Core/Logger/Log.h"
 #include "Core/Exceptions/RuntimeError.h"
 
 namespace Config
@@ -17,6 +18,7 @@ ConfigFile::ConfigFile(const std::string& filename, Settings* settings)
 
 void ConfigFile::read()
 {
+	log("Opening config file in " + filename);
 	std::ifstream ifs(filename);
 	auto configFile = json::parse(ifs);
 

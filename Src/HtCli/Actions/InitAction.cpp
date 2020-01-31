@@ -75,7 +75,7 @@ void InitAction::createConfigFile(bool globallyAccesible) const
 	if (!file.is_open())
 		throw ActionError(std::string("Cannot create config file in ") + configFilePath.c_str());
 
-	file << json{{"database", dbFilename}}.dump(4);
+	file << json{{"database", fs::current_path().append(dbFilename)}}.dump(4);
 	file.close();
 }
 

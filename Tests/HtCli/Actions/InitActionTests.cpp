@@ -2,6 +2,9 @@
 
 #include <filesystem>
 #include <fstream>
+#include <sstream>
+
+#include "nlohmann/json.hpp"
 
 #include "Core/Cli/Parameters.h"
 #include "HtCli/Actions/ActionError.h"
@@ -10,6 +13,7 @@
 namespace
 {
 using namespace testing;
+using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 } // namespace
@@ -32,20 +36,10 @@ public:
 	void validateFileContent(const std::string& filename, const std::string& expectedContent)
 	{
 		std::ifstream file(filename);
-
-		if (!file.is_open())
-			FAIL() << std::string("Cannot open file ") + filename;
-
-		std::string line;
-		std::string fileContent;
-
-		while (getline(file, line))
-		{
-			fileContent += line + "\n";
-		}
+		std::stringstream ss;
+		ss << file.rdbuf();
 		file.close();
-
-		ASSERT_STREQ(fileContent.c_str(), expectedContent.c_str());
+		ASSERT_STREQ(ss.str().c_str(), expectedContent.c_str());
 	}
 
 	std::string dbFilePath;
@@ -91,10 +85,10 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 
 TEST_F(InitActionTest, createsConfgigFile)
 {
-	auto fileContent = R"json({
-    "database": "test_files/HtCli_InitAction.db"
-}
-)json";
+	auto fileContent =
+		json{{"database",
+			  fs::current_path().append("test_files/HtCli_InitAction.db").c_str()}}
+			.dump(4);
 
 	initAction.execute(parameters);
 	validateFileContent(configFilePath, fileContent);

@@ -2,10 +2,9 @@
 #define __GET_SETTINGS_H
 
 #include <memory>
-#include <string>
 
 #include <Core/Config/Settings.h>
 
-std::unique_ptr<Config::Settings> getSettings(const std::string& filename);
+std::unique_ptr<Config::Settings> getSettings();
 
 #endif // __GET_SETTINGS_H

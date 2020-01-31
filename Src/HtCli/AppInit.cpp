@@ -8,6 +8,7 @@
 #include <Core/Logger/Log.h>
 #include <Core/Logger/Logger.h>
 
+#include "Core/Logger/LogConfig.h"
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/InitAction.h"
 
@@ -25,7 +26,7 @@ int appInit(int argc, char* argv[])
 
 	auto logConfig = std::make_unique<Log::Config>();
 	logConfig->enabled = false;
-	logConfig->levels = {Log::Levels::Error, Log::Levels::Sql};
+	logConfig->levels = {Log::Levels::Error, Log::Levels::Sql, Log::Levels::Common};
 	auto logger = std::make_unique<Log::Logger>(std::move(logConfig));
 	Log::setLogger(logger.get());
 
@@ -41,11 +42,12 @@ int appInit(int argc, char* argv[])
 		}
 		else if (commandName == "init")
 		{
-			Actions::InitAction().execute(parserResult.getDefaultParameter());
+			Actions::InitAction().execute(parserResult);
 		}
 		else
 		{
-			auto settings = getSettings("htr.ini");
+			auto settings = getSettings();
+			log("Opening database file " + settings->get("database"));
 			auto database = Db::Database(settings->get("database"));
 			auto daoFactory = AppInit::initDaoFactory(&database);
 			auto actionRegister = registerActions();
