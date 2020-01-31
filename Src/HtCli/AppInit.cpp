@@ -1,6 +1,7 @@
 #include "HtCli/AppInit.h"
 
 #include <iostream>
+#include <filesystem>
 
 #include <Core/Cli/CommandLineParser.h>
 #include <Core/Config/Settings.h>
@@ -17,6 +18,14 @@
 #include "HtCli/AppInit/InitDaoFactory.h"
 #include "HtCli/AppInit/RegisterActions.h"
 #include "HtCli/AppInit/Vesrion.h"
+
+auto openDatabase(const std::string& filename)
+{
+	if (std::filesystem::exists(filename))
+		return Db::Database(filename);
+	else
+		throw Actions::ActionError("Missing database file in " +filename);
+}
 
 int appInit(int argc, char* argv[])
 {
@@ -48,7 +57,7 @@ int appInit(int argc, char* argv[])
 		{
 			auto settings = getSettings();
 			log("Opening database file " + settings->get("database"));
-			auto database = Db::Database(settings->get("database"));
+			auto database = openDatabase(settings->get("database"));
 			auto daoFactory = AppInit::initDaoFactory(&database);
 			auto actionRegister = registerActions();
 			auto action = actionRegister->get(commandName);

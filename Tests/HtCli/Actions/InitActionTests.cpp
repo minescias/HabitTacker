@@ -85,10 +85,10 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 
 TEST_F(InitActionTest, createsConfgigFile)
 {
-	auto fileContent =
-		json{{"database",
-			  fs::current_path().append("test_files/HtCli_InitAction.db").c_str()}}
-			.dump(4);
+	auto filePath =
+		fs::current_path().append("test_files/HtCli_InitAction.db").c_str();
+
+	auto fileContent = json{{"database", filePath}}.dump(4);
 
 	initAction.execute(parameters);
 	validateFileContent(configFilePath, fileContent);

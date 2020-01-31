@@ -3,8 +3,8 @@
 #include <filesystem>
 #include <fstream>
 
-#include <pwd.h>
 #include <nlohmann/json.hpp>
+#include <pwd.h>
 #include <unistd.h>
 
 #include "fmt/format.h"
@@ -59,7 +59,7 @@ void InitAction::createConfigFile(bool globallyAccesible) const
 		auto homeDir = getenv("HOME");
 		if (!homeDir)
 			homeDir = getpwuid(getuid())->pw_dir;
-		
+
 		configFilePath = fs::path(homeDir).append(".config/htr/");
 	}
 	else
@@ -67,13 +67,17 @@ void InitAction::createConfigFile(bool globallyAccesible) const
 		configFilePath = fs::path(dbFilename).parent_path();
 	}
 
-	fs::create_directory(configFilePath);
-	configFilePath.append(configFileName);
+	if (!configFilePath.empty())
+		fs::create_directory(configFilePath);
 
+	configFilePath.append(configFileName);
 	std::ofstream file{configFilePath};
 
 	if (!file.is_open())
-		throw ActionError(std::string("Cannot create config file in ") + configFilePath.c_str());
+	{
+		throw ActionError(
+			std::string("Cannot create config file in ") + configFilePath.c_str());
+	}
 
 	file << json{{"database", fs::current_path().append(dbFilename)}}.dump(4);
 	file.close();
