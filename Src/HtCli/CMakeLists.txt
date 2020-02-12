@@ -23,4 +23,5 @@ target_link_libraries(HtCli PRIVATE
 	Ht
 	stdc++fs
 	nlohmann_json
+	CLI11
 )

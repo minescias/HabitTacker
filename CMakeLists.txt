@@ -28,6 +28,8 @@ set(ENABLE_DATE_TESTING OFF CACHE BOOL "Enable unit tests")
 set(INSTALL_GTEST ON CACHE BOOL false)
 set(JSON_BuildTests OFF CACHE BOOL "Build the unit tests when BUILD_TESTING is enabled.")
 set(JSON_Install OFF CACHE BOOL "Install CMake targets during install step.")
+set(CLI11_EXAMPLES OFF CACHE BOOL "")
+set(CLI11_TESTING OFF CACHE BOOL "")
 
 # external libraries
 add_subdirectory(Libraries/date-2.4.1)
@@ -35,6 +37,7 @@ add_subdirectory(Libraries/fmt-6.0.0)
 add_subdirectory(Libraries/googletest-1.10.0)
 add_subdirectory(Libraries/SQLite)
 add_subdirectory(Libraries/nlohmann_json-3.7.3)
+add_subdirectory(Libraries/CLI-1.9.0)
 
 # libraries
 add_subdirectory(Src/Core)

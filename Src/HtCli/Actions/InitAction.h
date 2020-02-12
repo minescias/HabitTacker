@@ -6,23 +6,28 @@
 #include "Core/Cli/Parameters.h"
 #include "Core/Cli/Validator.h"
 
+namespace CLI
+{
+struct App;
+} // namespace CLI
+
 namespace Actions
 {
 class InitAction
 {
 public:
 	InitAction();
-	void execute(const Cli::Parameters& parameters);
+	void execute();
+	void addCliOptions(CLI::App* app);
 
 private:
-	void initValidator();
 	void createDatabaseFile() const;
-	void createConfigFile(bool globallyAccesible) const;
+	void createConfigFile() const;
 
 private:
+	bool global;
 	std::string dbFilename;
 	std::string configFileName;
-	Cli::Validator validator;
 };
 
 } // namespace Actions

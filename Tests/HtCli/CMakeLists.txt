@@ -19,6 +19,7 @@ target_link_libraries(HtCliTests
     pthread
     stdc++fs
     nlohmann_json
+    CLI11
 )
 
 add_test(NAME HtCliTests
