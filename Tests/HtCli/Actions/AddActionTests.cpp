@@ -2,11 +2,14 @@
 
 #include <Core/DateTime/DateTimeGetter.h>
 
+#include "CLI/App.hpp"
+
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/AddAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Mocks/HT/Dao/RequirementDaoMock.h"
+#include "Tests/HtCli/Tools/CliTestTools.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
@@ -24,8 +27,8 @@ public:
 		requirementDaoMock = registerAndGetDaoMock<Mocks::RequirementDaoMock>(
 			&factory, "requirement");
 
-		addAction.setDaoFactory(&factory);
-		pr.setCommandName("add");
+		addCommand.setDaoFactory(&factory);
+		addCommand.setCliParameters(&app);
 	}
 
 	auto getDefinition()
@@ -48,8 +51,8 @@ public:
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
 	std::shared_ptr<Mocks::RequirementDaoMock> requirementDaoMock;
 	Dao::DaoFactory factory;
-	Actions::AddAction addAction;
-	Cli::Parameters pr;
+	Commands::AddCommand addCommand;
+	CLI::App app;
 };
 
 TEST_F(AddActionTests, saves_habit_to_database)
@@ -61,22 +64,14 @@ TEST_F(AddActionTests, saves_habit_to_database)
 	EXPECT_CALL(*requirementDaoMock, save(getRequirement()));
 
 	// minimum configuration that is required to add habit
-	pr.setDefaultParameter("new habit name");
-	addAction.execute(pr);
+
+	parseArguments(&app, {"add", "--name", "new habit name"});
+	addCommand.execute();
 }
 
 TEST_F(AddActionTests, ensures_that_name_is_not_empty)
 {
-	try
-	{
-		addAction.execute(pr);
-		FAIL() << "Expected runtime error";
-	}
-	catch (RuntimeError& err)
-	{
-		auto expected{"No habit name specified"};
-		ASSERT_STREQ(err.what(), expected);
-	}
+	parseAndThrowError(&app, {"add"}, "--name is required");
 }
 
 TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
@@ -87,8 +82,8 @@ TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
 
 	try
 	{
-		pr.setDefaultParameter("new habit name");
-		addAction.execute(pr);
+		parseArguments(&app, {"add", "-n", "new habit name"});
+		addCommand.execute();
 		FAIL() << "Action error expected";
 	}
 	catch (Actions::ActionError& err)
@@ -109,10 +104,8 @@ TEST_F(AddActionTests, allows_to_add_target_as_optional_parameter)
 	EXPECT_CALL(*daoMock, saveDefinition(getDefinition()));
 	EXPECT_CALL(*requirementDaoMock, save(requirement));
 
-	// minimum configuration that is required to add habit
-	pr.setParameter("target", "32");
-	pr.setDefaultParameter("new habit name");
-	addAction.execute(pr);
+	parseArguments(&app, {"add", "-n", "new habit name", "-t", "32"});
+	addCommand.execute();
 }
 
 } // namespace Tests

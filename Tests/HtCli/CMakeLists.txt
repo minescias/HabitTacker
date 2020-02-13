@@ -7,6 +7,7 @@ add_executable(HtCliTests
     Actions/InitActionTests.cpp
     Actions/ListActionTests.cpp
     main.cpp
+	Tools/CliTestTools.cpp
 )
 
 target_link_libraries(HtCliTests

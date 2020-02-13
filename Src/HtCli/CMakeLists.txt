@@ -3,6 +3,7 @@ add_library(HtCli
 	Actions/ActionRegister.cpp
 	Actions/AddAction.cpp
 	Actions/BaseAction.cpp
+	Actions/BaseCommand.cpp
 	Actions/DefaultAction.cpp
 	Actions/DoneAction.cpp
 	Actions/EditAction.cpp

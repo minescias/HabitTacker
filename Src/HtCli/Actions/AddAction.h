@@ -3,24 +3,26 @@
 
 #include <string>
 
-#include "HtCli/Actions/BaseAction.h"
+#include "HtCli/Actions/BaseCommand.h"
 
-namespace Actions
+namespace Commands
 {
-
-class AddAction : public BaseAction
+class AddCommand : public BaseCommand
 {
 public:
-	AddAction() = default;
+	AddCommand() = default;
 
-protected:
-	void initValidator() final;
-	void doExecute(const Cli::Parameters& parameters) final;
+	void setCliParameters(CLI::App* app) final;
+	void execute() final;
 
 private:
 	int getTarget(const Cli::Parameters& parameters);
+
+private:
+	unsigned int target;
+	std::string name;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif

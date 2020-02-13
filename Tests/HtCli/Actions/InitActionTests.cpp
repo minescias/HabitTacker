@@ -13,17 +13,13 @@
 #include "HtCli/Actions/ActionError.h"
 #include "HtCli/Actions/InitAction.h"
 
+#include "Tests/HtCli/Tools/CliTestTools.h"
+
 namespace
 {
 using namespace testing;
 using json = nlohmann::json;
 namespace fs = std::filesystem;
-
-void parseArguments(CLI::App* app, std::vector<std::string> arguments)
-{
-	std::reverse(arguments.begin(), arguments.end());
-	app->parse(arguments);
-}
 
 } // namespace
 
@@ -59,15 +55,7 @@ public:
 
 TEST_F(InitActionTest, valid_filename_is_set)
 {
-	try
-	{
-		parseArguments(&app, {"init"});
-		FAIL() << "ParseError expected";
-	}
-	catch (const CLI::ParseError& err)
-	{
-		ASSERT_STREQ("--filename is required", err.what());
-	}
+	parseAndThrowError(&app, {"init"}, "--filename is required");
 }
 
 TEST_F(InitActionTest, creates_new_file_when_does_not_exist)

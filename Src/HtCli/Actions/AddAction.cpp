@@ -1,34 +1,36 @@
 #include <HtCli/Actions/AddAction.h>
 
+#include <CLI/App.hpp>
+
 #include <Core/DateTime/DateTimeGetter.h>
 
 #include "HT/Dao/IHabitDefinitionDao.h"
 #include "HT/Dao/IRequirementDao.h"
 #include "HtCli/Actions/ActionError.h"
 
-namespace Actions
+namespace Commands
 {
 using Dao::IHabitDefinitionDao;
 using Dao::IRequirementDao;
 
-void AddAction::initValidator()
+void AddCommand::setCliParameters(CLI::App* app)
 {
-	validator.addDefaultParameter()
-		.requirement(Cli::RequirementLevel::Required)
-		.errorMessage("No habit name specified");
-
-	validator.addParam("target").type(Cli::ParamType::Integer);
+	auto command = app->add_subcommand("add", "Creates new h");
+	command->add_option("-n,--name", name, "New habit name")->required();
+	command->add_option("-t,--target", target, "Daily target")->default_val(1);
 }
 
-void AddAction::doExecute(const Cli::Parameters& parameters)
+void AddCommand::execute()
 {
 	auto dao = daoFactory->createDao<IHabitDefinitionDao>("habitDefinition");
 	auto requirementDao = daoFactory->createDao<IRequirementDao>("requirement");
 
-	auto name = parameters.getDefaultParameter();
 	auto existingDefinition = dao->getDefinition(name);
 	if (existingDefinition)
-		throw ActionError("Habit with name '" + name + "' already exists");
+	{
+		throw Actions::ActionError(
+			"Habit with name '" + name + "' already exists");
+	}
 
 	auto newDefinition = Entity::HabitDefinitionEntity();
 	newDefinition.setName(name);
@@ -38,18 +40,8 @@ void AddAction::doExecute(const Cli::Parameters& parameters)
 	requirement.setHabitId(1);
 	requirement.setBeginDate(Dt::getCurrentDate());
 	requirement.setEndDate(std::nullopt);
-	requirement.setTarget(getTarget(parameters));
+	requirement.setTarget(target);
 	requirementDao->save(requirement);
 }
 
-int AddAction::getTarget(const Cli::Parameters& parameters)
-{
-	auto target = parameters.getParameter("target");
-
-	if (target.empty())
-		return 1;
-	else
-		return stoi(target);
-}
-
-} // namespace Actions
+} // namespace Commands
