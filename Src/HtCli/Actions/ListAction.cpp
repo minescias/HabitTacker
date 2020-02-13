@@ -3,12 +3,12 @@
 #include <iomanip>
 #include <iostream>
 
-namespace Actions
+namespace Commands
 {
-
-void ListAction::doExecute(const Cli::Parameters& parameters)
+void ListCommand::execute()
 {
-	auto dao = daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
+	auto dao =
+		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 	auto habits = dao->getDefinitions();
 
 	if (habits.empty())
@@ -19,28 +19,23 @@ void ListAction::doExecute(const Cli::Parameters& parameters)
 
 	printHeader();
 
-	for(auto const& habit: habits)
+	for (auto const& habit : habits)
 	{
-		std::cout
-			<< "\n" <<  std::setw (4) << habit->getId()
-			<< " " << habit->getName();
+		std::cout << "\n"
+				  << std::setw(4) << habit->getId() << " " << habit->getName();
 	}
 
 	std::cout << "\n";
-
 }
 
-void ListAction::initValidator()
+void ListCommand::setCliParameters(CLI::App* app)
 {
-
 }
 
-void ListAction::printHeader() const
+void ListCommand::printHeader() const
 {
-	std::cout <<
-		"\nid   name"
-		"\n---- ----------------------------------------"
-	;
+	std::cout << "\nid   name"
+				 "\n---- ----------------------------------------";
 }
 
-} // namespace Actions
+} // namespace Commands

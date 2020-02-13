@@ -18,7 +18,7 @@ public:
 		daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&factory, "habitDefinition");
 
-		listAction.setDaoFactory(&factory);
+		listCommand.setDaoFactory(&factory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getHabit(int id, const std::string& name)
@@ -43,21 +43,21 @@ public:
 	void testForOutput(const std::string& expectedOutput)
 	{
 		internal::CaptureStdout();
-		listAction.execute(Cli::Parameters());
+		listCommand.execute();
 
 		auto output = testing::internal::GetCapturedStdout();
 		ASSERT_STREQ(output.c_str(), expectedOutput.c_str());
 	}
 
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> daoMock;
-	Actions::ListAction listAction;
+	Commands::ListCommand listCommand;
 	Dao::DaoFactory factory;
 };
 
 TEST_F(ListActionTest, getsDefinitionsFromDao)
 {
 	EXPECT_CALL(*daoMock, getDefinitions()).Times(1);
-	listAction.execute(Cli::Parameters());
+	listCommand.execute();
 }
 
 TEST_F(ListActionTest, printsMessageWhenNoHabitsFound)

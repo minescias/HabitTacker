@@ -1,25 +1,23 @@
 #ifndef __LIST_ACTION_H
 #define __LIST_ACTION_H
 
-#include "HtCli/Actions/BaseAction.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
+#include "HtCli/Actions/BaseCommand.h"
 
-namespace Actions
+namespace Commands
 {
-
-class ListAction : public BaseAction
+class ListCommand : public BaseCommand
 {
 public:
-	ListAction() = default;
+	ListCommand() = default;
 
-protected:
-	void initValidator() final;
-	void doExecute(const Cli::Parameters& parameters) final;
+	void execute() final;
+	void setCliParameters(CLI::App* app) final;
 
 private:
 	void printHeader() const;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif
