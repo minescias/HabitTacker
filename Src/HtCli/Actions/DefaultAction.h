@@ -5,20 +5,22 @@
 
 #include "Core/Cli/Table.h"
 
-#include "HtCli/Actions/BaseAction.h"
+#include "Core/DateTime/Date.h"
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
+#include "HtCli/Actions/BaseCommand.h"
 
-namespace Actions
+namespace Commands
 {
-class DefaultAction : public BaseAction
+class ShowCommand : public BaseCommand
 {
 public:
-	DefaultAction();
+	ShowCommand();
+	void execute() final;
+	void setCliParameters(CLI::App* app) final;
 
 protected:
-	void initValidator() final;
-	void doExecute(const Cli::Parameters& parameters) final;
+	// void initValidator() final;
 
 private:
 	void addWeekdayColumns(Dt::Date date);
@@ -26,6 +28,8 @@ private:
 	void fillWeekdayValues(Entity::HabitDefinitionEntity& definition, Dt::Date date);
 
 private:
+	std::string dateStr;
+	Dt::Date date;
 	int daysToPrint;
 	std::shared_ptr<Dao::IHabitDao> habitDao;
 	std::shared_ptr<Dao::IHabitDefinitionDao> definitionDao;
@@ -33,6 +37,6 @@ private:
 	Cli::Table table;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif // __DEFAULT_ACTION_H

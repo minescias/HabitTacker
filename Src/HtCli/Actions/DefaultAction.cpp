@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <iostream>
 
+#include "CLI/App.hpp"
+
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/Operators.h>
 #include <Core/DateTime/ParseDate.h>
@@ -15,7 +17,7 @@ using date::days;
 using date::sys_days;
 } // namespace
 
-namespace Actions
+namespace Commands
 {
 // https://stackoverflow.com/questions/4063146/getting-the-actual-length-of-a-utf-8-encoded-stdstring
 int getUtf8StringLength(const std::string& str)
@@ -28,26 +30,34 @@ int getUtf8StringLength(const std::string& str)
 	return len;
 }
 
-DefaultAction::DefaultAction() : daysToPrint(14)
+ShowCommand::ShowCommand() : daysToPrint(14)
 {
 }
 
-void DefaultAction::doExecute(const Cli::Parameters& parameters)
+void ShowCommand::setCliParameters(CLI::App* app)
 {
+	auto command = app->add_subcommand("show");
+	command->add_option("-d,--date", dateStr, "Show results to this date");
+}
+
+void ShowCommand::execute()
+{
+	if (dateStr.empty())
+		date = Dt::getCurrentDate();
+	else
+		date = Dt::parseDate(dateStr);
+
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 	definitionDao =
 		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 
 	auto habitDefinitions = definitionDao->getDefinitions();
 
-	Dt::Date date;
-	if (parameters.getDefaultParameter().empty())
-		date = Dt::getCurrentDate();
-	else
-		date = Dt::parseDate(parameters.getDefaultParameter());
-
 	if (habitDefinitions.empty())
-		throw ActionError("No habits found, try to add some using 'htr add'\n");
+	{
+		throw Actions::ActionError(
+			"No habits found, try to add some using 'htr add'\n");
+	}
 
 	table.addColumn("Id");
 	table.addColumn("Name");
@@ -65,14 +75,7 @@ void DefaultAction::doExecute(const Cli::Parameters& parameters)
 	table.print();
 }
 
-void DefaultAction::initValidator()
-{
-	validator.addDefaultParameter()
-		.type(Cli::ParamType::Date)
-		.requirement(Cli::RequirementLevel::Optional);
-}
-
-void DefaultAction::addWeekdayColumns(Dt::Date date)
+void ShowCommand::addWeekdayColumns(Dt::Date date)
 {
 	std::string result;
 	std::vector<std::string> weekDays{"Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"};
@@ -84,7 +87,7 @@ void DefaultAction::addWeekdayColumns(Dt::Date date)
 		table.addColumn("wd_" + std::to_string(i), weekDays[i % 7]);
 }
 
-void DefaultAction::initWeekdayValues(
+void ShowCommand::initWeekdayValues(
 	Entity::HabitDefinitionEntity& definition, Dt::Date date)
 {
 	auto firstColumnId = table.getColumnIndex("wd_1");
@@ -97,7 +100,7 @@ void DefaultAction::initWeekdayValues(
 	}
 }
 
-void DefaultAction::fillWeekdayValues(
+void ShowCommand::fillWeekdayValues(
 	Entity::HabitDefinitionEntity& definition, Dt::Date date)
 {
 	auto firstColumnId = table.getColumnIndex("wd_1");
@@ -114,4 +117,4 @@ void DefaultAction::fillWeekdayValues(
 	}
 }
 
-} // namespace Actions
+} // namespace Commands

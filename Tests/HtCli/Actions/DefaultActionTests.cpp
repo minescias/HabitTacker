@@ -1,5 +1,7 @@
 #include <gmock/gmock.h>
 
+#include "CLI/App.hpp"
+
 #include "Core/Dao/DaoFactory.h"
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/Operators.h>
@@ -9,6 +11,7 @@
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Tests/HtCli/Tools/CliTestTools.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
@@ -19,15 +22,15 @@ using namespace testing;
 class DefaultActionTest : public testing::Test
 {
 public:
-	DefaultActionTest()
-		: defaultAction()
+	DefaultActionTest() : showCommand()
 	{
 		habitDaoMock =
 			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
 
-		defaultAction.setDaoFactory(&daoFactory);
+		showCommand.setDaoFactory(&daoFactory);
+		showCommand.setCliParameters(&app);
 	}
 
 	Entity::HabitDefinitionEntityPtr getHabitDefinition(
@@ -75,7 +78,7 @@ public:
 	std::vector<Entity::HabitEntityPtr> getHabits2()
 	{
 		auto date = 2019_y / May / 05_d;
-		
+
 		std::vector<Entity::HabitEntityPtr> habits;
 		habits.emplace_back(getHabit(2, date - days{1}));
 		habits.emplace_back(getHabit(2, date - days{2}));
@@ -86,10 +89,11 @@ public:
 	}
 
 public:
+	CLI::App app;
 	Dao::DaoFactory daoFactory;
 	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
-	Actions::DefaultAction defaultAction;
+	Commands::ShowCommand showCommand;
 };
 
 TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
@@ -114,9 +118,8 @@ TEST_F(DefaultActionTest, printsTableWithCurrentHabits)
 
 	internal::CaptureStdout();
 
-	auto pr = Cli::Parameters();
-	pr.setDefaultParameter("05.05.2019");
-	defaultAction.execute(pr);
+	parseArguments(&app, {"show", "-d", "05.05.2019"});
+	showCommand.execute();
 
 	auto output = testing::internal::GetCapturedStdout();
 
@@ -130,9 +133,8 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 	try
 	{
-		auto pr = Cli::Parameters();
-		pr.setDefaultParameter("05.05.2019");
-		defaultAction.execute(pr);
+		parseArguments(&app, {"show", "-d", "05.05.2019"});
+		showCommand.execute();
 
 		FAIL() << "Expected ActionError";
 	}
@@ -153,7 +155,8 @@ TEST_F(DefaultActionTest, printsHabitsForTodayByDefault)
 	EXPECT_CALL(*habitDaoMock, getHabits(1, today - days{14}, today));
 	EXPECT_CALL(*habitDaoMock, getHabits(2, today - days{14}, today));
 
-	defaultAction.execute(Cli::Parameters());
+	parseArguments(&app, {});
+	showCommand.execute();
 }
 
 } // namespace Tests
