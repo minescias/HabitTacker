@@ -1,35 +1,40 @@
 #ifndef __DONE_ACTION_TEST
 #define __DONE_ACTION_TEST
 
+#include <optional>
 #include <string>
+#include <vector>
 
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 #include "HT/Dao/IRequirementDao.h"
-#include "HtCli/Actions/BaseAction.h"
+#include "HtCli/Actions/BaseCommand.h"
 
-namespace Actions
+namespace Commands
 {
-class DoneAction : public BaseAction
+class DoneCommand : public Commands::BaseCommand
 {
 public:
-	DoneAction() = default;
+	DoneCommand() = default;
 
-protected:
-	void initValidator() final;
-	void doExecute(const Cli::Parameters& parameters) final;
-
-private:
-	void validateParameters(const Cli::Parameters& parameters) const;
-	Dt::Date getDate(const Cli::Parameters& parameters) const;
-	int getResult(const Cli::Parameters& parameters, int definitionId) const;
+	void execute() final;
+	void setCliParameters(CLI::App* app) final;
 
 private:
+	void validateParameters() const;
+	Dt::Date getDate() const;
+	int getResult() const;
+
+private:
+	int habitId;
+	bool reset;
+	std::string dateStr;
+	std::optional<int> result;
 	std::shared_ptr<Dao::IHabitDao> habitDao;
 	std::shared_ptr<Dao::IHabitDefinitionDao> definitionDao;
 	std::shared_ptr<Dao::IRequirementDao> requirementDao;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif // __DONE_ACTION_TEST

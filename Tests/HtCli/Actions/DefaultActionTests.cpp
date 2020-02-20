@@ -11,8 +11,8 @@
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/HtCli/Tools/CliTestTools.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
+#include "Tests/HtCli/Tools/CliTestTools.h"
 
 namespace Tests
 {

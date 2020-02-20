@@ -1,90 +1,99 @@
 #include "HtCli/Actions/DoneAction.h"
 
+#include <string>
+
+#include "CLI/App.hpp"
+#include "fmt/core.h"
+
 #include <Core/DateTime/DateLiteral.h>
 #include <Core/DateTime/DateTimeGetter.h>
 #include <Core/DateTime/FormatDate.h>
 
 #include "HtCli/Actions/ActionError.h"
 
-namespace Actions
+namespace Commands
 {
-void DoneAction::initValidator()
+void DoneCommand::setCliParameters(CLI::App* app)
 {
-	validator.addFilter().requirement(Cli::RequirementLevel::Required);
-	validator.addDefaultParameter().type(Cli::ParamType::Integer);
-	validator.addParam("date").type(Cli::ParamType::Date);
-	validator.addParam("reset");
+	auto command = app->add_subcommand("done", "Set habit as done for today");
+	command->add_option("-i,--habit_id", habitId, "Id of changed habit")->required();
+	command->add_option("-d,--date", dateStr, "Date");
+
+	command->add_option(
+		"-r,--result",
+		result,
+		"Result for current day, "
+		"Set to current target by default");
+
+	command->add_flag("--reset", reset, "Reset daily progress")
+		->excludes("--result")
+		->default_val(false);
 }
 
-void DoneAction::doExecute(const Cli::Parameters& parameters)
+void DoneCommand::execute()
 {
 	definitionDao =
 		daoFactory->createDao<Dao::IHabitDefinitionDao>("habitDefinition");
 
-	validateParameters(parameters);
+	validateParameters();
 
 	requirementDao = daoFactory->createDao<Dao::IRequirementDao>("requirement");
 	habitDao = daoFactory->createDao<Dao::IHabitDao>("habit");
 
-	auto reset = parameters.getFlag("reset");
-	auto definitionId = stoi(parameters.getFilter());
 	auto habit = Entity::HabitEntity();
-	habit.setHabitId(definitionId);
-	habit.setDate(getDate(parameters));
+	habit.setHabitId(habitId);
+	habit.setDate(getDate());
 
-	if (!reset)
-	{
-		if (habitDao->checkIfHabitIsSetForDay(habit))
-		{
-			throw ActionError(
-				"Habit " + parameters.getFilter()
-				+ " was already set for this day");
-		}
-
-		habit.setResult(getResult(parameters, definitionId));
-		habitDao->saveHabit(habit);
-	}
-	else
+	if (reset)
 	{
 		habitDao->deleteHabit(habit);
+		return;
 	}
+
+	if (habitDao->checkIfHabitIsSetForDay(habit))
+	{
+		throw Actions::ActionError(
+			"Habit " + std::to_string(habitId)
+			+ " was already set for this day");
+	}
+
+	habit.setResult(getResult());
+	habitDao->saveHabit(habit);
 }
 
-void DoneAction::validateParameters(const Cli::Parameters& parameters) const
+void DoneCommand::validateParameters() const
 {
-	auto habitId = parameters.getFilter();
+	auto definition = definitionDao->getDefinition(habitId);
 
-	auto definition = definitionDao->getDefinition(stoi(habitId));
 	if (!definition)
-		throw ActionError("Habit " + habitId + " does not exist");
+		throw Actions::ActionError(fmt::format("Habit {0} does not exist", habitId));
 
-	auto date = getDate(parameters);
+	auto date = getDate();
 	if (date < definition->getBeginDate())
 	{
-		throw ActionError(
+		throw Actions::ActionError(
 			"Cannot set habit before it's begin date which is "
 			+ Dt::formatDate(definition->getBeginDate()));
 	}
 
 	if (date > Dt::getCurrentDate())
-		throw ActionError("Cannot set habit in the future");
+		throw Actions::ActionError("Cannot set habit in the future");
 }
 
-Dt::Date DoneAction::getDate(const Cli::Parameters& parameters) const
+Dt::Date DoneCommand::getDate() const
 {
-	if (!parameters.getParameter("date").empty())
-		return Dt::DateLiteral().parse(parameters.getParameter("date"));
+	if (dateStr.empty())
+		return Dt::getCurrentDate();
 
-	return Dt::getCurrentDate();
+	return Dt::DateLiteral().parse(dateStr);
 }
 
-int DoneAction::getResult(const Cli::Parameters& parameters, int definitionId) const
+int DoneCommand::getResult() const
 {
-	auto result = parameters.getDefaultParameter();
-	if (result.empty())
-		return requirementDao->getCurrentTarget(definitionId);
+	if (!result)
+		return requirementDao->getCurrentTarget(habitId);
 	else
-		return stoi(result);
+		return *result;
 }
 
-} // namespace Actions
+} // namespace Commands

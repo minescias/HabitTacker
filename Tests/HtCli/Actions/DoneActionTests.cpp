@@ -1,3 +1,6 @@
+#include "CLI/App.hpp"
+#include "CLI/Error.hpp"
+#include <gmock/gmock-matchers.h>
 #include <gmock/gmock.h>
 
 #include <Core/DateTime/DateTimeGetter.h>
@@ -10,6 +13,7 @@
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Mocks/HT/Dao/RequirementDaoMock.h"
+#include "Tests/HtCli/Tools/CliTestTools.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace
@@ -23,6 +27,17 @@ MATCHER_P(habitPkEqual, expected, "")
 		&& arg.getDate() == expected.getDate();
 }
 
+MATCHER_P(habitEqual, expected, "")
+{
+	EXPECT_THAT(arg.getHabitId(), Eq(expected.getHabitId()));
+	EXPECT_THAT(arg.getDate(), Eq(expected.getDate()));
+	EXPECT_THAT(arg.getResult(), Eq(arg.getResult()));
+
+	return arg.getHabitId() == expected.getHabitId()
+		&& arg.getDate() == expected.getDate()
+		&& arg.getResult() == arg.getResult();
+}
+
 } // namespace
 
 namespace Tests
@@ -31,7 +46,6 @@ class DoneActionTest : public testing::Test
 {
 public:
 	DoneActionTest()
-		: doneAction()
 	{
 		habitDaoMock =
 			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
@@ -42,8 +56,8 @@ public:
 		requirementDaoMock = registerAndGetDaoMock<Mocks::RequirementDaoMock>(
 			&daoFactory, "requirement");
 
-		pr.setFilter("1");
-		doneAction.setDaoFactory(&daoFactory);
+		doneCommand.setCliParameters(&app);
+		doneCommand.setDaoFactory(&daoFactory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getDefinition() const
@@ -56,8 +70,8 @@ public:
 		return entity;
 	}
 
-	Actions::DoneAction doneAction;
-	Cli::Parameters pr;
+	CLI::App app;
+	Commands::DoneCommand doneCommand;
 	Dao::DaoFactory daoFactory;
 	std::shared_ptr<Mocks::HabitDaoMock> habitDaoMock;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
@@ -77,9 +91,10 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 		.WillOnce(Return(ByMove(getDefinition())));
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habitPkEqual(habit)))
 		.WillOnce(Return(false));
-	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
+	EXPECT_CALL(*habitDaoMock, saveHabit(habitEqual(habit))).Times(1);
 
-	doneAction.execute(pr);
+	parseArguments(&app, {"done", "-i", "1"});
+	doneCommand.execute();
 }
 
 TEST_F(DoneActionTest, deleteHabitForToday)
@@ -93,8 +108,8 @@ TEST_F(DoneActionTest, deleteHabitForToday)
 
 	EXPECT_CALL(*habitDaoMock, deleteHabit(habit)).Times(1);
 
-	pr.setFlag("reset");
-	doneAction.execute(pr);
+	parseArguments(&app, {"done", "-i", "1", "--reset"});
+	doneCommand.execute();
 }
 
 TEST_F(DoneActionTest, savesHabitUsingDateParam)
@@ -112,11 +127,11 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 	EXPECT_CALL(*requirementDaoMock, getCurrentTarget(1)).WillOnce(Return(currentTarget));
 	EXPECT_CALL(*habitDaoMock, saveHabit(habit)).Times(1);
 
-	pr.setParameter("date", "yesterday");
-	doneAction.execute(pr);
+	parseArguments(&app, {"done", "-i", "1", "--date", "yesterday"});
+	doneCommand.execute();
 }
 
-TEST_F(DoneActionTest, saves_habit_using_default_parameter)
+TEST_F(DoneActionTest, saves_habit_using_result)
 {
 	auto resultSetByUser = 8;
 	auto habit = Entity::HabitEntity();
@@ -130,8 +145,8 @@ TEST_F(DoneActionTest, saves_habit_using_default_parameter)
 	EXPECT_CALL(*habitDaoMock, checkIfHabitIsSetForDay(habitPkEqual(habit)))
 		.WillOnce(Return(false));
 
-	pr.setDefaultParameter("8");
-	doneAction.execute(pr);
+	parseArguments(&app, {"done", "-i", "1", "-r", "8"});
+	doneCommand.execute();
 }
 
 TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
@@ -147,7 +162,8 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 
 	try
 	{
-		doneAction.execute(pr);
+		parseArguments(&app, {"done", "-i", "1"});
+		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -164,8 +180,8 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 
 	try
 	{
-		pr.setFilter("2");
-		doneAction.execute(pr);
+		parseArguments(&app, {"done", "-i", "2"});
+		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -175,16 +191,17 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 	}
 }
 
-TEST_F(DoneActionTest, ensuresThatFilterIsSet)
+TEST_F(DoneActionTest, ensures_that_habit_is_set)
 {
 	try
 	{
-		doneAction.execute(Cli::Parameters());
+		parseArguments(&app, {"done"});
+		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const RuntimeError& err)
+	catch (const CLI::ParseError& err)
 	{
-		auto expected = "No filter specified";
+		auto expected = "--habit_id is required";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
@@ -198,8 +215,8 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 
 	try
 	{
-		pr.setParameter("date", dateStr);
-		doneAction.execute(pr);
+		parseArguments(&app, {"done", "-i", "1", "--date", dateStr});
+		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
@@ -218,8 +235,8 @@ TEST_F(DoneActionTest, cannot_done_habit_in_the_future)
 
 	try
 	{
-		pr.setParameter("date", "tomorrow");
-		doneAction.execute(pr);
+		parseArguments(&app, {"done", "-i", "1", "--date", "tomorrow"});
+		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
 	catch (const Actions::ActionError& err)
