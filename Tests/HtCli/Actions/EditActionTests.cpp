@@ -1,5 +1,7 @@
 #include <gmock/gmock.h>
 
+#include "CLI/App.hpp"
+#include "CLI/Error.hpp"
 #include "Core/Cli/Parameters.h"
 #include "Core/Dao/DaoFactory.h"
 #include "Core/DateTime/ParseDate.h"
@@ -8,6 +10,7 @@
 #include "HtCli/Actions/EditAction.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
+#include "Tests/HtCli/Tools/CliTestTools.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
@@ -30,7 +33,8 @@ public:
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
 
-		action.setDaoFactory(&daoFactory);
+		command.setCliParameters(&app);
+		command.setDaoFactory(&daoFactory);
 	}
 
 	Entity::HabitDefinitionEntityPtr getDefinition()
@@ -43,9 +47,9 @@ public:
 		return habitDefinition;
 	}
 
-	Cli::Parameters pr;
+	CLI::App app;
 	Dao::DaoFactory daoFactory;
-	Actions::EditAction action;
+	Commands::EditCommand command;
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 };
 
@@ -53,12 +57,13 @@ TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
 {
 	try
 	{
-		action.execute(pr);
+		parseArguments(&app, {"edit"});
+		command.execute();
 		FAIL() << "ActionError expected";
 	}
-	catch (RuntimeError& err)
+	catch (CLI::ParseError& err)
 	{
-		auto expected = "No filter specified";
+		auto expected = "--habit_id is required";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
@@ -67,8 +72,8 @@ TEST_F(EditActionTests, throws_action_error_when_nothing_to_change)
 {
 	try
 	{
-		pr.setFilter("2");
-		action.execute(pr);
+		parseArguments(&app, {"edit", "-i", "2"});
+		command.execute();
 		FAIL() << "ActionError expected";
 	}
 	catch (Actions::ActionError& err)
@@ -85,9 +90,8 @@ TEST_F(EditActionTests, throws_error_when_habit_does_not_exist)
 
 	try
 	{
-		pr.setFilter("1");
-		pr.setParameter("name", "My new name");
-		action.execute(pr);
+		parseArguments(&app, {"edit", "-i", "1", "--name", "My new name"});
+		command.execute();
 		FAIL() << "ActionError expected";
 	}
 	catch (Actions::ActionError& err)
@@ -108,9 +112,8 @@ TEST_F(EditActionTests, overrides_habit_name)
 	EXPECT_CALL(
 		*definitionDaoMock, updateDefinition(DefinitionsAreEqual(*expected)));
 
-	pr.setFilter("1");
-	pr.setParameter("name", "New definition name");
-	action.execute(pr);
+	parseArguments(&app, {"edit", "-i", "1", "--name", "New definition name"});
+	command.execute();
 }
 
 } // namespace Tests

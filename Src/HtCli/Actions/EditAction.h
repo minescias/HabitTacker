@@ -1,19 +1,25 @@
 #ifndef __EDIT_ACTION_H
 #define __EDIT_ACTION_H
 
-#include "HtCli/Actions/BaseAction.h"
+#include "HtCli/Actions/BaseCommand.h"
+#include <string>
 
-namespace Actions
+namespace Commands
 {
 
-class EditAction : public BaseAction
+class EditCommand : public BaseCommand
 {
 public:
-	EditAction() = default;
-
-protected:
-	void initValidator() final;
-	void doExecute(const Cli::Parameters& parameters);
+	EditCommand() = default;
+	
+	void execute() final;
+	void setCliParameters(CLI::App* app) final;
+private:
+	int habitId;
+	std::string name;
+// protected:
+// 	void initValidator() final;
+// 	void doExecute(const Cli::Parameters& parameters);
 };
 
 } // namespace Actions
