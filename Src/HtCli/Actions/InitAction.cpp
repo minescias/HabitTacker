@@ -14,22 +14,22 @@
 #include "HT/Dao/DatabaseCreator.h"
 #include "HtCli/Actions/ActionError.h"
 
-namespace Actions
+namespace Commands
 {
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-InitAction::InitAction() : configFileName("htr_settings.json")
+InitCommand::InitCommand() : configFileName("htr_settings.json")
 {
 }
 
-void InitAction::execute()
+void InitCommand::execute()
 {
 	createDatabaseFile();
 	createConfigFile();
 }
 
-void InitAction::addCliOptions(CLI::App* app)
+void InitCommand::setCliParameters(CLI::App* app)
 {
 	auto command =
 		app->add_subcommand("init", "Creates new database and config file");
@@ -38,15 +38,20 @@ void InitAction::addCliOptions(CLI::App* app)
 		"-g,--global", global, "Create config file in home directory");
 }
 
-void InitAction::createDatabaseFile() const
+void InitCommand::setDaoFactory(Dao::DaoFactory* daoFactory)
+{
+}
+
+void InitCommand::createDatabaseFile() const
 {
 	if (fs::exists(dbFilename))
-		throw ActionError(fmt::format("File {} already exists", dbFilename));
+		throw Actions::ActionError(
+			fmt::format("File {} already exists", dbFilename));
 
 	Dao::DatabaseCreator(dbFilename).createEmptyDatabase();
 }
 
-void InitAction::createConfigFile() const
+void InitCommand::createConfigFile() const
 {
 	auto configFilePath = fs::path();
 
@@ -72,7 +77,7 @@ void InitAction::createConfigFile() const
 
 	if (!file.is_open())
 	{
-		throw ActionError(
+		throw Actions::ActionError(
 			std::string("Cannot create config file in ") + configFilePath.c_str());
 	}
 
@@ -80,4 +85,4 @@ void InitAction::createConfigFile() const
 	file.close();
 }
 
-} // namespace Actions
+} // namespace Commands

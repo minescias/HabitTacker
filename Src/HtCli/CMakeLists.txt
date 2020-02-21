@@ -1,6 +1,6 @@
 add_library(HtCli 
 	Actions/ActionError.cpp
-	Actions/ActionRegister.cpp
+	Commands/CommandRegister.cpp
 	Actions/AddAction.cpp
 	Actions/BaseAction.cpp
 	Actions/BaseCommand.cpp
@@ -13,16 +13,16 @@ add_library(HtCli
 	AppInit/GetSettings.cpp
 	AppInit/Help.cpp
 	AppInit/InitDaoFactory.cpp
-	AppInit/RegisterActions.cpp
+	AppInit/RegisterCommands.cpp
 	AppInit/Version.cpp
 )
 
 target_link_libraries(HtCli PRIVATE
-	Core
+	CLI11
 	date_interface
 	fmt
-	Ht
-	stdc++fs
 	nlohmann_json
-	CLI11
+	stdc++fs
+	Core
+	Ht
 )

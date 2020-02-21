@@ -17,8 +17,6 @@ public:
 	virtual ~BaseCommand() = default;
 
 	void setDaoFactory(Dao::DaoFactory* daoFactory) final;
-	virtual void execute() = 0;
-	virtual void setCliParameters(CLI::App* app) = 0;
 
 protected:
 	Dao::DaoFactory* daoFactory;

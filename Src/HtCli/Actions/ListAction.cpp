@@ -30,6 +30,7 @@ void ListCommand::execute()
 
 void ListCommand::setCliParameters(CLI::App* app)
 {
+	app->add_subcommand("list", "Prints all habits");
 }
 
 void ListCommand::printHeader() const

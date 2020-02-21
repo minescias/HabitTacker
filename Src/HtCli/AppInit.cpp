@@ -3,14 +3,15 @@
 #include <filesystem>
 #include <iostream>
 
-#include "CLI/CLI.hpp"
 #include "CLI/App.hpp"
+#include "CLI/CLI.hpp"
 
 #include <Core/Cli/CommandLineParser.h>
 #include <Core/Config/Settings.h>
 #include <Core/Database/Database.h>
 #include <Core/Logger/Log.h>
 #include <Core/Logger/Logger.h>
+#include <sys/types.h>
 
 #include "Core/Logger/LogConfig.h"
 #include "HtCli/Actions/ActionError.h"
@@ -20,7 +21,7 @@
 #include "HtCli/AppInit/GetSettings.h"
 #include "HtCli/AppInit/Help.h"
 #include "HtCli/AppInit/InitDaoFactory.h"
-// #include "HtCli/AppInit/RegisterActions.h"
+#include "HtCli/AppInit/RegisterCommands.h"
 #include "HtCli/AppInit/Vesrion.h"
 
 auto openDatabase(const std::string& filename)
@@ -49,57 +50,44 @@ int appInit(int argc, char* argv[])
 	CLI::App app;
 
 	auto versionFlag = app.add_flag("-v,--version", "Prints program version");
-	auto initAction = Actions::InitAction();
-	initAction.addCliOptions(&app);
-
-	auto addAction = Commands::AddCommand();
+	auto commands = registerCommands(&app);
 
 	CLI11_PARSE(app, argc, argv);
 
 	if (versionFlag->count())
+	{
 		printVersionNumber();
+		return 0;
+	}
 
 	if (app.get_subcommand("init")->count() == 1)
-		initAction.execute();
+		commands->get("init")->execute();
 
-	// Cli::CommandLineParser parser;
-	// auto parserResult = Cli::CommandLineParser().parse(argc, argv);
-	// auto commandName = parserResult.getCommandName();
+	for (auto& [name, command] : commands->getAllCommands())
+	{
+		if (app.get_subcommand(name)->count() == 1)
+		{
+			auto settings = getSettings();
+			log("Opening database file " + settings->get("database"));
+			auto database = openDatabase(settings->get("database"));
+			auto daoFactory = AppInit::initDaoFactory(&database);
 
-	// try
-	// {
-	// 	if (commandName == "help")
-	// 	{
-	// 		printHelpMessage();
-	// 	}
-	// 	else if (commandName == "version")
-	// 	{
-	// 	}
-	// 	else if (commandName == "init")
-	// 	{
-	// 		Actions::InitAction().execute(parserResult);
-	// 	}
-	// 	else
-	// 	{
-	// 		auto settings = getSettings();
-	// 		log("Opening database file " + settings->get("database"));
-	// 		auto database = openDatabase(settings->get("database"));
-	// 		auto daoFactory = AppInit::initDaoFactory(&database);
-	// 		auto actionRegister = registerActions();
-	// 		auto action = actionRegister->get(commandName);
+			command->setDaoFactory(daoFactory.get());
 
-	// 		action->setDaoFactory(daoFactory.get());
-	// 		action->execute(parserResult);
-	// 	}
-	// }
-	// catch (const Actions::ActionError& err)
-	// {
-	// 	std::cout << err.what() << "\n";
-	// }
-	// catch (const RuntimeError& err)
-	// {
-	// 	std::cout << err.what() << "\n";
-	// }
+			try
+			{
+				command->execute();
+			}
+			catch (const Actions::ActionError& err)
+			{
+				std::cout << err.what() << "\n";
+			}
+			catch (const RuntimeError& err)
+			{
+				std::cout << err.what() << "\n";
+			}
+		}
+	}
 
 	return 0;
 }

@@ -5,20 +5,17 @@
 
 #include "Core/Cli/Parameters.h"
 #include "Core/Cli/Validator.h"
+#include "HtCli/Actions/ICommand.h"
 
-namespace CLI
+namespace Commands
 {
-struct App;
-} // namespace CLI
-
-namespace Actions
-{
-class InitAction
+class InitCommand : public ICommand
 {
 public:
-	InitAction();
+	InitCommand();
 	void execute();
-	void addCliOptions(CLI::App* app);
+	void setCliParameters(CLI::App* app) final;
+	void setDaoFactory(Dao::DaoFactory* daoFactory) final;
 
 private:
 	void createDatabaseFile() const;
@@ -30,6 +27,6 @@ private:
 	std::string configFileName;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif
