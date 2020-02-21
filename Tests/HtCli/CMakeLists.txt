@@ -1,26 +1,26 @@
 add_executable(HtCliTests
-    Actions/ActionRegisterTests.cpp
-    Actions/AddActionTests.cpp
-    Actions/DefaultActionTests.cpp
-    Actions/DoneActionTests.cpp
-    Actions/EditActionTests.cpp
-    Actions/InitActionTests.cpp
-    Actions/ListActionTests.cpp
+    Commands/CommandRegisterTests.cpp
+    Commands/AddCommandTests.cpp
+    Commands/DefaultCommandTests.cpp
+    Commands/DoneCommandTests.cpp
+    Commands/EditCommandTests.cpp
+    Commands/InitCommandTests.cpp
+    Commands/ListCommandTests.cpp
     main.cpp
 	Tools/CliTestTools.cpp
 )
 
 target_link_libraries(HtCliTests
-    Core
+    CLI11
     date_interface
     gmock
     gtest
-    Ht
-    HtCli
+    nlohmann_json
     pthread
     stdc++fs
-    nlohmann_json
-    CLI11
+    Core
+    Ht
+    HtCli
 )
 
 add_test(NAME HtCliTests

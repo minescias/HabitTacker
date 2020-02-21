@@ -3,16 +3,16 @@
 #include "CLI/App.hpp"
 
 #include "Core/Dao/DaoFactory.h"
-#include <Core/DateTime/DateTimeGetter.h>
-#include <Core/DateTime/Operators.h>
+#include "Core/DateTime/DateTimeGetter.h"
+#include "Core/DateTime/Operators.h"
 
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/DefaultAction.h"
+#include "HtCli/Commands/CommandError.h"
+#include "HtCli/Commands/ShowCommand.h"
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
-#include "Tests/Tools/RegisterAndGetDaoMock.h"
 #include "Tests/HtCli/Tools/CliTestTools.h"
+#include "Tests/Tools/RegisterAndGetDaoMock.h"
 
 namespace Tests
 {
@@ -138,7 +138,7 @@ TEST_F(DefaultActionTest, printsMessageWhenNoHabitsFound)
 
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		auto expected = "No habits found, try to add some using 'htr add'\n";
 		ASSERT_STREQ(expected, err.what());

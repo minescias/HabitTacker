@@ -1,15 +1,15 @@
-#include "HtCli/Actions/DefaultAction.h"
+#include "HtCli/Commands/ShowCommand.h"
 
 #include <iomanip>
 #include <iostream>
 
 #include "CLI/App.hpp"
 
-#include <Core/DateTime/DateTimeGetter.h>
-#include <Core/DateTime/Operators.h>
-#include <Core/DateTime/ParseDate.h>
+#include "Core/DateTime/DateTimeGetter.h"
+#include "Core/DateTime/Operators.h"
+#include "Core/DateTime/ParseDate.h"
 
-#include "HtCli/Actions/ActionError.h"
+#include "HtCli/Commands/CommandError.h"
 
 namespace
 {
@@ -55,7 +55,7 @@ void ShowCommand::execute()
 
 	if (habitDefinitions.empty())
 	{
-		throw Actions::ActionError(
+		throw CommandError(
 			"No habits found, try to add some using 'htr add'\n");
 	}
 

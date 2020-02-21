@@ -2,12 +2,13 @@
 
 #include "CLI/App.hpp"
 #include "CLI/Error.hpp"
+
 #include "Core/Cli/Parameters.h"
 #include "Core/Dao/DaoFactory.h"
 #include "Core/DateTime/ParseDate.h"
 
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/EditAction.h"
+#include "HtCli/Commands/CommandError.h"
+#include "HtCli/Commands/EditCommand.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Tests/HtCli/Tools/CliTestTools.h"
@@ -25,10 +26,10 @@ MATCHER_P(DefinitionsAreEqual, expected, "Nie wiem co to za tekst")
 	return true;
 }
 
-class EditActionTests : public testing::Test
+class EditCommandTests : public testing::Test
 {
 public:
-	EditActionTests()
+	EditCommandTests()
 	{
 		definitionDaoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&daoFactory, "habitDefinition");
@@ -53,7 +54,7 @@ public:
 	std::shared_ptr<Mocks::HabitDefinitionDaoMock> definitionDaoMock;
 };
 
-TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
+TEST_F(EditCommandTests, throws_action_error_when_no_filter_specified)
 {
 	try
 	{
@@ -68,7 +69,7 @@ TEST_F(EditActionTests, throws_action_error_when_no_filter_specified)
 	}
 }
 
-TEST_F(EditActionTests, throws_action_error_when_nothing_to_change)
+TEST_F(EditCommandTests, throws_action_error_when_nothing_to_change)
 {
 	try
 	{
@@ -76,14 +77,14 @@ TEST_F(EditActionTests, throws_action_error_when_nothing_to_change)
 		command.execute();
 		FAIL() << "ActionError expected";
 	}
-	catch (Actions::ActionError& err)
+	catch (Commands::CommandError& err)
 	{
 		auto expected = "Nothing to change";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
 
-TEST_F(EditActionTests, throws_error_when_habit_does_not_exist)
+TEST_F(EditCommandTests, throws_error_when_habit_does_not_exist)
 {
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
@@ -94,14 +95,14 @@ TEST_F(EditActionTests, throws_error_when_habit_does_not_exist)
 		command.execute();
 		FAIL() << "ActionError expected";
 	}
-	catch (Actions::ActionError& err)
+	catch (Commands::CommandError& err)
 	{
 		auto expected = "Habit with id = 1 does not exist";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
 
-TEST_F(EditActionTests, overrides_habit_name)
+TEST_F(EditCommandTests, overrides_habit_name)
 {
 	auto expected = getDefinition();
 	expected->setName("New definition name");

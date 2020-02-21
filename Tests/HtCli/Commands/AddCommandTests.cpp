@@ -1,11 +1,11 @@
 #include <gmock/gmock.h>
 
-#include <Core/DateTime/DateTimeGetter.h>
-
 #include "CLI/App.hpp"
 
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/AddAction.h"
+#include "Core/DateTime/DateTimeGetter.h"
+
+#include "HtCli/Commands/AddCommand.h"
+#include "HtCli/Commands/CommandError.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Mocks/HT/Dao/RequirementDaoMock.h"
@@ -16,10 +16,10 @@ namespace Tests
 {
 using namespace testing;
 
-class AddActionTests : public testing::Test
+class AddCommandTests : public testing::Test
 {
 public:
-	AddActionTests()
+	AddCommandTests()
 	{
 		daoMock = registerAndGetDaoMock<Mocks::HabitDefinitionDaoMock>(
 			&factory, "habitDefinition");
@@ -55,7 +55,7 @@ public:
 	CLI::App app;
 };
 
-TEST_F(AddActionTests, saves_habit_to_database)
+TEST_F(AddCommandTests, saves_habit_to_database)
 {
 	EXPECT_CALL(*daoMock, getDefinition("new habit name"))
 		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
@@ -69,12 +69,12 @@ TEST_F(AddActionTests, saves_habit_to_database)
 	addCommand.execute();
 }
 
-TEST_F(AddActionTests, ensures_that_name_is_not_empty)
+TEST_F(AddCommandTests, ensures_that_name_is_not_empty)
 {
 	parseAndThrowError(&app, {"add"}, "--name is required");
 }
 
-TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
+TEST_F(AddCommandTests, throw_error_when_adding_habit_that_already_esists)
 {
 	EXPECT_CALL(*daoMock, getDefinition("new habit name"))
 		.WillOnce(
@@ -86,14 +86,14 @@ TEST_F(AddActionTests, throw_error_when_adding_habit_that_already_esists)
 		addCommand.execute();
 		FAIL() << "Action error expected";
 	}
-	catch (Actions::ActionError& err)
+	catch (Commands::CommandError& err)
 	{
 		auto expected{"Habit with name 'new habit name' already exists"};
 		ASSERT_STREQ(err.what(), expected);
 	}
 }
 
-TEST_F(AddActionTests, allows_to_add_target_as_optional_parameter)
+TEST_F(AddCommandTests, allows_to_add_target_as_optional_parameter)
 {
 	auto requirement = getRequirement();
 	requirement.setTarget(32);

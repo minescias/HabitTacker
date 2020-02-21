@@ -1,20 +1,19 @@
 add_library(HtCli 
-	Actions/ActionError.cpp
-	Commands/CommandRegister.cpp
-	Actions/AddAction.cpp
-	Actions/BaseAction.cpp
-	Actions/BaseCommand.cpp
-	Actions/DefaultAction.cpp
-	Actions/DoneAction.cpp
-	Actions/EditAction.cpp
-	Actions/InitAction.cpp
-	Actions/ListAction.cpp
 	AppInit.cpp
 	AppInit/GetSettings.cpp
 	AppInit/Help.cpp
 	AppInit/InitDaoFactory.cpp
 	AppInit/RegisterCommands.cpp
 	AppInit/Version.cpp
+	Commands/AddCommand.cpp
+	Commands/BaseCommand.cpp
+	Commands/CommandError.cpp
+	Commands/DoneCommand.cpp
+	Commands/EditCommand.cpp
+	Commands/CommandRegister.cpp
+	Commands/InitCommand.cpp
+	Commands/ListCommand.cpp
+	Commands/ShowCommand.cpp
 )
 
 target_link_libraries(HtCli PRIVATE

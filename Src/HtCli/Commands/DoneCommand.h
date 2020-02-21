@@ -1,5 +1,5 @@
-#ifndef __DONE_ACTION_TEST
-#define __DONE_ACTION_TEST
+#ifndef __DONE_COMMAND
+#define __DONE_COMMAND
 
 #include <optional>
 #include <string>
@@ -8,11 +8,11 @@
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
 #include "HT/Dao/IRequirementDao.h"
-#include "HtCli/Actions/BaseCommand.h"
+#include "HtCli/Commands/BaseCommand.h"
 
 namespace Commands
 {
-class DoneCommand : public Commands::BaseCommand
+class DoneCommand : public BaseCommand
 {
 public:
 	DoneCommand() = default;

@@ -1,8 +1,9 @@
 #ifndef __EDIT_ACTION_H
 #define __EDIT_ACTION_H
 
-#include "HtCli/Actions/BaseCommand.h"
 #include <string>
+
+#include "HtCli/Commands/BaseCommand.h"
 
 namespace Commands
 {
@@ -17,9 +18,6 @@ public:
 private:
 	int habitId;
 	std::string name;
-// protected:
-// 	void initValidator() final;
-// 	void doExecute(const Cli::Parameters& parameters);
 };
 
 } // namespace Actions

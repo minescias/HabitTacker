@@ -3,9 +3,7 @@
 
 #include <string>
 
-#include "Core/Cli/Parameters.h"
-#include "Core/Cli/Validator.h"
-#include "HtCli/Actions/ICommand.h"
+#include "HtCli/Commands/ICommand.h"
 
 namespace Commands
 {

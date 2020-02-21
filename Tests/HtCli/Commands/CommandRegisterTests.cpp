@@ -3,8 +3,8 @@
 #include "CLI/App.hpp"
 #include "Core/Exceptions/RuntimeError.h"
 
-#include "HtCli/Actions/ICommand.h"
 #include "HtCli/Commands/CommandRegister.h"
+#include "HtCli/Commands/ICommand.h"
 
 namespace
 {
@@ -14,7 +14,9 @@ class FirstAction : public Commands::ICommand
 {
 public:
 	void setDaoFactory(Dao::DaoFactory* daoFactory){};
-	void setCliParameters(CLI::App* app){}
+	void setCliParameters(CLI::App* app)
+	{
+	}
 	void execute()
 	{
 		actionResult = 1;
@@ -25,7 +27,9 @@ class SecondAction : public Commands::ICommand
 {
 public:
 	void setDaoFactory(Dao::DaoFactory* daoFactory){};
-	void setCliParameters(CLI::App* app){}
+	void setCliParameters(CLI::App* app)
+	{
+	}
 	void execute()
 	{
 		actionResult = 2;

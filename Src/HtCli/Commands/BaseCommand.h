@@ -1,12 +1,7 @@
 #ifndef __BASE_COMMAND_H
 #define __BASE_COMMAND_H
 
-#include "HtCli/Actions/ICommand.h"
-
-namespace CLI
-{
-class App;
-} // namespace CLI
+#include "HtCli/Commands/ICommand.h"
 
 namespace Commands
 {

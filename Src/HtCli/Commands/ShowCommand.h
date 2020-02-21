@@ -4,11 +4,11 @@
 #include <map>
 
 #include "Core/Cli/Table.h"
-
 #include "Core/DateTime/Date.h"
+
 #include "HT/Dao/IHabitDao.h"
 #include "HT/Dao/IHabitDefinitionDao.h"
-#include "HtCli/Actions/BaseCommand.h"
+#include "HtCli/Commands/BaseCommand.h"
 
 namespace Commands
 {
@@ -19,22 +19,18 @@ public:
 	void execute() final;
 	void setCliParameters(CLI::App* app) final;
 
-protected:
-	// void initValidator() final;
-
 private:
 	void addWeekdayColumns(Dt::Date date);
 	void initWeekdayValues(Entity::HabitDefinitionEntity& definition, Dt::Date date);
 	void fillWeekdayValues(Entity::HabitDefinitionEntity& definition, Dt::Date date);
 
 private:
-	std::string dateStr;
-	Dt::Date date;
 	int daysToPrint;
+	Dt::Date date;
+	Cli::Table table;
+	std::string dateStr;
 	std::shared_ptr<Dao::IHabitDao> habitDao;
 	std::shared_ptr<Dao::IHabitDefinitionDao> definitionDao;
-
-	Cli::Table table;
 };
 
 } // namespace Commands

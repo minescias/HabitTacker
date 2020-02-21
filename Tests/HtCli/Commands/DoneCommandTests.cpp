@@ -1,14 +1,14 @@
 #include "CLI/App.hpp"
 #include "CLI/Error.hpp"
-#include <gmock/gmock-matchers.h>
-#include <gmock/gmock.h>
+#include "gmock/gmock-matchers.h"
+#include "gmock/gmock.h"
 
-#include <Core/DateTime/DateTimeGetter.h>
-#include <Core/DateTime/FormatDate.h>
-#include <Core/DateTime/Operators.h>
+#include "Core/DateTime/DateTimeGetter.h"
+#include "Core/DateTime/FormatDate.h"
+#include "Core/DateTime/Operators.h"
 
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/DoneAction.h"
+#include "HtCli/Commands/CommandError.h"
+#include "HtCli/Commands/DoneCommand.h"
 
 #include "Mocks/HT/Dao/HabitDaoMock.h"
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
@@ -42,10 +42,10 @@ MATCHER_P(habitEqual, expected, "")
 
 namespace Tests
 {
-class DoneActionTest : public testing::Test
+class DoneCommandTests : public testing::Test
 {
 public:
-	DoneActionTest()
+	DoneCommandTests()
 	{
 		habitDaoMock =
 			registerAndGetDaoMock<Mocks::HabitDaoMock>(&daoFactory, "habit");
@@ -78,7 +78,7 @@ public:
 	std::shared_ptr<Mocks::RequirementDaoMock> requirementDaoMock;
 };
 
-TEST_F(DoneActionTest, setsHabitAsDoneForToday)
+TEST_F(DoneCommandTests, setsHabitAsDoneForToday)
 {
 	auto currentTarget = 10;
 	auto habit = Entity::HabitEntity();
@@ -97,7 +97,7 @@ TEST_F(DoneActionTest, setsHabitAsDoneForToday)
 	doneCommand.execute();
 }
 
-TEST_F(DoneActionTest, deleteHabitForToday)
+TEST_F(DoneCommandTests, deleteHabitForToday)
 {
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
@@ -112,7 +112,7 @@ TEST_F(DoneActionTest, deleteHabitForToday)
 	doneCommand.execute();
 }
 
-TEST_F(DoneActionTest, savesHabitUsingDateParam)
+TEST_F(DoneCommandTests, savesHabitUsingDateParam)
 {
 	auto currentTarget = 10;
 	auto habit = Entity::HabitEntity();
@@ -131,7 +131,7 @@ TEST_F(DoneActionTest, savesHabitUsingDateParam)
 	doneCommand.execute();
 }
 
-TEST_F(DoneActionTest, saves_habit_using_result)
+TEST_F(DoneCommandTests, saves_habit_using_result)
 {
 	auto resultSetByUser = 8;
 	auto habit = Entity::HabitEntity();
@@ -149,7 +149,7 @@ TEST_F(DoneActionTest, saves_habit_using_result)
 	doneCommand.execute();
 }
 
-TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
+TEST_F(DoneCommandTests, ensuresThatHabisWasNotSetPreviously)
 {
 	auto habit = Entity::HabitEntity();
 	habit.setHabitId(1);
@@ -166,14 +166,14 @@ TEST_F(DoneActionTest, ensuresThatHabisWasNotSetPreviously)
 		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		auto expected = "Habit 1 was already set for this day";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
 
-TEST_F(DoneActionTest, ensuresThatHabisExists)
+TEST_F(DoneCommandTests, ensuresThatHabisExists)
 {
 	EXPECT_CALL(*definitionDaoMock, getDefinition(2))
 		.WillOnce(Return(ByMove(Entity::HabitDefinitionEntityPtr())));
@@ -184,14 +184,14 @@ TEST_F(DoneActionTest, ensuresThatHabisExists)
 		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		auto expected = "Habit 2 does not exist";
 		ASSERT_STREQ(expected, err.what());
 	}
 }
 
-TEST_F(DoneActionTest, ensures_that_habit_is_set)
+TEST_F(DoneCommandTests, ensures_that_habit_is_set)
 {
 	try
 	{
@@ -206,7 +206,7 @@ TEST_F(DoneActionTest, ensures_that_habit_is_set)
 	}
 }
 
-TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
+TEST_F(DoneCommandTests, cannot_done_habit_before_begin_date)
 {
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(getDefinition())));
@@ -219,7 +219,7 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		auto expected = "Cannot set habit before it's begin date which is "
 			+ Dt::formatDate(Dt::getCurrentDate() - days{10});
@@ -228,7 +228,7 @@ TEST_F(DoneActionTest, cannot_done_habit_before_begin_date)
 	}
 }
 
-TEST_F(DoneActionTest, cannot_done_habit_in_the_future)
+TEST_F(DoneCommandTests, cannot_done_habit_in_the_future)
 {
 	EXPECT_CALL(*definitionDaoMock, getDefinition(1))
 		.WillOnce(Return(ByMove(getDefinition())));
@@ -239,7 +239,7 @@ TEST_F(DoneActionTest, cannot_done_habit_in_the_future)
 		doneCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		auto expected = "Cannot set habit in the future";
 		ASSERT_STREQ(expected, err.what());

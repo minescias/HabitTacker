@@ -1,12 +1,12 @@
-#include <HtCli/Actions/AddAction.h>
+#include <HtCli/Commands/AddCommand.h>
 
 #include <CLI/App.hpp>
 
-#include <Core/DateTime/DateTimeGetter.h>
+#include "Core/DateTime/DateTimeGetter.h"
 
 #include "HT/Dao/IHabitDefinitionDao.h"
 #include "HT/Dao/IRequirementDao.h"
-#include "HtCli/Actions/ActionError.h"
+#include "HtCli/Commands/CommandError.h"
 
 namespace Commands
 {
@@ -27,10 +27,7 @@ void AddCommand::execute()
 
 	auto existingDefinition = dao->getDefinition(name);
 	if (existingDefinition)
-	{
-		throw Actions::ActionError(
-			"Habit with name '" + name + "' already exists");
-	}
+		throw CommandError("Habit with name '" + name + "' already exists");
 
 	auto newDefinition = Entity::HabitDefinitionEntity();
 	newDefinition.setName(name);

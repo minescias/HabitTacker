@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "HtCli/Actions/BaseCommand.h"
+#include "HtCli/Commands/BaseCommand.h"
 
 namespace Commands
 {
@@ -14,9 +14,6 @@ public:
 
 	void setCliParameters(CLI::App* app) final;
 	void execute() final;
-
-private:
-	int getTarget(const Cli::Parameters& parameters);
 
 private:
 	unsigned int target;

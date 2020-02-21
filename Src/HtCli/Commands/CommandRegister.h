@@ -4,7 +4,8 @@
 #include <memory>
 
 #include "CLI/App.hpp"
-#include "HtCli/Actions/ICommand.h"
+
+#include "HtCli/Commands/ICommand.h"
 
 namespace Commands
 {

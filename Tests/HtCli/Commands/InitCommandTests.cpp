@@ -10,8 +10,8 @@
 #include "CLI/Error.hpp"
 #include "nlohmann/json.hpp"
 
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/InitAction.h"
+#include "HtCli/Commands/CommandError.h"
+#include "HtCli/Commands/InitCommand.h"
 
 #include "Tests/HtCli/Tools/CliTestTools.h"
 
@@ -25,10 +25,10 @@ namespace fs = std::filesystem;
 
 namespace Tests
 {
-class InitActionTest : public testing::Test
+class InitCommandTests : public testing::Test
 {
 public:
-	InitActionTest()
+	InitCommandTests()
 		: dbFilePath("test_files/HtCli_InitAction.db"),
 		  configFilePath("test_files/htr_settings.json")
 	{
@@ -53,19 +53,19 @@ public:
 	CLI::App app;
 };
 
-TEST_F(InitActionTest, valid_filename_is_set)
+TEST_F(InitCommandTests, valid_filename_is_set)
 {
 	parseAndThrowError(&app, {"init"}, "--filename is required");
 }
 
-TEST_F(InitActionTest, creates_new_file_when_does_not_exist)
+TEST_F(InitCommandTests, creates_new_file_when_does_not_exist)
 {
 	parseArguments(&app, {"init", "--filename", dbFilePath});
 	initCommand.execute();
 	ASSERT_TRUE(fs::exists(dbFilePath));
 }
 
-TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
+TEST_F(InitCommandTests, throwsErrorWhenFileAlreadyExists)
 {
 	try
 	{
@@ -75,14 +75,14 @@ TEST_F(InitActionTest, throwsErrorWhenFileAlreadyExists)
 		initCommand.execute();
 		FAIL() << "Expected ActionError";
 	}
-	catch (const Actions::ActionError& err)
+	catch (const Commands::CommandError& err)
 	{
 		std::string msg = std::string("File ") + dbFilePath + " already exists";
 		ASSERT_STREQ(msg.c_str(), err.what());
 	}
 }
 
-// TEST_F(InitActionTest, createsConfgigFile)
+// TEST_F(InitCommandTests, createsConfgigFile)
 // {
 // 	auto filePath = fs::current_path().append("test_files/HtCli_InitAction.db");
 // 	auto fileContent = json{{"database", filePath.c_str()}}.dump(4);

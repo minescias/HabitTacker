@@ -4,7 +4,8 @@
 
 #include "CLI/App.hpp"
 #include "Core/Exceptions/RuntimeError.h"
-#include "HtCli/Actions/ICommand.h"
+
+#include "HtCli/Commands/ICommand.h"
 
 namespace Commands
 {

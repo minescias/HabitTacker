@@ -6,30 +6,24 @@
 #include "CLI/App.hpp"
 #include "CLI/CLI.hpp"
 
-#include <Core/Cli/CommandLineParser.h>
-#include <Core/Config/Settings.h>
-#include <Core/Database/Database.h>
-#include <Core/Logger/Log.h>
-#include <Core/Logger/Logger.h>
-#include <sys/types.h>
-
+#include "Core/Config/Settings.h"
+#include "Core/Database/Database.h"
+#include "Core/Logger/Log.h"
 #include "Core/Logger/LogConfig.h"
-#include "HtCli/Actions/ActionError.h"
-#include "HtCli/Actions/AddAction.h"
-#include "HtCli/Actions/InitAction.h"
+#include "Core/Logger/Logger.h"
 
 #include "HtCli/AppInit/GetSettings.h"
-#include "HtCli/AppInit/Help.h"
 #include "HtCli/AppInit/InitDaoFactory.h"
 #include "HtCli/AppInit/RegisterCommands.h"
 #include "HtCli/AppInit/Vesrion.h"
+#include "HtCli/Commands/CommandError.h"
 
 auto openDatabase(const std::string& filename)
 {
 	if (std::filesystem::exists(filename))
 		return Db::Database(filename);
 	else
-		throw Actions::ActionError("Missing database file in " + filename);
+		throw Commands::CommandError("Missing database file in " + filename);
 }
 
 auto initLogger()
@@ -78,7 +72,7 @@ int appInit(int argc, char* argv[])
 			{
 				command->execute();
 			}
-			catch (const Actions::ActionError& err)
+			catch (const Commands::CommandError& err)
 			{
 				std::cout << err.what() << "\n";
 			}

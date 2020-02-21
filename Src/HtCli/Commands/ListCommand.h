@@ -2,7 +2,7 @@
 #define __LIST_ACTION_H
 
 #include "HT/Dao/IHabitDefinitionDao.h"
-#include "HtCli/Actions/BaseCommand.h"
+#include "HtCli/Commands/BaseCommand.h"
 
 namespace Commands
 {

@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "HtCli/Actions/ListAction.h"
+#include "HtCli/Commands/ListCommand.h"
 
 #include "Mocks/HT/Dao/HabitDefinitionDaoMock.h"
 #include "Tests/Tools/RegisterAndGetDaoMock.h"

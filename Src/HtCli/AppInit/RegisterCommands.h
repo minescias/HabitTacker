@@ -1,7 +1,8 @@
 #ifndef __REGISTER_COMMANDS_H
 #define __REGISTER_COMMANDS_H
 
-#include <HtCli/Commands/CommandRegister.h>
+#include "Core/Fwd/CLI_fwd.h"
+#include "HtCli/Commands/CommandRegister.h"
 
 namespace CLI
 {

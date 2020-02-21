@@ -1,15 +1,15 @@
-#include "HtCli/Actions/DoneAction.h"
+#include "HtCli/Commands/DoneCommand.h"
 
 #include <string>
 
 #include "CLI/App.hpp"
 #include "fmt/core.h"
 
-#include <Core/DateTime/DateLiteral.h>
-#include <Core/DateTime/DateTimeGetter.h>
-#include <Core/DateTime/FormatDate.h>
+#include "Core/DateTime/DateLiteral.h"
+#include "Core/DateTime/DateTimeGetter.h"
+#include "Core/DateTime/FormatDate.h"
 
-#include "HtCli/Actions/ActionError.h"
+#include "HtCli/Commands/CommandError.h"
 
 namespace Commands
 {
@@ -52,7 +52,7 @@ void DoneCommand::execute()
 
 	if (habitDao->checkIfHabitIsSetForDay(habit))
 	{
-		throw Actions::ActionError(
+		throw CommandError(
 			"Habit " + std::to_string(habitId)
 			+ " was already set for this day");
 	}
@@ -66,18 +66,18 @@ void DoneCommand::validateParameters() const
 	auto definition = definitionDao->getDefinition(habitId);
 
 	if (!definition)
-		throw Actions::ActionError(fmt::format("Habit {0} does not exist", habitId));
+		throw CommandError(fmt::format("Habit {0} does not exist", habitId));
 
 	auto date = getDate();
 	if (date < definition->getBeginDate())
 	{
-		throw Actions::ActionError(
+		throw CommandError(
 			"Cannot set habit before it's begin date which is "
 			+ Dt::formatDate(definition->getBeginDate()));
 	}
 
 	if (date > Dt::getCurrentDate())
-		throw Actions::ActionError("Cannot set habit in the future");
+		throw CommandError("Cannot set habit in the future");
 }
 
 Dt::Date DoneCommand::getDate() const

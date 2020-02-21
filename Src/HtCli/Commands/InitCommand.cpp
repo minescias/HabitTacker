@@ -1,18 +1,19 @@
-#include "HtCli/Actions/InitAction.h"
+#include "HtCli/Commands/InitCommand.h"
 
 #include <filesystem>
 #include <fstream>
-
 #include <pwd.h>
 #include <unistd.h>
 
 #include "CLI/CLI.hpp"
+#include "fmt/core.h"
 #include "fmt/format.h"
 #include "nlohmann/json.hpp"
 
 #include "Core/Cli/ValidatorEnums.h"
+
 #include "HT/Dao/DatabaseCreator.h"
-#include "HtCli/Actions/ActionError.h"
+#include "HtCli/Commands/CommandError.h"
 
 namespace Commands
 {
@@ -45,8 +46,7 @@ void InitCommand::setDaoFactory(Dao::DaoFactory* daoFactory)
 void InitCommand::createDatabaseFile() const
 {
 	if (fs::exists(dbFilename))
-		throw Actions::ActionError(
-			fmt::format("File {} already exists", dbFilename));
+		throw CommandError(fmt::format("File {} already exists", dbFilename));
 
 	Dao::DatabaseCreator(dbFilename).createEmptyDatabase();
 }
@@ -77,8 +77,8 @@ void InitCommand::createConfigFile() const
 
 	if (!file.is_open())
 	{
-		throw Actions::ActionError(
-			std::string("Cannot create config file in ") + configFilePath.c_str());
+		throw CommandError(
+			fmt::format("Cannot create config file in %1%", configFilePath.c_str()));
 	}
 
 	file << json{{"database", fs::current_path().append(dbFilename)}}.dump(4);

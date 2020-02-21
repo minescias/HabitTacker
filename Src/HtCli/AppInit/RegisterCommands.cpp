@@ -1,11 +1,11 @@
 #include "HtCli/AppInit/RegisterCommands.h"
 
-#include "HtCli/Actions/AddAction.h"
-#include "HtCli/Actions/DefaultAction.h"
-#include "HtCli/Actions/DoneAction.h"
-#include "HtCli/Actions/EditAction.h"
-#include "HtCli/Actions/InitAction.h"
-#include "HtCli/Actions/ListAction.h"
+#include "HtCli/Commands/AddCommand.h"
+#include "HtCli/Commands/DoneCommand.h"
+#include "HtCli/Commands/EditCommand.h"
+#include "HtCli/Commands/InitCommand.h"
+#include "HtCli/Commands/ListCommand.h"
+#include "HtCli/Commands/ShowCommand.h"
 
 std::unique_ptr<Commands::CommandRegister> registerCommands(CLI::App* app)
 {

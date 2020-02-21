@@ -1,14 +1,11 @@
-#ifndef __ACTION_H
-#define __ACTION_H
+#ifndef __COMMAND_H
+#define __COMMAND_H
 
-#include "CLI/App.hpp"
-
-#include "Core/Cli/Parameters.h"
 #include "Core/Dao/DaoFactory.h"
+#include "Core/Fwd/CLI_fwd.h"
 
 namespace Commands
 {
-
 class ICommand
 {
 public:
@@ -19,6 +16,6 @@ public:
 	virtual ~ICommand() = default;
 };
 
-} // namespace Actions
+} // namespace Commands
 
 #endif
