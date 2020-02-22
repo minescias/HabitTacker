@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <iostream>
 
-#include <Libraries/SQLite/sqlite3.h>
+#include "sqlite/sqlite3.h"
 
 namespace Tests
 {

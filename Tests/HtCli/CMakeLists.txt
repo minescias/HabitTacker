@@ -23,6 +23,8 @@ target_link_libraries(HtCliTests
     HtCli
 )
 
+target_include_directories(HtCliTests PRIVATE ${CMAKE_SOURCE_DIR})
+
 add_test(NAME HtCliTests
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
 	COMMAND HtCliTests)

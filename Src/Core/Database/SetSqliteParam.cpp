@@ -1,8 +1,8 @@
 #include "Core/Database/SetSqliteParam.h"
 
-#include <Libraries/SQLite/sqlite3.h>
+#include "sqlite/sqlite3.h"
 
-#include <Core/DateTime/Date.h>
+#include "Core/DateTime/Date.h"
 
 namespace Db::Detail
 {

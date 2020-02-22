@@ -2,10 +2,10 @@
 
 #include <string_view>
 
-#include <Libraries/SQLite/sqlite3.h>
+#include "sqlite/sqlite3.h"
 
-#include <Core/Database/Database.h>
-#include <Core/Exceptions/LogicError.h>
+#include "Core/Database/Database.h"
+#include "Core/Exceptions/LogicError.h"
 
 namespace Db
 {

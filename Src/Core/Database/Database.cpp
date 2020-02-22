@@ -1,8 +1,8 @@
 #include "Core/Database/Database.h"
 
-#include <Libraries/SQLite/sqlite3.h>
+#include "sqlite/sqlite3.h"
 
-#include <Core/Logger/Log.h>
+#include "Core/Logger/Log.h"
 #include "Core/Exceptions/LogicError.h"
 
 namespace

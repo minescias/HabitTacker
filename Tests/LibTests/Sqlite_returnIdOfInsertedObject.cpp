@@ -1,7 +1,8 @@
 #include <gmock/gmock.h>
 
-#include <Libraries/SQLite/sqlite3.h>
 #include <filesystem>
+
+#include "sqlite/sqlite3.h"
 
 namespace Tests
 {

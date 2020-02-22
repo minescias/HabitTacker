@@ -17,6 +17,8 @@ target_link_libraries(LibTests
 	SQLite
 )
 
+target_include_directories(LibTests PRIVATE ${CMAKE_SOURCE_DIR})
+
 add_test(NAME LibTests
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/../build
 	COMMAND LibTests)
