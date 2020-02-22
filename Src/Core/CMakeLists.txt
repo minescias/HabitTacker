@@ -1,9 +1,5 @@
 add_library(Core
-	Cli/CommandLineParser.cpp
-	Cli/Parameters.cpp
-	Cli/ParamProperties.cpp
 	Cli/Table.cpp
-	Cli/Validator.cpp
 	Config/ConfigFile.cpp
 	Config/Settings.cpp
 	Dao/DaoFactory.cpp

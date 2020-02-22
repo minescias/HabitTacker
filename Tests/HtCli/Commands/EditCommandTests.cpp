@@ -3,7 +3,6 @@
 #include "CLI/App.hpp"
 #include "CLI/Error.hpp"
 
-#include "Core/Cli/Parameters.h"
 #include "Core/Dao/DaoFactory.h"
 #include "Core/DateTime/ParseDate.h"
 

@@ -1,8 +1,5 @@
 add_executable(CoreTests 
-	Cli/CommandLineParserTests.cpp
-	Cli/ParametersTests.cpp
 	Cli/TableTests.cpp
-	Cli/ValidatorTests.cpp
 	Config/ConfigFileTests.cpp
 	Config/SettingsTests.cpp
 	Dao/DaoFactoryTests.cpp

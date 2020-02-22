@@ -10,8 +10,6 @@
 #include "fmt/format.h"
 #include "nlohmann/json.hpp"
 
-#include "Core/Cli/ValidatorEnums.h"
-
 #include "HT/Dao/DatabaseCreator.h"
 #include "HtCli/Commands/CommandError.h"
 
